@@ -1,3 +1,6 @@
-.idea/
+# IntelliJ IDEA
+.idea/shelf/
+.idea/workspace.xml
+
+# Java
 target/
-.vscode/
