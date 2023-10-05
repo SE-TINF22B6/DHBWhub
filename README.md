@@ -1,1 +1,1 @@
-# DHBW-HUB
+# DHBWhub
