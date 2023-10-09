@@ -1,6 +1,5 @@
 # IntelliJ IDEA
-.idea/shelf/
-.idea/workspace.xml
+.idea/
 
 # Java
 target/
