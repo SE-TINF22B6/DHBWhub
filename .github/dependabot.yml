@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "src/main/web/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    commit-message:
+      prefix: "npm"
+    labels:
+      - "npm dependencies"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "JonasEbbinghaus25"
+      - "maxschwinghammer"
+      - "Nahlam4"
+      - "FurKay00"
+      - "denniskp"
+
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    commit-message:
+      prefix: "maven"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "JonasEbbinghaus25"
+      - "maxschwinghammer"
+      - "Nahlam4"
+      - "FurKay00"
+      - "denniskp"
+    
