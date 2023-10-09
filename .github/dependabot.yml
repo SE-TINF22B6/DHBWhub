@@ -14,10 +14,16 @@ updates:
     open-pull-requests-limit: 5
     reviewers:
       - "JonasEbbinghaus25"
-      - "maxschwinghammer"
       - "Nahlam4"
       - "FurKay00"
       - "denniskp"
+      - "maxschwinghammer"
+    assignees:
+      - "JonasEbbinghaus25"
+      - "Nahlam4"
+      - "FurKay00"
+      - "denniskp"
+      - "maxschwinghammer"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -31,8 +37,14 @@ updates:
     open-pull-requests-limit: 10
     reviewers:
       - "JonasEbbinghaus25"
-      - "maxschwinghammer"
       - "Nahlam4"
       - "FurKay00"
       - "denniskp"
+      - "maxschwinghammer"
+    assignees:
+      - "JonasEbbinghaus25"
+      - "Nahlam4"
+      - "FurKay00"
+      - "denniskp"
+      - "maxschwinghammer"
     
