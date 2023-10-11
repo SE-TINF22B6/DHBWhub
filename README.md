@@ -8,11 +8,12 @@ organization of the university classes or other leisure activities.
 ## Tech-stack
 This is our current tech-stack:
 * React
+* TypeScript
 * Node.js
 * GitHub
 * Java
 * JUnit
 * Postgre SQL
-* Springboot
+* Spring Boot
 * Maven
 * SonarQube
