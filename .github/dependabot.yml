@@ -9,7 +9,7 @@ updates:
     commit-message:
       prefix: "npm"
     labels:
-      - "npm dependencies"
+      - "bot"
     open-pull-requests-limit: 5
     reviewers:
       - "maxschwinghammer"
@@ -32,6 +32,8 @@ updates:
       timezone: "Europe/Berlin"
     commit-message:
       prefix: "maven"
+    labels:
+      - "bot"
     open-pull-requests-limit: 10
     reviewers:
       - "maxschwinghammer"
