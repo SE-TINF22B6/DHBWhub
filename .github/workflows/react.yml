@@ -22,13 +22,13 @@ jobs:
           node-version: 18
           cache: 'npm'
           cache-dependency-path: './src/main/web/package-lock.json'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
       - name: Install Dependencies
         run: npm install
       - name: Build React App
         run: npm run build
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
