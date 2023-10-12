@@ -1,0 +1,13 @@
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    <![CDATA[
+      .hub {
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: 32pt;
+      }
+    ]]>
+  </style>
+  <text x="2" y="12" class="hub">DHBW</text>
+  <text x="2" y="30" class="hub">Hub</text>
+</svg>
