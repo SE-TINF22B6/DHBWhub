@@ -26,12 +26,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       - name: Install Dependencies
-        run: npm install
+        run: npm clean install
       - name: Build React App
-        run: npm run build
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+        run: npm run build --if-present
+      - name: Test React App
+        run: npm test
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
