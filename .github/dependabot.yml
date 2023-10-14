@@ -9,12 +9,20 @@ updates:
     commit-message:
       prefix: "npm"
     labels:
-      - "npm dependencies"
+      - "bot"
     open-pull-requests-limit: 5
     reviewers:
       - "maxschwinghammer"
+      - "JonasEbbinghaus25"
+      - "denniskp"
+      - "FurKay00"
+      - "Nahlam4"
     assignees:
       - "maxschwinghammer"
+      - "JonasEbbinghaus25"
+      - "denniskp"
+      - "FurKay00"
+      - "Nahlam4"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -24,9 +32,19 @@ updates:
       timezone: "Europe/Berlin"
     commit-message:
       prefix: "maven"
+    labels:
+      - "bot"
     open-pull-requests-limit: 10
     reviewers:
       - "maxschwinghammer"
+      - "JonasEbbinghaus25"
+      - "denniskp"
+      - "FurKay00"
+      - "Nahlam4"
     assignees:
       - "maxschwinghammer"
+      - "JonasEbbinghaus25"
+      - "denniskp"
+      - "FurKay00"
+      - "Nahlam4"
     
