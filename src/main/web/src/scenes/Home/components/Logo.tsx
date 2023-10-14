@@ -5,8 +5,8 @@ export const Logo = () => {
 
   return (
       <div className='logo'>
-        <span contentEditable="true">DHBW </span>
-        <span contentEditable="true">Hub</span>
+        <span>DHBW </span>
+        <span>Hub</span>
       </div>
   );
 
