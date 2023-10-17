@@ -1,5 +1,6 @@
 [![Java CI with Maven](https://github.com/SE-TINF22B6/DHBWhub/actions/workflows/maven.yml/badge.svg)](https://github.com/SE-TINF22B6/DHBWhub/actions/workflows/maven.yml)
 [![React CI](https://github.com/SE-TINF22B6/DHBWhub/actions/workflows/react.yml/badge.svg)](https://github.com/SE-TINF22B6/DHBWhub/actions/workflows/react.yml)
+[![CodeQL](https://github.com/SE-TINF22B6/DHBWhub/actions/workflows/codeql.yml/badge.svg)](https://github.com/SE-TINF22B6/DHBWhub/actions/workflows/codeql.yml)
 
 # DHBWhub 
 ## Vision
