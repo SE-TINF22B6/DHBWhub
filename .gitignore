@@ -1,5 +1,7 @@
 # IntelliJ IDEA
-.idea/
+.idea/workspace.xml
+.idea/shelf
 
 # Java
 target/
+out/
