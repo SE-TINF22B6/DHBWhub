@@ -7,5 +7,5 @@ test('renders the App component with Home route', () => {
 
   // Überprüfen Sie, ob der Text oder ein anderes Element aus Ihrer Home-Komponente vorhanden ist.
   expect(getByText('DHBW')).toBeInTheDocument();
-  expect(getByText('Hub')).toBeInTheDocument();
+  expect(getByText('hub')).toBeInTheDocument();
 });
