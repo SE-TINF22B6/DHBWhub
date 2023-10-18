@@ -1,7 +1,11 @@
 package de.tinf22b6.dhbwhub.models;
 
-public class User {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class User {
     private String username;
     private String emailAddress;
 
@@ -9,21 +13,4 @@ public class User {
         this.username = username;
         this.emailAddress = emailAddress;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
 }
