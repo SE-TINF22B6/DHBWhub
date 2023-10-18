@@ -5,3 +5,6 @@
 # Java
 target/
 out/
+
+# Custom
+.env
