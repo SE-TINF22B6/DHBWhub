@@ -6,7 +6,7 @@ export const Logo = () => {
   return (
       <div className='logo'>
         <span>DHBW </span>
-        <span>Hub</span>
+        <span>hub</span>
       </div>
   );
 
