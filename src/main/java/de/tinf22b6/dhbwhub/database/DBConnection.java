@@ -17,6 +17,13 @@ public class DBConnection {
         this.password = password;
     }
 
+    /**
+     * Attempts to establish a connection to the stored database url.
+     *
+     * @return The connection instance
+     * @throws SQLException If the url is {@code null}, a database access error
+     * occurs or the connection timed out
+     */
     public Connection getConnection() throws SQLException {
         if (connection == null) {
             connection = DriverManager.getConnection(url, username, password);
