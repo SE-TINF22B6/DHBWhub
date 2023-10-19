@@ -17,13 +17,9 @@ public class DBConnection {
         this.password = password;
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
         if (connection == null) {
-            try {
-                connection = DriverManager.getConnection(url, username, password);
-            } catch (SQLException e) {
-                return null;
-            }
+            connection = DriverManager.getConnection(url, username, password);
         }
         return connection;
     }
