@@ -13,10 +13,11 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 
 		// TODO: This is just temporary for test purposes
-		String dbUrl = EnvUtils.getEnv("DATABASE_URL");
-		String dbUsername = EnvUtils.getEnv("DATABASE_USERNAME");
-		String dbPassword = EnvUtils.getEnv("DATABASE_PASSWORD");
-		DBConnection dbConnection = new DBConnection(dbUrl, dbUsername, dbPassword);
+		DBConnection dbConnection = new DBConnection(
+				EnvUtils.getEnv("DATABASE_URL"),
+				EnvUtils.getEnv("DATABASE_USERNAME"),
+				EnvUtils.getEnv("DATABASE_PASSWORD")
+		);
 
 		try {
 			dbConnection.getConnection();
