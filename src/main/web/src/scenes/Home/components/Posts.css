@@ -1,0 +1,16 @@
+.posts {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 20px;
+  height: 959px;
+  position: relative;
+}
+
+.img {
+  height: 200px;
+  margin-bottom: -1px;
+  position: relative;
+  width: 850px;
+}

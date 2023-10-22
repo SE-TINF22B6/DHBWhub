@@ -1,0 +1,45 @@
+.homepage {
+  background-color: #1E252B;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sidebar-left {
+  align-items: flex-start;
+  display: inline-flex;
+  margin-left: 25px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 20px;
+  height: 860px;
+  position: relative;
+}
+
+.posts {
+  margin-left: -125px;
+  margin-top: -300px;
+  margin-right: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-right {
+  align-items: flex-start;
+  display: inline-flex;
+  margin-right: 25px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 20px;
+  height: 860px;
+  position: relative;
+}
+
+.body {
+  background-color: #1E252B;
+  top: 80px;
+  align-items: flex-start;
+  display: inline-flex;
+  gap: 30px;
+  position: absolute;
+}

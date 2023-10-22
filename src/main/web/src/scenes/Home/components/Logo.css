@@ -2,19 +2,16 @@
   display: block;
   font-family: sans-serif;
   font-weight: bold;
-  font-size: 7vw;
+  font-size: 20px;
   position: relative;
-  color: #ffffff;;
-  top: 250px;
-  left: 650px;
-  transform: translate(-80%, -80%);
+  color: #ffffff;
   float: left;
 }
 
 .logo span:nth-child(2) {
   background: #ff0000;
   color: #ffffff;
-  border-radius: 1vw;
-  padding: 1vw 1vw 1vw 1vw;
+  border-radius: 0.5vw;
+  padding: 0.35vw 0.35vw 0.35vw 0.35vw;
   display: inline-block;
 }

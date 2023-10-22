@@ -1,0 +1,219 @@
+.events {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 20px;
+  height: 860px;
+  position: relative;
+}
+
+.next-events-label-wrapper {
+  background-color: var(--dark-component);
+  border-radius: 27px;
+  height: 180px;
+  position: relative;
+  width: 280px;
+}
+
+.next-events-label {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 20px;
+  font-weight: 600;
+  left: 22px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 14px;
+  transform: rotate(0.05deg);
+  white-space: nowrap;
+  width: 108px;
+}
+
+.next-events {
+  height: 390px;
+  margin-right: -2px;
+  position: relative;
+  width: 282px;
+}
+
+.overlap-3 {
+  background-image: url(../assets/next-events-background.svg);
+  background-size: 100% 100%;
+  height: 390px;
+  position: relative;
+  width: 280px;
+}
+
+.next-events-label-2 {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 20px;
+  font-weight: 600;
+  left: 22px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 17px;
+  transform: rotate(0.05deg);
+  white-space: nowrap;
+  width: 108px;
+}
+
+.events-layout {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  left: 22px;
+  position: absolute;
+  top: 50px;
+}
+
+.event {
+  height: 61px;
+  position: relative;
+  width: 243.31px;
+}
+
+.title {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 12px;
+  font-weight: 600;
+  height: 17.21px;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin-top: -0.92px;
+  position: relative;
+  transform: rotate(0.05deg);
+  white-space: nowrap;
+  width: 193.3px;
+}
+
+.address {
+  color: #ffffffb2;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 10px;
+  font-weight: 600;
+  height: 16.57px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  transform: rotate(0.05deg);
+  white-space: nowrap;
+  width: 128.14px;
+}
+
+.event-2 {
+  height: 60px;
+  position: relative;
+  width: 243.31px;
+}
+
+.text-wrapper-10 {
+  color: #ffffffb2;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 10px;
+  font-weight: 600;
+  height: 16.57px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  transform: rotate(0.05deg);
+  white-space: nowrap;
+  width: 159.68px;
+}
+
+.text-wrapper-11 {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 6px;
+  font-weight: 600;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+.date-2 {
+  height: 55px;
+  left: 0;
+  position: absolute;
+  top: 5px;
+  width: 44px;
+}
+
+.text-wrapper-12 {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 18px;
+  font-weight: 600;
+  left: 9px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 26px;
+  white-space: nowrap;
+}
+
+.text-wrapper-7 {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 6px;
+  font-weight: 600;
+  left: 13px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+.overlap-wrapper {
+  height: 24px;
+  margin-bottom: -5px;
+  margin-right: -2px;
+  position: relative;
+  width: 47px;
+}
+
+.overlap-group-2 {
+  height: 24px;
+  position: relative;
+  width: 45px;
+}
+
+.tag-background {
+  height: 12px;
+  left: 0;
+  position: absolute;
+  top: 6px;
+  width: 45px;
+}
+
+.text-wrapper-6 {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 6px;
+  font-weight: 600;
+  left: 10px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+.overlap-4 {
+  background-color: #2c353d;
+  border: 1px solid #e3001b;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px #00000040;
+  height: 55px;
+  position: relative;
+  width: 40px;
+}

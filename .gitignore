@@ -8,3 +8,5 @@ out/
 
 # Custom
 .env
+/.idea/DHBWhub.iml
+/.idea/uiDesigner.xml

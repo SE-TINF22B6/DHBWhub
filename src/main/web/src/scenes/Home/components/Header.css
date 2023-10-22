@@ -1,0 +1,150 @@
+.header {
+  align-items: center;
+  background-image: url(../assets/header-background.svg);
+  display: flex;
+  gap: 50px;
+  position: relative;
+  margin-bottom: 75px;
+}
+
+.header-content {
+  align-items: center;
+  display: flex;
+  gap: 50px;
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 30px;
+}
+
+
+.home-button {
+  background-image: url(../assets/home-button.svg);
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.friends-button {
+  background-image: url(../assets/friends-background.svg);
+  background-size: 100% 100%;
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.friends-picture {
+  background-image: url(../assets/friends-picture.png);
+  height: 26px;
+  left: 7px;
+  object-fit: cover;
+  position: absolute;
+  top: 7px;
+  width: 26px;
+}
+
+.calendar-button {
+  background-image: url(../assets/calendar-background.svg);
+  background-size: 100% 100%;
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.calendar-icon {
+  background-image: url(../assets/calendar-icon.png);
+  height: 26px;
+  left: 8px;
+  object-fit: cover;
+  position: absolute;
+  top: 7px;
+  width: 24px;
+}
+
+.searchbar {
+  background-image: url(../assets/searchbar-background.svg) !important;
+}
+
+.notifications-button {
+  background-image: url(../assets/notifications-button.svg);
+  background-size: 100% 100%;
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.profile-component {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 20px;
+  position: relative;
+}
+
+.profile-picture {
+  visibility: hidden;
+  background-image: url(../assets/profile-picture.png);
+  height: 50px;
+  object-fit: cover;
+  position: relative;
+  width: 45.45px;
+}
+
+.login {
+  height: 40px;
+  position: relative;
+  width: 91px;
+}
+
+.log-in-wrapper {
+  background-image: url(../assets/log-in-background.svg);
+  background-size: 100% 100%;
+  height: 40px;
+  position: relative;
+  width: 89px;
+}
+
+.log-in-text {
+  color: #ffffff;
+  font-family: "Source Sans Pro-Regular", Helvetica, serif;
+  font-size: 20px;
+  font-weight: 400;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 7px;
+  transform: rotate(0.05deg);
+  white-space: nowrap;
+  width: 59px;
+}
+
+.sign-up {
+  height: 40px;
+  margin-right: -2px;
+  position: relative;
+  width: 101px;
+}
+
+.sign-up-wrapper {
+  background-image: url(../assets/sign-up-background.svg);
+  background-size: 100% 100%;
+  height: 40px;
+  position: relative;
+  width: 99px;
+}
+
+.sign-up-text {
+  color: #ffffff;
+  font-family: "Source Sans Pro-Regular", Helvetica, serif;
+  font-size: 20px;
+  font-weight: 400;
+  left: 11px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 7px;
+  transform: rotate(0.05deg);
+  white-space: nowrap;
+  width: 78px;
+}
