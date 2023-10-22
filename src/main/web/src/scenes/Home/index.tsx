@@ -1,5 +1,7 @@
 import React from 'react';
 import {NavBar} from "./components/NavBar";
+import Modal from "./components/Modal";
+import ModalComponent from "./components/Modal";
 // import {useLocation, useNavigate} from 'react-router';
 
   export const Home = () => {
@@ -12,6 +14,7 @@ import {NavBar} from "./components/NavBar";
   return (
       <div className='homepage'>
           <NavBar/>
+          <ModalComponent></ModalComponent>
       </div>
   );
 };
