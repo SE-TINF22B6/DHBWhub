@@ -1,8 +1,8 @@
 ---
 name: Epic
-about: Issue for Epics
+about: Issue template for Epics
 title: ''
-labels: ''
+labels: epic
 assignees: ''
 
 ---

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="DHBWhubApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="de.tinf22b6.dhbwhub.DHBWhubApplication" />
+  <configuration default="false" name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="de.tinf22b6.dhbwhub.Application" />
     <module name="dhbwhub" />
     <extension name="coverage">
       <pattern>

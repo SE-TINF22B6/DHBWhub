@@ -1,8 +1,8 @@
 ---
 name: User Story
-about: Issues for user stories
+about: Issue template for User Stories
 title: ''
-labels: ''
+labels: user story
 assignees: ''
 
 ---
