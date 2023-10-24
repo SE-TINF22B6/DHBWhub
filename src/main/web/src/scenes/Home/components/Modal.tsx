@@ -55,7 +55,7 @@ export default function ModalComponent() {
             >
                 <Box sx={style} className="modal">
                     <Typography id="modal-modal-title" variant="h6" component="h2" className="modalHeader">
-                        <h3 className="heading">LOGIN</h3>
+                        <h3 className="heading"><b>LOGIN</b></h3>
                     </Typography>
                     <Typography sx={{ mt: 2 }}>
                         <h5 className="heading">Email address</h5>
@@ -63,14 +63,14 @@ export default function ModalComponent() {
                             <FormControl sx={{ marginBottom: '25px' }} className="textfield">
                                 <OutlinedInput
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)} // Speichert den Wert des Textfelds in der State-Variable
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <MyFormHelperText />
                             </FormControl>
                         </form>
                     </Typography>
                     <Typography>
-                        <StyledButton variant="contained" onClick={handleContinueClick}>
+                        <StyledButton variant="contained" onClick={handleContinueClick} style={{ width: '100%' }}>
                             CONTINUE
                         </StyledButton>
                     </Typography>

@@ -17,10 +17,12 @@
 }
 
 .textfield {
-    position: fixed;
+    width: 100%;
+    position: relative;
     text-align: center;
     background-color: #FFFFFF;
-    border: #CCCCCC;
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
 }
 
 .modal {
@@ -31,6 +33,9 @@
     z-index: 10;
     border-radius: 16px;
     box-shadow: 0 5px 20px #3B454F;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .modalHeader {
@@ -48,6 +53,10 @@
     font-weight: 500;
     font-size: 18px;
     text-align: left;
+    position: relative;
+    left: 0;
+    transform: none;
+    margin-left: -9px;
 }
 
 .signInContent {
