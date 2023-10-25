@@ -1,25 +1,26 @@
-# Project Name
+# DHBWhub
 ## Software Requirements Specification
 > This template is a simplified version based on the documentation templates from IBM Rational Unified Process (RUP).
 ### 1. Introduction
 #### 1.1 Overview
-> What are the selling points of your application?
+> We are a DHBW-internal forum where users can ask questions and post DHBW-related content. 
 #### 1.2 Scope
-> What is covered (not covered) in this document? Is it for your whole system or a subsystem? Does it cover both functional and nonfunctional requirements? (Will you seperate some of requirements into another document?)
+> This Software Requirements Specification (SRS) document covers the complete system of DHBWHub. It encompasses both functional and non-functional requirements necessary for the successful development, deployment, and operation of the platform. The document aims to provide a comprehensive understanding of the system's architecture, features, and limitations.
 #### 1.3 Definitions, Acronyms and Abbreviations
 > Definitions of all terms, acronyms, and abbreviations required to properly interpret this document.
 #### 1.4 References
 > A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
 ### 2. Functional requirements
->  This section contains all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements and testers to test that the system satisfies those requirements.  
->  This section is typically organized by feature, but alternative organization methods may also be appropriate, for example, organization by user or organization by subsystem.
+>  This section contains all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements and testers to test that the system satisfies those requirements.
+> Our UML use-case-diagram:
+>
+>  ![UML_ diagram]([image.png](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UseCaseEndUser.drawio.png))
+> 
 
-> [!NOTE]
-> You can insert links to your UML diagrams and user stories, or labels of user stories into this document.
 
 #### 2.1 Overview 
-> A brief description of the functionality of your application.  
+> Users can post DHBW-related content and see other user-generated content and interact with it by liking or commenting on it. 
 > Include one or more **UML use case** diagram(s) and necessary description to specify the major use cases of your application.
 
 #### 2.2 Name of Feature 1 / Use Case 1
@@ -32,10 +33,27 @@
 > - **Estimated efforts (high, medium, low)**
 
 
-#### 2.3 Name of Feature 2 / Use Case 2
-... ...
+#### 2.3 Landing Page
+> Create Landing Page for user.
+>As a user, I want to be greeted with an appealing, modern looking Landingpage when visiting the website for the first time. 
 
-### 3. Nonfunctional requirements
+>user stories: # 23, #27
+>**Preconditions**. The mockup is created.
+>**Postconditions**. -
+>**Estimated efforts**: medium
+
+
+#### 2.4 Account Management Page
+ >Create Page for user to Log in / Create an Account
+
+> As a user, I want to be able to log into my account / create an account / log myself out.
+>https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
+>user stories: # 23, #27
+
+>**Preconditions**: Backend server has to be active.
+>**Postconditions**: All outgoing routes of functions has to work correctly.
+>Estimated efforts: middle
+#### 3. Nonfunctional requirements
 
 > [!IMPORTANT]  
 > It is not necessary to cover all of the following categories, but focus on what your project will implement.  
