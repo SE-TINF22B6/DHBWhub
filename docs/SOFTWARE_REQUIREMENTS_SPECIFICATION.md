@@ -36,7 +36,7 @@
 #### 2.3 Landing Page
 > - Create Landing Page for user.
 > - As a user, I want to be greeted with an appealing, modern looking Landingpage when visiting the website for the first time. 
-
+>https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 > - user stories: # 23, #27
 > - **Preconditions**. The mockup is created.
 > - **Postconditions**. -
@@ -47,8 +47,8 @@
  >Create Page for user to Log in / Create an Account
 
 > As a user, I want to be able to log into my account / create an account / log myself out.
->https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
->user stories: # 23, #27
+> https://www.figma.com/file/SqiyoobCDMDfIl9j8O2N7a/Login-Page?type=design&mode=design&t=8058pcoXIPrzWU3J-0
+> user stories: # 23, #27
 
 >**Preconditions**: Backend server has to be active.
 >**Postconditions**: All outgoing routes of functions has to work correctly.
