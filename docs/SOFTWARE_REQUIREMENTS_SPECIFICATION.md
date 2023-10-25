@@ -23,17 +23,7 @@
 > Users can post DHBW-related content and see other user-generated content and interact with it by liking or commenting on it. 
 
 
-#### 2.2 Name of Feature 1 / Use Case 1
-> Specify this feature / use case by:
-> - Relevant **user stories (their links or labels)**
-> - **UI mockups**
-> - **UML behavior diagrams** and necessary text specification
-> - **Preconditions**. *A precondition of a use case is the state of the system that must be present prior to a use case being performed.*
-> - Postconditions. *A postcondition of a use case is a list of possible states the system can be in immediately after a use case has finished.*
-> - **Estimated efforts (high, medium, low)**
-
-
-#### 2.3 Landing Page
+#### 2.2 Landing Page
 > - Create Landing Page for user.
 > - As a user, I want to be greeted with an appealing, modern looking Landingpage when visiting the website for the first time. 
 >
@@ -46,16 +36,28 @@
 > - **Estimated efforts**: medium
 
 
-#### 2.4 Account Management Page
+#### 2.3 Account Management Page
 > - Create Page for user to Log in / Create an Account
 > - As a user, I want to be able to log into my account / create an account / log myself out.
 >
-> - https://www.figma.com/file/SqiyoobCDMDfIl9j8O2N7a/Login-Page?type=design&mode=design&t=8058pcoXIPrzWU3J-0
+> - Link to mockup: https://www.figma.com/file/SqiyoobCDMDfIl9j8O2N7a/Login-Page?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 > - user stories: # 23, #27
 
-> - **Preconditions**: Backend server has to be active and the mockup hhas to be created.
+> - **Preconditions**: Backend server has to be active and the mockup has to be created.
 > - **Postconditions**: Users can manage their account.
-> - Estimated efforts: middle
+> - Estimated efforts: medium
+
+#### 2.4 Thread Page
+> - Create Page for a Thread to be displayed with its interactions.
+> - As a user, I want to be able to view a Thread/Question/Post with its comments on one Page.
+>
+
+> - user stories: n.A.
+
+> - **Preconditions**: sample Threads and a mockup have to be created.
+> - **Postconditions**: Users can view single Threads/ Posts with all of their interactions.
+> - Estimated efforts: medium
+
 #### 3. Nonfunctional requirements
 
 > [!IMPORTANT]  
