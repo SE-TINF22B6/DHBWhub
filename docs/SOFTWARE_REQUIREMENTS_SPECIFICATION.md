@@ -9,7 +9,9 @@ This Software Requirements Specification (SRS) document covers the complete syst
 > TODO.
 #### 1.4 References
 Documents:
-- Rough Use-Case-Diagram for the End-User, 24.10.2023 : https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UseCaseEndUser.drawio.png
+- Rough Use-Case-Diagram for the End-User, 24.10.2023: https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UseCaseEndUser.drawio.png
+- Landing-Page-Desing on Figma, 24.10.2023: https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
+- ER-Diagram Rough first version, 24.10.2023: https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/ER_Diagram_First_Version.drawio.png 
 >  A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
 ### 2. Functional requirements
@@ -29,17 +31,17 @@ In the following section, we will depict the most important use cases of our pro
 - user stories: ![Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), ![Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 - Link to mockup: https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 
-- Preconditions. The mockup is created.
-- Postconditions. Many other features are going to be available once the landing page is finished.
+- Preconditions: The mockup is created.
+- Postconditions: Many other features are going to be available once the landing page is finished.
 - Estimated efforts: medium
 
 
-#### 2.2.2 Login/Sign-Up Dialog
-- Create a modal Dialog for users to either log in or create a new Account
+#### 2.2.2 Login/Sign-Up Dialogue
+- Create a modal Dialogue for users to either log in or create a new Account
 - As a user, I want to be able to log into my account, create a new account, log myself out or sign in through 3rd-party applications e.g. Google.
 
-- Link to mockup: https://www.figma.com/file/SqiyoobCDMDfIl9j8O2N7a/Login-Page?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 - user stories: ![Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), ![Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+- Link to mockup: https://www.figma.com/file/SqiyoobCDMDfIl9j8O2N7a/Login-Page?type=design&mode=design&t=8058pcoXIPrzWU3J-0 
 
 - Preconditions: Backend server has to be active and the mockup has to be created.
 - Postconditions: Users can sign in with their accounts and see a personalized feed.
@@ -49,8 +51,8 @@ In the following section, we will depict the most important use cases of our pro
 - Create Page for a Thread/Post to be displayed with its interactions.
 - As a user, I want to be able to view a Thread/Question/Post with its comments on a single page.
 
-- Link to mockup: n.A.
 - user stories: ![Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
+- Link to mockup: n.A.
 
 - Preconditions: Sample Threads and a mockup have to be created, as well as the database schema.
 - Postconditions: Users can view single Threads/ Posts with all of their interactions.
@@ -60,12 +62,12 @@ In the following section, we will depict the most important use cases of our pro
 - Create a Page for the User to personalize his or her account settings.
 - As a user, I want to be able to change my own settings to personalize my profile or change other crucial personal details.
 
-- Link to mockup: n.A.
 - user stories: ![Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
+- Link to mockup: n.A.
 
 - Preconditions: The landing page as well as the user accounts have to be fully functioning in order to change it.
 - Postconditions: Users can customize their own profile.
-
+- Estimated efforts: medium
 > Other Use Cases will be added when discussed properly
 > 
 ### 3. Nonfunctional requirements
