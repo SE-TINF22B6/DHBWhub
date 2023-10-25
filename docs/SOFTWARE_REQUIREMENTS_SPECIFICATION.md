@@ -34,13 +34,13 @@
 
 
 #### 2.3 Landing Page
-> Create Landing Page for user.
->As a user, I want to be greeted with an appealing, modern looking Landingpage when visiting the website for the first time. 
+> - Create Landing Page for user.
+> - As a user, I want to be greeted with an appealing, modern looking Landingpage when visiting the website for the first time. 
 
->user stories: # 23, #27
->**Preconditions**. The mockup is created.
->**Postconditions**. -
->**Estimated efforts**: medium
+> - user stories: # 23, #27
+> - **Preconditions**. The mockup is created.
+> - **Postconditions**. -
+> - **Estimated efforts**: medium
 
 
 #### 2.4 Account Management Page
