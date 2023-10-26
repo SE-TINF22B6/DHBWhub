@@ -25,7 +25,7 @@ jobs:
           # DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           # DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           # TODO: Remove this once we setup our database online
-          DATABASE_URL: "jdbc:postgres://hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs"
+          DATABASE_URL: "r2dbc:postgresql://hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs"
           DATABASE_USERNAME: "reader"
           DATABASE_PASSWORD: "NWDMCE5xdipIjRrp"
         run: mvn -B package --file pom.xml
