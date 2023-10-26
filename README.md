@@ -21,3 +21,8 @@ This is our current tech-stack:
 * Spring Boot
 * Maven
 * SonarQube
+
+## SRS
+You can find our software requirement specifications here:
+https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/SOFTWARE_REQUIREMENTS_SPECIFICATION.md
+
