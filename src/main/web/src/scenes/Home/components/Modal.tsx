@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { styled } from '@mui/system';
+import {styled} from '@mui/system';
 import DividerWithText from './DividerWithText';
 import './Modal.css';
-import { FormControl, OutlinedInput } from '@mui/material';
+import {FormControl, OutlinedInput} from '@mui/material';
+import axios from 'axios';
+import app from "../../../App";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -40,7 +42,36 @@ export default function ModalComponent() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const sendEmail = async (email: any) => {
+        const backendAPIEndpoint = 'http://localhost:8080/login/email';
+        console.log(email);
+
+        fetch(backendAPIEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(email),
+            credentials: 'include',
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    }
+
+
+
     const handleContinueClick = () => {
+        sendEmail(email);
         console.log('E-Mail:', email);
     };
 
@@ -57,28 +88,28 @@ export default function ModalComponent() {
                     <Typography id="modal-modal-title" variant="h6" component="h2" className="modalHeader">
                         <h3 className="heading"><b>LOGIN</b></h3>
                     </Typography>
-                    <Typography sx={{ mt: 2 }}>
+                    <Typography sx={{mt: 2}}>
                         <h5 className="heading">Email address</h5>
                         <form noValidate autoComplete="off">
-                            <FormControl sx={{ marginBottom: '25px' }} className="textfield">
+                            <FormControl sx={{marginBottom: '25px'}} className="textfield">
                                 <OutlinedInput
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <MyFormHelperText />
+                                <MyFormHelperText/>
                             </FormControl>
                         </form>
                     </Typography>
                     <Typography>
-                        <StyledButton variant="contained" onClick={handleContinueClick} style={{ width: '100%' }}>
+                        <StyledButton variant="contained" onClick={handleContinueClick} style={{width: '100%'}}>
                             CONTINUE
                         </StyledButton>
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }} className="signInContent">
+                    <Typography id="modal-modal-description" sx={{mt: 2}} className="signInContent">
                         Need an account? <u>SIGN UP</u>
                     </Typography>
-                    <Typography sx={{ mt: 2 }}>
-                        <DividerWithText />
+                    <Typography sx={{mt: 2}}>
+                        <DividerWithText/>
                     </Typography>
                 </Box>
             </Modal>
