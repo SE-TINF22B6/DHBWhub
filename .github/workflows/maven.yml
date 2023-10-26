@@ -25,9 +25,9 @@ jobs:
           # DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           # DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           # TODO: Remove this once we setup our database online
-          DATABASE_URL: "jdbc:postgresql://postgres:5432/school_management"
-          DATABASE_USERNAME: "learning"
-          DATABASE_PASSWORD: "sa123456"
+          DATABASE_URL: "jdbc:postgres://reader:NWDMCE5xdipIjRrp@hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs"
+          DATABASE_USERNAME: "reader"
+          DATABASE_PASSWORD: "NWDMCE5xdipIjRrp"
         run: mvn -B package --file pom.xml
       - name: Copy Artifact
         run: mkdir staging && cp target/*.jar staging
