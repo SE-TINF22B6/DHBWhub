@@ -28,7 +28,7 @@ In the following section, we will depict the most important use cases of our pro
 - Create Landing Page for user.
 - As a user, I want to be greeted with an appealing, modern looking Landingpage when visiting the website for the first time. 
 
-- user stories: ![Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), ![Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+- user stories: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 - Link to mockup: https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 
 - Preconditions: The mockup is created.
@@ -40,7 +40,7 @@ In the following section, we will depict the most important use cases of our pro
 - Create a modal Dialog for users to either log in or create a new Account
 - As a user, I want to be able to log into my account, create a new account, log myself out or sign in through 3rd-party applications e.g. Google.
 
-- user stories: ![Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), ![Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+- user stories: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 - Link to mockup: https://www.figma.com/file/SqiyoobCDMDfIl9j8O2N7a/Login-Page?type=design&mode=design&t=8058pcoXIPrzWU3J-0 
 
 - Preconditions: Backend server has to be active and the mockup has to be created.
@@ -51,7 +51,7 @@ In the following section, we will depict the most important use cases of our pro
 - Create Page for a Thread/Post to be displayed with its interactions.
 - As a user, I want to be able to view a Thread/Question/Post with its comments on a single page.
 
-- user stories: ![Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
+- user stories: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
 - Link to mockup: n.A.
 
 - Preconditions: Sample Threads and a mockup have to be created, as well as the database schema.
@@ -62,7 +62,7 @@ In the following section, we will depict the most important use cases of our pro
 - Create a Page for the User to personalize his or her account settings.
 - As a user, I want to be able to change my own settings to personalize my profile or change other crucial personal details.
 
-- user stories: ![Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
+- user stories: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
 - Link to mockup: n.A.
 
 - Preconditions: The landing page as well as the user accounts have to be fully functioning in order to change it.
