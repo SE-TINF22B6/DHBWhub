@@ -36,8 +36,8 @@ In the following section, we will depict the most important use cases of our pro
 - Estimated efforts: medium
 
 
-#### 2.2.2 Login/Sign-Up Dialogue
-- Create a modal Dialogue for users to either log in or create a new Account
+#### 2.2.2 Login/Sign-Up Dialog
+- Create a modal Dialog for users to either log in or create a new Account
 - As a user, I want to be able to log into my account, create a new account, log myself out or sign in through 3rd-party applications e.g. Google.
 
 - user stories: ![Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), ![Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
