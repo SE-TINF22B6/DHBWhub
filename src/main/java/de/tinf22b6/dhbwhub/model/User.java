@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 public class User {
-
     @Id
     @GeneratedValue
     private Long userId;
@@ -25,5 +24,4 @@ public class User {
     @JoinColumn(name = "accountId")
     @ManyToOne
     private Account account;
-
 }

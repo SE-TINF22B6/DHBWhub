@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 public class Picture {
-
     @Id
     @GeneratedValue
     private Long pictureId;
@@ -18,5 +17,4 @@ public class Picture {
 
     @Lob
     private Byte[] imageData;
-
 }

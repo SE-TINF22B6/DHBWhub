@@ -11,7 +11,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 public class Comment {
-
     @Id
     @GeneratedValue
     private Long commentId;
@@ -31,5 +30,4 @@ public class Comment {
     @JoinColumn(name = "postId")
     @ManyToOne
     private Post post;
-
 }

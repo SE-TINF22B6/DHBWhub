@@ -11,11 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 public class Faculty {
-
     @Id
     @GeneratedValue
     private Long facId;
 
     private String name;
-
 }

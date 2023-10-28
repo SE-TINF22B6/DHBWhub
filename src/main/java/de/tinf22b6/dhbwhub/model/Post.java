@@ -11,7 +11,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 public class Post {
-
     @Id
     @GeneratedValue
     private Long postId;
@@ -33,5 +32,4 @@ public class Post {
     @JoinColumn(name = "courseId")
     @ManyToOne
     private Course course;
-
 }

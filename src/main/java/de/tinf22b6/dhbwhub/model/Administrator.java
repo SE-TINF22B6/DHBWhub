@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 public class Administrator {
-
     @Id
     @GeneratedValue
     private Long adminId;
@@ -17,5 +16,4 @@ public class Administrator {
     @JoinColumn(name = "accountId")
     @ManyToOne
     private Account account;
-
 }

@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 public class Course {
-
     @Id
     @GeneratedValue
     private Long courseId;
@@ -19,5 +18,4 @@ public class Course {
     @JoinColumn(name = "facId")
     @ManyToOne
     private Faculty faculty;
-
 }
