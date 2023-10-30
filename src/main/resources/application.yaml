@@ -3,11 +3,10 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-  # jpa:
-    # hibernate:
-      # ddl-auto: update
-    # show-sql: true
-    # properties:
-      # hibernate:
-        # format_sql: true
-        # dialect: org.hibernate.dialect.PostgreSQL82Dialect
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
