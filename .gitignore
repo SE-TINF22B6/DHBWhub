@@ -3,6 +3,9 @@
 .idea/shelf
 .idea/intellij-javadocs-4.0.1.xml
 .idea/modules.xml
+.idea/dataSources
+.idea/dataSources.local.xml
+.idea/dataSources.xml
 
 # Project files
 dhbwhub.iml
