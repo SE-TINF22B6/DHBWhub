@@ -18,7 +18,7 @@ public class Course {
 
     private final String name;
 
-    @JoinColumn(name = "facId")
+    @JoinColumn(name = "fac_id")
     @ManyToOne
     private final Faculty faculty;
 }

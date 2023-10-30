@@ -22,15 +22,15 @@ public class Comment {
 
     private final Date timestamp;
 
-    @JoinColumn(name = "pictureId")
+    @JoinColumn(name = "picture_id")
     @ManyToOne
     private final Picture picture;
 
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     @ManyToOne
     private final User user;
 
-    @JoinColumn(name = "postId")
+    @JoinColumn(name = "post_id")
     @ManyToOne
     private final Post post;
 }

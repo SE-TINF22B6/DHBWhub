@@ -22,7 +22,7 @@ public class Account {
 
     private final String password;
 
-    @JoinColumn(name = "pictureId")
+    @JoinColumn(name = "picture_id")
     @ManyToOne
     private final Picture picture;
 }

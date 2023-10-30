@@ -24,15 +24,15 @@ public class Post {
 
     private final Date timestamp;
 
-    @JoinColumn(name = "pictureId")
+    @JoinColumn(name = "picture_id")
     @ManyToOne
     private final Picture picture;
 
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     @ManyToOne
     private final User user;
 
-    @JoinColumn(name = "courseId")
+    @JoinColumn(name = "course_id")
     @ManyToOne
     private final Course course;
 }

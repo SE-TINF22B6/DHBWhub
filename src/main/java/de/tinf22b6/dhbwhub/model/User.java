@@ -20,11 +20,11 @@ public class User {
 
     private final String description;
 
-    @JoinColumn(name = "courseId")
+    @JoinColumn(name = "course_id")
     @ManyToOne
     private final Course course;
 
-    @JoinColumn(name = "accountId")
+    @JoinColumn(name = "account_id")
     @ManyToOne
     private final Account account;
 }

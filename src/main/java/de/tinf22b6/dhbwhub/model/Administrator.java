@@ -16,7 +16,7 @@ public class Administrator {
     @GeneratedValue
     private Long adminId;
 
-    @JoinColumn(name = "accountId")
+    @JoinColumn(name = "account_id")
     @ManyToOne
     private final Account account;
 }
