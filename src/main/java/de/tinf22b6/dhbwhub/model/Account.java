@@ -1,28 +1,28 @@
 package de.tinf22b6.dhbwhub.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 @Entity
 public class Account {
     @Id
     @GeneratedValue
     private Long accountId;
 
-    private String username;
+    private final String username;
 
-    private String email;
+    private final String email;
 
-    private String password;
+    private final String password;
 
     @JoinColumn(name = "pictureId")
     @ManyToOne
-    private Picture picture;
+    private final Picture picture;
 }

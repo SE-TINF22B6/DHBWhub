@@ -1,15 +1,15 @@
 package de.tinf22b6.dhbwhub.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 @Entity
 public class Administrator {
     @Id
@@ -18,5 +18,5 @@ public class Administrator {
 
     @JoinColumn(name = "accountId")
     @ManyToOne
-    private Account account;
+    private final Account account;
 }

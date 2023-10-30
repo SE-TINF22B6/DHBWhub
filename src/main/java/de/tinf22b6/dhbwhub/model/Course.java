@@ -1,24 +1,24 @@
 package de.tinf22b6.dhbwhub.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 @Entity
 public class Course {
     @Id
     @GeneratedValue
     private Long courseId;
 
-    private String name;
+    private final String name;
 
     @JoinColumn(name = "facId")
     @ManyToOne
-    private Faculty faculty;
+    private final Faculty faculty;
 }
