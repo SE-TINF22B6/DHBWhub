@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.UserService;
-import de.tinf22b6.dhbwhub.mapper.mapper.UserMapper;
+import de.tinf22b6.dhbwhub.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

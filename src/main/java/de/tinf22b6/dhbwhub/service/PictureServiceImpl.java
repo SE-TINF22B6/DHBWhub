@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.proposal.PictureProposal;
 import de.tinf22b6.dhbwhub.repository.PictureRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PictureService;
-import de.tinf22b6.dhbwhub.mapper.mapper.PictureMapper;
+import de.tinf22b6.dhbwhub.mapper.PictureMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

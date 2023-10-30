@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.model.Administrator;
 import de.tinf22b6.dhbwhub.proposal.AdministratorProposal;
 import de.tinf22b6.dhbwhub.repository.AdministratorRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.AdministratorService;
-import de.tinf22b6.dhbwhub.mapper.mapper.AdministratorMapper;
+import de.tinf22b6.dhbwhub.mapper.AdministratorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

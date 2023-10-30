@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.model.Course;
 import de.tinf22b6.dhbwhub.proposal.CourseProposal;
 import de.tinf22b6.dhbwhub.repository.CourseRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.CourseService;
-import de.tinf22b6.dhbwhub.mapper.mapper.CourseMapper;
+import de.tinf22b6.dhbwhub.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
