@@ -1,5 +1,7 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
 import de.tinf22b6.dhbwhub.repository.CommentRepository;
@@ -33,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment get(Long id) {
         Comment comment = repository.find(id);
         if (comment == null) {
-            throw new IllegalArgumentException(String.format("Comment with id %d doesn't exists", id)); // TODO: Replace with custom exception
+            throw new NoSuchEntryException(Comment.class.getSimpleName(), id);
         }
         return comment;
     }

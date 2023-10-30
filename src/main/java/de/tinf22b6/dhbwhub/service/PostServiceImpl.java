@@ -1,5 +1,7 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
@@ -33,7 +35,7 @@ public class PostServiceImpl implements PostService {
     public Post get(Long id) {
         Post post = repository.find(id);
         if (post == null) {
-            throw new IllegalArgumentException(String.format("Post with id %d doesn't exists", id)); // TODO: Replace with custom exception
+            throw new NoSuchEntryException(Post.class.getSimpleName(), id);
         }
         return post;
     }

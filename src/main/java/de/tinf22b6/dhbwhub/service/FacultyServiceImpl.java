@@ -1,5 +1,7 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Faculty;
 import de.tinf22b6.dhbwhub.proposal.FacultyProposal;
 import de.tinf22b6.dhbwhub.repository.FacultyRepository;
@@ -33,7 +35,7 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty get(Long id) {
         Faculty faculty = repository.find(id);
         if (faculty == null) {
-            throw new IllegalArgumentException(String.format("Faculty with id %d doesn't exists", id)); // TODO: Replace with custom exception
+            throw new NoSuchEntryException(Faculty.class.getSimpleName(), id);
         }
         return faculty;
     }

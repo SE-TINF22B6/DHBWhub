@@ -1,5 +1,7 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public User get(Long id) {
         User user = repository.find(id);
         if (user == null) {
-            throw new IllegalArgumentException(String.format("User with id %d doesn't exists", id)); // TODO: Replace with custom exception
+            throw new NoSuchEntryException(User.class.getSimpleName(), id);
         }
         return user;
     }

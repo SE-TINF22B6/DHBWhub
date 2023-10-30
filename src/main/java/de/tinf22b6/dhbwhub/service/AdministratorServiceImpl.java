@@ -1,5 +1,7 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Administrator;
 import de.tinf22b6.dhbwhub.proposal.AdministratorProposal;
 import de.tinf22b6.dhbwhub.repository.AdministratorRepository;
@@ -33,7 +35,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     public Administrator get(Long id) {
         Administrator administrator = repository.find(id);
         if (administrator == null) {
-            throw new IllegalArgumentException(String.format("Administrator with id %d doesn't exists", id)); // TODO: Replace with custom exception
+            throw new NoSuchEntryException(Administrator.class.getSimpleName(), id);
         }
         return administrator;
     }

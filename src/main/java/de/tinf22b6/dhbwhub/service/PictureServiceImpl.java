@@ -1,5 +1,7 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.proposal.PictureProposal;
 import de.tinf22b6.dhbwhub.repository.PictureRepository;
@@ -33,7 +35,7 @@ public class PictureServiceImpl implements PictureService {
     public Picture get(Long id) {
         Picture picture = repository.find(id);
         if (picture == null) {
-            throw new IllegalArgumentException(String.format("Picture with id %d doesn't exists", id)); // TODO: Replace with custom exception
+            throw new NoSuchEntryException(Picture.class.getSimpleName(), id);
         }
         return picture;
     }

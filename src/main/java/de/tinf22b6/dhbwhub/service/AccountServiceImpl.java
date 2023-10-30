@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.proposal.AccountProposal;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
@@ -33,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
     public Account get(Long id) {
         Account account = repository.find(id);
         if (account == null) {
-            throw new IllegalArgumentException(String.format("Account with id %d doesn't exists", id)); // TODO: Replace with custom exception
+            throw new NoSuchEntryException(Account.class.getSimpleName(), id);
         }
         return account;
     }
