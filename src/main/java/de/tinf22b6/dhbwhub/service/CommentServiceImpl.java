@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
 import de.tinf22b6.dhbwhub.repository.CommentRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.CommentService;
-import de.tinf22b6.dhbwhub.utils.mapper.CommentMapper;
+import de.tinf22b6.dhbwhub.mapper.mapper.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

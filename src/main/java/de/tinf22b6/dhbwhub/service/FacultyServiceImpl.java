@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.model.Faculty;
 import de.tinf22b6.dhbwhub.proposal.FacultyProposal;
 import de.tinf22b6.dhbwhub.repository.FacultyRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.FacultyService;
-import de.tinf22b6.dhbwhub.utils.mapper.FacultyMapper;
+import de.tinf22b6.dhbwhub.mapper.mapper.FacultyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

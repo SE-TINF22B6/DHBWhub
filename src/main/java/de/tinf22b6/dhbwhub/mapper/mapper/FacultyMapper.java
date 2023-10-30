@@ -1,4 +1,4 @@
-package de.tinf22b6.dhbwhub.utils.mapper;
+package de.tinf22b6.dhbwhub.mapper.mapper;
 
 import de.tinf22b6.dhbwhub.model.Faculty;
 import de.tinf22b6.dhbwhub.proposal.FacultyProposal;

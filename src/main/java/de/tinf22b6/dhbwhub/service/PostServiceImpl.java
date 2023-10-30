@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
-import de.tinf22b6.dhbwhub.utils.mapper.PostMapper;
+import de.tinf22b6.dhbwhub.mapper.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
