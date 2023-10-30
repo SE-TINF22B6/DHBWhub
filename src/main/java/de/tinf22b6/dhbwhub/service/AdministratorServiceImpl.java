@@ -6,9 +6,11 @@ import de.tinf22b6.dhbwhub.repository.AdministratorRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.AdministratorService;
 import de.tinf22b6.dhbwhub.utils.mapper.AdministratorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AdministratorServiceImpl implements AdministratorService {
     private final AdministratorRepository repository;
 

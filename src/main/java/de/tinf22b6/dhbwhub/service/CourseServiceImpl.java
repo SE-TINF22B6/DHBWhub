@@ -6,9 +6,11 @@ import de.tinf22b6.dhbwhub.repository.CourseRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.CourseService;
 import de.tinf22b6.dhbwhub.utils.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository repository;
 

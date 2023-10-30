@@ -6,9 +6,11 @@ import de.tinf22b6.dhbwhub.repository.PictureRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PictureService;
 import de.tinf22b6.dhbwhub.utils.mapper.PictureMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PictureServiceImpl implements PictureService {
     private final PictureRepository repository;
 

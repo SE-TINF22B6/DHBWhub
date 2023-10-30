@@ -6,9 +6,11 @@ import de.tinf22b6.dhbwhub.repository.FacultyRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.FacultyService;
 import de.tinf22b6.dhbwhub.utils.mapper.FacultyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FacultyServiceImpl implements FacultyService {
     private final FacultyRepository repository;
 

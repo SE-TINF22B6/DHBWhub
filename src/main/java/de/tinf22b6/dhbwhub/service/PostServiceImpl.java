@@ -6,9 +6,11 @@ import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import de.tinf22b6.dhbwhub.utils.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PostServiceImpl implements PostService {
     private final PostRepository repository;
 

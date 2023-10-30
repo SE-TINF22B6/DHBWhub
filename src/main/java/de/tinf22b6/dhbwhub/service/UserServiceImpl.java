@@ -6,9 +6,11 @@ import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.UserService;
 import de.tinf22b6.dhbwhub.utils.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 

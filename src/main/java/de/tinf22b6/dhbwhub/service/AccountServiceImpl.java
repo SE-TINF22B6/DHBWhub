@@ -6,9 +6,11 @@ import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.AccountService;
 import de.tinf22b6.dhbwhub.utils.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository repository;
 
