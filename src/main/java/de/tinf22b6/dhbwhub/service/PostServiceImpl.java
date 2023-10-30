@@ -5,13 +5,14 @@ import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import de.tinf22b6.dhbwhub.utils.mapper.PostMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class PostServiceImpl implements PostService {
     private final PostRepository repository;
 
-    public PostServiceImpl(PostRepository repository) {
+    public PostServiceImpl(@Autowired PostRepository repository) {
         this.repository = repository;
     }
 

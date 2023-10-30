@@ -5,13 +5,14 @@ import de.tinf22b6.dhbwhub.proposal.FacultyProposal;
 import de.tinf22b6.dhbwhub.repository.FacultyRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.FacultyService;
 import de.tinf22b6.dhbwhub.utils.mapper.FacultyMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class FacultyServiceImpl implements FacultyService {
     private final FacultyRepository repository;
 
-    public FacultyServiceImpl(FacultyRepository repository) {
+    public FacultyServiceImpl(@Autowired FacultyRepository repository) {
         this.repository = repository;
     }
 

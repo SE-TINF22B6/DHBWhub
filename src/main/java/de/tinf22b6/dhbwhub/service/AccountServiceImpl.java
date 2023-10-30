@@ -5,13 +5,14 @@ import de.tinf22b6.dhbwhub.proposal.AccountProposal;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.AccountService;
 import de.tinf22b6.dhbwhub.utils.mapper.AccountMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository repository;
 
-    public AccountServiceImpl(AccountRepository repository) {
+    public AccountServiceImpl(@Autowired AccountRepository repository) {
         this.repository = repository;
     }
 

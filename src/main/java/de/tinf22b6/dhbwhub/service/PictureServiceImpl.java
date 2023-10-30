@@ -5,13 +5,14 @@ import de.tinf22b6.dhbwhub.proposal.PictureProposal;
 import de.tinf22b6.dhbwhub.repository.PictureRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PictureService;
 import de.tinf22b6.dhbwhub.utils.mapper.PictureMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class PictureServiceImpl implements PictureService {
     private final PictureRepository repository;
 
-    public PictureServiceImpl(PictureRepository repository) {
+    public PictureServiceImpl(@Autowired PictureRepository repository) {
         this.repository = repository;
     }
 

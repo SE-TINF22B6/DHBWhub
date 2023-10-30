@@ -5,13 +5,14 @@ import de.tinf22b6.dhbwhub.proposal.CourseProposal;
 import de.tinf22b6.dhbwhub.repository.CourseRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.CourseService;
 import de.tinf22b6.dhbwhub.utils.mapper.CourseMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository repository;
 
-    public CourseServiceImpl(CourseRepository repository) {
+    public CourseServiceImpl(@Autowired CourseRepository repository) {
         this.repository = repository;
     }
 
