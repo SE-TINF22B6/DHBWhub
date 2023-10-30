@@ -1,12 +1,11 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.mapper.FacultyMapper;
 import de.tinf22b6.dhbwhub.model.Faculty;
 import de.tinf22b6.dhbwhub.proposal.FacultyProposal;
 import de.tinf22b6.dhbwhub.repository.FacultyRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.FacultyService;
-import de.tinf22b6.dhbwhub.mapper.FacultyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

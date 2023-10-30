@@ -1,12 +1,11 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
-import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
