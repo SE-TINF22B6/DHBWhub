@@ -35,7 +35,7 @@ public class PostServiceImpl implements PostService {
     public Post get(Long id) {
         Post post = repository.find(id);
         if (post == null) {
-            throw new NoSuchEntryException(Post.class.getSimpleName(), id);
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Post.class.getSimpleName(), id));
         }
         return post;
     }

@@ -35,7 +35,7 @@ public class CourseServiceImpl implements CourseService {
     public Course get(Long id) {
         Course course = repository.find(id);
         if (course == null) {
-            throw new NoSuchEntryException(Course.class.getSimpleName(), id);
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Course.class.getSimpleName(), id));
         }
         return course;
     }

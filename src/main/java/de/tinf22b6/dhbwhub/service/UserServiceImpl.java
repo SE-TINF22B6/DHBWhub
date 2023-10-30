@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public User get(Long id) {
         User user = repository.find(id);
         if (user == null) {
-            throw new NoSuchEntryException(User.class.getSimpleName(), id);
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", User.class.getSimpleName(), id));
         }
         return user;
     }

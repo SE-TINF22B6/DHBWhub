@@ -35,7 +35,7 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty get(Long id) {
         Faculty faculty = repository.find(id);
         if (faculty == null) {
-            throw new NoSuchEntryException(Faculty.class.getSimpleName(), id);
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Faculty.class.getSimpleName(), id));
         }
         return faculty;
     }

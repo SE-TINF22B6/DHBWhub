@@ -34,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
     public Account get(Long id) {
         Account account = repository.find(id);
         if (account == null) {
-            throw new NoSuchEntryException(Account.class.getSimpleName(), id);
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Account.class.getSimpleName(), id));
         }
         return account;
     }

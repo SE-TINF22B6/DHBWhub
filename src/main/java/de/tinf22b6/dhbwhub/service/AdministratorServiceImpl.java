@@ -35,7 +35,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     public Administrator get(Long id) {
         Administrator administrator = repository.find(id);
         if (administrator == null) {
-            throw new NoSuchEntryException(Administrator.class.getSimpleName(), id);
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Administrator.class.getSimpleName(), id));
         }
         return administrator;
     }

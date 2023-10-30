@@ -35,7 +35,7 @@ public class PictureServiceImpl implements PictureService {
     public Picture get(Long id) {
         Picture picture = repository.find(id);
         if (picture == null) {
-            throw new NoSuchEntryException(Picture.class.getSimpleName(), id);
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Picture.class.getSimpleName(), id));
         }
         return picture;
     }

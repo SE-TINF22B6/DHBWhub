@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment get(Long id) {
         Comment comment = repository.find(id);
         if (comment == null) {
-            throw new NoSuchEntryException(Comment.class.getSimpleName(), id);
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Comment.class.getSimpleName(), id));
         }
         return comment;
     }
