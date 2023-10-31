@@ -1,33 +1,36 @@
 package de.tinf22b6.dhbwhub.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 @Entity
 public class Comment {
     @Id
     @GeneratedValue
     private Long commentId;
 
-    private String description;
+    private final String description;
 
-    private Date timestamp;
+    private final Date timestamp;
 
-    @JoinColumn(name = "pictureId")
+    @JoinColumn(name = "picture_id")
     @ManyToOne
-    private Picture picture;
+    private final Picture picture;
 
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     @ManyToOne
-    private User user;
+    private final User user;
 
-    @JoinColumn(name = "postId")
+    @JoinColumn(name = "post_id")
     @ManyToOne
-    private Post post;
+    private final Post post;
 }
