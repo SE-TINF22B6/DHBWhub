@@ -17,6 +17,7 @@ Documents:
 - User-Activity-Diagram for viewing post in thread-view, 26.10.2023: https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UserActivityThreadView.drawio.png
 - Sequence-Diagram for Post-Creation, 31.10.2023: https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/CreatePostSequenceDiagram.drawio.png
 - Sequence-Diagram for Logging in per Google API, 31.10.2023: https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/LoginSequenceDiagram.drawio.png
+- User-Activity-Diagram updated, more refined version of the first draft, 01.11.2023: https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UsecaseDiagramGeneral.drawio.png 
 >  A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
 ### 2. Functional requirements
@@ -25,13 +26,16 @@ Our website is comparable to other famous sites like Quora or Reddit, but specia
 
 ![UML_ diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UseCaseEndUser.drawio.png)
  
+We have decided to further refine our first draft of our general UML-diagram which looks like the following graph. Hereby, we have divided the use cases into 4 section (Account management, website activities, administration and user interaction):
+
+![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UsecaseDiagramGeneral.drawio.png)
+
 
 #### 2.2 Use Cases
-In the following section, we will depict the most important use cases of our project.
+In the following section, we will depict the most important use cases of our project and display corresponding use case.
 
-#### 2.2.1 Landing Page
-- Create Landing Page for user.
-- As a user, I want to be greeted with an appealing, modern looking Landingpage when visiting the website for the first time. 
+#### 2.2.1 Homepage
+- As a user, I want to be greeted with an appealing, modern looking Homepage when visiting the website for the first time. The homepage should provide good navigation and be easily readable for first-time users.  
 
 - user stories: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 - Link to mockup: https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
@@ -42,7 +46,6 @@ In the following section, we will depict the most important use cases of our pro
 
 
 #### 2.2.2 Login/Sign-Up Dialog
-- Create a modal Dialog for users to either log in or create a new Account
 - As a user, I want to be able to log into my account, create a new account, log myself out or sign in through 3rd-party applications e.g. Google.
 
 - user stories: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
@@ -53,8 +56,7 @@ In the following section, we will depict the most important use cases of our pro
 - Estimated efforts: medium
 
 #### 2.2.3 Thread/Post Page
-- Create Page for a Thread/Post to be displayed with its interactions.
-- As a user, I want to be able to view a Thread/Question/Post with its comments on a single page.
+- As a user, I want to be able to view a Thread/Question/Post with its comments on a single page. I should also be able to interact with the post on various ways like commenting, liking or sharing. 
 
 - user stories: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
 - Link to mockup: n.A.
@@ -64,8 +66,7 @@ In the following section, we will depict the most important use cases of our pro
 - Estimated efforts: medium
 
 #### 2.2.4 Account Management Page
-- Create a Page for the User to personalize his or her account settings.
-- As a user, I want to be able to change my own settings to personalize my profile or change other crucial personal details.
+- As a user, I want to be able to change my own settings to personalize my profile, upload profile pictures or change other crucial personal details.
 
 - user stories: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
 - Link to mockup: n.A.
