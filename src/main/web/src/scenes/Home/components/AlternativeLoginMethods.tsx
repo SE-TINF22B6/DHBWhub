@@ -4,27 +4,27 @@ import './GoogleLogo.css';
 
 function GoogleLogin() {
     return (
-        <Box className="google-login" sx={{mt: 2}}>
-            <img src="src/main/web/public/googleLogo.png" alt="Google Logo"/>
-            <span>Continue with Google</span>
+        <Box className="login-box">
+            <img src={`${process.env.PUBLIC_URL}/googleLogo.png`} alt="Google Logo" className="login-image" />
+            <span className="login-text">Continue with Google</span>
         </Box>
     );
 }
 
 function MicrosoftLogin() {
     return (
-        <Box className="google-login" sx={{mt: 2}}>
-            <img src="src/main/web/public/microsoftLogo.png" alt="Microsoft Logo"/>
-            <span>Continue with Microsoft</span>
+        <Box className="login-box">
+            <img src={`${process.env.PUBLIC_URL}/microsoftLogo.png`} alt="Microsoft Logo" className="login-image" />
+            <span className="login-text">Continue with Microsoft</span>
         </Box>
     );
 }
 
 function AppleLogin() {
     return (
-        <Box className="google-login" sx={{mt: 2}}>
-            <img src="src/main/web/public/appleLogo.png" alt="Apple Logo"/>
-            <span>Continue with Apple</span>
+        <Box className="login-box">
+            <img src={`${process.env.PUBLIC_URL}/appleLogo.png`} alt="Apple Logo" className="login-image" />
+            <span className="login-text">Continue with Apple</span>
         </Box>
     );
 }
