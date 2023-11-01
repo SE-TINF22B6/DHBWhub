@@ -21,13 +21,9 @@ jobs:
           cache: maven
       - name: Build with Maven
         env:
-          # DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          # DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          # DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          # TODO: Remove this once we setup our database online
-          DATABASE_URL: "jdbc:postgresql://hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs"
-          DATABASE_USERNAME: "reader"
-          DATABASE_PASSWORD: "NWDMCE5xdipIjRrp"
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         run: mvn -B package --file pom.xml
       - name: Copy Artifact
         run: mkdir staging && cp target/*.jar staging
