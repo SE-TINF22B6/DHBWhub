@@ -9,6 +9,7 @@ import './Modal.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import axios from 'axios';
 import app from "../../../App";
+import AlternativeLoginMethods from "./AlternativeLoginMethods";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -110,6 +111,9 @@ export default function ModalComponent() {
                     </Typography>
                     <Typography sx={{mt: 2}}>
                         <DividerWithText/>
+                    </Typography>
+                    <Typography sx={{mt: 2}}>
+                        <AlternativeLoginMethods/>
                     </Typography>
                 </Box>
             </Modal>
