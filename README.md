@@ -5,7 +5,7 @@
 # DHBWhub 
 ## Vision
 DHBWhub is a website and Q&A-platform for students and other interested people,
-particularly in regards to the corporate state university DHBW and its courses. 
+particularly in regard to the corporate state university DHBW and its courses. 
 Students can discuss questions or talk about other things relating to the 
 organization of the university classes or other leisure activities.
 
