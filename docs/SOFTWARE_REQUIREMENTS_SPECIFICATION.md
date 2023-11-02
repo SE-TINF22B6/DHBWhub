@@ -1,17 +1,23 @@
 # DHBWhub
+
 ## Software Requirements Specification
+
 ### 1. Introduction
+
 #### 1.1 Overview
-We are a DHBW-internal forum where users can ask questions and post DHBW-related content. The site is divided into several sections which represent the faculty and the courses of the DHBW. Besided, users can befriend each other so that socialicizing with other students gets even easier.
+We are a DHBW-internal forum where users can ask questions and post DHBW-related content. The site is divided into several sections which represent the faculty and the courses of the DHBW. Besides, users can befriend each other so that socializing with other students gets even easier.
+
 #### 1.2 Scope
 This Software Requirements Specification (SRS) document covers the complete system of DHBWHub. It encompasses both functional and non-functional requirements necessary for the successful development, deployment, and operation of the platform. The document aims to provide a comprehensive understanding of the system's architecture, features, and limitations.
+
 #### 1.3 Definitions, Acronyms and Abbreviations
 > TODO.
+
 #### 1.4 References
 Documents:
 - Rough Use-Case-Diagram for the End-User, 24.10.2023:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseEndUser.drawio.png
-- Landing-Page-Desing on Figma, 24.10.2023:\
+- Landing-Page-Design on Figma, 24.10.2023:\
   https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 - ER-Diagram Rough first version, 24.10.2023:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ER-DiagramFirstVersion.drawio.png
@@ -30,15 +36,15 @@ Documents:
 >  A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
 ### 2. Functional requirements
-#### 2.1 Overview 
-Our website is comparable to other famous sites like Quora or Reddit, but specialized for the DHBW-environment. Users can post DHBW-related content and see other user-generated content and interact with it by liking or commenting on it. They can also befriend each other, customize their feed and see official events by the DHBW or its sub-organisations. Here is a UML-diagram, which covers the rough and initial outline of our website: 
 
-![UML_ diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UseCaseEndUser.drawio.png)
+#### 2.1 Overview 
+Our website is comparable to other famous sites like Quora or Reddit, but specialized for the DHBW-environment. Users can post DHBW-related content and see other user-generated content and interact with it by liking or commenting on it. They can also befriend each other, customize their feed and see official events by the DHBW or its sub-organisations. Here is a UML-diagram, which covers the rough and initial outline of our website:
+
+![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UseCaseEndUser.drawio.png)
  
 We have decided to further refine our first draft of our general UML-diagram which looks like the following graph. Hereby, we have divided the use cases into 4 section (Account management, website activities, administration and user interaction):
 
-![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UsecaseDiagramGeneral.drawio.png)
-
+![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneral.drawio.png)
 
 #### 2.2 Use Cases
 In the following section, we will depict the most important use cases of our project and display corresponding use case.
@@ -69,8 +75,8 @@ In the following section, we will depict the most important use cases of our pro
 ![mockup_registration](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/4837e5fa-7d30-46f1-937a-05aa39d16e9d)
 
 - In order to signify the login/registration process, we have created corresponding sequence diagrams. The first one ('B') shows the login whereas the second one ('C') features the registration process:
-![login_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UserActivityLogin.drawio.png)
-![registration_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UserActivityRegister.drawio.png)
+![login_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityLogin.drawio.png)
+![registration_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityRegister.drawio.png)
 
 - Preconditions: Backend server has to be active and the mockup has to be created.
 - Postconditions: Users can sign in with their accounts and see a personalized feed.
@@ -83,7 +89,7 @@ In the following section, we will depict the most important use cases of our pro
 - Link to mockup: n.A.
 
 - This sequence diagram showcases how the user might create posts. At the start, the user is already logged in:
-![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/CreatePostSequenceDiagram.drawio.png)
+![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
 
 - Preconditions: Sample Threads and a mockup have to be created, as well as the database schema.
 - Postconditions: Users can view single Threads/ Posts with all of their interactions.
@@ -99,14 +105,15 @@ In the following section, we will depict the most important use cases of our pro
 - Postconditions: Users can customize their own profile.
 - Estimated efforts: medium
 > Other Use Cases will be added when discussed properly
-> 
+
 ### 3. Nonfunctional requirements
+
 #### 3.1 Usability
-It is very important to provide the users a smooth and user-friendly experience. Thus, it is crucial during the entire development process, to think of simplifiying user interactions.
+It is very important to provide the users a smooth and user-friendly experience. Thus, it is crucial during the entire development process, to think of simplifying user interactions.
 Schemas: n.A.
 
 #### 3.2 Security
-In order to establish a secure website and protect the users against unlawful use of their personal data, a plan for the authentification and authorization process is necessary.
+In order to establish a secure website and protect the users against unlawful use of their personal data, a plan for the authentication and authorization process is necessary.
 Hereby, we have to design a secure authentication system and define authorization rules through e.g. user roles.
 Schema: n.A.
 
