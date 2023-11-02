@@ -10,23 +10,23 @@ This Software Requirements Specification (SRS) document covers the complete syst
 #### 1.4 References
 Documents:
 - Rough Use-Case-Diagram for the End-User, 24.10.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UseCaseEndUser.drawio.png
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseEndUser.drawio.png
 - Landing-Page-Desing on Figma, 24.10.2023:\
   https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 - ER-Diagram Rough first version, 24.10.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/ER_Diagram_First_Version.drawio.png
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ER-DiagramFirstVersion.drawio.png
 - User-Activity-Diagram for signing in, 26.10.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UserActivityLogin.drawio.png
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityLogin.drawio.png
 - User-Activity-Diagram for signing up, 26.10.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UserActivityRegister.drawio.png
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityRegister.drawio.png
 - User-Activity-Diagram for viewing post in thread-view, 26.10.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UserActivityThreadView.drawio.png
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityThreadView.drawio.png
 - Sequence-Diagram for Post-Creation, 31.10.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/CreatePostSequenceDiagram.drawio.png
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png
 - Sequence-Diagram for Logging in per Google API, 31.10.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/LoginSequenceDiagram.drawio.png
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/LoginSequenceDiagram.drawio.png
 - User-Activity-Diagram updated, more refined version of the first draft, 01.11.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/UsecaseDiagramGeneral.drawio.png 
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneral.drawio.png 
 >  A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
 ### 2. Functional requirements
@@ -107,7 +107,7 @@ Schemas: n.A.
 
 #### 3.2 Security
 In order to establish a secure website and protect the users against unlawful use of their personal data, a plan for the authentification and authorization process is necessary.
-Hereby, we have to design an secure authentification system and define authorisation rules through e.g. user roles.
+Hereby, we have to design a secure authentication system and define authorization rules through e.g. user roles.
 Schema: n.A.
 
 > [!IMPORTANT]  
