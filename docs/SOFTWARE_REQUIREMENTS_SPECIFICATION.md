@@ -74,7 +74,7 @@ In the following section, we will depict the most important use cases of our pro
 - The registration dialog might look like this:
 ![mockup_registration](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/4837e5fa-7d30-46f1-937a-05aa39d16e9d)
 
-- In order to signify the login/registration process, we have created corresponding sequence diagrams. The first one ('B') shows the login whereas the second one ('C') features the registration process:
+- In order to signify the login/registration process, we have created corresponding sequence diagrams. The first one shows the login whereas the second one features the registration process:
 ![login_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityLogin.drawio.png)
 ![registration_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityRegister.drawio.png)
 
