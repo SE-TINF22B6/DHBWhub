@@ -40,7 +40,7 @@ Documents:
 #### 2.1 Overview 
 Our website is comparable to other famous sites like Quora or Reddit, but specialized for the DHBW-environment. Users can post DHBW-related content and see other user-generated content and interact with it by liking or commenting on it. They can also befriend each other, customize their feed and see official events by the DHBW or its sub-organisations. Here is a UML-diagram, which covers the rough and initial outline of our website:
 
-![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UseCaseEndUser.drawio.png)
+![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseEndUser.drawio.png)
  
 We have decided to further refine our first draft of our general UML-diagram which looks like the following graph. Hereby, we have divided the use cases into 4 section (Account management, website activities, administration and user interaction):
 
