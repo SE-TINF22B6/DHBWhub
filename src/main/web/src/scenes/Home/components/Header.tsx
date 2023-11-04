@@ -1,13 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SearchBar} from "./SearchBar";
-import { Link } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import "./Header.css";
 import {Logo} from "./Logo";
 
 export const Header = () => {
 
   const [newNotifications, setNewNotifications] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState('');
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setCurrentLocation(location.pathname);
+  }, [location]);
 
   return (
       <div className="header">
@@ -16,17 +23,13 @@ export const Header = () => {
             <Logo/>
           </Link>
           <Link to="/" className="home-button">
-            <div className="home-background"></div>
+            <div className={`home-background ${currentLocation === '/' ? 'active' : ''}`}></div>
           </Link>
           <Link to="/friends" className="friends-button">
-            <div className="friends-background">
-              <div className="friends-picture" />
-            </div>
+            <div className={`friends-background ${currentLocation === '/friends' ? 'active' : ''}`}></div>
           </Link>
           <Link to="/calendar" className="calendar-button">
-            <div className="calendar-background">
-              <div className="calendar-icon" />
-            </div>
+            <div className={`calendar-background ${currentLocation === '/calendar' ? 'active' : ''}`}/>
           </Link>
 
           <SearchBar/>
@@ -47,20 +50,22 @@ export const Header = () => {
               <div className="profile-component">
                 <div className="profile-picture-header"></div>
                 <div className="username">Test user</div>
-                <div className="arrow-down"/>
+                <button className="header-menu" onClick={() => setLoggedIn(false)}>
+                  <div className="arrow-down"/>
+                </button>
               </div>
           ) : (
               <div className="profile-component">
-                <div className="login">
+                <button className="login" onClick={() => setLoggedIn(true)}>
                   <div className="log-in-wrapper">
                     <div className="log-in-text">LOGIN</div>
                   </div>
-                </div>
-                <div className="sign-up">
+                </button>
+                <button className="sign-up" onClick={() => setLoggedIn(true)}>
                   <div className="sign-up-wrapper">
                     <div className="sign-up-text">SIGN UP</div>
                   </div>
-                </div>
+                </button>
               </div>
           )}
         </div>

@@ -1,6 +1,6 @@
 .header {
   align-items: center;
-  background-image: url(../assets/header-background.svg);
+  background-image: url(../assets/header/header-background.svg);
   display: flex;
   gap: 50px;
   position: relative;
@@ -17,6 +17,15 @@
   margin-left: 30px;
 }
 
+.header-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
 .home-button {
   display: flex;
   align-items: center;
@@ -27,10 +36,14 @@
 }
 
 .home-background {
-  background-image: url(../assets/home-button.svg);
+  background-image: url(../assets/header/home-button.svg);
   height: 40px;
   position: relative;
   width: 40px;
+}
+
+.home-background.active {
+  background-image: url(../assets/header/home-button-active.svg);
 }
 
 .friends-button {
@@ -43,21 +56,15 @@
 }
 
 .friends-background {
-  background-image: url(../assets/friends-background.svg);
+  background-image: url(../assets/header/friends-button.svg);
   background-size: 100% 100%;
   height: 40px;
   position: relative;
   width: 40px;
 }
 
-.friends-picture {
-  background-image: url(../assets/friends-picture.png);
-  height: 26px;
-  left: 7px;
-  object-fit: cover;
-  position: absolute;
-  top: 7px;
-  width: 26px;
+.friends-background.active {
+  background-image: url(../assets/header/friends-button-active.svg);
 }
 
 .calendar-button {
@@ -70,21 +77,15 @@
 }
 
 .calendar-background {
-  background-image: url(../assets/calendar-background.svg);
+  background-image: url(../assets/header/calendar-button.svg);
   background-size: 100% 100%;
   height: 40px;
   position: relative;
   width: 40px;
 }
 
-.calendar-icon {
-  background-image: url(../assets/calendar-icon.png);
-  height: 26px;
-  left: 8px;
-  object-fit: cover;
-  position: absolute;
-  top: 7px;
-  width: 24px;
+.calendar-background.active {
+  background-image: url(../assets/header/calendar-button-active.svg);
 }
 
 .notifications-button,
@@ -105,11 +106,11 @@
 }
 
 .notifications-button {
-  background-image: url(../assets/notifications-button.svg);
+  background-image: url(../assets/header/notifications-button.svg);
 }
 
 .notifications-button-new {
-  background-image: url(../assets/notifications-button-new.svg);
+  background-image: url(../assets/header/notifications-button-new.svg);
 }
 
 .profile-component {
@@ -121,7 +122,7 @@
 }
 
 .profile-picture-header {
-  background-image: url(../assets/header-profile.png);
+  background-image: url(../assets/header/header-profile.png);
   height: 50px;
   border: 2px solid #E3001B;
   border-radius: 10px;
@@ -144,7 +145,7 @@
 }
 
 .arrow-down {
-  background-image: url(../assets/arrow-down.png);
+  background-image: url(../assets/header/arrow-down.png);
   height: 10px;
   margin-left: 100px;
   position: relative;
@@ -152,13 +153,16 @@
 }
 
 .login {
-  height: 40px;
-  position: relative;
-  width: 91px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
 }
 
 .log-in-wrapper {
-  background-image: url(../assets/log-in-background.svg);
+  background-image: url(../assets/header/log-in-background.svg);
   background-size: 100% 100%;
   height: 40px;
   position: relative;
@@ -180,14 +184,16 @@
 }
 
 .sign-up {
-  height: 40px;
-  margin-right: -2px;
-  position: relative;
-  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
 }
 
 .sign-up-wrapper {
-  background-image: url(../assets/sign-up-background.svg);
+  background-image: url(../assets/header/sign-up-background.svg);
   background-size: 100% 100%;
   height: 40px;
   position: relative;
