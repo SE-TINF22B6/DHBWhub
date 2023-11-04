@@ -15,21 +15,6 @@ export const Home = (): JSX.Element => {
       <div className="homepage">
         <Header></Header>
         <ModalComponent></ModalComponent>
-        <div className="body">
-          <div className="sidebar-left">
-            <SortOptions></SortOptions>
-            <PopularTags></PopularTags>
-            <SavedPosts></SavedPosts>
-          </div>
-          <div className="posts">
-            <CreatePost></CreatePost>
-            <Posts></Posts>
-          </div>
-          <div className="sidebar-right">
-            <Events></Events>
-            <Infos></Infos>
-          </div>
-        </div>
       </div>
   );
 };
