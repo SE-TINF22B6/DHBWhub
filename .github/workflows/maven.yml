@@ -2,9 +2,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "frontend" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "frontend" ]
 
 jobs:
   build:
@@ -20,6 +20,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         run: mvn -B package --file pom.xml
       - name: Copy Artifact
         run: mkdir staging && cp target/*.jar staging
