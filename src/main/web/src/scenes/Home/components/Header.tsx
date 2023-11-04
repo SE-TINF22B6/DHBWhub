@@ -3,13 +3,13 @@ import {SearchBar} from "./SearchBar";
 import {Link, useLocation} from 'react-router-dom';
 import "./Header.css";
 import {Logo} from "./Logo";
+import ModalComponent from './Modal';
 
 export const Header = () => {
 
   const [newNotifications, setNewNotifications] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('');
-
   const location = useLocation();
 
   useEffect(() => {
@@ -56,11 +56,7 @@ export const Header = () => {
               </div>
           ) : (
               <div className="profile-component">
-                <button className="login" onClick={() => setLoggedIn(true)}>
-                  <div className="log-in-wrapper">
-                    <div className="log-in-text">LOGIN</div>
-                  </div>
-                </button>
+                <ModalComponent/>
                 <button className="sign-up" onClick={() => setLoggedIn(true)}>
                   <div className="sign-up-wrapper">
                     <div className="sign-up-text">SIGN UP</div>

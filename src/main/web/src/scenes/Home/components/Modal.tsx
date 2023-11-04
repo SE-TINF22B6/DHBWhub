@@ -7,8 +7,6 @@ import {styled} from '@mui/system';
 import DividerWithText from './DividerWithText';
 import './Modal.css';
 import {FormControl, OutlinedInput} from '@mui/material';
-import axios from 'axios';
-import app from "../../../App";
 import AlternativeLoginMethods from "./AlternativeLoginMethods";
 
 const style = {
@@ -34,6 +32,10 @@ const StyledButton = styled(Button)(buttonStyles);
 
 function MyFormHelperText() {
     return null;
+}
+
+export function handleOpenModal(setOpen: React.Dispatch<React.SetStateAction<boolean>>) {
+    setOpen(true);
 }
 
 export default function ModalComponent() {
@@ -78,7 +80,11 @@ export default function ModalComponent() {
 
     return (
         <>
-            <Button onClick={handleOpen}>Log In</Button>
+            <button className="login" onClick={handleOpen}>
+                <div className="log-in-wrapper">
+                    <div className="log-in-text">LOGIN</div>
+                </div>
+            </button>
             <Modal
                 open={open}
                 onClose={handleClose}
