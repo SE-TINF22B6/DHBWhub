@@ -4,7 +4,7 @@ import "./SearchBar.css";
 export const SearchBar = (): JSX.Element => {
   return (
       <div className="searchbar">
-        <div className="text-wrapper">Type here to search...</div>
+        <input className="input-field" placeholder="Type here to search..." />
         <div className="search-icon"/>
       </div>
   );
