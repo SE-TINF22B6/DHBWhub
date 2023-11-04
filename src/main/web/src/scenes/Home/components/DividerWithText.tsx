@@ -2,7 +2,6 @@ import * as React from 'react';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import {color} from "@mui/system";
 
 const borderStyle = {
     backgroundColor: '#CCCCCC'
