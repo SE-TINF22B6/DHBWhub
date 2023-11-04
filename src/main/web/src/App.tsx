@@ -11,6 +11,7 @@ import {Calendar} from "./scenes/Calendar";
 import {PrivacyPolicy} from "./scenes/PrivacyPolicy";
 
 class App extends Component {
+
   public render(): JSX.Element {
     return (
         <Router>
