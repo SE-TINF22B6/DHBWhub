@@ -1,4 +1,4 @@
-.pinned {
+.saved-posts {
   height: 300px;
   margin-right: -2px;
   position: relative;
@@ -6,23 +6,23 @@
 }
 
 .div-wrapper {
-  background-image: url(../assets/pinned-background.svg);
+  background-image: url(../assets/pinned/pinned-background.svg);
   background-size: 100% 100%;
   height: 340px;
   position: relative;
   width: 210px;
 }
 
-.pinned-headline {
+.saved-posts-headline {
   color: #ffffff;
   font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   left: 20px;
   letter-spacing: 0;
   line-height: 24px;
   position: absolute;
-  margin-top: 40px;
+  margin-top: 20px;
   white-space: nowrap;
   width: 108px;
 }
