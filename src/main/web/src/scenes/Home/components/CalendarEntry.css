@@ -1,0 +1,113 @@
+.tag1 {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 6px;
+  font-weight: 600;
+  left: 10px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+.tag-2 {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 6px;
+  font-weight: 600;
+  left: 13px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+.day {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 18px;
+  font-weight: 600;
+  left: 14px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 26px;
+  white-space: nowrap;
+}
+
+.month {
+  color: #ffffff;
+  font-family: "Source Sans Pro-Bold", Helvetica, serif;
+  font-size: 13px;
+  font-weight: 700;
+  left: 7px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  text-shadow: 0 4px 4px #00000040;
+  top: 3px;
+  white-space: nowrap;
+  width: 24px;
+}
+
+.date {
+  height: 55px;
+  left: 0;
+  position: absolute;
+  top: 6px;
+  width: 44px;
+}
+
+.overlap-wrapper {
+  height: 24px;
+  margin-bottom: -5px;
+  margin-right: -2px;
+  position: relative;
+  width: 47px;
+}
+
+.overlap-group-2 {
+  height: 24px;
+  position: relative;
+  width: 45px;
+}
+
+.tag-background {
+  height: 12px;
+  left: 0;
+  position: absolute;
+  top: 6px;
+  width: 45px;
+}
+
+
+
+.overlap-4 {
+  background-color: #2c353d;
+  border: 1px solid #e3001b;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px #00000040;
+  height: 55px;
+  position: relative;
+  width: 40px;
+}
+
+.tag1-background {
+  background-image: url(../assets/tag-1-background.svg);
+  height: 13px;
+  width: 45px;
+  left: 0;
+  position: absolute;
+  top: 6px;
+}
+
+.tag2-background {
+  background-image: url(../assets/tag-2-background.svg);
+  height: 13px;
+  width: 45px;
+  left: 0;
+  position: absolute;
+  top: 6px;
+}

@@ -1,0 +1,184 @@
+.header {
+  align-items: center;
+  background-image: url(../assets/header/header-background.svg);
+  display: flex;
+  gap: 50px;
+  position: relative;
+  margin-bottom: 75px;
+}
+
+.header-content {
+  align-items: center;
+  display: flex;
+  gap: 50px;
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 30px;
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.home-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.home-background {
+  background-image: url(../assets/header/home-button.svg);
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.home-background.active {
+  background-image: url(../assets/header/home-button-active.svg);
+}
+
+.friends-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.friends-background {
+  background-image: url(../assets/header/friends-button.svg);
+  background-size: 100% 100%;
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.friends-background.active {
+  background-image: url(../assets/header/friends-button-active.svg);
+}
+
+.calendar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.calendar-background {
+  background-image: url(../assets/header/calendar-button.svg);
+  background-size: 100% 100%;
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.calendar-background.active {
+  background-image: url(../assets/header/calendar-button-active.svg);
+}
+
+.notifications-button,
+.notifications-button-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.notifications-background,
+.notifications-new-background {
+  background-size: 100% 100%;
+  height: 40px;
+  width: 40px;
+}
+
+.notifications-button {
+  background-image: url(../assets/header/notifications-button.svg);
+}
+
+.notifications-button-new {
+  background-image: url(../assets/header/notifications-button-new.svg);
+}
+
+.profile-component {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 20px;
+  position: relative;
+}
+
+.profile-picture-header {
+  background-image: url(../assets/header/header-profile.png);
+  height: 50px;
+  border: 2px solid #E3001B;
+  border-radius: 10px;
+  object-fit: cover;
+  position: relative;
+  width: 50px;
+  transform: scale(0.6);
+}
+
+.username {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 18px;
+  margin-left: 60px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.arrow-down {
+  background-image: url(../assets/header/arrow-down.png);
+  height: 10px;
+  margin-left: 100px;
+  position: relative;
+  width: 14px;
+}
+
+.sign-up {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.sign-up-wrapper {
+  background-image: url(../assets/header/sign-up-background.svg);
+  background-size: 100% 100%;
+  height: 40px;
+  position: relative;
+  width: 100px;
+}
+
+.sign-up-text {
+  color: #ffffff;
+  font-family: "Source Sans Pro-Regular", Helvetica, serif;
+  font-size: 18px;
+  font-weight: 400;
+  left: 12px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 9px;
+  white-space: nowrap;
+  width: 78px;
+}

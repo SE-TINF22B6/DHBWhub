@@ -1,17 +1,11 @@
-import React from 'react';
-import {NavBar} from "./components/NavBar";
-// import {useLocation, useNavigate} from 'react-router';
+import React from "react";
+import "./index.css";
+import {Header} from "./components/Header";
 
-  export const Home = () => {
-
-  // Access the navigate function to programmatically navigate
-  // const navigate = useNavigate();
-  // Access the location object to get the current URL location
-  // const location = useLocation();
-
+export const Home = (): JSX.Element => {
   return (
-      <div className='homepage'>
-          <NavBar/>
+      <div className="homepage">
+        <Header></Header>
       </div>
   );
 };

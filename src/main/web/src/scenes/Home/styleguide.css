@@ -1,0 +1,7 @@
+:root {
+  --dark: rgba(44, 53, 61, 1);
+  --dark-background: rgba(30, 37, 43, 1);
+  --dark-component: rgba(38, 45, 52, 1);
+  --red: rgba(227, 0, 27, 1);
+  --white: rgba(255, 255, 255, 1);
+}
