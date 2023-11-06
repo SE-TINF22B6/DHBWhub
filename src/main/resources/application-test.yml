@@ -1,5 +1,3 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/dhbwhub
-    username: postgres
-    password: postgres
+    url: ${DATABASE_TEST_URL}
