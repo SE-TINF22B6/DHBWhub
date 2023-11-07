@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("login")
-public class RestController {
+public class EmailController {
     @PostMapping("/email")
     public void receiveEmailAddress(@RequestBody String email) {
         System.out.println(email);
