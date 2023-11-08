@@ -21,9 +21,9 @@ jobs:
           cache: maven
       - name: Build with Maven
         env:
-          DATABASE_URL: ${{ github.event_name != 'pull_request' && secrets.DATABASE_URL || "jdbc:postgresql://hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs" }}
-          DATABASE_USERNAME: ${{ github.event_name != 'pull_request' && secrets.DATABASE_USERNAME || "reader" }}
-          DATABASE_PASSWORD: ${{ github.event_name != 'pull_request' && secrets.DATABASE_PASSWORD || "NWDMCE5xdipIjRrp" }}
+          DATABASE_URL: ${{ github.event_name != 'pull_request' && secrets.DATABASE_URL || 'jdbc:postgresql://hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs' }}
+          DATABASE_USERNAME: ${{ github.event_name != 'pull_request' && secrets.DATABASE_USERNAME || 'reader' }}
+          DATABASE_PASSWORD: ${{ github.event_name != 'pull_request' && secrets.DATABASE_PASSWORD || 'NWDMCE5xdipIjRrp' }}
         run: mvn -B package --file pom.xml
       - name: Copy Artifact
         run: mkdir staging && cp target/*.jar staging
