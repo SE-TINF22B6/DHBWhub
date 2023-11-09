@@ -14,7 +14,8 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue
-    private Long userId;
+    @Column(name = "user_id")
+    private Long id;
 
     private final Integer age;
 

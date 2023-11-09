@@ -45,7 +45,7 @@ public class CourseServiceImpl implements CourseService {
         get(id);
 
         Course course = CourseMapper.mapToModel(proposal);
-        course.setCourseId(id);
+        course.setId(id);
         return repository.save(course);
     }
 

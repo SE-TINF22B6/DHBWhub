@@ -14,7 +14,8 @@ import lombok.Setter;
 public class Course {
     @Id
     @GeneratedValue
-    private Long courseId;
+    @Column(name = "course_id")
+    private Long id;
 
     private final String name;
 
