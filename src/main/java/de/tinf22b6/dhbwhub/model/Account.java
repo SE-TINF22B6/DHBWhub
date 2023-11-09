@@ -14,7 +14,8 @@ import lombok.Setter;
 public class Account {
     @Id
     @GeneratedValue
-    private Long accountId;
+    @Column(name = "account_id")
+    private Long id;
 
     private final String username;
 

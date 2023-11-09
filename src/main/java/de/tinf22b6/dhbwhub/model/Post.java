@@ -16,7 +16,8 @@ import java.util.Date;
 public class Post {
     @Id
     @GeneratedValue
-    private Long postId;
+    @Column(name = "post_id")
+    private Long id;
 
     private final String title;
 

@@ -45,7 +45,7 @@ public class FacultyServiceImpl implements FacultyService {
         get(id);
 
         Faculty faculty = FacultyMapper.mapToModel(proposal);
-        faculty.setFacId(id);
+        faculty.setId(id);
         return repository.save(faculty);
     }
 

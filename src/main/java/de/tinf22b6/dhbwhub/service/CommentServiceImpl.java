@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
         get(id);
 
         Comment comment = CommentMapper.mapToModel(proposal);
-        comment.setCommentId(id);
+        comment.setId(id);
         return repository.save(comment);
     }
 

@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         get(id);
 
         User user = UserMapper.mapToModel(proposal);
-        user.setUserId(id);
+        user.setId(id);
         return repository.save(user);
     }
 
