@@ -45,7 +45,7 @@ public class PictureServiceImpl implements PictureService {
         get(id);
 
         Picture picture = PictureMapper.mapToModel(proposal);
-        picture.setPictureId(id);
+        picture.setId(id);
         return repository.save(picture);
     }
 

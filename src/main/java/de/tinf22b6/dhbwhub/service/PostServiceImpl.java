@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
         get(id);
 
         Post post = PostMapper.mapToModel(proposal);
-        post.setPostId(id);
+        post.setId(id);
         return repository.save(post);
     }
 

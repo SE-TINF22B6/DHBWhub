@@ -44,7 +44,7 @@ public class FacultyRepositoryTests {
 
         facultyRepository.save(faculty);
 
-        assertThat(facultyRepository.find(faculty.getFacId())).isNotNull();
+        assertThat(facultyRepository.find(faculty.getId())).isNotNull();
     }
 
     @Test
@@ -69,7 +69,7 @@ public class FacultyRepositoryTests {
 
         assertThat(facultyRepository.findAll()).hasSize(1);
 
-        facultyRepository.delete(faculty.getFacId());
+        facultyRepository.delete(faculty.getId());
 
         assertThat(facultyRepository.findAll()).isEmpty();
     }

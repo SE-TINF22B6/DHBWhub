@@ -1,9 +1,6 @@
 package de.tinf22b6.dhbwhub.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +14,8 @@ import lombok.Setter;
 public class Picture {
     @Id
     @GeneratedValue
-    private Long pictureId;
+    @Column(name = "picture_id")
+    private Long id;
 
     private final String name;
 
