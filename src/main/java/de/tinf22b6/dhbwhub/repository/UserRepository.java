@@ -3,11 +3,11 @@ package de.tinf22b6.dhbwhub.repository;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Repository
 public class UserRepository {
     private final SpringUserRepository repository;
 

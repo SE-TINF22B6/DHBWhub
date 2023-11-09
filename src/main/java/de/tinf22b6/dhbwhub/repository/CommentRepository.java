@@ -3,11 +3,11 @@ package de.tinf22b6.dhbwhub.repository;
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringCommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Repository
 public class CommentRepository {
     private final SpringCommentRepository repository;
 
