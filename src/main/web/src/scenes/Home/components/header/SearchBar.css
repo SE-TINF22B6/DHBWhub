@@ -1,11 +1,12 @@
 .searchbar {
-  background-image: url(../assets/header/searchbar-background.svg);
-  background-size: 100% 100%;
-  height: 46px;
+  background-color: #2C353D;
+  border-radius: 15px;
+  height: 45px;
   position: relative;
   width: 548px;
   margin-left: 60px;
   margin-right: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .input-field {
@@ -44,7 +45,7 @@
 }
 
 .search-icon {
-  background-image: url(../assets/header/search-icon.svg);
+  background-image: url(../../assets/header/search-icon.svg);
   height: 20px;
   left: 512px;
   position: absolute;
