@@ -1,3 +1,4 @@
 spring:
-  datasource:
-    url: ${DATABASE_TEST_URL}
+  jpa:
+    hibernate:
+      ddl-auto: update
