@@ -27,7 +27,7 @@ Documents:
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityRegister.drawio.png
 - User-Activity-Diagram for viewing post in thread-view, 26.10.2023:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityThreadView.drawio.png
-- Sequence-Diagram for Post-Creation, 31.10.2023:\
+- Sequence-Diagram for PostDetail-Creation, 31.10.2023:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png
 - Sequence-Diagram for Logging in per Google API, 31.10.2023:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/LoginSequenceDiagram.drawio.png
@@ -83,7 +83,7 @@ In the following section, we will depict the most important use cases of our pro
 - Estimated efforts: medium
 
 #### 2.2.3 Interact with posts
-- As a user, I want to be able to view a Thread/Question/Post with its comments on a single page. I should also be able to interact with the post on various ways like commenting, liking or sharing. 
+- As a user, I want to be able to view a Thread/Question/PostDetail with its comments on a single page. I should also be able to interact with the post on various ways like commenting, liking or sharing. 
 
 - user stories: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
 - Link to mockup: n.A.

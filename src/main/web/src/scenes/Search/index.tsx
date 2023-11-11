@@ -2,9 +2,9 @@ import React from "react";
 import "./index.css";
 import {Header} from "../Home/components/header/Header";
 
-export const Friends = (): JSX.Element => {
+export const Search = (): JSX.Element => {
   return (
-      <div className="friends">
+      <div className="search">
         <Header></Header>
       </div>
   );
