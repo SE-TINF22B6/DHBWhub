@@ -8,6 +8,7 @@ import DividerWithText from './DividerWithText';
 import './Modal.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "./AlternativeLoginMethods";
+import {stringify} from "querystring";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -74,7 +75,7 @@ export default function ModalComponent() {
 
 
     const handleContinueClick = () => {
-        sendEmail(email);
+        const apiLoginResponse = sendEmail(email);
         console.log('E-Mail:', email);
     };
 
