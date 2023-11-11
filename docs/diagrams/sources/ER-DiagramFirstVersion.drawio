@@ -153,7 +153,7 @@
         <mxCell id="RBtmvL5JwZPeh6ji9N9Q-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.821;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="RBtmvL5JwZPeh6ji9N9Q-49" target="RBtmvL5JwZPeh6ji9N9Q-46">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="RBtmvL5JwZPeh6ji9N9Q-55" value="Post" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=14" vertex="1" parent="1">
+        <mxCell id="RBtmvL5JwZPeh6ji9N9Q-55" value="PostDetail" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=14" vertex="1" parent="1">
           <mxGeometry x="930" y="40" width="280" height="230" as="geometry" />
         </mxCell>
         <mxCell id="RBtmvL5JwZPeh6ji9N9Q-56" value="post_Id : Serial(10)" style="shape=partialRectangle;top=0;left=0;right=0;bottom=1;html=1;align=left;verticalAlign=middle;fillColor=none;spacingLeft=34;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;dropTarget=0;fontStyle=5;" vertex="1" parent="RBtmvL5JwZPeh6ji9N9Q-55">

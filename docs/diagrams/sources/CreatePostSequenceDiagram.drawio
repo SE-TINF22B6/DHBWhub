@@ -183,7 +183,7 @@
             <mxPoint x="8" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ooPW5xSbgog-zFwey2SN-33" value="&amp;lt;&amp;lt;Post created&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" target="aM9ryv3xv72pqoxQDRHE-2">
+        <mxCell id="ooPW5xSbgog-zFwey2SN-33" value="&amp;lt;&amp;lt;PostDetail created&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" target="aM9ryv3xv72pqoxQDRHE-2">
           <mxGeometry x="0.113" relative="1" as="geometry">
             <mxPoint x="100" y="550" as="targetPoint" />
             <Array as="points" />

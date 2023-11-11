@@ -94,8 +94,9 @@
 }
 
 .log-in-wrapper {
-    background-image: url(../assets/header/log-in-background.svg);
-    background-size: 100% 100%;
+    background-color: #2C353D;
+    border: 1px solid #E3001B;
+    border-radius: 10px;
     height: 40px;
     position: relative;
     width: 89px;

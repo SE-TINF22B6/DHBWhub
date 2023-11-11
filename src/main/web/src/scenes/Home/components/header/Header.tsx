@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {SearchBar} from "./SearchBar";
+import { SearchBar } from './SearchBar';
+
 import {Link, useLocation} from 'react-router-dom';
 import "./Header.css";
 import {Logo} from "./Logo";
-import ModalComponent from './Modal';
+import ModalComponent from '../login/Modal';
 
 export const Header = () => {
 
