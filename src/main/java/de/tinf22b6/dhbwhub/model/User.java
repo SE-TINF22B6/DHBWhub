@@ -11,6 +11,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
+@Table(name = "client_user")
 public class User {
     @Id
     @GeneratedValue
