@@ -5,10 +5,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {styled} from '@mui/system';
 import DividerWithText from './DividerWithText';
-import './Modal.css';
+import './ModalLogin.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "./AlternativeLoginMethods";
-import {stringify} from "querystring";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -39,7 +38,7 @@ export function handleOpenModal(setOpen: React.Dispatch<React.SetStateAction<boo
     setOpen(true);
 }
 
-export default function ModalComponent() {
+export default function ModalLogin() {
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
 
@@ -47,36 +46,38 @@ export default function ModalComponent() {
     const handleClose = () => setOpen(false);
 
     const sendEmail = async (email: any) => {
-        const backendAPIEndpoint = 'http://localhost:8080/login/email';
-        console.log(email);
+        const backendAPIEndpoint = 'http://localhost:8080/api/auth/login';
 
-        fetch(backendAPIEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(email),
-            credentials: 'include',
-        })
+        try {
+            const response = await fetch(backendAPIEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+                credentials: 'include',
+            });
+
+            return response;
+        } catch (error) {
+            console.error('Fetch error:', error);
+            throw error;
+        }
+
+    }
+
+    const handleContinueClick = () => {
+        sendEmail(email)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                if (response.status === 200) {
+                    console.log('E-Mail gefunden');
+                } else if (response.status === 404) {
+                    console.log('E-Mail nicht gefunden');
                 }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
             })
             .catch(error => {
                 console.error('Fetch error:', error);
             });
-    }
-
-
-
-    const handleContinueClick = () => {
-        const apiLoginResponse = sendEmail(email);
-        console.log('E-Mail:', email);
     };
 
     return (

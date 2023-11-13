@@ -27,7 +27,7 @@
 
 .modal {
     width: 345px;
-    height: 586px;
+    height: 620px;
     background: #3B454F;
     color: #3B454F;
     z-index: 10;
@@ -57,6 +57,15 @@
     left: 0;
     transform: none;
     margin-left: -9px;
+}
+
+.paragraph {
+    margin: 0;
+    color: white;
+    text-align: left;
+    position: relative;
+    left: 0;
+    transform: none;
 }
 
 .signInContent {

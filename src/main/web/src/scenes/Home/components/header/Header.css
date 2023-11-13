@@ -121,6 +121,14 @@
   position: relative;
 }
 
+.sign-up-component {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 20px;
+  position: relative;
+}
+
 .profile-picture-header {
   background-image: url(../../assets/header/header-profile.png);
   height: 50px;
