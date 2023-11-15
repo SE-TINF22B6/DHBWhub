@@ -7,33 +7,25 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
-public class Comment {
+public class SavedPost {
     @Id
     @GeneratedValue
-    @Column(name = "comment_id")
+    @Column(name = "saved_post_id")
     private Long id;
 
-    private final String description;
-
-    private final Date timestamp;
-
-    private final int likes;
-
-    @JoinColumn(name = "picture_id")
-    @ManyToOne
-    private final Picture picture;
-
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "client_user_id")
     @ManyToOne
     private final User user;
 
     @JoinColumn(name = "post_id")
     @ManyToOne
     private final Post post;
+
 }
