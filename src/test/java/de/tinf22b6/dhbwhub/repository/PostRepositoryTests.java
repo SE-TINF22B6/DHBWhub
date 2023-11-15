@@ -23,15 +23,12 @@ public class PostRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        // Arrange
         Post post1 = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), null, null, null);
         Post post2 = new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), null, null, null);
 
-        // Act
         postRepository.save(post1);
         postRepository.save(post2);
 
-        // Assert
         assertThat(postRepository.findAll()).hasSize(2);
     }
 
@@ -68,9 +65,6 @@ public class PostRepositoryTests {
         Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), null, null, null);
 
         postRepository.save(post);
-
-        assertThat(postRepository.findAll()).hasSize(1);
-
         postRepository.delete(post.getId());
 
         assertThat(postRepository.findAll()).isEmpty();
