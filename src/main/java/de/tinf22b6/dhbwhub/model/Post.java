@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +27,11 @@ public class Post {
 
     private final Date timestamp;
 
+    private final int likes;
+
+    @Lob
+    private final List<String> tags;
+
     @JoinColumn(name = "picture_id")
     @ManyToOne
     private final Picture picture;
@@ -36,4 +43,5 @@ public class Post {
     @JoinColumn(name = "course_id")
     @ManyToOne
     private final Course course;
+
 }

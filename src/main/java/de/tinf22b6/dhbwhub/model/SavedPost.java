@@ -6,27 +6,26 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
-@Table(name = "client_user")
-public class User {
+public class SavedPost {
     @Id
     @GeneratedValue
-    @Column(name = "user_id")
+    @Column(name = "saved_post_id")
     private Long id;
 
-    private final Integer age;
-
-    private final String description;
-
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "client_user_id")
     @ManyToOne
-    private final Course course;
+    private final User user;
 
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "post_id")
     @ManyToOne
-    private final Account account;
+    private final Post post;
+
 }

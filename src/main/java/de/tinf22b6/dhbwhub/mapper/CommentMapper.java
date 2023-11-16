@@ -8,6 +8,7 @@ public class CommentMapper {
         return new Comment(
                 proposal.getDescription(),
                 proposal.getTimestamp(),
+                proposal.getLikes(),
                 PictureMapper.mapToModel(proposal.getPicture()),
                 UserMapper.mapToModel(proposal.getUser()),
                 PostMapper.mapToModel(proposal.getPost())

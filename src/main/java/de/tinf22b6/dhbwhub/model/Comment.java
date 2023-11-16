@@ -23,6 +23,8 @@ public class Comment {
 
     private final Date timestamp;
 
+    private final int likes;
+
     @JoinColumn(name = "picture_id")
     @ManyToOne
     private final Picture picture;
