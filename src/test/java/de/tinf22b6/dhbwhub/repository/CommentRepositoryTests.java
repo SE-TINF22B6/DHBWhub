@@ -23,8 +23,8 @@ public class CommentRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        Comment comment1 = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), null, null, null);
-        Comment comment2 = new Comment("Du mieser Hund!", new Date(1478979183L), null, null, null);
+        Comment comment1 = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), 4, null, null, null);
+        Comment comment2 = new Comment("Du mieser Hund!", new Date(1478979183L), 5, null, null, null);
 
         commentRepository.save(comment1);
         commentRepository.save(comment2);
@@ -39,7 +39,7 @@ public class CommentRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), null, null, null);
+        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), 4, null, null, null);
 
         commentRepository.save(comment);
 
@@ -53,7 +53,7 @@ public class CommentRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), null, null, null);
+        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), 4, null, null, null);
 
         commentRepository.save(comment);
 
@@ -62,7 +62,7 @@ public class CommentRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), null, null, null);
+        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), 4, null, null, null);
         commentRepository.save(comment);
 
         commentRepository.delete(comment.getId());

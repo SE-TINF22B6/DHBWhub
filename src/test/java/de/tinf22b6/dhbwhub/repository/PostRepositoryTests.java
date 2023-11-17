@@ -23,8 +23,8 @@ public class PostRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        Post post1 = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), null, null, null);
-        Post post2 = new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), null, null, null);
+        Post post1 = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
+        Post post2 = new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555, null, null, null, null);
 
         postRepository.save(post1);
         postRepository.save(post2);
@@ -39,7 +39,7 @@ public class PostRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), null, null, null);
+        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
 
         postRepository.save(post);
 
@@ -53,7 +53,7 @@ public class PostRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), null, null, null);
+        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
 
         postRepository.save(post);
 
@@ -62,7 +62,7 @@ public class PostRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), null, null, null);
+        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
         postRepository.save(post);
 
         postRepository.delete(post.getId());
