@@ -19,9 +19,6 @@ public class AccountRepositoryTests {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
-    private PictureRepository pictureRepository;
-
     @Test
     void FindAll_HasSize_Two() {
         Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
