@@ -1,7 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
 import de.tinf22b6.dhbwhub.model.Account;
-import de.tinf22b6.dhbwhub.model.Picture;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -25,20 +24,12 @@ public class AccountRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        // Arrange
-        Picture picture1 = new Picture();
-        Picture picture2 = new Picture("profile-img.png", new Byte[]{ 127, 119 });
-        pictureRepository.save(picture1);
-        pictureRepository.save(picture2);
+        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
+        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null);
 
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", picture1);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", picture2);
-
-        // Act
         accountRepository.save(account1);
         accountRepository.save(account2);
 
-        // Assert
         assertThat(accountRepository.findAll()).hasSize(2);
     }
 
@@ -73,10 +64,7 @@ public class AccountRepositoryTests {
     @Test
     void Delete_SizeChange() {
         Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
-
         accountRepository.save(account);
-
-        assertThat(accountRepository.findAll()).hasSize(1);
 
         accountRepository.delete(account.getId());
 

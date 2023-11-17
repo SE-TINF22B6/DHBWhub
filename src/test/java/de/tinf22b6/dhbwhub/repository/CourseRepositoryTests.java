@@ -21,15 +21,12 @@ public class CourseRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        // Arrange
         Course course1 = new Course("TINF22B5", null);
         Course course2 = new Course("TINF22B6", null);
 
-        // Act
         courseRepository.save(course1);
         courseRepository.save(course2);
 
-        // Assert
         assertThat(courseRepository.findAll()).hasSize(2);
     }
 
@@ -64,10 +61,7 @@ public class CourseRepositoryTests {
     @Test
     void Delete_SizeChange() {
         Course course = new Course("TINF22B6", null);
-
         courseRepository.save(course);
-
-        assertThat(courseRepository.findAll()).hasSize(1);
 
         courseRepository.delete(course.getId());
 

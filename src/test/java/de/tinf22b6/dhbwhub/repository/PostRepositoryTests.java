@@ -63,8 +63,8 @@ public class PostRepositoryTests {
     @Test
     void Delete_SizeChange() {
         Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), null, null, null);
-
         postRepository.save(post);
+
         postRepository.delete(post.getId());
 
         assertThat(postRepository.findAll()).isEmpty();

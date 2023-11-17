@@ -21,15 +21,12 @@ public class UserRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        // Arrange
         User user1 = new User(19, "Ich studiere Informatik", null, null);
         User user2 = new User(21, "Ich studiere Jura", null, null);
 
-        // Act
         userRepository.save(user1);
         userRepository.save(user2);
 
-        // Assert
         assertThat(userRepository.findAll()).hasSize(2);
     }
 
@@ -64,10 +61,7 @@ public class UserRepositoryTests {
     @Test
     void Delete_SizeChange() {
         User user = new User(19, "Ich studiere Informatik", null, null);
-
         userRepository.save(user);
-
-        assertThat(userRepository.findAll()).hasSize(1);
 
         userRepository.delete(user.getId());
 

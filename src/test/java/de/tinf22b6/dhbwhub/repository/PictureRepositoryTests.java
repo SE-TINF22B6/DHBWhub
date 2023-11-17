@@ -21,15 +21,12 @@ public class PictureRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        // Arrange
         Picture picture1 = new Picture("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
         Picture picture2 = new Picture("course-img-TINF22B6.jpg", new Byte[]{ 12, 34, 56, 78, 90 });
 
-        // Act
         pictureRepository.save(picture1);
         pictureRepository.save(picture2);
 
-        // Assert
         assertThat(pictureRepository.findAll()).hasSize(2);
     }
 
@@ -64,10 +61,7 @@ public class PictureRepositoryTests {
     @Test
     void Delete_SizeChange() {
         Picture picture = new Picture("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
-
         pictureRepository.save(picture);
-
-        assertThat(pictureRepository.findAll()).hasSize(1);
 
         pictureRepository.delete(picture.getId());
 

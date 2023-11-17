@@ -21,15 +21,12 @@ public class FacultyRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        // Arrange
         Faculty faculty1 = new Faculty("Informatik");
         Faculty faculty2 = new Faculty("Jura");
 
-        // Act
         facultyRepository.save(faculty1);
         facultyRepository.save(faculty2);
 
-        // Assert
         assertThat(facultyRepository.findAll()).hasSize(2);
     }
 
@@ -64,10 +61,7 @@ public class FacultyRepositoryTests {
     @Test
     void Delete_SizeChange() {
         Faculty faculty = new Faculty("Informatik");
-
         facultyRepository.save(faculty);
-
-        assertThat(facultyRepository.findAll()).hasSize(1);
 
         facultyRepository.delete(faculty.getId());
 

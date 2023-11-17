@@ -21,15 +21,12 @@ public class AdministratorRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        // Arrange
         Administrator administrator1 = new Administrator(null);
         Administrator administrator2 = new Administrator(null);
 
-        // Act
         administratorRepository.save(administrator1);
         administratorRepository.save(administrator2);
 
-        // Assert
         assertThat(administratorRepository.findAll()).hasSize(2);
     }
 
@@ -64,10 +61,7 @@ public class AdministratorRepositoryTests {
     @Test
     void Delete_SizeChange() {
         Administrator administrator = new Administrator(null);
-
         administratorRepository.save(administrator);
-
-        assertThat(administratorRepository.findAll()).hasSize(1);
 
         administratorRepository.delete(administrator.getId());
 

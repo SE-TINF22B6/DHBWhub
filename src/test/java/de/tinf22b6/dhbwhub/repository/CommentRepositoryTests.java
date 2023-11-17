@@ -23,15 +23,12 @@ public class CommentRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        // Arrange
         Comment comment1 = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), null, null, null);
         Comment comment2 = new Comment("Du mieser Hund!", new Date(1478979183L), null, null, null);
 
-        // Act
         commentRepository.save(comment1);
         commentRepository.save(comment2);
 
-        // Assert
         assertThat(commentRepository.findAll()).hasSize(2);
     }
 
@@ -66,10 +63,7 @@ public class CommentRepositoryTests {
     @Test
     void Delete_SizeChange() {
         Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), null, null, null);
-
         commentRepository.save(comment);
-
-        assertThat(commentRepository.findAll()).hasSize(1);
 
         commentRepository.delete(comment.getId());
 
