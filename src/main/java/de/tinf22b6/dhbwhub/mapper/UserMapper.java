@@ -8,8 +8,8 @@ public class UserMapper {
         return new User(
                 proposal.getAge(),
                 proposal.getDescription(),
-                CourseMapper.mapToModel(proposal.getCourse()),
-                AccountMapper.mapToModel(proposal.getAccount())
+                proposal.getCourse() != null ? CourseMapper.mapToModel(proposal.getCourse()) : null,
+                proposal.getAccount() != null ? AccountMapper.mapToModel(proposal.getAccount()) : null
         );
     }
 }
