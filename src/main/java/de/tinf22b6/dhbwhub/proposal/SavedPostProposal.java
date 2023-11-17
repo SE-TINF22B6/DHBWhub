@@ -6,20 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentProposal {
-    private String description;
-
-    private Date timestamp;
-
-    private int likes;
-
-    private PictureProposal picture;
-
+public class SavedPostProposal {
     private UserProposal user;
 
     private PostProposal post;

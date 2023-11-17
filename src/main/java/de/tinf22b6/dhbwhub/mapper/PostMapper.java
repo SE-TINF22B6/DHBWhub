@@ -9,6 +9,8 @@ public class PostMapper {
                 proposal.getTitle(),
                 proposal.getDescription(),
                 proposal.getTimestamp(),
+                proposal.getLikes(),
+                proposal.getTags() != null ? proposal.getTags() : null,
                 proposal.getPicture() != null ? PictureMapper.mapToModel(proposal.getPicture()) : null,
                 proposal.getUser() != null ? UserMapper.mapToModel(proposal.getUser()) : null,
                 proposal.getCourse() != null ? CourseMapper.mapToModel(proposal.getCourse()) : null
