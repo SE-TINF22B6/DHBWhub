@@ -1,6 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
-import de.tinf22b6.dhbwhub.model.Faculty;
+import de.tinf22b6.dhbwhub.model.Course;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -15,56 +15,56 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class FacultyRepositoryTests {
+public class CourseRepositoryTests {
     @Autowired
-    private FacultyRepository facultyRepository;
+    private CourseRepository courseRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Faculty faculty1 = new Faculty("Informatik");
-        Faculty faculty2 = new Faculty("Jura");
+        Course course1 = new Course("TINF22B5", null);
+        Course course2 = new Course("TINF22B6", null);
 
-        facultyRepository.save(faculty1);
-        facultyRepository.save(faculty2);
+        courseRepository.save(course1);
+        courseRepository.save(course2);
 
-        assertThat(facultyRepository.findAll()).hasSize(2);
+        assertThat(courseRepository.findAll()).hasSize(2);
     }
 
     @Test
     void FindAll_IsEmpty_True() {
-        assertThat(facultyRepository.findAll()).isEmpty();
+        assertThat(courseRepository.findAll()).isEmpty();
     }
 
     @Test
     void Find_IsNotNull_True() {
-        Faculty faculty = new Faculty("Informatik");
+        Course course = new Course("TINF22B6", null);
 
-        facultyRepository.save(faculty);
+        courseRepository.save(course);
 
-        assertThat(facultyRepository.find(faculty.getId())).isNotNull();
+        assertThat(courseRepository.find(course.getId())).isNotNull();
     }
 
     @Test
     void Find_IsNull_True() {
-        assertThat(facultyRepository.find(1L)).isNull();
+        assertThat(courseRepository.find(1L)).isNull();
     }
 
     @Test
     void Save_HasSize_One() {
-        Faculty faculty = new Faculty("Informatik");
+        Course course = new Course("TINF22B6", null);
 
-        facultyRepository.save(faculty);
+        courseRepository.save(course);
 
-        assertThat(facultyRepository.findAll()).hasSize(1);
+        assertThat(courseRepository.findAll()).hasSize(1);
     }
 
     @Test
     void Delete_SizeChange() {
-        Faculty faculty = new Faculty("Informatik");
-        facultyRepository.save(faculty);
+        Course course = new Course("TINF22B6", null);
+        courseRepository.save(course);
 
-        facultyRepository.delete(faculty.getId());
+        courseRepository.delete(course.getId());
 
-        assertThat(facultyRepository.findAll()).isEmpty();
+        assertThat(courseRepository.findAll()).isEmpty();
     }
 }

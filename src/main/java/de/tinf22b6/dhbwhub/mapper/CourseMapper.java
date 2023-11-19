@@ -7,7 +7,7 @@ public class CourseMapper {
     public static Course mapToModel(CourseProposal proposal) {
         return new Course(
                 proposal.getName(),
-                FacultyMapper.mapToModel(proposal.getFaculty())
+                proposal.getFaculty() != null ? FacultyMapper.mapToModel(proposal.getFaculty()) : null
         );
     }
 }

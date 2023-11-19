@@ -9,9 +9,9 @@ public class CommentMapper {
                 proposal.getDescription(),
                 proposal.getTimestamp(),
                 proposal.getLikes(),
-                PictureMapper.mapToModel(proposal.getPicture()),
-                UserMapper.mapToModel(proposal.getUser()),
-                PostMapper.mapToModel(proposal.getPost())
+                proposal.getPicture() != null ? PictureMapper.mapToModel(proposal.getPicture()) : null,
+                proposal.getUser() != null ? UserMapper.mapToModel(proposal.getUser()) : null,
+                proposal.getPost() != null ? PostMapper.mapToModel(proposal.getPost()) : null
         );
     }
 }
