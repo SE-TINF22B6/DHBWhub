@@ -1,27 +1,69 @@
-.tag1 {
-  color: #ffffff;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 6px;
-  font-weight: 600;
-  left: 10px;
-  letter-spacing: 0;
-  line-height: 24px;
+.calendar-entry {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 60px;
+  left: 50px;
   position: absolute;
-  top: 0;
-  white-space: nowrap;
 }
 
-.tag-2 {
+.event-title {
   color: #ffffff;
   font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 600;
-  left: 13px;
+  height: 17px;
   letter-spacing: 0;
   line-height: 24px;
-  position: absolute;
+  top: 4px;
+  position: relative;
+  white-space: nowrap;
+  width: 193px;
+}
+
+.address {
+  color: #ffffffb2;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 10px;
+  font-weight: 600;
+  height: 16px;
+  top: 3px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+  width: 128px;
+}
+
+.event-tags {
+  margin-top: 9px;
+  display: flex;
+  gap: 5px;
+}
+
+.event-link {
+  text-decoration: none;
+}
+
+.event-tag {
+  background-color: #2C353D;
+  border: 1px solid #E3001B;
+  border-radius: 20px;
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
   top: 0;
   white-space: nowrap;
+  height: 15px;
+  position: relative;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .day {
@@ -54,37 +96,13 @@
 
 .date {
   height: 55px;
-  left: 0;
+  left: -50px;
   position: absolute;
-  top: 6px;
+  top: 10px;
   width: 44px;
 }
 
-.overlap-wrapper {
-  height: 24px;
-  margin-bottom: -5px;
-  margin-right: -2px;
-  position: relative;
-  width: 47px;
-}
-
-.overlap-group-2 {
-  height: 24px;
-  position: relative;
-  width: 45px;
-}
-
-.tag-background {
-  height: 12px;
-  left: 0;
-  position: absolute;
-  top: 6px;
-  width: 45px;
-}
-
-
-
-.overlap-4 {
+.date-background {
   background-color: #2c353d;
   border: 1px solid #e3001b;
   border-radius: 5px;
@@ -92,22 +110,4 @@
   height: 55px;
   position: relative;
   width: 40px;
-}
-
-.tag1-background {
-  background-image: url(../assets/tag-1-background.svg);
-  height: 13px;
-  width: 45px;
-  left: 0;
-  position: absolute;
-  top: 6px;
-}
-
-.tag2-background {
-  background-image: url(../assets/tag-2-background.svg);
-  height: 13px;
-  width: 45px;
-  left: 0;
-  position: absolute;
-  top: 6px;
 }

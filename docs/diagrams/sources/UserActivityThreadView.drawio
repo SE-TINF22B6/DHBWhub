@@ -69,7 +69,7 @@
         <mxCell id="NUDopqHscLmW4_f2CBlV-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="XB7Z7pcZkWl5WEAXLOiz-60" target="XB7Z7pcZkWl5WEAXLOiz-62">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="XB7Z7pcZkWl5WEAXLOiz-60" value="Click on Post" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="XB7Z7pcZkWl5WEAXLOiz-60" value="Click on PostDetail" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="560" y="370" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="XB7Z7pcZkWl5WEAXLOiz-65" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="XB7Z7pcZkWl5WEAXLOiz-62" target="XB7Z7pcZkWl5WEAXLOiz-64" edge="1">
@@ -110,7 +110,7 @@
         <mxCell id="XB7Z7pcZkWl5WEAXLOiz-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="XB7Z7pcZkWl5WEAXLOiz-73" target="XB7Z7pcZkWl5WEAXLOiz-75" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="XB7Z7pcZkWl5WEAXLOiz-73" value="View Post" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="XB7Z7pcZkWl5WEAXLOiz-73" value="View PostDetail" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="990" y="280" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="XB7Z7pcZkWl5WEAXLOiz-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="XB7Z7pcZkWl5WEAXLOiz-75" target="XB7Z7pcZkWl5WEAXLOiz-73" edge="1">

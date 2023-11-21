@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import { SearchBar } from './SearchBar';
-
 import {Link, useLocation} from 'react-router-dom';
 import "./Header.css";
 import {Logo} from "./Logo";
@@ -13,7 +12,7 @@ export const Header = () => {
   const [currentLocation, setCurrentLocation] = useState('');
   const location = useLocation();
 
-  useEffect(() => {
+  useEffect((): void => {
     setCurrentLocation(location.pathname);
   }, [location]);
 
@@ -50,7 +49,7 @@ export const Header = () => {
           {loggedIn ? (
               <div className="profile-component">
                 <div className="profile-picture-header"></div>
-                <div className="username">Test user</div>
+                <div className="username">Username</div>
                 <button className="header-menu" onClick={() => setLoggedIn(false)}>
                   <div className="arrow-down"/>
                 </button>
