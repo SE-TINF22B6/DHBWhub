@@ -17,7 +17,7 @@ export const SearchBar = (): JSX.Element => {
       currentSearch.set("query", query);
       const queryString = currentSearch.toString();
       // eslint-disable-next-line no-restricted-globals
-      window.location.href = queryString ? `${window.location.origin}/search?${queryString}` : window.location.origin;
+      window.location.href = queryString ? `${window.location.origin}/search/?${queryString}` : window.location.origin;
       setQuery("");
     }
   };
