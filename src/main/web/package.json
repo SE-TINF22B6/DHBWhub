@@ -14,7 +14,7 @@
     "@types/react": "^18.2.37",
     "@types/jest": "^29.5.8",
     "@types/node": "^20.9.2",
-    "@types/react-dom": "^18.2.15",
+    "@types/react-dom": "^18.2.16",
     "axios": "^1.6.2",
     "cors": "^2.8.5",
     "react": "^18.2.0",
