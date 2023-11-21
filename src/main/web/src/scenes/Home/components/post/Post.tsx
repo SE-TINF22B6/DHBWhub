@@ -8,7 +8,6 @@ interface PostProps {
   description: string;
   tags: string[];
   authorUsername: string;
-  authorId: number;
   postCreatedTimestamp: string;
   initialLikes: number;
   initialComments: number;
@@ -21,7 +20,6 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
     title,
     tags,
     authorUsername,
-    authorId,
     initialLikes,
     initialComments,
   } = props;
