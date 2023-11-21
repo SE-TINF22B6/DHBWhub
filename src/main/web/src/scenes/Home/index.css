@@ -16,10 +16,7 @@
   position: relative;
 }
 
-.posts {
-  margin-left: -125px;
-  margin-top: -300px;
-  margin-right: 150px;
+.middle-content {
   display: flex;
   flex-direction: column;
 }
