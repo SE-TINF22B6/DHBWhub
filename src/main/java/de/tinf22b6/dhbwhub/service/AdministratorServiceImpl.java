@@ -45,7 +45,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         get(id);
 
         Administrator administrator = AdministratorMapper.mapToModel(proposal);
-        administrator.setAdminId(id);
+        administrator.setId(id);
         return repository.save(administrator);
     }
 

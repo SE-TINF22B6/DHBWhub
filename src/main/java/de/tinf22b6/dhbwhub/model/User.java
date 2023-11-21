@@ -11,10 +11,12 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
+@Table(name = "client_user")
 public class User {
     @Id
     @GeneratedValue
-    private Long userId;
+    @Column(name = "user_id")
+    private Long id;
 
     private final Integer age;
 

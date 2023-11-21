@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,13 +18,19 @@ import java.util.Date;
 public class Post {
     @Id
     @GeneratedValue
-    private Long postId;
+    @Column(name = "post_id")
+    private Long id;
 
     private final String title;
 
     private final String description;
 
     private final Date timestamp;
+
+    private final int likes;
+
+    @Lob
+    private final List<String> tags;
 
     @JoinColumn(name = "picture_id")
     @ManyToOne
@@ -35,4 +43,5 @@ public class Post {
     @JoinColumn(name = "course_id")
     @ManyToOne
     private final Course course;
+
 }

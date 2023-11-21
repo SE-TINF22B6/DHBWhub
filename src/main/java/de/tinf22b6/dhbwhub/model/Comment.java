@@ -16,11 +16,14 @@ import java.util.Date;
 public class Comment {
     @Id
     @GeneratedValue
-    private Long commentId;
+    @Column(name = "comment_id")
+    private Long id;
 
     private final String description;
 
     private final Date timestamp;
+
+    private final int likes;
 
     @JoinColumn(name = "picture_id")
     @ManyToOne

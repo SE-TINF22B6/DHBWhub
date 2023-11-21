@@ -6,7 +6,7 @@ import de.tinf22b6.dhbwhub.proposal.AdministratorProposal;
 public class AdministratorMapper {
     public static Administrator mapToModel(AdministratorProposal proposal) {
         return new Administrator(
-                AccountMapper.mapToModel(proposal.getAccount())
+                proposal.getAccount() != null ? AccountMapper.mapToModel(proposal.getAccount()) : null
         );
     }
 }

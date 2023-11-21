@@ -9,7 +9,7 @@ public class AccountMapper {
                 proposal.getUsername(),
                 proposal.getEmail(),
                 proposal.getPassword(),
-                PictureMapper.mapToModel(proposal.getPicture())
+                proposal.getPicture() != null ? PictureMapper.mapToModel(proposal.getPicture()) : null
         );
     }
 }

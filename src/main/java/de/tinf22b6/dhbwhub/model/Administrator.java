@@ -14,7 +14,8 @@ import lombok.Setter;
 public class Administrator {
     @Id
     @GeneratedValue
-    private Long adminId;
+    @Column(name = "admin_id")
+    private Long id;
 
     @JoinColumn(name = "account_id")
     @ManyToOne

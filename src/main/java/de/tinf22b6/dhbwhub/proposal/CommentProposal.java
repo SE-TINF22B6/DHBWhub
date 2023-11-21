@@ -16,6 +16,8 @@ public class CommentProposal {
 
     private Date timestamp;
 
+    private int likes;
+
     private PictureProposal picture;
 
     private UserProposal user;

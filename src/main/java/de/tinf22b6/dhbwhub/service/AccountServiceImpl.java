@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
         get(id);
 
         Account account = AccountMapper.mapToModel(proposal);
-        account.setAccountId(id);
+        account.setId(id);
         return repository.save(account);
     }
 

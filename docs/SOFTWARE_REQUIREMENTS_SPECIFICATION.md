@@ -32,22 +32,41 @@ Documents:
 - Sequence-Diagram for Logging in per Google API, 31.10.2023:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/LoginSequenceDiagram.drawio.png
 - User-Activity-Diagram updated, more refined version of the first draft, 01.11.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneral.drawio.png 
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneral.drawio.png
+- EER-Diagram for general classe, 15.11.2023:\
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/er_diagram_general_overview.drawio.png
+- 
 >  A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
+
+---
 
 ### 2. Functional requirements
 
-#### 2.1 Overview 
-Our website is comparable to other famous sites like Quora or Reddit, but specialized for the DHBW-environment. Users can post DHBW-related content and see other user-generated content and interact with it by liking or commenting on it. They can also befriend each other, customize their feed and see official events by the DHBW or its sub-organisations. Here is a UML-diagram, which covers the rough and initial outline of our website:
+#### 2.1 Overview
+#### 2.1.1 General use case
+Our website is comparable to other famous sites like Quora or Reddit, but rather specialized for students of the DHBW-environment. In the following graph, we have
+depicted the main use cases of our soon to be finished product. An unregistered user is able to either browse the homepage and its sections, create an user account
+or directly sign in with an existing user account. After signing in, the user is able to participate in four main sections of our web application. 
 
-![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseEndUser.drawio.png)
- 
-We have decided to further refine our first draft of our general UML-diagram which looks like the following graph. Hereby, we have divided the use cases into 4 section (Account management, website activities, administration and user interaction):
+These section are:
+- Account Management,
+- Website Activities,
+- User Interaction,
+- Administration.
 
-![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneral.drawio.png)
+The latter section is a rather special one which involves the administrators of this website and their interactions or responsibilities towards the end users.
+
+>![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneral.drawio.png)
+
+##### 2.1.2 Important entities and classes
+In order to better understand all the entities involved in our project, we have created the following ER-diagram to better visualize and represent every important
+entity and its relations to other entities on a high level.
+
+>![EER-entities](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/er_diagram_general_overview.drawio.png)
+---
 
 #### 2.2 Use Cases
-In the following section, we will depict the most important use cases of our project and display corresponding use case.
+In the following subsection, we will depict the most important use cases of our project and display corresponding use case.
 
 #### 2.2.1 Browse Homepage
 - As a user, I want to be greeted with an appealing, modern looking Homepage when visiting the website for the first time. The homepage should provide good navigation and be easily readable for first-time users.
@@ -56,7 +75,7 @@ In the following section, we will depict the most important use cases of our pro
 - Link to mockup: https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 
 - The homepage might look like this:
-![mockup_homepage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/eb86aedc-aa41-4968-8e17-cd5aa55987c2)
+>![mockup_homepage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/eb86aedc-aa41-4968-8e17-cd5aa55987c2)
 
 - Preconditions: The mockup is created.
 - Postconditions: Many other features are going to be available once the landing page is finished.
@@ -70,13 +89,13 @@ In the following section, we will depict the most important use cases of our pro
 - Link to mockup: https://www.figma.com/file/SqiyoobCDMDfIl9j8O2N7a/Login-Page?type=design&mode=design&t=8058pcoXIPrzWU3J-0 
 
 - The login dialog might look like this:
-![mockup_login](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/c32bd552-6000-46c5-9fed-cfa29703f367)
+>![mockup_login](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/c32bd552-6000-46c5-9fed-cfa29703f367)
 - The registration dialog might look like this:
-![mockup_registration](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/4837e5fa-7d30-46f1-937a-05aa39d16e9d)
+>![mockup_registration](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/4837e5fa-7d30-46f1-937a-05aa39d16e9d)
 
 - In order to signify the login/registration process, we have created corresponding sequence diagrams. The first one shows the login whereas the second one features the registration process:
-![login_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityLogin.drawio.png)
-![registration_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityRegister.drawio.png)
+>![login_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityLogin.drawio.png)
+>![registration_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityRegister.drawio.png)
 
 - Preconditions: Backend server has to be active and the mockup has to be created.
 - Postconditions: Users can sign in with their accounts and see a personalized feed.
@@ -89,7 +108,7 @@ In the following section, we will depict the most important use cases of our pro
 - Link to mockup: n.A.
 
 - This sequence diagram showcases how the user might create posts. At the start, the user is already logged in:
-![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
+>![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
 
 - Preconditions: Sample Threads and a mockup have to be created, as well as the database schema.
 - Postconditions: Users can view single Threads/ Posts with all of their interactions.
