@@ -19,6 +19,23 @@
   width: 151px;
 }
 
+.post-menu {
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 20px;
+  font-weight: 600;
+  height: 30px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  top: 14px;
+  white-space: nowrap;
+  width: 32px;
+  left: 630px;
+}
+
 .post-infos {
   align-items: flex-start;
   display: flex;
