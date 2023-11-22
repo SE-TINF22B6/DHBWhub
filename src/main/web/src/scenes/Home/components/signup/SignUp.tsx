@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {styled} from '@mui/system';
 import DividerWithText from '../login/DividerWithText';
-import '../login/ModalLogin.css';
+import '../login/Login.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
 import EmailVerification from "./EmailVerification";

@@ -4,7 +4,7 @@ import { SearchBar } from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
 import "./Header.css";
 import {Logo} from "./Logo";
-import ModalLogin from '../login/ModalLogin';
+import Login from '../login/Login';
 import SignUp from "../signup/SignUp";
 
 export const Header = () => {
@@ -58,7 +58,7 @@ export const Header = () => {
               </div>
           ) : (
               <div className="profile-component">
-                <ModalLogin/>
+                <Login/>
                 <SignUp/>
                 <button className="sign-up" onClick={() => setLoggedIn(true)}>
                   <div className="sign-up-wrapper">

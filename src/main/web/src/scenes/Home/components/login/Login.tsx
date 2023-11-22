@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {styled} from '@mui/system';
 import DividerWithText from './DividerWithText';
-import './ModalLogin.css';
+import './Login.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "./AlternativeLoginMethods";
 
@@ -38,7 +38,7 @@ export function handleOpenModal(setOpen: React.Dispatch<React.SetStateAction<boo
     setOpen(true);
 }
 
-export default function ModalLogin() {
+export default function Login() {
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
 

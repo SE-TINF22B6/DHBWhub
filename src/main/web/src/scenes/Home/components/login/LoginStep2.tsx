@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {styled} from '@mui/system';
-import './ModalLogin.css';
+import './Login.css';
 import {
     Checkbox,
     FormControl,
