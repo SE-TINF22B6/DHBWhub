@@ -83,6 +83,7 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
       <div className="post-container">
         <div className="post">
           <div className="picture" style={{backgroundImage: `url(${props.imageSrc})`}}></div>
+          <button className="post-menu">...</button>
           <div className="post-infos">
             <Link to={`/post/?id=${postId}`} className="post-button">
               <p className="post-title">{title}</p>
