@@ -49,8 +49,12 @@ export const Header = () => {
                 </div>
 
 
-                <Login/>
-                <SignUp/>
+                <div className="login">
+                    <Login/>
+                </div>
+                <div className="sign-up">
+                    <SignUp/>
+                </div>
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {styled} from '@mui/system';
 import DividerWithText from '../login/DividerWithText';
-import '../login/Login.css';
+import './SignUp.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
 import EmailVerification from "./EmailVerification";
@@ -53,9 +53,9 @@ export default function SignUp() {
 
     return (
         <>
-            <button className="login" onClick={handleOpen}>
-                <div className="log-in-wrapper">
-                    <div className="log-in-text">SIGN UP</div>
+            <button className="signup" onClick={handleOpen}>
+                <div className="signup-wrapper">
+                    <div className="signup-text">SIGN UP</div>
                 </div>
             </button>
             <Modal
@@ -64,15 +64,15 @@ export default function SignUp() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style} className="modal">
-                    <Typography id="modal-modal-title" variant="h6" component="h2" className="modalHeader">
-                        <h3 className="heading"><b>CREATE YOUR ACCOUNT</b></h3>
+                <Box sx={style} className="signup-modal">
+                    <Typography id="modal-modal-title" variant="h6" component="h2" className="signup-modal-header">
+                        <h3 className="signup-heading"><b>CREATE YOUR ACCOUNT</b></h3>
                     </Typography>
                     <Typography sx={{mt: 2}}>
                         <p className="paragraph">Please note that it is required to verify your email address by entering a verification code.</p>
                     </Typography>
                     <Typography sx={{mt: 2}}>
-                        <h5 className="heading">Email address</h5>
+                        <h5 className="signup-heading">Email address</h5>
                         <form noValidate autoComplete="off">
                             <FormControl sx={{marginBottom: '25px'}} className="textfield">
                                 <OutlinedInput
@@ -93,7 +93,7 @@ export default function SignUp() {
                             CONTINUE
                         </StyledButton>
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{mt: 2}} className="signInContent">
+                    <Typography id="modal-modal-description" sx={{mt: 2}} className="signup-content">
                         Already have an account? <u>LOGIN</u>
                     </Typography>
                     <Typography sx={{mt: 2}}>

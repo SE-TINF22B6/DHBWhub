@@ -158,34 +158,12 @@
   width: 14px;
 }
 
-.sign-up {
+.login, .sign-up {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   background: none;
   border: none;
-}
-
-.sign-up-wrapper {
-  background-color: #2C353D;
-  border: 1px solid #E3001B;
-  border-radius: 10px;
-  height: 40px;
-  position: relative;
-  width: 100px;
-}
-
-.sign-up-text {
-  color: #ffffff;
-  font-family: "Source Sans Pro-Regular", Helvetica, serif;
-  font-size: 18px;
-  font-weight: 400;
-  left: 12px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  top: 9px;
-  white-space: nowrap;
-  width: 78px;
+  margin-right: auto;
 }
