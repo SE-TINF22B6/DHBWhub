@@ -9,4 +9,4 @@
 | End User | Clicks on the calendar  | Data within system | Normal operation | Events on calendar are up-to-date and consistent with other users | Checking the state on different devices, database monitoring |
 | Unregistered user | Browses the website | Data within the system | Normal operation | Unregistered user gets to know which features he can't use or is restricted | Implementing visual reminder, manual UI-Tests |
 | End Users | Opens the website in a new session | Data within the system | Normal operation | Opening different pages except the feed page shouldn't take too long | Measuring asynchronous loading while the feed page is shown |
-| Developer | Develops new features on a different branch |  |   |   |   |  
+| Developer | Develops new features on a different branch | System | Development | Developer can develop new features without manually checking the state of the product | automated CI/CD pipeline checking the state of the project|  
