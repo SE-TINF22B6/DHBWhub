@@ -1,5 +1,6 @@
 import React from "react";
 import "./CalendarEntry.css";
+import {Link} from "react-router-dom";
 
 interface CalenderEntryProps {
   title: string;
@@ -7,6 +8,7 @@ interface CalenderEntryProps {
   tags: string[];
   day: number;
   month: string;
+  id: number;
 }
 
 export const CalendarEntry: React.FC<CalenderEntryProps> = (props: CalenderEntryProps) => {
@@ -16,28 +18,26 @@ export const CalendarEntry: React.FC<CalenderEntryProps> = (props: CalenderEntry
     tags,
     day,
     month,
+    id,
   } = props;
 
   return (
       <div className="calendar-entry">
-        <div className="title">{title}</div>
+        <Link to={"/event/?id=" + id} className="event-link">
+          <div className="event-title">{title}</div>
+        </Link>
         <div className="address">{address}</div>
-        <div className="tags">
-          <div className="tag">
-            <div className="overlap-group-2">
-              <div className="tag1-background"></div>
-              <div className="tag1">{tags[0]}</div>
+        {tags && tags.length > 0 && (
+            <div className="event-tags">
+              {tags.map((tag: string, index: number) => (tag && (
+                  <div className="event-tag" key={index}>
+                    {tag}
+                  </div>
+              )))}
             </div>
-          </div>
-          <div className="overlap-wrapper">
-            <div className="overlap-group-2">
-              <div className="tag2-background"></div>
-              <div className="tag-2">{tags[1]}</div>
-            </div>
-          </div>
-        </div>
+        )}
         <div className="date">
-          <div className="overlap-4">
+          <div className="date-background">
             <div className="day">{day}</div>
             <div className="month">{month}</div>
           </div>

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SearchBar} from './SearchBar';
-
+import { SearchBar } from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
 import "./Header.css";
 import {Logo} from "./Logo";
@@ -14,9 +13,9 @@ export const Header = () => {
     const [currentLocation, setCurrentLocation] = useState('');
     const location = useLocation();
 
-    useEffect(() => {
-        setCurrentLocation(location.pathname);
-    }, [location]);
+  useEffect((): void => {
+    setCurrentLocation(location.pathname);
+  }, [location]);
 
     return (
         <div className="header">

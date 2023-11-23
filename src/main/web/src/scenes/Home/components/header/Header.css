@@ -35,7 +35,7 @@
 }
 
 .home-background {
-  background-image: url(../../assets/header/home.svg);
+  background-image: url(../../../../../public/assets/home/header/home.svg);
   height: 45px;
   width: 45px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -43,7 +43,7 @@
 }
 
 .home-background.active {
-  background-image: url(../../assets/header/home-active.svg);
+  background-image: url(../../../../../public/assets/home/header/home-active.svg);
 }
 
 .friends-button {
@@ -55,7 +55,7 @@
 }
 
 .friends-background {
-  background-image: url(../../assets/header/friends.svg);
+  background-image: url(../../../../../public/assets/home/header/friends.svg);
   height: 45px;
   width: 45px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -63,7 +63,7 @@
 }
 
 .friends-background.active {
-  background-image: url(../../assets/header/friends-active.svg);
+  background-image: url(../../../../../public/assets/home/header/friends-active.svg);
 }
 
 .calendar-button {
@@ -76,7 +76,7 @@
 }
 
 .calendar-background {
-  background-image: url(../../assets/header/calendar.svg);
+  background-image: url(../../../../../public/assets/home/header/calendar.svg);
   height: 45px;
   width: 45px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -84,7 +84,11 @@
 }
 
 .calendar-background.active {
-  background-image: url(../../assets/header/calendar-active.svg);
+  background-image: url(../../../../../public/assets/home/header/calendar-active.svg);
+}
+
+.calendar-button.hover {
+  background-image: url(../../../../../public/assets/home/header/calendar-active.svg);
 }
 
 .notifications-button,
@@ -106,11 +110,11 @@
 }
 
 .notifications-button {
-  background-image: url(../../assets/header/notifications.svg);
+  background-image: url(../../../../../public/assets/home/header/notifications.svg);
 }
 
 .notifications-button-new {
-  background-image: url(../../assets/header/notifications-dot.svg);
+  background-image: url(../../../../../public/assets/home/header/notifications-dot.svg);
 }
 
 .profile-component {
@@ -130,12 +134,12 @@
 }
 
 .profile-picture-header {
-  background-image: url(../../assets/header/header-profile.png);
-  height: 50px;
+  background-image: url(../../../../../public/assets/home/header/profile.svg);
+  height: 43px;
   border: 2px solid #E3001B;
   border-radius: 10px;
   position: relative;
-  width: 50px;
+  width: 43px;
 }
 
 .username {
@@ -143,6 +147,7 @@
   font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
   font-size: 18px;
   margin-left: 60px;
+  margin-top: 4px;
   font-weight: 500;
   letter-spacing: 0;
   line-height: 24px;
@@ -151,7 +156,7 @@
 }
 
 .arrow-down {
-  background-image: url(../../assets/header/arrow-down.svg);
+  background-image: url(../../../../../public/assets/home/header/arrow-down.svg);
   height: 10px;
   margin-left: 100px;
   position: relative;
