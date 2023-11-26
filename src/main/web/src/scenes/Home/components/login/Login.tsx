@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import {styled} from '@mui/system';
 import DividerWithText from './DividerWithText';
 import './Login.css';
+import LoginStep2 from './LoginStep2';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "./AlternativeLoginMethods";
 
@@ -42,6 +43,7 @@ export function handleOpenModal(setOpen: React.Dispatch<React.SetStateAction<boo
 export default function Login() {
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
+    const [openLoginStep2, setOpenLoginStep2] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -79,6 +81,7 @@ export default function Login() {
             .catch(error => {
                 console.error('Fetch error:', error);
             });
+        setOpenLoginStep2(true);
     };
 
     return (
@@ -114,6 +117,7 @@ export default function Login() {
                         <StyledButton variant="contained" onClick={handleContinueClick} style={{width: '100%'}}>
                             CONTINUE
                         </StyledButton>
+                        {openLoginStep2 ? <LoginStep2/> : null}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{mt: 2}} className="signInContent">
                         Need an account? <u>SIGN UP</u>
