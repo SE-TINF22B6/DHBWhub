@@ -9,6 +9,7 @@ import './EmailVerification.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
 import SignUpStep2 from "./SignUpStep2";
+import Link from "@mui/material/Link";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -78,14 +79,18 @@ export default function EmailVerification() {
                     {showSignUpStep2 ? (
                         <SignUpStep2/>
                     ) : (
-                        <Typography>
-                            <StyledButton variant="contained" onClick={handleContinueClick} style={{width: '100%'}}>
-                                CONTINUE
-                            </StyledButton>
-                        </Typography>
+                        <></>
                     )}
+                    <Typography>
+                        <StyledButton variant="contained" onClick={handleContinueClick} style={{width: '100%'}}>
+                            CONTINUE
+                        </StyledButton>
+                    </Typography>
                     <Typography id="modal-modal-description" sx={{mt: 2}} className="signInContent">
-                        Already have an account? <u>LOGIN</u>
+                        <span style={{ display: 'inline' }}>Already have an account?{' '}</span>
+                        <div className="login-link">
+                            <Link href="#">Login</Link>
+                        </div>
                     </Typography>
                 </Box>
             </Modal>

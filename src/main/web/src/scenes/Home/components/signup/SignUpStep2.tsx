@@ -9,6 +9,7 @@ import './SignUpStep2.css';
 import {Checkbox, FormControl, FormControlLabel, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
 import EmailVerification from "./EmailVerification";
+import Link from "@mui/material/Link";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -114,7 +115,10 @@ export default function SignUpStep2() {
                         </StyledButton>
                     </Typography>
                     <Typography id="modal-modal-description" sx={{mt: 2}} className="signInContent">
-                        Already have an account? <u>LOGIN</u>
+                        <span style={{ display: 'inline' }}>Already have an account?{' '}</span>
+                        <div className="login-link">
+                            <Link href="#">Login</Link>
+                        </div>
                     </Typography>
                     <Typography sx={{mt: 2}}>
                         <DividerWithText/>

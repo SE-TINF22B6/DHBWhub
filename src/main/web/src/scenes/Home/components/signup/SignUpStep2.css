@@ -124,3 +124,7 @@
     white-space: nowrap;
     width: 59px;
 }
+
+.login-link {
+    display: inline;
+}

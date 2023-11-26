@@ -82,11 +82,6 @@ export default function Login() {
 
     return (
         <>
-            <button className="login" onClick={handleOpen}>
-                <div className="log-in-wrapper">
-                    <div className="log-in-text">LOGIN</div>
-                </div>
-            </button>
             <Modal
                 open={open}
                 onClose={handleClose}

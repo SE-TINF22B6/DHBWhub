@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { SearchBar } from './SearchBar';
+import {SearchBar} from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
 import "./Header.css";
 import {Logo} from "./Logo";
@@ -9,13 +9,13 @@ import SignUp from "../signup/SignUp";
 export const Header = () => {
 
     const [newNotifications, setNewNotifications] = useState(true);
-    const [loggedIn, setLoggedIn] = useState(false);
     const [currentLocation, setCurrentLocation] = useState('');
     const location = useLocation();
+    const [openLogin, setOpenLogin] = useState(false)
 
-  useEffect((): void => {
-    setCurrentLocation(location.pathname);
-  }, [location]);
+    useEffect((): void => {
+        setCurrentLocation(location.pathname);
+    }, [location]);
 
     return (
         <div className="header">
@@ -47,9 +47,13 @@ export const Header = () => {
                     )}
                 </div>
 
-
                 <div className="login">
-                    <Login/>
+                    <button className="login" onClick={() => setOpenLogin(!openLogin)}>
+                        <div className="log-in-wrapper">
+                            <div className="log-in-text">LOGIN</div>
+                        </div>
+                    </button>
+                    {openLogin ? <Login/> : null}
                 </div>
                 <div className="sign-up">
                     <SignUp/>

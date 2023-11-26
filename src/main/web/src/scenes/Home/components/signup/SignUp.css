@@ -89,3 +89,7 @@
     line-height: 40px;
     text-align: center;
 }
+
+.login-link {
+    display: inline;
+}

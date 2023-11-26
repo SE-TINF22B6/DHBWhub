@@ -9,6 +9,8 @@ import './SignUp.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
 import EmailVerification from "./EmailVerification";
+import Link from "@mui/material/Link";
+import Login, {handleOpenModal} from "../login/Login";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -35,7 +37,7 @@ function MyFormHelperText() {
     return null;
 }
 
-export function handleOpenModal(setOpen: React.Dispatch<React.SetStateAction<boolean>>) {
+export function handleOpenSignUpModal(setOpen: React.Dispatch<React.SetStateAction<boolean>>) {
     setOpen(true);
 }
 
@@ -43,12 +45,14 @@ export default function SignUp() {
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [showEmailVerification, setShowEmailVerification] = useState(false);
+    const [openLogin, setOpenLogin] = useState(true);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleContinueClick = () => {
-        setShowEmailVerification(true)
+        setShowEmailVerification(true);
+        handleClose();
     };
 
     return (
@@ -94,7 +98,13 @@ export default function SignUp() {
                         </StyledButton>
                     </Typography>
                     <Typography id="modal-modal-description" sx={{mt: 2}} className="signup-content">
-                        Already have an account? <u>LOGIN</u>
+                        <span style={{ display: 'inline' }}>Already have an account?{' '}</span>
+                        <div className="login-link">
+                            <Link href="#" style={{ color: '#989494' }} onClick={() => setOpenLogin(!openLogin)}>
+                                <a style={{ textDecoration: 'underline', color: '#989494' }}>LOGIN</a>
+                            </Link>
+                            {openLogin ? <Login/> : null}
+                        </div>
                     </Typography>
                     <Typography sx={{mt: 2}}>
                         <DividerWithText/>
