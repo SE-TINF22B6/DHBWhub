@@ -15,6 +15,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
+    height: 560,
     bgcolor: '#3B454F',
     border: '2px solid #000',
     boxShadow: 24,
@@ -82,6 +83,11 @@ export default function Login() {
 
     return (
         <>
+            <button className="login" onClick={handleOpen}>
+                <div className="log-in-wrapper">
+                    <div className="log-in-text">LOGIN</div>
+                </div>
+            </button>
             <Modal
                 open={open}
                 onClose={handleClose}

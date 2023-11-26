@@ -47,17 +47,8 @@ export const Header = () => {
                     )}
                 </div>
 
-                <div className="login">
-                    <button className="login" onClick={() => setOpenLogin(!openLogin)}>
-                        <div className="log-in-wrapper">
-                            <div className="log-in-text">LOGIN</div>
-                        </div>
-                    </button>
-                    {openLogin ? <Login/> : null}
-                </div>
-                <div className="sign-up">
-                    <SignUp/>
-                </div>
+                <Login/>
+                <SignUp/>
             </div>
         </div>
     );

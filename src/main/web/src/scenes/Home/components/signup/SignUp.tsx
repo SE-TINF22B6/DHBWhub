@@ -103,7 +103,7 @@ export default function SignUp() {
                             <Link href="#" style={{ color: '#989494' }} onClick={() => setOpenLogin(!openLogin)}>
                                 <a style={{ textDecoration: 'underline', color: '#989494' }}>LOGIN</a>
                             </Link>
-                            {openLogin ? <Login/> : null}
+                            {openLogin ? null : null}
                         </div>
                     </Typography>
                     <Typography sx={{mt: 2}}>
