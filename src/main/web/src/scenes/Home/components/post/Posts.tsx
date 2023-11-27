@@ -15,7 +15,6 @@ export const Posts = () => {
                 "qualitativ hochwertige Leads zu generieren und Ihr Geschäft voranzutreiben"}
             tags={["Marketing", "BWL", "Dozenten"]}
             authorUsername={"Dietmar Bohn"}
-            authorId={1}
             postCreatedTimestamp={"2023-11-06T12:34:30"}
             initialLikes={10}
             initialComments={3}
@@ -28,7 +27,6 @@ export const Posts = () => {
                 "Skills und KI"}
             tags={["Dirk Dual", "Zukunft"]}
             authorUsername={"Ulf-Daniel Ehlers"}
-            authorId={2}
             postCreatedTimestamp={"2023-11-09T22:00:30"}
             initialLikes={13}
             initialComments={0}
@@ -39,7 +37,6 @@ export const Posts = () => {
             description={"Entdeckt die besten Gyms in eurer Nähe! Mit der neuen Website Gymfinder findet ihr mühelos das ideale Fitnessstudio, das zu euren Bedürfnissen passt. Egal, ob ihr nach hochmodernen Trainingsgeräten, qualifizierten Trainern oder besonderen Kursangeboten sucht, Gymfinder bietet eine umfassende Übersicht über die besten Fitnessstudios in eurer Nähe. Durchsucht die umfangreiche Datenbank, vergleicht die Ausstattung und Dienstleistungen der Gyms und findet so das perfekte Studio für eure individuellen Ziele."}
             tags={["Sport", "Freizeit", "Gym"]}
             authorUsername={"Markus Rühl"}
-            authorId={2}
             postCreatedTimestamp={"2023-11-16T22:00:30"}
             initialLikes={187}
             initialComments={0}
