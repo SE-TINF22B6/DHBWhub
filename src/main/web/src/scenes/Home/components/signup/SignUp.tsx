@@ -9,7 +9,6 @@ import './SignUp.css';
 import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
 import EmailVerification from "./EmailVerification";
-import Link from "@mui/material/Link";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -44,7 +43,6 @@ export default function SignUp() {
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [showEmailVerification, setShowEmailVerification] = useState(false);
-    const [openLogin, setOpenLogin] = useState(true);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -100,7 +98,7 @@ export default function SignUp() {
                     <Typography id="modal-modal-description" sx={{mt: 2}} className="signup-content">
                         <span style={{display: 'inline'}}>Already have an account?{' '}</span>
                         <div className="login-link">
-                            <a style={{textDecoration: 'underline', color: '#989494'}}>LOGIN</a>
+                            <u style={{textDecoration: 'underline', color: '#989494'}}>LOGIN</u>
                         </div>
                     </Typography>
                     <Typography sx={{mt: 2}}>
