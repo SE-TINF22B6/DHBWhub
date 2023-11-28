@@ -4,10 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {styled} from '@mui/system';
-import DividerWithText from '../login/DividerWithText';
 import './EmailVerification.css';
 import {FormControl, OutlinedInput} from '@mui/material';
-import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
 import SignUpStep2 from "./SignUpStep2";
 import Link from "@mui/material/Link";
 
@@ -45,7 +43,6 @@ export default function EmailVerification() {
     const [email, setEmail] = useState('');
     const [showSignUpStep2, setShowSignUpStep2] = useState(false);
 
-    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleContinueClick = () => {

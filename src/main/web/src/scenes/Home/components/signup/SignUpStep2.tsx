@@ -8,7 +8,6 @@ import DividerWithText from '../login/DividerWithText';
 import './SignUpStep2.css';
 import {Checkbox, FormControl, FormControlLabel, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
-import EmailVerification from "./EmailVerification";
 import Link from "@mui/material/Link";
 
 const style = {

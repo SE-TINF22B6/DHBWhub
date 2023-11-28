@@ -50,7 +50,7 @@ export default function ModalComponent(props: any) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    if (props == true) {
+    if (props === true) {
         handleOpen();
     }
 

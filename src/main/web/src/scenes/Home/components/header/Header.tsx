@@ -11,7 +11,6 @@ export const Header = () => {
     const [newNotifications, setNewNotifications] = useState(true);
     const [currentLocation, setCurrentLocation] = useState('');
     const location = useLocation();
-    const [openLogin, setOpenLogin] = useState(false)
 
     useEffect((): void => {
         setCurrentLocation(location.pathname);

@@ -54,6 +54,7 @@ export default function Login() {
         try {
             const response = await fetch(backendAPIEndpoint, {
                 method: 'POST',
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },

@@ -10,7 +10,6 @@ import {FormControl, OutlinedInput} from '@mui/material';
 import AlternativeLoginMethods from "../login/AlternativeLoginMethods";
 import EmailVerification from "./EmailVerification";
 import Link from "@mui/material/Link";
-import Login, {handleOpenModal} from "../login/Login";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -100,7 +99,7 @@ export default function SignUp() {
                     <Typography id="modal-modal-description" sx={{mt: 2}} className="signup-content">
                         <span style={{ display: 'inline' }}>Already have an account?{' '}</span>
                         <div className="login-link">
-                            <Link href="#" style={{ color: '#989494' }} onClick={() => setOpenLogin(!openLogin)}>
+                            <Link style={{ color: '#989494' }} onClick={() => setOpenLogin(!openLogin)}>
                                 <a style={{ textDecoration: 'underline', color: '#989494' }}>LOGIN</a>
                             </Link>
                             {openLogin ? null : null}
