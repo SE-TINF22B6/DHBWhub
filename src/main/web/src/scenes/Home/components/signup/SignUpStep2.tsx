@@ -42,8 +42,8 @@ export function handleOpenModal(setOpen: React.Dispatch<React.SetStateAction<boo
 export default function SignUpStep2() {
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [reEnterPassword, setReEnterPassword] = useState('');
+    const [password] = useState('');
+    const [reEnterPassword] = useState('');
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -116,7 +116,7 @@ export default function SignUpStep2() {
                     <Typography id="modal-modal-description" sx={{mt: 2}} className="signInContent">
                         <span style={{ display: 'inline' }}>Already have an account?{' '}</span>
                         <div className="login-link">
-                            <Link href="#">Login</Link>
+                            <Link>Login</Link>
                         </div>
                     </Typography>
                     <Typography sx={{mt: 2}}>
