@@ -72,7 +72,8 @@ export default function SignUp() {
                         <h3 className="signup-heading"><b>CREATE YOUR ACCOUNT</b></h3>
                     </Typography>
                     <Typography sx={{mt: 2}}>
-                        <p className="paragraph">Please note that it is required to verify your email address by entering a verification code.</p>
+                        <p className="paragraph">Please note that it is required to verify your email address by
+                            entering a verification code.</p>
                     </Typography>
                     <Typography sx={{mt: 2}}>
                         <h5 className="signup-heading">Email address</h5>
@@ -97,12 +98,9 @@ export default function SignUp() {
                         </StyledButton>
                     </Typography>
                     <Typography id="modal-modal-description" sx={{mt: 2}} className="signup-content">
-                        <span style={{ display: 'inline' }}>Already have an account?{' '}</span>
+                        <span style={{display: 'inline'}}>Already have an account?{' '}</span>
                         <div className="login-link">
-                            <Link style={{ color: '#989494' }} onClick={() => setOpenLogin(!openLogin)}>
-                                <a style={{ textDecoration: 'underline', color: '#989494' }}>LOGIN</a>
-                            </Link>
-                            {openLogin ? null : null}
+                            <a style={{textDecoration: 'underline', color: '#989494'}}>LOGIN</a>
                         </div>
                     </Typography>
                     <Typography sx={{mt: 2}}>
