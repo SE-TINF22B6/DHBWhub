@@ -56,4 +56,9 @@ public class AccountServiceImpl implements AccountService {
 
         repository.delete(id);
     }
+
+    public boolean checkIfEmailExists(String email) {
+        return getAll().stream().anyMatch(account -> account.getEmail().equals(email));
+    }
+
 }
