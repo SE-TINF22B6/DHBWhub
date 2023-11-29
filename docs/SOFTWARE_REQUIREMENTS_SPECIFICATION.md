@@ -234,7 +234,7 @@ in the next subchapters!
 In terms of usability, the following factors play a very important role.
 
 #### 3.1.1 Quick Learning
-It may be crucial to us that every user is able to participate or use every function and explores all the possibilities our project has to offer. Yet, it is even more important to create a structure and visual overview that doesn't deter new users from exploring all these possibilities our project has to offer.  
+It may be crucial to us that every user is able to participate or use every function and explores all the possibilities our project has to offer. Yet, it is even more important to create a structure and visual overview that doesn't deter new users from using all the features to its fullest extent.  
 There are some nice ways to combat this problem:
 - Using a modular webdesign, in which the most important things are displayed in the center. Furthermore, other important aspects such as the navigation bar or the account settings are located at places which are usually used by other social media applications.
 - Providing a documentation or FAQ site which states the most important use cases in a concise yet understandable manner.
