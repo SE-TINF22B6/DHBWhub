@@ -1,8 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
-import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.SavedPost;
-import de.tinf22b6.dhbwhub.repository.interfaces.SpringPostRepository;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringSavedPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
