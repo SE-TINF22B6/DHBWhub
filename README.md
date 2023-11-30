@@ -13,7 +13,6 @@ organization of the university classes or other leisure activities.
 This is our current tech-stack:
 * React
 * TypeScript
-* Node.js
 * GitHub
 * Java
 * JUnit
