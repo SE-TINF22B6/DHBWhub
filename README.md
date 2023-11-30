@@ -19,7 +19,6 @@ This is our current tech-stack:
 * Postgre SQL
 * Spring Boot
 * Maven
-* SonarQube
 
 ## SRS
 You can find our Software Requirements Specification here: [DHBWhub Software Requirements Specification](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/SOFTWARE_REQUIREMENTS_SPECIFICATION.md)
