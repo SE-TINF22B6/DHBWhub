@@ -1,10 +1,10 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.tinf22b6.dhbwhub.mapper.UserMapper;
-import de.tinf22b6.dhbwhub.model.User;
-import de.tinf22b6.dhbwhub.proposal.UserProposal;
-import de.tinf22b6.dhbwhub.service.UserServiceImpl;
+import de.tinf22b6.dhbwhub.mapper.CourseMapper;
+import de.tinf22b6.dhbwhub.model.Course;
+import de.tinf22b6.dhbwhub.proposal.CourseProposal;
+import de.tinf22b6.dhbwhub.service.CourseServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,26 +29,26 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = UserController.class)
+@WebMvcTest(controllers = CourseController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class UserControllerTests {
+public class CourseControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private UserServiceImpl userService;
+    private CourseServiceImpl courseService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        User user = new User(19, "Ich studiere Informatik", null, null);
-        when(userService.getAll()).thenReturn(List.of(user, user));
+        Course course = new Course("TINF22B5", null);
+        when(courseService.getAll()).thenReturn(List.of(course, course));
 
-        ResultActions response = mockMvc.perform(get("/user")
+        ResultActions response = mockMvc.perform(get("/course")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
@@ -57,50 +57,47 @@ public class UserControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        User user = new User(19, "Ich studiere Informatik", null, null);
-        when(userService.get(any(Long.class))).thenReturn(user);
+        Course course = new Course("TINF22B5", null);
+        when(courseService.get(any(Long.class))).thenReturn(course);
 
-        ResultActions response = mockMvc.perform(get("/user/1")
+        ResultActions response = mockMvc.perform(get("/course/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.age", is(user.getAge())))
-                .andExpect(jsonPath("$.description", is(user.getDescription())));
+                .andExpect(jsonPath("$.name", is(course.getName())));
     }
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        UserProposal userProposal = new UserProposal(19, "Ich studiere Informatik", null, null);
-        given(userService.create(any(UserProposal.class))).willAnswer(i -> UserMapper.mapToModel(i.getArgument(0)));
+        CourseProposal courseProposal = new CourseProposal("TINF22B5", null);
+        given(courseService.create(any(CourseProposal.class))).willAnswer(i -> CourseMapper.mapToModel(i.getArgument(0)));
 
-        ResultActions response = mockMvc.perform(post("/user")
+        ResultActions response = mockMvc.perform(post("/course")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userProposal)));
+                .content(objectMapper.writeValueAsString(courseProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.age", is(userProposal.getAge())))
-                .andExpect(jsonPath("$.description", is(userProposal.getDescription())));
+                .andExpect(jsonPath("$.name", is(courseProposal.getName())));
     }
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        UserProposal userProposal = new UserProposal(19, "Ich studiere Informatik", null, null);
-        when(userService.update(any(Long.class), any(UserProposal.class))).thenReturn(UserMapper.mapToModel(userProposal));
+        CourseProposal courseProposal = new CourseProposal("TINF22B5", null);
+        when(courseService.update(any(Long.class), any(CourseProposal.class))).thenReturn(CourseMapper.mapToModel(courseProposal));
 
-        ResultActions response = mockMvc.perform(put("/user/1")
+        ResultActions response = mockMvc.perform(put("/course/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userProposal)));
+                .content(objectMapper.writeValueAsString(courseProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.age", is(userProposal.getAge())))
-                .andExpect(jsonPath("$.description", is(userProposal.getDescription())));
+                .andExpect(jsonPath("$.name", is(courseProposal.getName())));
     }
 
     @Test
     void Delete_StatusIsOk() throws Exception {
-        doNothing().when(userService).delete(any(Long.class));
+        doNothing().when(courseService).delete(any(Long.class));
 
-        ResultActions response = mockMvc.perform(delete("/user/1")
+        ResultActions response = mockMvc.perform(delete("/course/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isNoContent());

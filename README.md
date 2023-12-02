@@ -13,14 +13,12 @@ organization of the university classes or other leisure activities.
 This is our current tech-stack:
 * React
 * TypeScript
-* Node.js
 * GitHub
 * Java
 * JUnit
 * Postgre SQL
 * Spring Boot
 * Maven
-* SonarQube
 
 ## SRS
 You can find our Software Requirements Specification here: [DHBWhub Software Requirements Specification](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/SOFTWARE_REQUIREMENTS_SPECIFICATION.md)
