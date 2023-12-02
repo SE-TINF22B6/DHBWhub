@@ -1,6 +1,6 @@
 import React from 'react';
 import {EmailIcon, EmailShareButton, LinkedinIcon, LinkedinShareButton, RedditIcon, RedditShareButton, TelegramIcon, TelegramShareButton,
-  TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton} from "react-share";
+  XIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton} from "react-share";
 import './Share.css';
 
 interface ShareProps {
@@ -54,7 +54,7 @@ export const Share = (props: ShareProps): JSX.Element => {
           <TelegramIcon size={32} round={true}/>
         </TelegramShareButton>
         <TwitterShareButton title="Check out this post at DHBWhub:" url={currentPageURL + "post/?id=" + props.postId}>
-          <TwitterIcon size={32} round={true}/>
+          <XIcon size={32} round={true}/>
         </TwitterShareButton>
         <RedditShareButton title="Check out this post at DHBWhub:" url={currentPageURL + "post/?id=" + props.postId}>
           <RedditIcon size={32} round={true}/>

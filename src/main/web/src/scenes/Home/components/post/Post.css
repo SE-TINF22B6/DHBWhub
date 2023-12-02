@@ -7,7 +7,7 @@
   justify-content: space-between;
 }
 
-.post-button {
+.post-button, .post-tag-button {
   color: transparent;
 }
 
@@ -217,4 +217,9 @@
   object-fit: cover;
   position: relative;
   width: 25px;
+}
+
+.author-link {
+  color: transparent;
+  margin-top: 10px;
 }

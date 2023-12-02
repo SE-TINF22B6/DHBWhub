@@ -1,6 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Post.css';
-import {Link} from "react-router-dom";
+import {Share} from "./Share";
+import {Link, useLocation} from "react-router-dom";
+import {ReportPost} from "./ReportPost";
+import {PostMenu} from "./PostMenu";
 
 interface PostProps {
   postId: number;
@@ -8,6 +11,7 @@ interface PostProps {
   description: string;
   tags: string[];
   authorUsername: string;
+  authorId: number;
   postCreatedTimestamp: string;
   initialLikes: number;
   initialComments: number;
@@ -20,6 +24,7 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
     title,
     tags,
     authorUsername,
+    authorId,
     initialLikes,
     initialComments,
   } = props;
@@ -63,7 +68,94 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
   const [userLiked, setUserLiked] = useState(false);
   const [heartClass, setHeartClass] = useState('heart-empty');
   const [comments] = useState(initialComments);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [shareWindowOpen, setShareWindowOpen] = useState(false);
+  const currentPageURL = window.location.href;
+  const [currentLocation, setCurrentLocation] = useState('');
+  const location = useLocation();
   const shortDescription = shortenDescription(props.description, 190);
+
+  const [reportOpen, setReportOpen] = useState(false);
+  const [reportReason, setReportReason] = useState('');
+  const [reportDescription, setReportDescription] = useState('');
+
+  const handleReportClick = (): void => {
+    setReportOpen(true);
+  };
+
+  function sendReportToBackend(reportReason: string, reportDescription: string, postId: number, authorId: number, userId: number): void {
+    const report = {
+      reportReason: reportReason,
+      reportDescription: reportDescription,
+      postId: postId,
+      authorId: authorId,
+      userId: userId,
+    };
+
+    fetch("http://localhost:8080/report", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(report),
+      credentials: 'include',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
+  }
+
+  const handleReportSubmit = (): void => {
+    sendReportToBackend(reportReason, reportDescription, props.postId, props.authorId, 187);
+    setReportOpen(!reportOpen);
+    setReportReason('');
+    setReportDescription('');
+  };
+
+  useEffect((): void => {
+    setCurrentLocation(location.pathname);
+    const userLikedPost = localStorage.getItem(`liked_${postId}`);
+    if (userLikedPost) {
+      setUserLiked(true);
+      setHeartClass('heart-filled');
+    }
+  }, [location, postId]);
+
+  useEffect((): void => {
+    setCurrentLocation(location.pathname);
+  }, [location]);
+
+  const handleMenuClick = (): void => {
+    setMenuOpen(!menuOpen);
+    setShareWindowOpen(false);
+  };
+
+  const handleShareClick = (): void => {
+    setShareWindowOpen(!shareWindowOpen);
+  };
+
+  const handleSaveClick = (): void => {
+    fetch(`http://localhost:8080/savePost?postId=${postId}`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+    .then((): void => {
+      alert('Post has been saved!');
+    })
+    .catch(err => {
+      console.error('Error saving the post: ', err);
+      alert('Error saving the post');
+    });
+  };
 
   const handleLike = (): void => {
     if (!userLiked) {
@@ -83,34 +175,70 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
       <div className="post-container">
         <div className="post">
           <div className="picture" style={{backgroundImage: `url(${props.imageSrc})`}}></div>
-          <button className="post-menu">...</button>
+          <button className="post-menu" onClick={handleMenuClick}>...</button>
+
           <div className="post-infos">
             <Link to={`/post/?id=${postId}`} className="post-button">
               <p className="post-title">{title}</p>
             </Link>
             <div className="tags">
-              {tags.length > 0 && <div className="post-tag">{tags[0]}</div>}
-              {tags.length > 1 && <div className="post-tag">{tags[1]}</div>}
-              {tags.length > 2 && <div className="post-tag">{tags[2]}</div>}
+              {tags.length > 0 &&
+                  <Link to={`/tag/?name=${tags[0].toLowerCase().replace(' ', '-')}`} className="post-tag-button">
+                    <div className="post-tag">{tags[0]}</div>
+                  </Link>
+              }
+              {tags.length > 1 &&
+                  <Link to={`/tag/?name=${tags[1].toLowerCase().replace(' ', '-')}`} className="post-tag-button">
+                    <div className="post-tag">{tags[1]}</div>
+                  </Link>
+              }
+              {tags.length > 2 &&
+                  <Link to={`/tag/?name=${tags[2].toLowerCase().replace(' ', '-')}`} className="post-tag-button">
+                    <div className="post-tag">{tags[2]}</div>
+                  </Link>
+              }
             </div>
             <p className="short-description">{shortDescription}</p>
             <div className="seperator"/>
-            <p className="author-date">{authorUsername} · {formattedTime}</p>
+
+            <Link to={`/user/?name=${authorUsername.toLowerCase().replace(' ', '-')}`} className="author-link">
+              <div className="author-date">{authorUsername} · {formattedTime}</div>
+            </Link>
+
+            {shareWindowOpen && (<Share postId={postId} currentPageURL={currentPageURL}></Share>)}
+
+            {reportOpen && (
+                <ReportPost
+                    reportOpen={reportOpen}
+                    reportReason={reportReason}
+                    reportDescription={reportDescription}
+                    setReportReason={setReportReason}
+                    setReportDescription={setReportDescription}
+                    handleReportSubmit={handleReportSubmit}
+                />
+            )}
           </div>
 
           <div className="interaction-stats">
             <div className="stats">
               <div className="likes">{likes} likes</div>
-              <div className="comments">{comments} comments</div>
+              <Link to={`/post/?id=${postId}`} className="post-button">
+                <div className="comments">{comments} comments</div>
+              </Link>
             </div>
           </div>
           <div className="interaction-symbols">
             <button className={`like-button ${userLiked ? 'liked' : ''}`} onClick={handleLike}>
               <div className={`heart-symbol ${heartClass}`} />
             </button>
-            <div className="comment-symbol"/>
+            <Link to={`/post/?id=${postId}`} className="post-button">
+              <div className="comment-symbol"/>
+            </Link>
           </div>
         </div>
+        {menuOpen && (
+            <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
+        )}
       </div>
   );
 };
