@@ -24,7 +24,6 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
     title,
     tags,
     authorUsername,
-    authorId,
     initialLikes,
     initialComments,
   } = props;
@@ -71,7 +70,6 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL = window.location.href;
-  const [currentLocation, setCurrentLocation] = useState('');
   const location = useLocation();
   const shortDescription = shortenDescription(props.description, 190);
 
@@ -122,17 +120,12 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
   };
 
   useEffect((): void => {
-    setCurrentLocation(location.pathname);
     const userLikedPost = localStorage.getItem(`liked_${postId}`);
     if (userLikedPost) {
       setUserLiked(true);
       setHeartClass('heart-filled');
     }
   }, [location, postId]);
-
-  useEffect((): void => {
-    setCurrentLocation(location.pathname);
-  }, [location]);
 
   const handleMenuClick = (): void => {
     setMenuOpen(!menuOpen);
