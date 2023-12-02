@@ -6,14 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
-
 @Getter
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
+@Table(name = "saved_post")
 public class SavedPost {
     @Id
     @GeneratedValue
