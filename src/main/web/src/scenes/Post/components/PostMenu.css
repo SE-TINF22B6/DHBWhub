@@ -1,0 +1,76 @@
+.menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  position: relative;
+  z-index: 9999;
+}
+
+.menu {
+  background-color: #2C353D;
+  border-radius: 25px;
+  height: 108px;
+  top: 60px;
+  left: 700px;
+  object-fit: cover;
+  position: relative;
+  width: 137px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  z-index: 9999;
+}
+
+.menu-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-option {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: 25px;
+  left: -115px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  top: 10px;
+  white-space: nowrap;
+  width: 360px;
+}
+
+.share-image {
+  background-image: url(../assets/post/share.svg);
+  top: 10px;
+  height: 16px;
+  left: 20px;
+  object-fit: cover;
+  position: relative;
+  width: 15px;
+}
+
+.save-image {
+  background-image: url(../assets/post/save.svg);
+  top: 10px;
+  height: 16px;
+  left: 20px;
+  object-fit: cover;
+  position: relative;
+  width: 15px;
+}
+
+.report-image {
+  background-image: url(../assets/post/report.svg);
+  top: 10px;
+  height: 16px;
+  left: 20px;
+  object-fit: cover;
+  position: relative;
+  width: 15px;
+}

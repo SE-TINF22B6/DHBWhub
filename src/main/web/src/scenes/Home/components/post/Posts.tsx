@@ -16,6 +16,7 @@ export const Posts = () => {
             tags={["Marketing", "BWL", "Dozenten"]}
             authorUsername={"Dietmar Bohn"}
             postCreatedTimestamp={"2023-11-06T12:34:30"}
+            authorId={1}
             initialLikes={10}
             initialComments={3}
             imageSrc={"/assets/home/post/image-example.svg"}></Post>
@@ -28,6 +29,7 @@ export const Posts = () => {
             tags={["Dirk Dual", "Zukunft"]}
             authorUsername={"Ulf-Daniel Ehlers"}
             postCreatedTimestamp={"2023-11-09T22:00:30"}
+            authorId={2}
             initialLikes={13}
             initialComments={0}
             imageSrc={"/assets/home/post/image-example-2.svg"}></Post>
@@ -38,6 +40,7 @@ export const Posts = () => {
             tags={["Sport", "Freizeit", "Gym"]}
             authorUsername={"Markus Rühl"}
             postCreatedTimestamp={"2023-11-16T22:00:30"}
+            authorId={3}
             initialLikes={187}
             initialComments={0}
             imageSrc={"/assets/home/post/image-example-3.svg"}></Post>
