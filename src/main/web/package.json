@@ -8,7 +8,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@lexical/code": "^0.12.4",
-    "@lexical/link": "^0.12.4",
+    "@lexical/link": "^0.12.5",
     "@lexical/list": "^0.12.4",
     "@lexical/markdown": "^0.12.4",
     "@lexical/react": "^0.12.4",
