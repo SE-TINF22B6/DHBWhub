@@ -78,9 +78,9 @@ Documents:
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/er_diagram_general_overview.drawio.png
 - Utility-Tree, 28.11.2023:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UtilityTree.drawio.png
-  
->  A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
-
+- Link to all mockups in figma, 23.12.2023:\
+  https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=zP3nHfwEDQeziwMq-0
+    
 ---
 
 ## 2. Functional requirements
@@ -138,9 +138,7 @@ The landing page is the starting point of our project which allows the navigatio
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-**Link to mockup**: https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
-
-  
+    
 #### 2.2.2 Creating account/Signing in
 In order to use all of our important features, the end user needs to create a new account which is used for signing up in future sessions. Alternatively, 
 signing in/up through 3rd-party applications e.g. Google is also possible but will be explained in further detail under section 2.2.3.2.
@@ -170,7 +168,6 @@ After a user has signed in, he is able to use all the personalized functions of 
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-**Link to mockup**: https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=8058pcoXIPrzWU3J-0
 
 ---
 
@@ -190,7 +187,6 @@ Users can access a page or a form, which contains all the important and personal
 
 **Linked user stories**: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66),
 
-**Link to mockup**: > TODO
 
 ##### 2.2.3.2 Managing 3rd-party login
 It is possible to sign up via 3rd-party-access such as depicted in the previous use cases. However, the users also have the chance to change and manage their third party logins such as connecting or disconnecting the own Google, Microsoft or Apple account. 
@@ -205,7 +201,6 @@ Users can access a page or a form, in which they can configure their 3rd-party s
 
 **Linked user stories**: [Issue 36](https://github.com/SE-TINF22B6/DHBWhub/issues/36),
 
-**Link to mockup**: > TODO
 
 ---
 
@@ -213,7 +208,9 @@ Users can access a page or a form, in which they can configure their 3rd-party s
 In this section, we will take a closer look at the use cases concerning all the individual website activities without user-to-user interaction, which will be displayed in section 2.2.5 in more detail.
 
 ##### 2.2.4.1 Browsing personalized Feed
-After a user has signed in, the initial homepage will contain a more personalized feed. This means, that mainly posts from friends or the corresponding course, in which the user takes part in, are displayed on the main page. The user is also allowed to interact with these posts (with the minimalist view on the homepage) to some extent, such as liking, creating links or directly messaging the link through different channels.   
+After a user has signed in, the initial homepage will contain a more personalized feed. This means, that mainly posts from friends or the corresponding course, in which the user takes part in, are displayed on the main page. The user is also allowed to interact with these posts (with the minimalist view on the homepage) to some extent, such as liking, creating links or directly messaging the link through different channels as you can see in the following images:
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/64fc04c0-4158-4567-8a6f-0547f4dd85ab)
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/69205b64-a250-4c63-9177-d78566b3f0f7)
 
 **Preconditions**:  
 Users should be able to access the homepage and succesfully sign in.
@@ -225,20 +222,26 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 
 **Linked user stories**: [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27),
 
-**Link to mockup**: > TODO
 
 ##### 2.2.4.2 Create posts
+One of our most essential features for end users is the ability to create posts. Hereby, the users can click on the 'Create post' button and can insert a necessary headline, a description and an optional picture, which is the main content. You must also add at least one tag, so that other users can find this post when searching for it or similar topics. After the post has been created, you can click it to display the thread view. 
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/942b96bf-49e7-45d6-9e80-8f4cf4390ab5)
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/7e92a46a-d4d8-44f2-9e8f-c167ec816f2e)
+
 **Preconditions**:  
+The user has to be signed in and on the homepage.
 
 **Postconditions**:  
+Other users are able to search and interact with the newly created post.
 
-**Estimated efforts**: 
+**Estimated efforts**: medium-high
 
-**Linked user stories**: [Issue 23](link),
+**Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67),
 
-**Link to mockup**: 
 
 ##### 2.2.4.3 Save posts
+All users are able to save several existing posts from other user, which they can view all the time, as long the posts still exist.
+
 **Preconditions**:  
 
 **Postconditions**:  
@@ -247,7 +250,6 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 
 **Linked user stories**: [Issue 23](link),
 
-**Link to mockup**: 
 
 ##### 2.2.4.4 Calendar customization
 **Preconditions**:  
@@ -258,7 +260,6 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 
 **Linked user stories**: [Issue 23](link),
 
-**Link to mockup**: 
 
 ##### 2.2.4.5 View Events
 **Preconditions**:  
@@ -280,7 +281,6 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 
 **Linked user stories**: [Issue 23](link),
 
-**Link to mockup**: 
 
 --- 
 
@@ -289,7 +289,6 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 - As a user, I want to be able to view a Thread/Question/PostDetail with its comments on a single page. I should also be able to interact with the post on various ways like commenting, liking or sharing. 
 
 - user stories: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
-- Link to mockup: n.A.
 
 - This sequence diagram showcases how the user might create posts. At the start, the user is already logged in:
 >![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
@@ -297,6 +296,7 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 - Preconditions: Sample Threads and a mockup have to be created, as well as the database schema.
 - Postconditions: Users can view single Threads/ Posts with all of their interactions.
 - Estimated efforts: medium
+   
 ##### 2.2.5.2 Friendlist administration
 **Preconditions**:  
 
@@ -306,7 +306,6 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 
 **Linked user stories**: [Issue 23](link),
 
-**Link to mockup**: 
 
 ---
 
@@ -320,7 +319,6 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 
 **Linked user stories**: [Issue 23](link),
 
-**Link to mockup**: 
 
 ##### 2.2.6.2 Report issues/requests to administrators 
 **Preconditions**:  
@@ -331,7 +329,6 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 
 **Linked user stories**: [Issue 23](link),
 
-**Link to mockup**: 
 
 ---
 
