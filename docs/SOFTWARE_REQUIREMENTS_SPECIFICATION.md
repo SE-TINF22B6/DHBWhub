@@ -19,9 +19,9 @@
          - [2.2.4.1 Browsing personalized Feed](#2241-browsing-personalized-feed)
          - [2.2.4.2 Create posts](#2242-create-posts)
          - [2.2.4.3 Save posts](#2243-save-posts)
-         - [2.2.4.4 Calendar customization](#2244-calendar-customization)
-         - [2.2.4.5 View Events](#2245-view-events)
-         - [2.2.4.6 Checking notifications](#2246-checking-notifications)
+         - [2.2.4.4 View Calendar and events](#2244-view-calendar-and-events)
+         - [2.2.4.5 Checking notifications](#2245-checking-notifications)
+         - [2.2.4.6 Search bar](#2246-search-bar)
       + [2.2.5 User Interaction](#225-user-interaction)
          - [2.2.5.1 Post interaction](#2251-post-interaction)
          - [2.2.5.2 Friendlist administration](#2252-friendlist-administration)
@@ -39,7 +39,7 @@
       + [3.3.1 Response time](#331-response-time)
       + [3.3.2 Asynchronous loading](#332-asynchronous-loading)
    * [3.4 Security](#34-security)
-   * [4. Technical constraints](#4-technical-constraints)
+- [4. Technical constraints](#4-technical-constraints)
 
 
      
@@ -185,7 +185,7 @@ Users can access a page or a form, which contains all the important and personal
 
 **Estimated efforts**: medium-high
 
-**Linked user stories**: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66),
+**Linked user stories**: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
 
 
 ##### 2.2.3.2 Managing 3rd-party login
@@ -199,7 +199,7 @@ Users can access a page or a form, in which they can configure their 3rd-party s
 
 **Estimated efforts**: medium
 
-**Linked user stories**: [Issue 36](https://github.com/SE-TINF22B6/DHBWhub/issues/36),
+**Linked user stories**: [Issue 36](https://github.com/SE-TINF22B6/DHBWhub/issues/36)
 
 
 ---
@@ -220,11 +220,14 @@ The Homepage has a more personal appeal and surface-level interactions are allow
 
 **Estimated efforts**: medium-high
 
-**Linked user stories**: [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27),
+**Linked user stories**: [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
 
 ##### 2.2.4.2 Create posts
-One of our most essential features for end users is the ability to create posts. Hereby, the users can click on the 'Create post' button and can insert a necessary headline, a description and an optional picture, which is the main content. You must also add at least one tag, so that other users can find this post when searching for it or similar topics. After the post has been created, you can click it to display the thread view. 
+One of our most essential features for end users is the ability to create posts. Hereby, the users can click on the 'Create post' button and can insert a necessary headline, a description and an optional picture, which is the main content. You must also add at least one tag, so that other users can find this post when searching for it or similar topics. After the post has been created, you can click it to display the thread view. You can see the flow of sequences in the next sequence diagram:
+>![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
+  
+Here is how it looks like on the web-application:
 >![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/942b96bf-49e7-45d6-9e80-8f4cf4390ab5)
 >![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/7e92a46a-d4d8-44f2-9e8f-c167ec816f2e)
 
@@ -236,98 +239,140 @@ Other users are able to search and interact with the newly created post.
 
 **Estimated efforts**: medium-high
 
-**Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67),
+**Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
 
 
 ##### 2.2.4.3 Save posts
-All users are able to save several existing posts from other user, which they can view all the time, as long the posts still exist.
+All users are able to save several existing posts from other users, which they can view all the time, as long the posts still exist. In order to save a post, the user has to click on the three dots which appear on the upper right side of each post and afterwards choose the option 'Save post'. This can be done not only in the thread view but also on the homepage. All the saved ones (or at least a certain amount) can be found under the 'Saved posts'-component on the lower left side of the homepage. 
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/dea55779-b9fb-4af8-858d-5a5fa97d09fa)
 
 **Preconditions**:  
+The user has to be signed in and there must be at least one existing post.
 
 **Postconditions**:  
+Marked/Saved posts can be viewed at any time.
 
-**Estimated efforts**: 
+**Estimated efforts**: medium
 
-**Linked user stories**: [Issue 23](link),
+**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/262)
 
+##### 2.2.4.4 View calendar and events
+Each user has access to a global calendar which is filled with events that could be interesting for students or teachers. Each event has a date and a time slot. In order to view these events, the users need to click the calendar symbol, when they are on the homepage. The calendar has a monthly and a weekly view with hourwise segmentation as you can see in the following images:
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/1b3887d1-42ed-43f1-83be-41f32c4d4794)
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/dcf8cf67-34d8-45d7-9fae-9c72de8ce8f4)
 
-##### 2.2.4.4 Calendar customization
+If you click on an event, it will redirect you to a post with more specific information and an optional map. The next image shows a rough example on how an event post might look like:
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/994c7088-e0de-4022-90b3-11ef66e9cf53)
+
 **Preconditions**:  
+The homepage has to be implemented first, however no sign-in is necessary for viewing all the events since it is centralized. 
 
 **Postconditions**:  
+It's possible for users to interact with event posts.
 
-**Estimated efforts**: 
+**Estimated efforts**: medium-high
 
-**Linked user stories**: [Issue 23](link),
+**Linked user stories**: [Issue 263](https://github.com/SE-TINF22B6/DHBWhub/issues/263)
 
 
-##### 2.2.4.5 View Events
+##### 2.2.4.5 Checking notifications
+When certain events happen, the affected users get corresponding notifications on their feed. To view these notifications, the user has to click on the bell button. A red mark above the bell indicates, that there are new notifications which haven't been read yet. Thus, after clicking on the bell, the user will get a small list with new notifications e.g. comments under a post, mentions from other users and several more. After clicking on a certain notification, it will be marked as 'read' and will redirect to the respective location.    
+
+> TODO Mockup
+
 **Preconditions**:  
+The user has to be signed in to receive or manage their notifications.
 
 **Postconditions**:  
+Users are able to receive or see updates even faster, since they are mentioned directly
 
-**Estimated efforts**: 
+**Estimated efforts**: low-medium
 
-**Linked user stories**: [Issue 23](link),
+**Linked user stories**: [Issue 264](https://github.com/SE-TINF22B6/DHBWhub/issues/264)
 
-**Link to mockup**: 
 
-##### 2.2.4.6 Checking notifications
+##### 2.2.4.6 Search bar
+When searching for posts with specific content, tags or even for other users, every user is able to use the search bar for this purpose. When entering content into the inputfield, users can choose whether they want to search for other users or for posts and will be redirected correspondingly.
+
+> TODO Mockup
+
 **Preconditions**:  
+The user has to be signed in to use this feature and needs to be on the homepage.
 
 **Postconditions**:  
+Users can find content or persons even faster than before.
 
-**Estimated efforts**: 
+**Estimated efforts**: high
 
-**Linked user stories**: [Issue 23](link),
-
+**Linked user stories**: [Issue 85](https://github.com/SE-TINF22B6/DHBWhub/issues/85)
 
 --- 
 
 #### 2.2.5 User Interaction
+In the following section, we'll take a closer look at all the ways users can interact with other users.
+
 ##### 2.2.5.1 Post interaction
-- As a user, I want to be able to view a Thread/Question/PostDetail with its comments on a single page. I should also be able to interact with the post on various ways like commenting, liking or sharing. 
+After clicking on a post in the user's feed, it will be displayed in a more focussed view (thread view). Latter allows every user to interact with this post. Interactions could be for example liking, sharing and saving this post. However, our other main feature is the option to comment a post, so that discussions can thrive. Similiar to a post, a user only needs to insert his comment into the input box below the main post and clicks the 'Reply'-button afterwards. In the next image, you can see the input box as well as some examples on how a comment looks like:
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/82e26751-c6bf-4084-952b-d1779690c78e)
 
-- user stories: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
-
-- This sequence diagram showcases how the user might create posts. At the start, the user is already logged in:
->![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
-
-- Preconditions: Sample Threads and a mockup have to be created, as well as the database schema.
-- Postconditions: Users can view single Threads/ Posts with all of their interactions.
-- Estimated efforts: medium
-   
-##### 2.2.5.2 Friendlist administration
 **Preconditions**:  
+User has to be logged in and at least one post must exist obviously.
 
 **Postconditions**:  
+Interactions between users will get more lively.
 
-**Estimated efforts**: 
+**Estimated efforts**: medium-high.
 
-**Linked user stories**: [Issue 23](link),
+**Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
+   
+##### 2.2.5.2 Friendlist administration
+In order to receive posts directly in the own feed from specific persons or organizations, users are able to establish friendships through friend requests. The user has to search the profile of the other user and needs to click on 'Send friend request'. After clicking the button, the lable will change to 'Friend request sent'. The other person will then receive a notification which states, which person has sent a friend request. It can either be declined, ignored or accepted. When latter happens, the lable from before simply changes to 'Friends'. 
 
+**Preconditions**:  
+All the involved users need active accounts. The search function also need to be implemented first.
+
+**Postconditions**:  
+The personal feed involves posts from friends. It is also possible to implement a filter, which only shows posts from the users the main user follows.
+
+**Estimated efforts**: medium-high
+
+**Linked user stories**: [Issue 265](https://github.com/SE-TINF22B6/DHBWhub/issues/265)
 
 ---
 
 #### 2.2.6 Administrative activities
+The last section covers all the use cases that happen between the end users and the administrators.
+
 ##### 2.2.6.1 View legal notice and FAQ page 
+Users should be able to look into our privacy policy or FAQ page, whenever questions or problems occur, involving either the legality of content or simply answering the most important questions regarding the main functions of this website. There must also be a terms of condition before signing up to the website, so that the users are able to read all the legal conditions before creating an account.
+
+> TODO mockup
+
 **Preconditions**:  
+The homepage and the sign up form needs to be implemented.
 
 **Postconditions**:  
+Users can access both pages anytime.
 
-**Estimated efforts**: 
+**Estimated efforts**: low
 
-**Linked user stories**: [Issue 23](link),
+**Linked user stories**: [Issue 88]((https://github.com/SE-TINF22B6/DHBWhub/issues/88), [Issue 91](https://github.com/SE-TINF22B6/DHBWhub/issues/91)
 
 
 ##### 2.2.6.2 Report issues/requests to administrators 
+If users experience trouble or see/experience misuse in any form on our website, they are able to fill a contact form and send it to our administration team. The contact form can be achieved from the homepage through clicking on the 'Contact'-button. Afterwards, they have to fill in their e-mail adress, their name and the message which contains the essential points about the problem. Lastly, the user only needs to click on the 'Send'-button to finish the process. You can see the form in the image below:
+
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/a803be28-fb3c-41ee-93bb-1b6145a407df)
+
 **Preconditions**:  
+The homepage needs to be implemented.
 
 **Postconditions**:  
+Interactions between end users and administrators are established, even when not signed in.
 
-**Estimated efforts**: 
+**Estimated efforts**: low-medium
 
-**Linked user stories**: [Issue 23](link),
+**Linked user stories**: [Issue 266](https://github.com/SE-TINF22B6/DHBWhub/issues/266)
 
 
 ---
