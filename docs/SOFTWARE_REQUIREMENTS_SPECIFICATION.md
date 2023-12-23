@@ -175,28 +175,112 @@ After a user has signed in, he is able to use all the personalized functions of 
 ---
 
 #### 2.2.3 Account Management
+In this section, we will take a closer look at all the use cases concerning the management of the end user accounts/profiles.
+
 ##### 2.2.3.1 Profile personalization
-- As a user, I want to be able to change my own settings to personalize my profile, upload profile pictures or change other crucial personal details.
+After creating a user account, each user is able to personalize its profile. Some things are mandatory such as the course name, in order to provide the users a more appealing feed with appropriate posts by default. However, changing your description, age and profile picture is optional and helps propelling user-to-user interaction, which you can find under the section in 2.2.5.2. After the adjustment of the previously mentioned attributes, the users can permanently store these by clicking on the 'save edits' button.
 
-- user stories: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
-- Link to mockup: n.A.
+**Preconditions**:  
+Before accessing the account managament page, the homepage has to be implemented as well as the functioning sign in/up process.
 
-- Preconditions: The landing page as well as the user accounts have to be fully functioning in order to change it.
-- Postconditions: Users can customize their own profile.
-- Estimated efforts: medium
-> Other Use Cases will be added when discussed properly
+**Postconditions**:  
+Users can access a page or a form, which contains all the important and personal account information.
+
+**Estimated efforts**: medium-high
+
+**Linked user stories**: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66),
+
+**Link to mockup**: > TODO
 
 ##### 2.2.3.2 Managing 3rd-party login
+It is possible to sign up via 3rd-party-access such as depicted in the previous use cases. However, the users also have the chance to change and manage their third party logins such as connecting or disconnecting the own Google, Microsoft or Apple account. 
+
+**Preconditions**:  
+Before accessing the account managament page, the homepage has to be implemented as well as the functioning sign in/up process.
+
+**Postconditions**:  
+Users can access a page or a form, in which they can configure their 3rd-party settings (focus mainly on connecting accounts).
+
+**Estimated efforts**: medium
+
+**Linked user stories**: [Issue 36](https://github.com/SE-TINF22B6/DHBWhub/issues/36),
+
+**Link to mockup**: > TODO
 
 ---
 
 #### 2.2.4 Website activities (individual)
+In this section, we will take a closer look at the use cases concerning all the individual website activities without user-to-user interaction, which will be displayed in section 2.2.5 in more detail.
+
 ##### 2.2.4.1 Browsing personalized Feed
+After a user has signed in, the initial homepage will contain a more personalized feed. This means, that mainly posts from friends or the corresponding course, in which the user takes part in, are displayed on the main page. The user is also allowed to interact with these posts (with the minimalist view on the homepage) to some extent, such as liking, creating links or directly messaging the link through different channels.   
+
+**Preconditions**:  
+Users should be able to access the homepage and succesfully sign in.
+
+**Postconditions**:  
+The Homepage has a more personal appeal and surface-level interactions are allowed too.
+
+**Estimated efforts**: medium-high
+
+**Linked user stories**: [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27),
+
+**Link to mockup**: > TODO
+
 ##### 2.2.4.2 Create posts
+**Preconditions**:  
+
+**Postconditions**:  
+
+**Estimated efforts**: 
+
+**Linked user stories**: [Issue 23](link),
+
+**Link to mockup**: 
+
 ##### 2.2.4.3 Save posts
+**Preconditions**:  
+
+**Postconditions**:  
+
+**Estimated efforts**: 
+
+**Linked user stories**: [Issue 23](link),
+
+**Link to mockup**: 
+
 ##### 2.2.4.4 Calendar customization
+**Preconditions**:  
+
+**Postconditions**:  
+
+**Estimated efforts**: 
+
+**Linked user stories**: [Issue 23](link),
+
+**Link to mockup**: 
+
 ##### 2.2.4.5 View Events
+**Preconditions**:  
+
+**Postconditions**:  
+
+**Estimated efforts**: 
+
+**Linked user stories**: [Issue 23](link),
+
+**Link to mockup**: 
+
 ##### 2.2.4.6 Checking notifications
+**Preconditions**:  
+
+**Postconditions**:  
+
+**Estimated efforts**: 
+
+**Linked user stories**: [Issue 23](link),
+
+**Link to mockup**: 
 
 --- 
 
@@ -214,12 +298,40 @@ After a user has signed in, he is able to use all the personalized functions of 
 - Postconditions: Users can view single Threads/ Posts with all of their interactions.
 - Estimated efforts: medium
 ##### 2.2.5.2 Friendlist administration
+**Preconditions**:  
+
+**Postconditions**:  
+
+**Estimated efforts**: 
+
+**Linked user stories**: [Issue 23](link),
+
+**Link to mockup**: 
 
 ---
 
 #### 2.2.6 Administrative activities
 ##### 2.2.6.1 View legal notice and FAQ page 
+**Preconditions**:  
+
+**Postconditions**:  
+
+**Estimated efforts**: 
+
+**Linked user stories**: [Issue 23](link),
+
+**Link to mockup**: 
+
 ##### 2.2.6.2 Report issues/requests to administrators 
+**Preconditions**:  
+
+**Postconditions**:  
+
+**Estimated efforts**: 
+
+**Linked user stories**: [Issue 23](link),
+
+**Link to mockup**: 
 
 ---
 
