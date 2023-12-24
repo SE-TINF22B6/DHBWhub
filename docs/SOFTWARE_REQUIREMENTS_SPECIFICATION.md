@@ -80,7 +80,8 @@ Documents:
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UtilityTree.drawio.png
 - Link to all mockups in figma, 23.12.2023:\
   https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=zP3nHfwEDQeziwMq-0
-    
+- Sequence-Diagram for Updating profile, 25.12.2023:\
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ProfilePersonalizationSequenceDiagram.drawio.png    
 ---
 
 ## 2. Functional requirements
@@ -175,7 +176,8 @@ After a user has signed in, he is able to use all the personalized functions of 
 In this section, we will take a closer look at all the use cases concerning the management of the end user accounts/profiles.
 
 ##### 2.2.3.1 Profile personalization
-After creating a user account, each user is able to personalize its profile. Some things are mandatory such as the course name, in order to provide the users a more appealing feed with appropriate posts by default. However, changing your description, age and profile picture is optional and helps propelling user-to-user interaction, which you can find under the section in 2.2.5.2. After the adjustment of the previously mentioned attributes, the users can permanently store these by clicking on the 'save edits' button.
+After creating a user account, each user is able to personalize its profile. Some things are mandatory such as the course name, in order to provide the users a more appealing feed with appropriate posts by default. However, changing your description, age and profile picture is optional and helps propelling user-to-user interaction, which you can find under the section in 2.2.5.2. After the adjustment of the previously mentioned attributes, the users can permanently store these by clicking on the 'save edits' button. In the following graph, you can see the whole process with the condition, that the user enters valid data:
+![Seq-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ProfilePersonalizationSequenceDiagram.drawio.png?raw=true)
 
 **Preconditions**:  
 Before accessing the account managament page, the homepage has to be implemented as well as the functioning sign in/up process.
