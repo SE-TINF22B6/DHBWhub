@@ -314,7 +314,7 @@ Users can find content or persons even faster than before.
 In the following section, we'll take a closer look at all the ways users can interact with other users.
 
 ##### 2.2.5.1 Post interaction
-After clicking on a post in the user's feed, it will be displayed in a more focussed view (thread view). Latter allows every user to interact with this post. Interactions could be for example liking, sharing and saving this post. However, our other main feature is the option to comment a post, so that discussions can thrive. Similiar to a post, a user only needs to insert his comment into the input box below the main post and clicks the 'Reply'-button afterwards. In the next image, you can see the input box as well as some examples on how a comment looks like:
+After clicking on a post in the user's feed, it will be displayed in a more focussed view (thread view). Latter allows every user to interact with this post. Interactions could be for example liking, sharing and saving this post. However, our other main feature is the option to comment a post, so that discussions can thrive. Similiar to a post, a user only needs to insert his comment into the input box below the main post and clicks the 'Reply'-button afterwards. In the next image, you can see the input box as well as some examples on how a comment might look like:
 >![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/82e26751-c6bf-4084-952b-d1779690c78e)
 
 **Preconditions**:  
