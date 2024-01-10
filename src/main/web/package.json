@@ -7,7 +7,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@lexical/code": "^0.12.4",
+    "@lexical/code": "^0.12.6",
     "@lexical/link": "^0.12.4",
     "@lexical/list": "^0.12.4",
     "@lexical/markdown": "^0.12.4",
