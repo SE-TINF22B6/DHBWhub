@@ -1,6 +1,7 @@
 {
   "name": "dhbw-hub",
   "version": "0.1.0",
+  "homepage": "https://se-tinf22b6.github.io/DHBWhub/",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
