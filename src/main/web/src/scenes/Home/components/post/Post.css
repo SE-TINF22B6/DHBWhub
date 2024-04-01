@@ -1,0 +1,225 @@
+.post {
+  background-color: #262D34;
+  border-radius: 25px;
+  height: 210px;
+  width: 850px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-button, .post-tag-button {
+  color: transparent;
+}
+
+.picture {
+  height: 170px;
+  position: relative;
+  left: 15px;
+  top: 20px;
+  width: 151px;
+}
+
+.post-menu {
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 20px;
+  font-weight: 600;
+  height: 30px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  top: 14px;
+  white-space: nowrap;
+  width: 32px;
+  left: 630px;
+}
+
+.post-infos {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 165px;
+  position: relative;
+  width: 360px;
+}
+
+.post-title {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 16px;
+  font-weight: 600;
+  height: 25px;
+  top: 5px;
+  text-underline: none;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+  width: 360px;
+  margin-bottom: -2px;
+}
+
+.tags {
+  display: flex;
+  gap: 5px;
+  margin-bottom: -20px;
+}
+
+.post-tag {
+  background-color: #2C353D;
+  border: 1px solid #E3001B;
+  border-radius: 20px;
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+  height: 26px;
+  position: relative;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.short-description {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 12px;
+  font-weight: 600;
+  height: 50px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  width: 400px;
+  margin-bottom: -10px;
+}
+
+.seperator {
+  background-image: url(../../../../../public/assets/home/post/seperator.svg);
+  height: 1px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 165px;
+  width: 155px;
+}
+
+.author-date {
+  color: #ffffffb2;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 12px;
+  font-weight: 600;
+  height: 19px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+  width: 155px;
+  top: 15px;
+}
+
+.interaction-stats {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 24px;
+  position: relative;
+  left: 75px;
+  top: 117px;
+  width: 148px;
+}
+
+.stats {
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+  position: relative;
+  width: 147px;
+}
+
+.likes {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 14px;
+  font-weight: 600;
+  height: 25px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+  width: 60px;
+}
+
+.comments {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 14px;
+  font-weight: 600;
+  height: 25px;
+  left: 20px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+  width: 100px;
+}
+
+.interaction-symbols {
+  align-items: flex-start;
+  display: flex;
+  gap: 61px;
+  height: 25px;
+  position: relative;
+  top: 87px;
+  width: 112px;
+  left: -75px;
+}
+
+.like-button {
+  background-size: cover;
+  image-rendering: optimizeQuality;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.heart-symbol {
+  background-image: url(../../../../../public/assets/home/post/heart.svg);
+  height: 24px;
+  object-fit: cover;
+  position: relative;
+  width: 26px;
+}
+
+.heart-filled {
+  background-image: url(../../../../../public/assets/home/post/heart-active.svg);
+  height: 24px;
+  object-fit: cover;
+  position: relative;
+  width: 26px;
+}
+
+.comment-symbol {
+  background-image: url(../../../../../public/assets/home/post/comment.svg);
+  height: 25px;
+  left: 10px;
+  object-fit: cover;
+  position: relative;
+  width: 25px;
+}
+
+.author-link {
+  color: transparent;
+  margin-top: 10px;
+}

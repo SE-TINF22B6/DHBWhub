@@ -1,0 +1,113 @@
+.calendar-entry {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 60px;
+  left: 50px;
+  position: absolute;
+}
+
+.event-title {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 10px;
+  font-weight: 600;
+  height: 17px;
+  letter-spacing: 0;
+  line-height: 24px;
+  top: 4px;
+  position: relative;
+  white-space: nowrap;
+  width: 193px;
+}
+
+.address {
+  color: #ffffffb2;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 10px;
+  font-weight: 600;
+  height: 16px;
+  top: 3px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+  width: 128px;
+}
+
+.event-tags {
+  margin-top: 9px;
+  display: flex;
+  gap: 5px;
+}
+
+.event-link {
+  text-decoration: none;
+}
+
+.event-tag {
+  background-color: #2C353D;
+  border: 1px solid #E3001B;
+  border-radius: 20px;
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+  top: 0;
+  white-space: nowrap;
+  height: 15px;
+  position: relative;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day {
+  color: #ffffff;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  font-size: 18px;
+  font-weight: 600;
+  left: 14px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: 26px;
+  white-space: nowrap;
+}
+
+.month {
+  color: #ffffff;
+  font-family: "Source Sans Pro-Bold", Helvetica, serif;
+  font-size: 13px;
+  font-weight: 700;
+  left: 7px;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  text-shadow: 0 4px 4px #00000040;
+  top: 3px;
+  white-space: nowrap;
+  width: 24px;
+}
+
+.date {
+  height: 55px;
+  left: -50px;
+  position: absolute;
+  top: 10px;
+  width: 44px;
+}
+
+.date-background {
+  background-color: #2c353d;
+  border: 1px solid #e3001b;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px #00000040;
+  height: 55px;
+  position: relative;
+  width: 40px;
+}

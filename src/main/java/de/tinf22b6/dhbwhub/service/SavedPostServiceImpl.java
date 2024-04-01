@@ -1,15 +1,10 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.mapper.SavedPostMapper;
-import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.SavedPost;
-import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
-import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.repository.SavedPostRepository;
-import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import de.tinf22b6.dhbwhub.service.interfaces.SavedPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

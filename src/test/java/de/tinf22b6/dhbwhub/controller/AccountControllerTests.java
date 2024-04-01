@@ -57,7 +57,9 @@ public class AccountControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
+
         Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,false);
+
         when(accountService.get(any(Long.class))).thenReturn(account);
 
         ResultActions response = mockMvc.perform(get("/account/1")
@@ -72,6 +74,7 @@ public class AccountControllerTests {
     @Test
     void Create_StatusIsOk() throws Exception {
         AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null,false);
+
         given(accountService.create(any(AccountProposal.class))).willAnswer(i -> AccountMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/account")
@@ -87,6 +90,7 @@ public class AccountControllerTests {
     @Test
     void Update_StatusIsOk() throws Exception {
         AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null,false);
+
         when(accountService.update(any(Long.class), any(AccountProposal.class))).thenReturn(AccountMapper.mapToModel(accountProposal));
 
         ResultActions response = mockMvc.perform(put("/account/1")
@@ -108,4 +112,5 @@ public class AccountControllerTests {
 
         response.andExpect(status().isNoContent());
     }
+
 }
