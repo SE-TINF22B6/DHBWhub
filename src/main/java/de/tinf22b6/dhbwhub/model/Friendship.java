@@ -6,24 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
-public class SavedPost {
+public class Friendship {
     @Id
     @GeneratedValue
-    @Column(name = "saved_post_id")
+    @Column(name = "friendship_id")
     private Long id;
 
-    @JoinColumn(name = "client_user_id")
+    @JoinColumn(name = "requester_id")
     @ManyToOne
-    private final User user;
+    private final Account requester;
 
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "receiver_id")
     @ManyToOne
-    private final Post post;
+    private final Account receiver;
 
+    private final boolean accepted;
 }

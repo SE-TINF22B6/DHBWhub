@@ -1,10 +1,10 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.tinf22b6.dhbwhub.mapper.FacultyMapper;
-import de.tinf22b6.dhbwhub.model.Faculty;
-import de.tinf22b6.dhbwhub.proposal.FacultyProposal;
-import de.tinf22b6.dhbwhub.service.FacultyServiceImpl;
+import de.tinf22b6.dhbwhub.mapper.CourseMapper;
+import de.tinf22b6.dhbwhub.model.Course;
+import de.tinf22b6.dhbwhub.proposal.CourseProposal;
+import de.tinf22b6.dhbwhub.service.CourseServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,26 +29,26 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = FacultyController.class)
+@WebMvcTest(controllers = CourseController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class FacultyControllerTests {
+public class CourseControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private FacultyServiceImpl facultyService;
+    private CourseServiceImpl courseService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Faculty faculty = new Faculty("Informatik");
-        when(facultyService.getAll()).thenReturn(List.of(faculty, faculty));
+        Course course = new Course("TINF22B5", null);
+        when(courseService.getAll()).thenReturn(List.of(course, course));
 
-        ResultActions response = mockMvc.perform(get("/faculty")
+        ResultActions response = mockMvc.perform(get("/course")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
@@ -57,47 +57,47 @@ public class FacultyControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Faculty faculty = new Faculty("Informatik");
-        when(facultyService.get(any(Long.class))).thenReturn(faculty);
+        Course course = new Course("TINF22B5", null);
+        when(courseService.get(any(Long.class))).thenReturn(course);
 
-        ResultActions response = mockMvc.perform(get("/faculty/1")
+        ResultActions response = mockMvc.perform(get("/course/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(faculty.getName())));
+                .andExpect(jsonPath("$.name", is(course.getName())));
     }
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        FacultyProposal facultyProposal = new FacultyProposal("Informatik");
-        given(facultyService.create(any(FacultyProposal.class))).willAnswer(i -> FacultyMapper.mapToModel(i.getArgument(0)));
+        CourseProposal courseProposal = new CourseProposal("TINF22B5", null);
+        given(courseService.create(any(CourseProposal.class))).willAnswer(i -> CourseMapper.mapToModel(i.getArgument(0)));
 
-        ResultActions response = mockMvc.perform(post("/faculty")
+        ResultActions response = mockMvc.perform(post("/course")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(facultyProposal)));
+                .content(objectMapper.writeValueAsString(courseProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(facultyProposal.getName())));
+                .andExpect(jsonPath("$.name", is(courseProposal.getName())));
     }
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        FacultyProposal facultyProposal = new FacultyProposal("Informatik");
-        when(facultyService.update(any(Long.class), any(FacultyProposal.class))).thenReturn(FacultyMapper.mapToModel(facultyProposal));
+        CourseProposal courseProposal = new CourseProposal("TINF22B5", null);
+        when(courseService.update(any(Long.class), any(CourseProposal.class))).thenReturn(CourseMapper.mapToModel(courseProposal));
 
-        ResultActions response = mockMvc.perform(put("/faculty/1")
+        ResultActions response = mockMvc.perform(put("/course/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(facultyProposal)));
+                .content(objectMapper.writeValueAsString(courseProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(facultyProposal.getName())));
+                .andExpect(jsonPath("$.name", is(courseProposal.getName())));
     }
 
     @Test
     void Delete_StatusIsOk() throws Exception {
-        doNothing().when(facultyService).delete(any(Long.class));
+        doNothing().when(courseService).delete(any(Long.class));
 
-        ResultActions response = mockMvc.perform(delete("/faculty/1")
+        ResultActions response = mockMvc.perform(delete("/course/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isNoContent());

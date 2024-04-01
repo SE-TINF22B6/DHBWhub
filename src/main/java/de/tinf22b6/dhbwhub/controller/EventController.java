@@ -1,8 +1,8 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.model.Account;
-import de.tinf22b6.dhbwhub.proposal.AccountProposal;
-import de.tinf22b6.dhbwhub.service.interfaces.AccountService;
+import de.tinf22b6.dhbwhub.model.Event;
+import de.tinf22b6.dhbwhub.proposal.EventProposal;
+import de.tinf22b6.dhbwhub.service.interfaces.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,31 +10,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/account")
-public class AccountController {
-    private final AccountService service;
+@RequestMapping(value = "/event")
+public class EventController {
+    private final EventService service;
 
-    public AccountController(@Autowired AccountService service) {
+    public EventController(@Autowired EventService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Account> getAll() {
+    public List<Event> getAll() {
         return service.getAll();
     }
 
     @PostMapping
-    public Account create(@RequestBody AccountProposal proposal) {
+    public Event create(@RequestBody EventProposal proposal) {
         return service.create(proposal);
     }
 
     @GetMapping("/{id}")
-    public Account get(@PathVariable Long id) {
+    public Event get(@PathVariable Long id) {
         return service.get(id);
     }
 
     @PutMapping("/{id}")
-    public Account update(@PathVariable Long id, @RequestBody AccountProposal proposal) {
+    public Event update(@PathVariable Long id, @RequestBody EventProposal proposal) {
         return service.update(id, proposal);
     }
 

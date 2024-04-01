@@ -9,14 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountProposal {
-    private String username;
+public class FriendshipProposal {
 
-    private String email;
+    private AccountProposal requester;
+    private AccountProposal receiver;
+    private boolean accepted;
 
-    private String password;
-
-    private PictureProposal picture;
-
-    private boolean active;
 }
