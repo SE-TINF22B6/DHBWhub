@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/styled": "^11.11.5",
     "@lexical/code": "^0.12.4",
     "@lexical/link": "^0.12.4",
     "@lexical/list": "^0.12.4",
