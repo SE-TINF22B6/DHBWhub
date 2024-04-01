@@ -1,10 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.SavedPost;
-import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
-import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import de.tinf22b6.dhbwhub.service.interfaces.SavedPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

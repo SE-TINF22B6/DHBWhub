@@ -1,6 +1,5 @@
 package de.tinf22b6.dhbwhub.repository;
 
-import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

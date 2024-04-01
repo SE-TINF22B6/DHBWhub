@@ -5,7 +5,6 @@ import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import de.tinf22b6.dhbwhub.proposal.AccountProposal;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
-import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.repository.FriendshipRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
