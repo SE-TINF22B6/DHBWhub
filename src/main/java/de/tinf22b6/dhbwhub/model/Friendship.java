@@ -11,21 +11,19 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
-public class Account {
+public class Friendship {
     @Id
     @GeneratedValue
-    @Column(name = "account_id")
+    @Column(name = "friendship_id")
     private Long id;
 
-    private final String username;
-
-    private final String email;
-
-    private final String password;
-
-    @JoinColumn(name = "picture_id")
+    @JoinColumn(name = "requester_id")
     @ManyToOne
-    private final Picture picture;
+    private final Account requester;
 
-    private final boolean active;
+    @JoinColumn(name = "receiver_id")
+    @ManyToOne
+    private final Account receiver;
+
+    private final boolean accepted;
 }

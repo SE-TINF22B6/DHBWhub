@@ -1,8 +1,8 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.model.Account;
-import de.tinf22b6.dhbwhub.proposal.AccountProposal;
-import de.tinf22b6.dhbwhub.service.interfaces.AccountService;
+import de.tinf22b6.dhbwhub.model.Friendship;
+import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
+import de.tinf22b6.dhbwhub.service.interfaces.FriendshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,31 +10,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/account")
-public class AccountController {
-    private final AccountService service;
+@RequestMapping(value = "/friendship")
+public class FriendshipController {
+    private final FriendshipService service;
 
-    public AccountController(@Autowired AccountService service) {
+    public FriendshipController(@Autowired FriendshipService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Account> getAll() {
+    public List<Friendship> getAll() {
         return service.getAll();
     }
 
     @PostMapping
-    public Account create(@RequestBody AccountProposal proposal) {
+    public Friendship create(@RequestBody FriendshipProposal proposal) {
         return service.create(proposal);
     }
 
     @GetMapping("/{id}")
-    public Account get(@PathVariable Long id) {
+    public Friendship get(@PathVariable Long id) {
         return service.get(id);
     }
 
     @PutMapping("/{id}")
-    public Account update(@PathVariable Long id, @RequestBody AccountProposal proposal) {
+    public Friendship update(@PathVariable Long id, @RequestBody FriendshipProposal proposal) {
         return service.update(id, proposal);
     }
 

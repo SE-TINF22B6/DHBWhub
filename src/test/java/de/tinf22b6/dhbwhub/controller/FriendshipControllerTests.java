@@ -1,10 +1,12 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.tinf22b6.dhbwhub.mapper.AdministratorMapper;
-import de.tinf22b6.dhbwhub.model.Administrator;
-import de.tinf22b6.dhbwhub.proposal.AdministratorProposal;
-import de.tinf22b6.dhbwhub.service.AdministratorServiceImpl;
+import de.tinf22b6.dhbwhub.mapper.FriendshipMapper;
+import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.Friendship;
+import de.tinf22b6.dhbwhub.proposal.AccountProposal;
+import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
+import de.tinf22b6.dhbwhub.service.FriendshipServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -27,27 +29,29 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@WebMvcTest(controllers = AdministratorController.class)
+@WebMvcTest(controllers = FriendshipController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class AdministratorControllerTests {
+public class FriendshipControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private AdministratorServiceImpl administratorService;
+    private FriendshipServiceImpl friendshipService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Administrator administrator = new Administrator(null);
-        when(administratorService.getAll()).thenReturn(List.of(administrator, administrator));
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, false);
 
-        ResultActions response = mockMvc.perform(get("/administrator")
+        Friendship friendship = new Friendship(account,account,false);
+
+        when(friendshipService.getAll()).thenReturn(List.of(friendship, friendship));
+
+        ResultActions response = mockMvc.perform(get("/friendship")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
@@ -56,10 +60,12 @@ public class AdministratorControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Administrator administrator = new Administrator(null);
-        when(administratorService.get(any(Long.class))).thenReturn(administrator);
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, false);
+        Friendship friendship = new Friendship(account,account,false);
 
-        ResultActions response = mockMvc.perform(get("/administrator/1")
+        when(friendshipService.get(any(Long.class))).thenReturn(friendship);
+
+        ResultActions response = mockMvc.perform(get("/friendship/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk());
@@ -67,36 +73,37 @@ public class AdministratorControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        AdministratorProposal administratorProposal = new AdministratorProposal(null);
-        given(administratorService.create(any(AdministratorProposal.class))).willAnswer(i -> AdministratorMapper.mapToModel(i.getArgument(0)));
+        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null, false);
+        FriendshipProposal friendshipProposal = new FriendshipProposal(accountProposal,accountProposal,false);
+        given(friendshipService.create(any(FriendshipProposal.class))).willAnswer(i -> FriendshipMapper.mapToModel(i.getArgument(0)));
 
-        ResultActions response = mockMvc.perform(post("/administrator")
+        ResultActions response = mockMvc.perform(post("/friendship")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(administratorProposal)));
+                .content(objectMapper.writeValueAsString(friendshipProposal)));
 
         response.andExpect(status().isOk());
     }
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        AdministratorProposal administratorProposal = new AdministratorProposal(null);
-        when(administratorService.update(any(Long.class), any(AdministratorProposal.class))).thenReturn(AdministratorMapper.mapToModel(administratorProposal));
+        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null, false);
+        FriendshipProposal friendshipProposal = new FriendshipProposal(accountProposal,accountProposal,false);
+        when(friendshipService.update(any(Long.class), any(FriendshipProposal.class))).thenReturn(FriendshipMapper.mapToModel(friendshipProposal));
 
-        ResultActions response = mockMvc.perform(put("/administrator/1")
+        ResultActions response = mockMvc.perform(put("/friendship/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(administratorProposal)));
+                .content(objectMapper.writeValueAsString(friendshipProposal)));
 
         response.andExpect(status().isOk());
     }
 
     @Test
     void Delete_StatusIsOk() throws Exception {
-        doNothing().when(administratorService).delete(any(Long.class));
+        doNothing().when(friendshipService).delete(any(Long.class));
 
-        ResultActions response = mockMvc.perform(delete("/administrator/1")
+        ResultActions response = mockMvc.perform(delete("/friendship/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isNoContent());
     }
-
 }

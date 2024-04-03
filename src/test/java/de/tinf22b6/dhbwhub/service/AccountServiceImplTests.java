@@ -30,8 +30,8 @@ public class AccountServiceImplTests {
 
     @Test
     void GetAll_HasSize_Two() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null);
+        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
+        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
         when(accountRepository.findAll()).thenReturn(List.of(account1, account2));
 
         assertThat(accountService.getAll()).hasSize(2);
@@ -44,7 +44,7 @@ public class AccountServiceImplTests {
 
     @Test
     void Get_IsNotNull() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
         lenient().when(accountRepository.find(1L)).thenReturn(account);
 
         assertThat(accountService.get(1L)).isNotNull();
@@ -58,26 +58,26 @@ public class AccountServiceImplTests {
 
     @Test
     void Create_IsNotNull() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
         when(accountRepository.save(any(Account.class))).thenReturn(account);
 
-        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null);
+        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null,true);
         assertThat(accountService.create(accountProposal)).isNotNull();
     }
 
     @Test
     void Update_IsNotNull() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
         when(accountRepository.find(1L)).thenReturn(account);
         when(accountRepository.save(any(Account.class))).thenReturn(account);
 
-        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null);
+        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null,true);
         assertThat(accountService.update(1L, accountProposal)).isNotNull();
     }
 
     @Test
     void Delete_DoesNotThrow() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
         when(accountRepository.find(1L)).thenReturn(account);
 
         assertDoesNotThrow(() -> accountService.delete(1L));

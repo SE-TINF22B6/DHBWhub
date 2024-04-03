@@ -1,10 +1,10 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.tinf22b6.dhbwhub.mapper.PostMapper;
-import de.tinf22b6.dhbwhub.model.Post;
-import de.tinf22b6.dhbwhub.proposal.PostProposal;
-import de.tinf22b6.dhbwhub.service.PostServiceImpl;
+import de.tinf22b6.dhbwhub.mapper.EventMapper;
+import de.tinf22b6.dhbwhub.model.Event;
+import de.tinf22b6.dhbwhub.proposal.EventProposal;
+import de.tinf22b6.dhbwhub.service.EventServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,27 +29,26 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@WebMvcTest(controllers = PostController.class)
+@WebMvcTest(controllers = EventController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class PostControllerTests {
+public class EventControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private PostServiceImpl postService;
+    private EventServiceImpl eventService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        when(postService.getAll()).thenReturn(List.of(post, post));
+        Event event = new Event("Master-Event",new Date(1701242553L));
+        when(eventService.getAll()).thenReturn(List.of(event, event));
 
-        ResultActions response = mockMvc.perform(get("/post")
+        ResultActions response = mockMvc.perform(get("/event")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
@@ -58,56 +57,49 @@ public class PostControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        when(postService.get(any(Long.class))).thenReturn(post);
+        Event event = new Event("Master-Event",new Date(1701242553L));
+        when(eventService.get(any(Long.class))).thenReturn(event);
 
-        ResultActions response = mockMvc.perform(get("/post/1")
+        ResultActions response = mockMvc.perform(get("/event/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.title", is(post.getTitle())))
-                .andExpect(jsonPath("$.description", is(post.getDescription())))
-                .andExpect(jsonPath("$.likes", is(post.getLikes())));
+                .andExpect(jsonPath("$.name", is(event.getName())));
     }
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        PostProposal postProposal = new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        given(postService.create(any(PostProposal.class))).willAnswer(i -> PostMapper.mapToModel(i.getArgument(0)));
+        EventProposal eventProposal = new EventProposal("Master-Event",new Date(1701242553L));
+        given(eventService.create(any(EventProposal.class))).willAnswer(i -> EventMapper.mapToModel(i.getArgument(0)));
 
-        ResultActions response = mockMvc.perform(post("/post")
+        ResultActions response = mockMvc.perform(post("/event")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(postProposal)));
+                .content(objectMapper.writeValueAsString(eventProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.title", is(postProposal.getTitle())))
-                .andExpect(jsonPath("$.description", is(postProposal.getDescription())))
-                .andExpect(jsonPath("$.likes", is(postProposal.getLikes())));
+                .andExpect(jsonPath("$.name", is(eventProposal.getName())));
     }
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        PostProposal postProposal = new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        when(postService.update(any(Long.class), any(PostProposal.class))).thenReturn(PostMapper.mapToModel(postProposal));
+        EventProposal eventProposal = new EventProposal("Master-Event",new Date(1701242553L));
+        when(eventService.update(any(Long.class), any(EventProposal.class))).thenReturn(EventMapper.mapToModel(eventProposal));
 
-        ResultActions response = mockMvc.perform(put("/post/1")
+        ResultActions response = mockMvc.perform(put("/event/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(postProposal)));
+                .content(objectMapper.writeValueAsString(eventProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.title", is(postProposal.getTitle())))
-                .andExpect(jsonPath("$.description", is(postProposal.getDescription())))
-                .andExpect(jsonPath("$.likes", is(postProposal.getLikes())));
+                .andExpect(jsonPath("$.name", is(eventProposal.getName())));
     }
 
     @Test
     void Delete_StatusIsOk() throws Exception {
-        doNothing().when(postService).delete(any(Long.class));
+        doNothing().when(eventService).delete(any(Long.class));
 
-        ResultActions response = mockMvc.perform(delete("/post/1")
+        ResultActions response = mockMvc.perform(delete("/event/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isNoContent());
     }
-
 }
