@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import "./index.css";
 import {Header} from "./components/header/Header";
 import {Posts} from "./components/post/Posts";
+import {SortOptions} from "./components/sort-options/SortOptions";
 
-export const Home = (): JSX.Element => {
+  const handleSortChange = (option: string): void => {
+    setSortOption(option);
+  };
+
   return (
       <div className="homepage">
         <Header></Header>
@@ -13,6 +17,7 @@ export const Home = (): JSX.Element => {
           </div>
           <div className="middle-content">
             <Posts></Posts>
+            <Posts sortOption={sortOption} />
           </div>
           <div className="sidebar-right">
 
