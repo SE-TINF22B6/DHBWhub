@@ -8,6 +8,7 @@
 
 .body {
   margin-top: -50px;
+  margin-left: -50%;
   gap: 20px;
   justify-content: center;
   display: flex;
@@ -25,24 +26,4 @@
 .middle-content {
   display: flex;
   flex-direction: column;
-}
-
-.sidebar-right {
-  align-items: flex-start;
-  display: inline-flex;
-  margin-right: 25px;
-  flex: 0 0 auto;
-  flex-direction: column;
-  gap: 20px;
-  height: 860px;
-  position: relative;
-}
-
-.body {
-  background-color: #1E252B;
-  top: 80px;
-  align-items: flex-start;
-  display: inline-flex;
-  gap: 30px;
-  position: absolute;
 }

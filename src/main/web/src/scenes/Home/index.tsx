@@ -16,14 +16,12 @@ export const Home = () => {
         <Header></Header>
         <div className="body">
           <div className="sidebar-left">
-
             <SortOptions onSortChange={handleSortChange}/>
           </div>
           <div className="middle-content">
             <Posts sortOption={sortOption} />
           </div>
           <div className="sidebar-right">
-
           </div>
         </div>
       </div>
