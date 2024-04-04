@@ -42,7 +42,7 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(auth);
-        String jwt = jwtUtils.generatingJwtToken(auth);
+        String jwt = jwtUtils.generateJwtToken(auth);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
@@ -64,7 +64,7 @@ public class AuthController {
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if (authUserRepository.exitsByEmail(signupRequest.getEmail())) {
+        if (authUserRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
