@@ -3,7 +3,9 @@ package de.tinf22b6.dhbwhub.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.tinf22b6.dhbwhub.mapper.AccountMapper;
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.proposal.AccountProposal;
+import de.tinf22b6.dhbwhub.proposal.PictureProposal;
 import de.tinf22b6.dhbwhub.service.AccountServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,7 +47,8 @@ public class AccountControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,false);
+        Picture picture = createPicture();
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", picture, false);
         when(accountService.getAll()).thenReturn(List.of(account, account));
 
         ResultActions response = mockMvc.perform(get("/account")
@@ -57,8 +60,8 @@ public class AccountControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,false);
+        Picture picture = createPicture();
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", picture, false);
 
         when(accountService.get(any(Long.class))).thenReturn(account);
 
@@ -73,7 +76,8 @@ public class AccountControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null,false);
+        PictureProposal pictureProposal = createPictureProposal();
+        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", pictureProposal, false);
 
         given(accountService.create(any(AccountProposal.class))).willAnswer(i -> AccountMapper.mapToModel(i.getArgument(0)));
 
@@ -89,7 +93,8 @@ public class AccountControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null,false);
+        PictureProposal pictureProposal = createPictureProposal();
+        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", pictureProposal, false);
 
         when(accountService.update(any(Long.class), any(AccountProposal.class))).thenReturn(AccountMapper.mapToModel(accountProposal));
 
@@ -113,4 +118,11 @@ public class AccountControllerTests {
         response.andExpect(status().isNoContent());
     }
 
+    private Picture createPicture() {
+        return new Picture("profile.png", new Byte[]{ 12, 34, 45, 67, 78, 91 });
+    }
+
+    private PictureProposal createPictureProposal() {
+        return new PictureProposal("profile.png", new Byte[]{ 12, 34, 45, 67, 78, 91 });
+    }
 }

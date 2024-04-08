@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.repository;
 
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.Picture;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -37,7 +38,8 @@ public class AccountRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
+        Picture picture = createPicture();
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", picture, true);
 
         accountRepository.save(account);
 
@@ -60,11 +62,16 @@ public class AccountRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
+        Picture picture = createPicture();
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", picture, true);
         accountRepository.save(account);
 
         accountRepository.delete(account.getId());
 
         assertThat(accountRepository.findAll()).isEmpty();
+    }
+
+    private Picture createPicture() {
+        return new Picture("profile.png", new Byte[]{ 12, 34, 45, 67, 78, 91 });
     }
 }

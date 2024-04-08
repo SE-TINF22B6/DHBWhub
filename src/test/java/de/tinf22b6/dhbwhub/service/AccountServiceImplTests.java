@@ -2,6 +2,7 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.proposal.AccountProposal;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,10 @@ public class AccountServiceImplTests {
 
     @Test
     void GetAll_HasSize_Two() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
+        Picture picture1 = createPicture();
+        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", picture1, true);
+        Picture picture2 = createPicture();
+        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", picture2, true);
         when(accountRepository.findAll()).thenReturn(List.of(account1, account2));
 
         assertThat(accountService.getAll()).hasSize(2);
@@ -81,5 +84,9 @@ public class AccountServiceImplTests {
         when(accountRepository.find(1L)).thenReturn(account);
 
         assertDoesNotThrow(() -> accountService.delete(1L));
+    }
+
+    private Picture createPicture() {
+        return new Picture("profile.png", new Byte[]{ 12, 34, 45, 67, 78, 91 });
     }
 }
