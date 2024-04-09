@@ -17,4 +17,6 @@ public class AccountProposal {
     private String password;
 
     private PictureProposal picture;
+
+    private boolean active;
 }

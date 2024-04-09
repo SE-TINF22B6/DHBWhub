@@ -26,4 +26,6 @@ public class Account {
     @JoinColumn(name = "picture_id")
     @ManyToOne
     private final Picture picture;
+
+    private final boolean active;
 }

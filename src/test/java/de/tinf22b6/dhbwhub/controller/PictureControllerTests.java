@@ -108,4 +108,5 @@ public class PictureControllerTests {
 
         response.andExpect(status().isNoContent());
     }
+  
 }

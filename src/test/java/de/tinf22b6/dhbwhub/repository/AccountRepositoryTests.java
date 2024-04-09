@@ -21,8 +21,8 @@ public class AccountRepositoryTests {
 
     @Test
     void FindAll_HasSize_Two() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null);
+        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
+        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
 
         accountRepository.save(account1);
         accountRepository.save(account2);
@@ -37,7 +37,7 @@ public class AccountRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
 
         accountRepository.save(account);
 
@@ -51,7 +51,7 @@ public class AccountRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
 
         accountRepository.save(account);
 
@@ -60,7 +60,7 @@ public class AccountRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null);
+        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
         accountRepository.save(account);
 
         accountRepository.delete(account.getId());
