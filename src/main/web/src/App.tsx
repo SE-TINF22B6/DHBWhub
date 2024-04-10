@@ -9,6 +9,7 @@ import {Post} from "./scenes/Post";
 import {Contact} from "./scenes/Contact";
 import {Calendar} from "./scenes/Calendar";
 import {PrivacyPolicy} from "./scenes/PrivacyPolicy";
+import {PageNotFound} from "./scenes/PageNotFound";
 
 class App extends Component {
 
@@ -23,6 +24,10 @@ class App extends Component {
             <Route path='/contact' element={<Contact/>}/>
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
+            <Route
+                path="*"
+                element={<PageNotFound />}
+            />
           </Routes>
         </Router>
     );
