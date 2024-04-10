@@ -98,4 +98,5 @@ public class AdministratorControllerTests {
 
         response.andExpect(status().isNoContent());
     }
+
 }

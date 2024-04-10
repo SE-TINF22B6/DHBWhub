@@ -6,6 +6,11 @@
 .idea/dataSources
 .idea/dataSources.local.xml
 .idea/dataSources.xml
+/.idea/DHBWhub.iml
+/.idea/uiDesigner.xml
+
+# VS Code
+.vscode/
 
 # Project files
 dhbwhub.iml
@@ -16,5 +21,3 @@ out/
 
 # Secrets
 .env
-/.idea/DHBWhub.iml
-/.idea/uiDesigner.xml

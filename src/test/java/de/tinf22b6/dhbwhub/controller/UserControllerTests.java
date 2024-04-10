@@ -105,4 +105,5 @@ public class UserControllerTests {
 
         response.andExpect(status().isNoContent());
     }
+  
 }

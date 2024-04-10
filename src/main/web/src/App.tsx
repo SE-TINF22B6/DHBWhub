@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './App.css';
 import {Home} from './scenes/Home';
-import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {HashRouter, Route, Routes } from 'react-router-dom';
 import {Friends} from "./scenes/Friends";
 import {FAQ} from "./scenes/FAQ";
 import {Post} from "./scenes/Post";
@@ -15,7 +15,7 @@ class App extends Component {
 
   public render(): JSX.Element {
     return (
-        <Router>
+        <HashRouter basename="/">
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/friends' element={<Friends/>}/>
@@ -29,7 +29,7 @@ class App extends Component {
                 element={<PageNotFound />}
             />
           </Routes>
-        </Router>
+        </HashRouter>
     );
   }
 }
