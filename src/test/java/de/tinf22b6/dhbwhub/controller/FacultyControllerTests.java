@@ -102,4 +102,5 @@ public class FacultyControllerTests {
 
         response.andExpect(status().isNoContent());
     }
+
 }
