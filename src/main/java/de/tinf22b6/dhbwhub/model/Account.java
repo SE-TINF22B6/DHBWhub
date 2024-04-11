@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor(force = true)
 @Entity
 public class Account {
+
     @Id
     @GeneratedValue
     @Column(name = "account_id")
@@ -28,4 +29,5 @@ public class Account {
     private final Picture picture;
 
     private final boolean active;
+
 }
