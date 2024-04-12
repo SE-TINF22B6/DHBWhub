@@ -28,7 +28,7 @@
     "@types/node": "^20.12.5",
     "@types/quill": "^2.0.14",
     "@types/react": "^18.2.60",
-    "@types/react-dom": "^18.2.24",
+    "@types/react-dom": "^18.2.25",
     "axios": "^1.6.8",
     "canvas": "^2.11.2",
     "cors": "^2.8.5",
