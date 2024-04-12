@@ -32,7 +32,7 @@
     "axios": "^1.6.8",
     "canvas": "^2.11.2",
     "cors": "^2.8.5",
-    "emoji-picker-react": "^4.6.8",
+    "emoji-picker-react": "^4.9.2",
     "flexsearch": "^0.7.43",
     "formik": "^2.4.5",
     "lexical": "^0.14.3",
