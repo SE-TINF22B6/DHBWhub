@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.FacultyMapper;
 import de.tinf22b6.dhbwhub.model.Faculty;
 import de.tinf22b6.dhbwhub.proposal.FacultyProposal;
@@ -33,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class FacultyControllerTests {
+class FacultyControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,7 +46,7 @@ public class FacultyControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Faculty faculty = new Faculty("Informatik");
+        Faculty faculty = createDefaultFaculty();
         when(facultyService.getAll()).thenReturn(List.of(faculty, faculty));
 
         ResultActions response = mockMvc.perform(get("/faculty")
@@ -57,7 +58,7 @@ public class FacultyControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Faculty faculty = new Faculty("Informatik");
+        Faculty faculty = createDefaultFaculty();
         when(facultyService.get(any(Long.class))).thenReturn(faculty);
 
         ResultActions response = mockMvc.perform(get("/faculty/1")
@@ -69,7 +70,7 @@ public class FacultyControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        FacultyProposal facultyProposal = new FacultyProposal("Informatik");
+        FacultyProposal facultyProposal = createDefaultFacultyProposal();
         given(facultyService.create(any(FacultyProposal.class))).willAnswer(i -> FacultyMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/faculty")
@@ -82,7 +83,7 @@ public class FacultyControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        FacultyProposal facultyProposal = new FacultyProposal("Informatik");
+        FacultyProposal facultyProposal = createDefaultFacultyProposal();
         when(facultyService.update(any(Long.class), any(FacultyProposal.class))).thenReturn(FacultyMapper.mapToModel(facultyProposal));
 
         ResultActions response = mockMvc.perform(put("/faculty/1")
@@ -102,5 +103,4 @@ public class FacultyControllerTests {
 
         response.andExpect(status().isNoContent());
     }
-
 }

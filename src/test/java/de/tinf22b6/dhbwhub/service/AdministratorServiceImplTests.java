@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.Administrator;
 import de.tinf22b6.dhbwhub.proposal.AdministratorProposal;
@@ -16,12 +17,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class AdministratorServiceImplTests {
+class AdministratorServiceImplTests extends AbstractApplicationTest {
     @Mock
     private AdministratorRepository administratorRepository;
 
@@ -30,8 +30,8 @@ public class AdministratorServiceImplTests {
 
     @Test
     void GetAll_HasSize_Two() {
-        Administrator administrator1 = new Administrator(null);
-        Administrator administrator2 = new Administrator(null);
+        Administrator administrator1 = createDefaultAdministrator();
+        Administrator administrator2 = createDefaultAdministrator2();
         when(administratorRepository.findAll()).thenReturn(List.of(administrator1, administrator2));
 
         assertThat(administratorService.getAll()).hasSize(2);
@@ -44,8 +44,8 @@ public class AdministratorServiceImplTests {
 
     @Test
     void Get_IsNotNull() {
-        Administrator administrator = new Administrator(null);
-        lenient().when(administratorRepository.find(1L)).thenReturn(administrator);
+        Administrator administrator = createDefaultAdministrator();
+        when(administratorRepository.find(1L)).thenReturn(administrator);
 
         assertThat(administratorService.get(1L)).isNotNull();
     }
@@ -58,26 +58,26 @@ public class AdministratorServiceImplTests {
 
     @Test
     void Create_IsNotNull() {
-        Administrator administrator = new Administrator(null);
+        Administrator administrator = createDefaultAdministrator();
         when(administratorRepository.save(any(Administrator.class))).thenReturn(administrator);
 
-        AdministratorProposal administratorProposal = new AdministratorProposal(null);
+        AdministratorProposal administratorProposal = createDefaultAdministratorProposal();
         assertThat(administratorService.create(administratorProposal)).isNotNull();
     }
 
     @Test
     void Update_IsNotNull() {
-        Administrator administrator = new Administrator(null);
+        Administrator administrator = createDefaultAdministrator();
         when(administratorRepository.find(1L)).thenReturn(administrator);
         when(administratorRepository.save(any(Administrator.class))).thenReturn(administrator);
 
-        AdministratorProposal administratorProposal = new AdministratorProposal(null);
+        AdministratorProposal administratorProposal = createDefaultAdministratorProposal();
         assertThat(administratorService.update(1L, administratorProposal)).isNotNull();
     }
 
     @Test
     void Delete_DoesNotThrow() {
-        Administrator administrator = new Administrator(null);
+        Administrator administrator = createDefaultAdministrator();
         when(administratorRepository.find(1L)).thenReturn(administrator);
 
         assertDoesNotThrow(() -> administratorService.delete(1L));

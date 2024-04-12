@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class FriendshipRepositoryTests {
+class FriendshipRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private FriendshipRepository friendshipRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Friendship friendship1 = new Friendship(null,null, false);
-        Friendship friendship2 = new Friendship(null,null, false);
+        Friendship friendship1 = createDefaultFriendship();
+        Friendship friendship2 = createDefaultFriendship2();
 
 
         friendshipRepository.save(friendship1);
@@ -38,7 +39,7 @@ public class FriendshipRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Friendship friendship = new Friendship(null,null, false);
+        Friendship friendship = createDefaultFriendship();
 
         friendshipRepository.save(friendship);
 
@@ -52,7 +53,7 @@ public class FriendshipRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Friendship friendship = new Friendship(null,null, false);
+        Friendship friendship = createDefaultFriendship();
 
         friendshipRepository.save(friendship);
 
@@ -61,7 +62,7 @@ public class FriendshipRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Friendship friendship = new Friendship(null,null, false);
+        Friendship friendship = createDefaultFriendship();
 
         friendshipRepository.save(friendship);
 

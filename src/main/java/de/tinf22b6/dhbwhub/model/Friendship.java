@@ -18,11 +18,11 @@ public class Friendship {
     private Long id;
 
     @JoinColumn(name = "requester_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Account requester;
 
     @JoinColumn(name = "receiver_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Account receiver;
 
     private final boolean accepted;

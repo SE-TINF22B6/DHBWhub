@@ -20,6 +20,6 @@ public class Course {
     private final String name;
 
     @JoinColumn(name = "fac_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Faculty faculty;
 }

@@ -1,10 +1,9 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.FriendshipMapper;
-import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Friendship;
-import de.tinf22b6.dhbwhub.proposal.AccountProposal;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
 import de.tinf22b6.dhbwhub.service.FriendshipServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class FriendshipControllerTests {
+class FriendshipControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,9 +44,7 @@ public class FriendshipControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, false);
-
-        Friendship friendship = new Friendship(account,account,false);
+        Friendship friendship = createDefaultFriendship();
 
         when(friendshipService.getAll()).thenReturn(List.of(friendship, friendship));
 
@@ -60,8 +57,7 @@ public class FriendshipControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, false);
-        Friendship friendship = new Friendship(account,account,false);
+        Friendship friendship = createDefaultFriendship();
 
         when(friendshipService.get(any(Long.class))).thenReturn(friendship);
 
@@ -73,8 +69,7 @@ public class FriendshipControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null, false);
-        FriendshipProposal friendshipProposal = new FriendshipProposal(accountProposal,accountProposal,false);
+        FriendshipProposal friendshipProposal = createDefaultFriendshipProposal();
         given(friendshipService.create(any(FriendshipProposal.class))).willAnswer(i -> FriendshipMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/friendship")
@@ -86,8 +81,7 @@ public class FriendshipControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        AccountProposal accountProposal = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null, false);
-        FriendshipProposal friendshipProposal = new FriendshipProposal(accountProposal,accountProposal,false);
+        FriendshipProposal friendshipProposal = createDefaultFriendshipProposal();
         when(friendshipService.update(any(Long.class), any(FriendshipProposal.class))).thenReturn(FriendshipMapper.mapToModel(friendshipProposal));
 
         ResultActions response = mockMvc.perform(put("/friendship/1")
