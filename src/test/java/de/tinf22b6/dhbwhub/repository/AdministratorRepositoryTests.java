@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Administrator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class AdministratorRepositoryTests {
+class AdministratorRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private AdministratorRepository administratorRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Administrator administrator1 = new Administrator(null);
-        Administrator administrator2 = new Administrator(null);
+        Administrator administrator1 = createDefaultAdministrator();
+        Administrator administrator2 = createDefaultAdministrator2();
 
         administratorRepository.save(administrator1);
         administratorRepository.save(administrator2);
@@ -37,7 +38,7 @@ public class AdministratorRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Administrator administrator = new Administrator(null);
+        Administrator administrator = createDefaultAdministrator();
 
         administratorRepository.save(administrator);
 
@@ -51,7 +52,7 @@ public class AdministratorRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Administrator administrator = new Administrator(null);
+        Administrator administrator = createDefaultAdministrator();
 
         administratorRepository.save(administrator);
 
@@ -60,7 +61,7 @@ public class AdministratorRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Administrator administrator = new Administrator(null);
+        Administrator administrator = createDefaultAdministrator();
         administratorRepository.save(administrator);
 
         administratorRepository.delete(administrator.getId());

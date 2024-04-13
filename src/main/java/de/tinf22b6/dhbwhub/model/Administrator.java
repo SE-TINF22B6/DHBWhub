@@ -18,6 +18,6 @@ public class Administrator {
     private Long id;
 
     @JoinColumn(name = "account_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Account account;
 }

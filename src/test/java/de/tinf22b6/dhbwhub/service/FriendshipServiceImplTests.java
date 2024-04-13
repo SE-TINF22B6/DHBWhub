@@ -1,9 +1,8 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Friendship;
-import de.tinf22b6.dhbwhub.proposal.AccountProposal;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
 import de.tinf22b6.dhbwhub.repository.FriendshipRepository;
 import org.junit.jupiter.api.Test;
@@ -18,12 +17,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class FriendshipServiceImplTests {
+class FriendshipServiceImplTests extends AbstractApplicationTest {
     @Mock
     private FriendshipRepository friendshipRepository;
 
@@ -32,10 +30,8 @@ public class FriendshipServiceImplTests {
 
     @Test
     void GetAll_HasSize_Two() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
-        Friendship friendship1 = new Friendship(account1,account2, false);
-        Friendship friendship2 = new Friendship(account2,account1, false);
+        Friendship friendship1 = createDefaultFriendship();
+        Friendship friendship2 = createDefaultFriendship2();
 
         when(friendshipRepository.findAll()).thenReturn(List.of(friendship1, friendship2));
 
@@ -49,10 +45,8 @@ public class FriendshipServiceImplTests {
 
     @Test
     void Get_IsNotNull() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
-        Friendship friendship = new Friendship(account1,account2, false);
-        lenient().when(friendshipRepository.find(1L)).thenReturn(friendship);
+        Friendship friendship = createDefaultFriendship();
+        when(friendshipRepository.find(1L)).thenReturn(friendship);
 
         assertThat(friendshipService.get(1L)).isNotNull();
     }
@@ -65,40 +59,30 @@ public class FriendshipServiceImplTests {
 
     @Test
     void Create_IsNotNull() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
-        Friendship friendship = new Friendship(account1,account2, false);
+        Friendship friendship = createDefaultFriendship();
 
         when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
 
-        AccountProposal accountProposal1 = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        AccountProposal accountProposal2 = new AccountProposal("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
-        FriendshipProposal friendshipProposal = new FriendshipProposal(accountProposal1,accountProposal2,false);
+        FriendshipProposal friendshipProposal = createDefaultFriendshipProposal();
 
         assertThat(friendshipService.create(friendshipProposal)).isNotNull();
     }
 
     @Test
     void Update_IsNotNull() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
-        Friendship friendship = new Friendship(account1,account2, false);
+        Friendship friendship = createDefaultFriendship();
 
         when(friendshipRepository.find(1L)).thenReturn(friendship);
         when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
 
-        AccountProposal accountProposal1 = new AccountProposal("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        AccountProposal accountProposal2 = new AccountProposal("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
-        FriendshipProposal friendshipProposal = new FriendshipProposal(accountProposal1,accountProposal2,false);
+        FriendshipProposal friendshipProposal = createDefaultFriendshipProposal();
 
         assertThat(friendshipService.update(1L, friendshipProposal)).isNotNull();
     }
 
     @Test
     void Delete_DoesNotThrow() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
-        Friendship friendship = new Friendship(account1,account2, false);
+        Friendship friendship = createDefaultFriendship();
 
         when(friendshipRepository.find(1L)).thenReturn(friendship);
 

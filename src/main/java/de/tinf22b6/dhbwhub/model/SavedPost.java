@@ -19,11 +19,10 @@ public class SavedPost {
     private Long id;
 
     @JoinColumn(name = "client_user_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final User user;
 
     @JoinColumn(name = "post_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Post post;
-
 }

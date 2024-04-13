@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.AdministratorMapper;
 import de.tinf22b6.dhbwhub.model.Administrator;
 import de.tinf22b6.dhbwhub.proposal.AdministratorProposal;
@@ -32,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class AdministratorControllerTests {
+class AdministratorControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -44,7 +45,7 @@ public class AdministratorControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Administrator administrator = new Administrator(null);
+        Administrator administrator = createDefaultAdministrator();
         when(administratorService.getAll()).thenReturn(List.of(administrator, administrator));
 
         ResultActions response = mockMvc.perform(get("/administrator")
@@ -56,7 +57,7 @@ public class AdministratorControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Administrator administrator = new Administrator(null);
+        Administrator administrator = createDefaultAdministrator();
         when(administratorService.get(any(Long.class))).thenReturn(administrator);
 
         ResultActions response = mockMvc.perform(get("/administrator/1")
@@ -67,7 +68,7 @@ public class AdministratorControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        AdministratorProposal administratorProposal = new AdministratorProposal(null);
+        AdministratorProposal administratorProposal = createDefaultAdministratorProposal();
         given(administratorService.create(any(AdministratorProposal.class))).willAnswer(i -> AdministratorMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/administrator")
@@ -79,7 +80,7 @@ public class AdministratorControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        AdministratorProposal administratorProposal = new AdministratorProposal(null);
+        AdministratorProposal administratorProposal = createDefaultAdministratorProposal();
         when(administratorService.update(any(Long.class), any(AdministratorProposal.class))).thenReturn(AdministratorMapper.mapToModel(administratorProposal));
 
         ResultActions response = mockMvc.perform(put("/administrator/1")
@@ -98,5 +99,4 @@ public class AdministratorControllerTests {
 
         response.andExpect(status().isNoContent());
     }
-
 }
