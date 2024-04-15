@@ -8,7 +8,6 @@ import "./Header.css";
 
 export const Header = () => {
 
-  const [showNotifications, setShowNotifications] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('');
   const location = useLocation();
@@ -17,9 +16,6 @@ export const Header = () => {
     setCurrentLocation(location.pathname);
   }, [location]);
 
-  const handleNotificationsButtonClick = (): void => {
-    setShowNotifications(!showNotifications);
-  };
   return (
       <div className="header">
         <Link to="/" aria-label="To the homepage">
@@ -39,15 +35,9 @@ export const Header = () => {
         </Link>
         <SearchBar/>
         <div className="notifications-button-container">
-          {showNotifications  ? (
-              <button className="notifications-button-new" onClick={handleNotificationsButtonClick}>
-                <div className="notifications-new-background" />
-              </button>
-          ) : (
-              <button className="notifications-button" onClick={handleNotificationsButtonClick} aria-label="Notifications-Button">
-                <div className="notifications-background" />
-              </button>
-          )}
+          <button className="notifications-button" aria-label="Notifications-Button">
+            <div className="notifications-background" />
+          </button>
         </div>
         {showNotifications && <Notifications showNotifications={showNotifications} />}
         {loggedIn ? (
