@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import "./index.css";
-import {Header} from "./components/header/Header";
 import {Header} from "../../organisms/header/Header";
 import {Posts} from "./components/post/Posts";
 import {SortOptions} from "./components/sort-options/SortOptions";
