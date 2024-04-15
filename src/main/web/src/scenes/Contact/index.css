@@ -1,8 +1,15 @@
+.contact-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
 .google-form {
     width: 100%;
+    height: 820px;
     margin-top: -50px;
-    height: 1000px;
     border: none;
     overflow: hidden;
-    background: none;
 }

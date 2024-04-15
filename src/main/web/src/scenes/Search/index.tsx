@@ -6,6 +6,7 @@ export const Search = (): JSX.Element => {
   return (
       <div className="search">
         <Header></Header>
+        <Header/>
       </div>
   );
 };
