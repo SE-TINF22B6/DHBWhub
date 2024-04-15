@@ -39,7 +39,6 @@ export const Header = () => {
             <div className="notifications-background" />
           </button>
         </div>
-        {showNotifications && <Notifications showNotifications={showNotifications} />}
         {loggedIn ? (
             <div className="profile-component">
               <Link to="/profile" aria-label="To the profile" onClick={() => setLoggedIn(false)}>
