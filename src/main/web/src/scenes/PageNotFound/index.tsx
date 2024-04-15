@@ -1,5 +1,5 @@
 import React from "react";
-import {Header} from "../Home/components/header/Header";
+import { Header } from "../../organisms/header/Header";
 import "./index.css";
 import Lottie from "lottie-react";
 import errorAnimationData from "../../assets/error.json";

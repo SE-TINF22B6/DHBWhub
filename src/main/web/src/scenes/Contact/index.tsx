@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
-import {Header} from "../Home/components/header/Header";
+import {Header} from "../../organisms/header/Header";
+import {Footer} from "../../organisms/footer/Footer";
 
 export const Contact = (): JSX.Element => {
   return (
