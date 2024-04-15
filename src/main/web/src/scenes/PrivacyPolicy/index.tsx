@@ -4,11 +4,8 @@ import {Header} from "../../organisms/header/Header";
 
 export const PrivacyPolicy = () => {
   return (
-      <div className="privacy-policy">
-        <Header></Header>
-        <div className="privacy-policy-component">
-          <Header/>
-        </div>
+      <div className="privacy-policy-component">
+        <Header/>
       </div>
   );
 }
