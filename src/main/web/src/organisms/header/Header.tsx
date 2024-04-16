@@ -3,7 +3,6 @@ import {SearchBar} from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
 import Login from '../../scenes/Home/components/login/Login';
 import SignUp from "../../scenes/Home/components/signup/SignUp";
-import {Notifications} from "../../scenes/Home/components/Notifications";
 import "./Header.css";
 
 export const Header = () => {
