@@ -40,6 +40,9 @@
   box-shadow: 0 2px 4px var(--box-shadow);
   border-radius: 10px;
   transition: var(--transition);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &&:hover {
     background-color: var(--dark-red);
   }
@@ -48,54 +51,31 @@
   }
 }
 
-.home-background {
-  background-image: url(../../../public/assets/home/header/home.svg);
-}
-
-.friends-background {
-  background-image: url(../../../public/assets/home/header/friends.svg);
-}
-
-.calendar-background {
-  background-image: url(../../../public/assets/home/header/calendar.svg);
-}
-
 .notifications-button,
 .notifications-button-new {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  background: none;
   border: none;
-}
-
-.notifications-background,
-.notifications-new-background {
   height: 45px;
   width: 45px;
   box-shadow: 0 2px 4px var(--box-shadow);
   border-radius: 10px;
-}
-
-.notifications-button, .notifications-button-new {
-  background-image: url(../../../public/assets/home/header/notifications.svg);
   background-color: var(--grey);
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 10px;
   transition: var(--transition);
   &&:hover {
     background-color: var(--dark-red);
   }
 }
 
-.notifications-button {
-  background-image: url(../../../public/assets/home/header/notifications.svg);
-}
-
-.notifications-button-new {
-  background-image: url(../../../public/assets/home/header/notifications-dot.svg);
+.notifications-dot {
+  position: absolute;
+  padding-left: 15px;
+  padding-bottom: 20px;
+  z-index: 1;
 }
 
 .profile-component {
@@ -107,7 +87,6 @@
 }
 
 .profile-picture-header {
-  background-image: url(../../../public/assets/home/profile.svg);
   height: 43px;
   border: 2px solid var(--red);
   border-radius: var(--border-radius);
@@ -162,4 +141,10 @@
     width: 0;
     height: 0;
   }
+}
+
+.notifications {
+  width: 0;
+  height: 0;
+  margin-right: -50px;
 }
