@@ -17,7 +17,7 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     height: 560,
-    bgcolor: '#3B454F',
+    backgroundColor: 'var(--component-grey)',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
@@ -25,6 +25,7 @@ const style = {
 
 const buttonStyles = {
     backgroundColor: 'red',
+    transition: 'var(--transition)',
     '&:hover': {
         backgroundColor: 'darkred',
     },
@@ -52,17 +53,15 @@ export default function Login() {
         const backendAPIEndpoint = 'http://localhost:8080/api/auth/login';
 
         try {
-            const response = await fetch(backendAPIEndpoint, {
+            return await fetch(backendAPIEndpoint, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email }),
+                body: JSON.stringify({email}),
                 credentials: 'include',
             });
-
-            return response;
         } catch (error) {
             console.error('Fetch error:', error);
             throw error;

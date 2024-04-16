@@ -23,16 +23,16 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: '#3B454F',
+    backgroundColor: 'var(--component-grey)',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
 };
 
 const buttonStyles = {
-    backgroundColor: 'red',
+    backgroundColor: 'var(--red)',
     '&:hover': {
-        backgroundColor: 'darkred',
+        backgroundColor: 'var(--dark-red)',
     },
 };
 
@@ -85,8 +85,6 @@ export default function ModalComponent(props: any) {
                 console.error('Fetch error:', error);
             });
     }
-
-
 
     const handleContinueClick = () => {
         sendEmail(email);

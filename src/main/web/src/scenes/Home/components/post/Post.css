@@ -1,5 +1,5 @@
 .post {
-  background-color: #262D34;
+  background-color: var(--component-grey);
   border-radius: 25px;
   height: 210px;
   width: 850px;

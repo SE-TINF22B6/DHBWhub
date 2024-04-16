@@ -1,5 +1,4 @@
 .homepage {
-  background-color: #1E252B;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,4 +25,12 @@
 .middle-content {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .body {
+    margin-top: -60px;
+    gap: 10px;
+    flex-direction: column;
+  }
 }
