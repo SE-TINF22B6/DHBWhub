@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,13 @@ public class Account {
     @Column(name = "account_id")
     private Long id;
 
+    @NotBlank
     private final String username;
 
+    @NotBlank
     private final String email;
 
+    @NotBlank
     private final String password;
 
     @JoinColumn(name = "picture_id")
