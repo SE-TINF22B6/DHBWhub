@@ -1,225 +1,149 @@
 .post {
   background-color: var(--component-grey);
-  border-radius: 25px;
-  height: 210px;
-  width: 850px;
+  border-radius: var(--border-radius);
   display: flex;
   justify-content: space-between;
+  gap: 20px;
+  padding: var(--component-padding);
 }
 
-.post-button, .post-tag-button {
+.post-button {
   color: transparent;
 }
 
-.picture {
+.post-image {
   height: 170px;
+  top: 50%;
+  transform: translateY(-50%);
   position: relative;
-  left: 15px;
-  top: 20px;
-  width: 151px;
 }
 
-.post-menu {
-  color: #ffffff;
+.post-menu-points {
   background: transparent;
   border: none;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 20px;
-  font-weight: 600;
-  height: 30px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: relative;
-  top: 14px;
+  height: 20px;
+  position: absolute;
   white-space: nowrap;
-  width: 32px;
-  left: 630px;
+  width: 20px;
+  right: 20px;
 }
 
 .post-infos {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  height: 165px;
+  gap: 10px;
+  height: 170px;
   position: relative;
-  width: 360px;
+  width: 340px;
+}
+
+.post-title, .short-description, .footer {
+  font-family: var(--font-family);
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  position: relative;
 }
 
 .post-title {
-  color: #ffffff;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 16px;
-  font-weight: 600;
-  height: 25px;
-  top: 5px;
+  color: var(--white);
+  font-size: var(--headline-font-size);
   text-underline: none;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: relative;
-  white-space: nowrap;
-  width: 360px;
-  margin-bottom: -2px;
+  margin-top: 0;
+  margin-bottom: 0;
+  &&:hover {
+    color: var(--light-grey);
+  }
 }
 
-.tags {
+.post-tags {
   display: flex;
-  gap: 5px;
-  margin-bottom: -20px;
-}
-
-.post-tag {
-  background-color: #2C353D;
-  border: 1px solid #E3001B;
-  border-radius: 20px;
-  color: #ffffff;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 24px;
-  white-space: nowrap;
-  height: 26px;
-  position: relative;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 10px;
+  margin-bottom: 0;
 }
 
 .short-description {
-  color: #ffffff;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 12px;
-  font-weight: 600;
+  color: var(--white);
+  font-size: var(--text-font-size);
   height: 50px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: relative;
-  width: 400px;
-  margin-bottom: -10px;
+  width: 430px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.seperator {
-  background-image: url(../../../../../public/assets/home/post/seperator.svg);
-  height: 1px;
-  left: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 165px;
-  width: 155px;
-}
-
-.author-date {
-  color: #ffffffb2;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 12px;
-  font-weight: 600;
-  height: 19px;
-  letter-spacing: 0;
-  line-height: 24px;
+.interaction-stats, .interaction-symbols {
+  display: flex;
+  align-items: flex-start;
   position: relative;
-  white-space: nowrap;
-  width: 155px;
-  top: 15px;
 }
 
 .interaction-stats {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: 24px;
-  position: relative;
-  left: 75px;
-  top: 117px;
-  width: 148px;
-}
-
-.stats {
-  align-items: flex-start;
-  display: flex;
-  flex: 0 0 auto;
-  gap: 6px;
-  position: relative;
-  width: 147px;
-}
-
-.likes {
-  color: #ffffff;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 14px;
-  font-weight: 600;
-  height: 25px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: relative;
-  white-space: nowrap;
-  width: 60px;
-}
-
-.comments {
-  color: #ffffff;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 14px;
-  font-weight: 600;
-  height: 25px;
-  left: 20px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: relative;
-  white-space: nowrap;
-  width: 100px;
+  gap: 30px;
+  top: 140px;
+  left: 120px;
+  padding-right: 20px;
 }
 
 .interaction-symbols {
-  align-items: flex-start;
-  display: flex;
-  gap: 61px;
-  height: 25px;
-  position: relative;
-  top: 87px;
-  width: 112px;
-  left: -75px;
+  gap: 85px;
+  top: 105px;
+  left: -65px;
 }
 
 .like-button {
   background-size: cover;
-  image-rendering: optimizeQuality;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
   background: none;
   border: none;
 }
 
-.heart-symbol {
-  background-image: url(../../../../../public/assets/home/post/heart.svg);
-  height: 24px;
-  object-fit: cover;
-  position: relative;
-  width: 26px;
+.footer {
+  color: var(--light-grey);
+  font-size: var(--text-font-size);
+  white-space: nowrap;
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 
-.heart-filled {
-  background-image: url(../../../../../public/assets/home/post/heart-active.svg);
-  height: 24px;
-  object-fit: cover;
-  position: relative;
-  width: 26px;
-}
-
-.comment-symbol {
-  background-image: url(../../../../../public/assets/home/post/comment.svg);
-  height: 25px;
-  left: 10px;
-  object-fit: cover;
-  position: relative;
-  width: 25px;
-}
-
-.author-link {
-  color: transparent;
-  margin-top: 10px;
+@media (max-width: 412px) {
+  .post {
+    width: 350px;
+    height: 200px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .short-description {
+    width: 220px;
+    height: 70px;
+  }
+  .post-image {
+    height: 100px;
+    width: 80px;
+    margin-top: -50px;
+  }
+  .post-tags {
+    flex-direction: column;
+    position: absolute;
+    margin-top: 110px;
+    margin-left: -100px;
+    gap: 5px;
+    margin-bottom: 0;
+  }
+  .post-infos {
+    width: 250px;
+  }
+  .interaction-stats {
+    left: -90px;
+    margin-top: 40px;
+    margin-right: 120px;
+  }
+  .interaction-symbols {
+    gap: 50px;
+    top: 150px;
+    left: -360px;
+  }
+  .post-menu-points {
+    height: 15px;
+    width: 15px;
+    right: 40px;
+  }
 }
