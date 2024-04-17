@@ -1,13 +1,10 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.SavedPostMapper;
-import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.SavedPost;
-import de.tinf22b6.dhbwhub.model.User;
-import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
-import de.tinf22b6.dhbwhub.proposal.UserProposal;
 import de.tinf22b6.dhbwhub.service.SavedPostServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.sql.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -37,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class SavedPostControllerTests {
+class SavedPostControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -49,10 +45,7 @@ public class SavedPostControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        User user = new User(19, "Ich studiere Informatik", null, null);
-
-        SavedPost savedPost = new SavedPost(user,post);
+        SavedPost savedPost = createDefaultSavedPost();
 
         when(savedPostService.getAll()).thenReturn(List.of(savedPost, savedPost));
 
@@ -65,10 +58,7 @@ public class SavedPostControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        User user = new User(19, "Ich studiere Informatik", null, null);
-
-        SavedPost savedPost = new SavedPost(user,post);
+        SavedPost savedPost = createDefaultSavedPost();
 
         when(savedPostService.get(any(Long.class))).thenReturn(savedPost);
 
@@ -80,10 +70,7 @@ public class SavedPostControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        PostProposal postProposal = new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        UserProposal userProposal = new UserProposal(19, "Ich studiere Informatik", null, null);
-
-        SavedPostProposal savedPostProposal = new SavedPostProposal(userProposal,postProposal);
+        SavedPostProposal savedPostProposal = createDefaultSavedPostProposal();
 
         given(savedPostService.create(any(SavedPostProposal.class))).willAnswer(i -> SavedPostMapper.mapToModel(i.getArgument(0)));
 

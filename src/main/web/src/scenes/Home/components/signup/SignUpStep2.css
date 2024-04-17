@@ -20,7 +20,7 @@
     width: 100%;
     position: relative;
     text-align: center;
-    background-color: #FFFFFF;
+    background-color: var(--white);
     border: 1px solid #CCCCCC;
     border-radius: 8px;
 }
@@ -28,11 +28,11 @@
 .modal {
     width: 345px;
     height: 620px;
-    background: #3B454F;
+    background: var(--grey);
     color: #3B454F;
     z-index: 10;
     border-radius: 16px;
-    box-shadow: 0 5px 20px #3B454F;
+    box-shadow: 0 5px 20px var(--box-shadow);
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -47,21 +47,20 @@
 }
 
 .heading {
-    margin: 0;
     padding: 10px;
-    color: white;
-    font-weight: 500;
-    font-size: 18px;
+    color: var(--white);
+    font-weight: var(--normal-font-weight);
+    font-size: var(--title-font-size);
     text-align: left;
     position: relative;
     left: 0;
     transform: none;
-    margin-left: -9px;
+    margin: 0 0 0 -9px;
 }
 
 .paragraph {
     margin: 0;
-    color: white;
+    color: var(--white);
     text-align: left;
     position: relative;
     left: 0;
@@ -103,8 +102,8 @@
 }
 
 .log-in-wrapper {
-    background-color: #2C353D;
-    border: 1px solid #E3001B;
+    background-color: var(--grey);
+    border: 1px solid var(--red);
     border-radius: 10px;
     height: 40px;
     position: relative;
@@ -112,12 +111,11 @@
 }
 
 .log-in-text {
-    color: #ffffff;
+    color: var(--white);
     font-family: "Source Sans Pro-Regular", Helvetica, serif;
-    font-size: 18px;
+    font-size: var(--title-font-size);
     font-weight: 400;
     left: 16px;
-    letter-spacing: 0;
     line-height: 24px;
     position: absolute;
     top: 9px;

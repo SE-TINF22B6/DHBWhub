@@ -1,10 +1,10 @@
 import React from "react";
 import "./index.css";
-import {Header} from "../Home/components/header/Header";
+import {Header} from "../../organisms/header/Header";
 
-export const FAQ = (): JSX.Element => {
+export const FAQ = () => {
   return (
-      <div className="faq">
+      <div className="faq-component">
         <Header></Header>
       </div>
   );

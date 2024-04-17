@@ -26,14 +26,14 @@ public class Comment {
     private final int likes;
 
     @JoinColumn(name = "picture_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Picture picture;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final User user;
 
     @JoinColumn(name = "post_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Post post;
 }

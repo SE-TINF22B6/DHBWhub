@@ -23,10 +23,10 @@ public class User {
     private final String description;
 
     @JoinColumn(name = "course_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Course course;
 
     @JoinColumn(name = "account_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Account account;
 }

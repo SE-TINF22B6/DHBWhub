@@ -25,7 +25,7 @@ public class Account {
     private final String password;
 
     @JoinColumn(name = "picture_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Picture picture;
 
     private final boolean active;

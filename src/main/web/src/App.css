@@ -1,8 +1,8 @@
 :root {
-  background-color: #1e252b;
+  background-color: #151719;
 
-  --grey: #2C353D;
-  --component-grey: #262D34;
+  --grey: #32363b;
+  --component-grey: #25282c;
   --red: #E3001B;
   --dark-red: #831525;
   --white: #ffffff;
@@ -17,7 +17,111 @@
   --strong-font-weight: 600;
   --normal-font-weight: 500;
 
+  --transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+
   --component-padding: 20px;
 
   --border-radius: 25px;
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --text-font-size: 10px;
+    --headline-font-size: 14px;
+    --title-font-size: 16px;
+  }
+}
+
+@media (max-width: 412px) {
+  :root {
+    --text-font-size: 8px;
+    --headline-font-size: 14px;
+    --title-font-size: 16px;
+  }
+}
+
+.error, .loading {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  white-space: nowrap;
+  text-align: center;
+  margin-top: -40px;
+}
+
+.heart-symbol, .heart-filled, .comment-symbol {
+  object-fit: cover;
+  position: absolute;
+}
+
+.heart-symbol {
+  background-image: url(../public/assets/home/post/heart.svg);
+  height: 24px;
+  width: 26px;
+}
+
+.heart-filled {
+  background-image: url(../public/assets/home/post/heart-active.svg);
+  height: 24px;
+  width: 26px;
+}
+
+.comment-symbol {
+  background-image: url(../public/assets/home/post/comment.svg);
+  height: 25px;
+  width: 25px;
+}
+
+.author-link {
+  text-decoration: none;
+  color: var(--light-grey);
+  font-family: var(--font-family);
+  font-size: var(--text-font-size);
+  font-weight: var(--strong-font-weight);
+  &&:hover {
+    color: var(--white);
+  }
+}
+
+.likes, .comments {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: var(--text-font-size);
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.component-headline {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: var(--headline-font-size);
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.profile-picture {
+  border-radius: var(--border-radius);
+  border: 2px solid var(--red);
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  position: absolute;
+}
+
+.loading-animation {
+  margin-top: -50px;
+  width: 100px;
+  height: 100px;
+}
+
+.error-animation {
+  margin-top: -72px;
+  width: 500px;
+  height: 500px;
 }

@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.CommentMapper;
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
@@ -17,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.sql.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class CommentControllerTests {
+class CommentControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -46,7 +46,7 @@ public class CommentControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1701242553L), 4, null, null, null);
+        Comment comment = createDefaultComment();
         when(commentService.getAll()).thenReturn(List.of(comment, comment));
 
         ResultActions response = mockMvc.perform(get("/comment")
@@ -58,7 +58,7 @@ public class CommentControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1701242553L), 4, null, null, null);
+        Comment comment = createDefaultComment();
         when(commentService.get(any(Long.class))).thenReturn(comment);
 
         ResultActions response = mockMvc.perform(get("/comment/1")
@@ -71,7 +71,7 @@ public class CommentControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        CommentProposal commentProposal = new CommentProposal("Das ist ganz normaler Kommentar", new Date(1701242817893L), 4, null, null, null);
+        CommentProposal commentProposal = createDefaultCommentProposal();
         given(commentService.create(any(CommentProposal.class))).willAnswer(i -> CommentMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/comment")
@@ -85,7 +85,7 @@ public class CommentControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        CommentProposal commentProposal = new CommentProposal("Das ist ganz normaler Kommentar", new Date(1701242553L), 4, null, null, null);
+        CommentProposal commentProposal = createDefaultCommentProposal();
         when(commentService.update(any(Long.class), any(CommentProposal.class))).thenReturn(CommentMapper.mapToModel(commentProposal));
 
         ResultActions response = mockMvc.perform(put("/comment/1")
@@ -106,5 +106,4 @@ public class CommentControllerTests {
 
         response.andExpect(status().isNoContent());
     }
-
 }

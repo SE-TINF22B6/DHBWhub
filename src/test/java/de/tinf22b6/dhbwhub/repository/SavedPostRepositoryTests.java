@@ -1,8 +1,7 @@
 package de.tinf22b6.dhbwhub.repository;
 
-import de.tinf22b6.dhbwhub.model.Post;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.SavedPost;
-import de.tinf22b6.dhbwhub.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -11,22 +10,20 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.sql.Date;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class SavedPostRepositoryTests {
+class SavedPostRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private SavedPostRepository savedPostRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        SavedPost savedPost1 = new SavedPost(null,null);
-        SavedPost savedPost2 = new SavedPost(null,null);
+        SavedPost savedPost1 = createDefaultSavedPost();
+        SavedPost savedPost2 = createDefaultSavedPost2();
 
         savedPostRepository.save(savedPost1);
         savedPostRepository.save(savedPost2);
@@ -41,10 +38,7 @@ public class SavedPostRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        User user = new User(19, "Ich studiere Informatik", null, null);
-
-        SavedPost savedPost = new SavedPost(user,post);
+        SavedPost savedPost = createDefaultSavedPost();
 
         savedPostRepository.save(savedPost);
 
@@ -58,7 +52,7 @@ public class SavedPostRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        SavedPost savedPost = new SavedPost(null,null);
+        SavedPost savedPost = createDefaultSavedPost();
 
         savedPostRepository.save(savedPost);
 
@@ -67,10 +61,7 @@ public class SavedPostRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        User user = new User(19, "Ich studiere Informatik", null, null);
-
-        SavedPost savedPost = new SavedPost(user,post);
+        SavedPost savedPost = createDefaultSavedPost();
 
         savedPostRepository.save(savedPost);
 

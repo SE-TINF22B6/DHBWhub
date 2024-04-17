@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Picture;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class PictureRepositoryTests {
+class PictureRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private PictureRepository pictureRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Picture picture1 = new Picture("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
-        Picture picture2 = new Picture("course-img-TINF22B6.jpg", new Byte[]{ 12, 34, 56, 78, 90 });
+        Picture picture1 = createDefaultPicture();
+        Picture picture2 = createDefaultPicture2();
 
         pictureRepository.save(picture1);
         pictureRepository.save(picture2);
@@ -37,7 +38,7 @@ public class PictureRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Picture picture = new Picture("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
+        Picture picture = createDefaultPicture();
 
         pictureRepository.save(picture);
 
@@ -51,7 +52,7 @@ public class PictureRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Picture picture = new Picture("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
+        Picture picture = createDefaultPicture();
 
         pictureRepository.save(picture);
 
@@ -60,7 +61,7 @@ public class PictureRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Picture picture = new Picture("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
+        Picture picture = createDefaultPicture();
         pictureRepository.save(picture);
 
         pictureRepository.delete(picture.getId());

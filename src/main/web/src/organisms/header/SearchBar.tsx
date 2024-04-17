@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "./SearchBar.css";
 
-export const SearchBar = (): JSX.Element => {
+export const SearchBar = () => {
   const [query, setQuery] = useState("");
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -17,7 +17,7 @@ export const SearchBar = (): JSX.Element => {
       currentSearch.set("query", query);
       const queryString = currentSearch.toString();
       // eslint-disable-next-line no-restricted-globals
-      window.location.href = queryString ? `${window.location.origin}/search/?${queryString}` : window.location.origin;
+      window.location.href = queryString ? `${window.location.origin}#/search/?${queryString}` : window.location.origin;
       setQuery("");
     }
   };

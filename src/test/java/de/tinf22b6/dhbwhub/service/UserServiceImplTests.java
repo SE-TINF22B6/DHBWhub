@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
@@ -16,12 +17,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class UserServiceImplTests {
+class UserServiceImplTests extends AbstractApplicationTest {
     @Mock
     private UserRepository userRepository;
 
@@ -30,8 +30,8 @@ public class UserServiceImplTests {
 
     @Test
     void GetAll_HasSize_Two() {
-        User user1 = new User(19, "Ich studiere Informatik", null, null);
-        User user2 = new User(21, "Ich studiere Jura", null, null);
+        User user1 = createDefaultUser();
+        User user2 = createDefaultUser2();
         when(userRepository.findAll()).thenReturn(List.of(user1, user2));
 
         assertThat(userService.getAll()).hasSize(2);
@@ -44,8 +44,8 @@ public class UserServiceImplTests {
 
     @Test
     void Get_IsNotNull() {
-        User user = new User(19, "Ich studiere Informatik", null, null);
-        lenient().when(userRepository.find(1L)).thenReturn(user);
+        User user = createDefaultUser();
+        when(userRepository.find(1L)).thenReturn(user);
 
         assertThat(userService.get(1L)).isNotNull();
     }
@@ -58,26 +58,26 @@ public class UserServiceImplTests {
 
     @Test
     void Create_IsNotNull() {
-        User user = new User(19, "Ich studiere Informatik", null, null);
+        User user = createDefaultUser();
         when(userRepository.save(any(User.class))).thenReturn(user);
 
-        UserProposal userProposal = new UserProposal(19, "Ich studiere Informatik", null, null);
+        UserProposal userProposal = createDefaultUserProposal();
         assertThat(userService.create(userProposal)).isNotNull();
     }
 
     @Test
     void Update_IsNotNull() {
-        User user = new User(19, "Ich studiere Informatik", null, null);
+        User user = createDefaultUser();
         when(userRepository.find(1L)).thenReturn(user);
         when(userRepository.save(any(User.class))).thenReturn(user);
 
-        UserProposal userProposal = new UserProposal(19, "Ich studiere Informatik", null, null);
+        UserProposal userProposal = createDefaultUserProposal();
         assertThat(userService.update(1L, userProposal)).isNotNull();
     }
 
     @Test
     void Delete_DoesNotThrow() {
-        User user = new User(19, "Ich studiere Informatik", null, null);
+        User user = createDefaultUser();
         when(userRepository.find(1L)).thenReturn(user);
 
         assertDoesNotThrow(() -> userService.delete(1L));

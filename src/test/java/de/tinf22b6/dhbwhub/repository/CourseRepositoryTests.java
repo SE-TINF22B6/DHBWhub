@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Course;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class CourseRepositoryTests {
+class CourseRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private CourseRepository courseRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Course course1 = new Course("TINF22B5", null);
-        Course course2 = new Course("TINF22B6", null);
+        Course course1 = createDefaultCourse();
+        Course course2 = createDefaultCourse2();
 
         courseRepository.save(course1);
         courseRepository.save(course2);
@@ -37,7 +38,7 @@ public class CourseRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Course course = new Course("TINF22B6", null);
+        Course course = createDefaultCourse();
 
         courseRepository.save(course);
 
@@ -51,7 +52,7 @@ public class CourseRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Course course = new Course("TINF22B6", null);
+        Course course = createDefaultCourse();
 
         courseRepository.save(course);
 
@@ -60,7 +61,7 @@ public class CourseRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Course course = new Course("TINF22B6", null);
+        Course course = createDefaultCourse();
         courseRepository.save(course);
 
         courseRepository.delete(course.getId());
