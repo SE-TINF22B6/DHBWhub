@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
-@RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
 public class Account {
@@ -30,8 +32,26 @@ public class Account {
 
     @JoinColumn(name = "picture_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private final Picture picture;
+    private Picture picture;
 
     private final boolean active;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Role> roles = new HashSet<>();
+
+    public Account(String username, String email, String password, boolean active) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.active = active;
+    }
+
+    public Account(String username, String email, String password, Picture picture, boolean active) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.picture = picture;
+        this.active = active;
+    }
 
 }

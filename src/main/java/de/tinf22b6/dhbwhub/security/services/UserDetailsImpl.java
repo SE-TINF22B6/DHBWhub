@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import de.tinf22b6.dhbwhub.model.AuthUser;
+import de.tinf22b6.dhbwhub.model.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,7 +36,7 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(AuthUser user) {
+    public static UserDetailsImpl build(Account user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());

@@ -1,13 +1,13 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.model.AuthUser;
+import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.ERole;
 import de.tinf22b6.dhbwhub.model.Role;
 import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
 import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
 import de.tinf22b6.dhbwhub.payload.response.MessageResponse;
-import de.tinf22b6.dhbwhub.repository.AuthUserRepository;
+import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.repository.RoleRepository;
 import de.tinf22b6.dhbwhub.security.jwt.JwtUtils;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     private AuthenticationManager authenticationManager;
-    private AuthUserRepository authUserRepository;
+    private AccountRepository accountRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private JwtUtils jwtUtils;
@@ -59,21 +59,21 @@ public class AuthController {
 
     @PostMapping("signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signupRequest) {
-        if (authUserRepository.existsByUsername(signupRequest.getUsername())) {
+        if (accountRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if (authUserRepository.existsByEmail(signupRequest.getEmail())) {
+        if (accountRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        AuthUser user = new AuthUser(signupRequest.getUsername(),
+        Account user = new Account(signupRequest.getUsername(),
                 signupRequest.getEmail(),
-                passwordEncoder.encode(signupRequest.getPassword()));
+                passwordEncoder.encode(signupRequest.getPassword()), true);
 
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -104,7 +104,7 @@ public class AuthController {
         }
 
         user.setRoles(roles);
-        authUserRepository.save(user);
+        accountRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
