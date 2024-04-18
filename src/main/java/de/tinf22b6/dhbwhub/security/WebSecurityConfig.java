@@ -14,10 +14,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 
 @Configuration
@@ -59,30 +62,20 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf(AbstractHttpConfigurer::disable)
-//                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(auth ->
-//                        auth.requestMatchers("/api/auth/").permitAll()
-//                                .anyRequest().authenticated()
-//                );
-
-        http.authorizeHttpRequests((authz) -> authz
-                .requestMatchers("/api/auth/login").permitAll()
-                .requestMatchers("/api/auth/signup").permitAll()
-                .anyRequest()
-                .authenticated()
-        ).formLogin((form) -> form
-                .loginPage("/api/auth/login").permitAll()
-        ).logout(LogoutConfigurer::permitAll);
-
-        http.httpBasic(Customizer.withDefaults());
-        http.csrf(AbstractHttpConfigurer::disable);
-
-//        http.authenticationProvider(authenticationProvider());
-//
-//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll() // Zugriff für alle erlauben
+                                .anyRequest().authenticated() // Andere Anfragen erfordern eine Authentifizierung
+                )
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/api/auth/login") // Benutzerdefinierte Login-Seite festlegen
+                                .permitAll() // Zugriff auf die Login-Seite für alle erlauben
+                )
+                .logout(LogoutConfigurer::permitAll // Zugriff auf die Logout-Seite für alle erlauben
+                ); // CSRF-Schutz deaktivieren, falls erforderlich
 
         return http.build();
     }
