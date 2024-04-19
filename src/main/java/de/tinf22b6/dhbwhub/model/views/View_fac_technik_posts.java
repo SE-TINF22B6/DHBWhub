@@ -1,7 +1,14 @@
-package de.tinf22b6.dhbwhub.model;
+package de.tinf22b6.dhbwhub.model.views;
 
+import de.tinf22b6.dhbwhub.model.Course;
+import de.tinf22b6.dhbwhub.model.Picture;
+import de.tinf22b6.dhbwhub.model.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Immutable;
 
 import java.util.Date;
 import java.util.List;
@@ -9,10 +16,10 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
 @NoArgsConstructor(force = true)
+@Immutable
 @Entity
-public class Post {
+public class View_fac_technik_posts {
     @Id
     @GeneratedValue
     @Column(name = "post_id")
@@ -26,18 +33,19 @@ public class Post {
 
     private final int likes;
 
-    @ElementCollection
+    @Lob
     private final List<String> tags;
 
     @JoinColumn(name = "picture_id")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private final Picture picture;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private final User user;
 
     @JoinColumn(name = "course_id")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private final Course course;
+
 }

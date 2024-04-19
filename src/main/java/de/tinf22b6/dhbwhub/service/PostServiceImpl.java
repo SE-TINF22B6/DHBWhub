@@ -4,12 +4,14 @@ import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -56,4 +58,28 @@ public class PostServiceImpl implements PostService {
 
         repository.delete(id);
     }
+
+    @Override
+    public int getAmountOfComments(Long id) {
+        return repository.findAmountOfComments(id);
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getHomepagePosts() {
+        List<HomepagePostPreviewProposal> homepagePostPreviewProposals = getAll().stream().map(PostMapper::mapToHomepagePreviewProposal).collect(Collectors.toList());
+        homepagePostPreviewProposals.forEach(p -> p.setAmountComments(getAmountOfComments(p.getId())));
+        return homepagePostPreviewProposals;
+    }
+
+    @Override
+    public List<Post> getFacPosts(int id) {
+        return switch (id) {
+            case 0 -> repository.findPostsFromFacTechnik();
+            case 1 -> repository.findPostsFromFacGesundheit();
+            case 2 -> repository.findPostsFromFacWirtschaft();
+            default -> repository.findAll();
+        };
+    }
+
+
 }
