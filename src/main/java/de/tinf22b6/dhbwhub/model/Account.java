@@ -4,11 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -35,9 +31,6 @@ public class Account {
     private Picture picture;
 
     private final boolean active;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Role> roles = new HashSet<>();
 
     public Account(String username, String email, String password, boolean active) {
         this.username = username;

@@ -1,16 +1,17 @@
 package de.tinf22b6.dhbwhub.security.services;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.Administrator;
+import de.tinf22b6.dhbwhub.model.ERole;
+import de.tinf22b6.dhbwhub.repository.AdministratorRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -25,6 +26,8 @@ public class UserDetailsImpl implements UserDetails {
     @JsonIgnore
     private String password;
 
+    private static AdministratorRepository administratorRepository;
+
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String email, String password,
@@ -37,16 +40,26 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(Account user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+        List<Administrator> administratorList = loadAdministrators();
+
+        List<GrantedAuthority> simpleGrantedAuthority = List.of();
+        boolean isAdmin = administratorList.stream().anyMatch(admin -> admin.getId().equals(user.getId()));
+        if (isAdmin) {
+            simpleGrantedAuthority.add(new SimpleGrantedAuthority(ERole.ROLE_ADMIN.toString()));
+        } else {
+            simpleGrantedAuthority.add(new SimpleGrantedAuthority(ERole.ROLE_USER.toString()));
+        }
+
+//        List<GrantedAuthority> authorities = user.getRoles().stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+//                .collect(Collectors.toList());
 
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities);
+                simpleGrantedAuthority);
     }
 
     @Override
@@ -100,5 +113,9 @@ public class UserDetailsImpl implements UserDetails {
             return false;
         UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
+    }
+
+    private static List<Administrator> loadAdministrators() {
+        return administratorRepository.findAll();
     }
 }
