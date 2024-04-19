@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Administrator;
 import de.tinf22b6.dhbwhub.model.ERole;
-import de.tinf22b6.dhbwhub.repository.AdministratorRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
     @JsonIgnore
     private String password;
 
-    private static AdministratorRepository administratorRepository;
+    //private AdministratorService administratorService;
 
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -37,10 +36,13 @@ public class UserDetailsImpl implements UserDetails {
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+        //this.administratorService = new AdministratorService();
     }
 
     public static UserDetailsImpl build(Account user) {
-        List<Administrator> administratorList = loadAdministrators();
+        // TODO: Solve Dependency Injection
+        AdministratorService administratorService = new AdministratorService();
+        List<Administrator> administratorList = administratorService.loadAdministrators();
 
         List<GrantedAuthority> simpleGrantedAuthority = List.of();
         boolean isAdmin = administratorList.stream().anyMatch(admin -> admin.getId().equals(user.getId()));
@@ -115,7 +117,4 @@ public class UserDetailsImpl implements UserDetails {
         return Objects.equals(id, user.id);
     }
 
-    private static List<Administrator> loadAdministrators() {
-        return administratorRepository.findAll();
-    }
 }
