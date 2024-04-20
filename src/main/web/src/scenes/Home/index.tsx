@@ -20,7 +20,6 @@ export const Home = () => {
             <SortOptions onSortChange={handleSortChange}/>
           </div>
           <div className="middle-content">
-            <Posts sortOption={sortOption} />
             <CreatePost/>
             <Posts sortOption={sortOption}/>
           </div>
