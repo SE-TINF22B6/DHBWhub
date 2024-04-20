@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.PictureMapper;
 import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.proposal.PictureProposal;
@@ -33,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class PictureControllerTests {
+class PictureControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,7 +46,7 @@ public class PictureControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Picture picture = new Picture("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
+        Picture picture = createDefaultPicture();
         when(pictureService.getAll()).thenReturn(List.of(picture, picture));
 
         ResultActions response = mockMvc.perform(get("/picture")
@@ -57,7 +58,7 @@ public class PictureControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Picture picture = new Picture("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
+        Picture picture = createDefaultPicture();
         when(pictureService.get(any(Long.class))).thenReturn(picture);
 
         ResultActions response = mockMvc.perform(get("/picture/1")
@@ -66,12 +67,12 @@ public class PictureControllerTests {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(picture.getName())))
                 .andExpect(jsonPath("$.imageData").isArray())
-                .andExpect(jsonPath("$.imageData", hasSize(picture.getImageData().length)));
+                .andExpect(jsonPath("$.imageData", hasSize(picture.getImageData().size())));
     }
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        PictureProposal pictureProposal = new PictureProposal("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
+        PictureProposal pictureProposal = createDefaultPictureProposal();
         given(pictureService.create(any(PictureProposal.class))).willAnswer(i -> PictureMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/picture")
@@ -81,12 +82,12 @@ public class PictureControllerTests {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(pictureProposal.getName())))
                 .andExpect(jsonPath("$.imageData").isArray())
-                .andExpect(jsonPath("$.imageData", hasSize(pictureProposal.getImageData().length)));
+                .andExpect(jsonPath("$.imageData", hasSize(pictureProposal.getImageData().size())));
     }
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        PictureProposal pictureProposal = new PictureProposal("profile-img-182310.png", new Byte[]{ 90, 87, 76, 65, 54 });
+        PictureProposal pictureProposal = createDefaultPictureProposal();
         when(pictureService.update(any(Long.class), any(PictureProposal.class))).thenReturn(PictureMapper.mapToModel(pictureProposal));
 
         ResultActions response = mockMvc.perform(put("/picture/1")
@@ -96,7 +97,7 @@ public class PictureControllerTests {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(pictureProposal.getName())))
                 .andExpect(jsonPath("$.imageData").isArray())
-                .andExpect(jsonPath("$.imageData", hasSize(pictureProposal.getImageData().length)));
+                .andExpect(jsonPath("$.imageData", hasSize(pictureProposal.getImageData().size())));
     }
 
     @Test

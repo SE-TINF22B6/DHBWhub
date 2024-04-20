@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Faculty;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class FacultyRepositoryTests {
+class FacultyRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private FacultyRepository facultyRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Faculty faculty1 = new Faculty("Informatik");
-        Faculty faculty2 = new Faculty("Jura");
+        Faculty faculty1 = createDefaultFaculty();
+        Faculty faculty2 = createDefaultFaculty2();
 
         facultyRepository.save(faculty1);
         facultyRepository.save(faculty2);
@@ -37,7 +38,7 @@ public class FacultyRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Faculty faculty = new Faculty("Informatik");
+        Faculty faculty = createDefaultFaculty();
 
         facultyRepository.save(faculty);
 
@@ -51,7 +52,7 @@ public class FacultyRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Faculty faculty = new Faculty("Informatik");
+        Faculty faculty = createDefaultFaculty();
 
         facultyRepository.save(faculty);
 
@@ -60,7 +61,7 @@ public class FacultyRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Faculty faculty = new Faculty("Informatik");
+        Faculty faculty = createDefaultFaculty();
         facultyRepository.save(faculty);
 
         facultyRepository.delete(faculty.getId());

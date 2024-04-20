@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.Faculty;
 import de.tinf22b6.dhbwhub.proposal.FacultyProposal;
@@ -16,12 +17,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class FacultyServiceImplTests {
+class FacultyServiceImplTests extends AbstractApplicationTest {
     @Mock
     private FacultyRepository facultyRepository;
 
@@ -30,8 +30,8 @@ public class FacultyServiceImplTests {
 
     @Test
     void GetAll_HasSize_Two() {
-        Faculty faculty1 = new Faculty("Informatik");
-        Faculty faculty2 = new Faculty("Jura");
+        Faculty faculty1 = createDefaultFaculty();
+        Faculty faculty2 = createDefaultFaculty2();
         when(facultyRepository.findAll()).thenReturn(List.of(faculty1, faculty2));
 
         assertThat(facultyService.getAll()).hasSize(2);
@@ -44,8 +44,8 @@ public class FacultyServiceImplTests {
 
     @Test
     void Get_IsNotNull() {
-        Faculty faculty = new Faculty("Informatik");
-        lenient().when(facultyRepository.find(1L)).thenReturn(faculty);
+        Faculty faculty = createDefaultFaculty();
+        when(facultyRepository.find(1L)).thenReturn(faculty);
 
         assertThat(facultyService.get(1L)).isNotNull();
     }
@@ -58,26 +58,26 @@ public class FacultyServiceImplTests {
 
     @Test
     void Create_IsNotNull() {
-        Faculty faculty = new Faculty("Informatik");
+        Faculty faculty = createDefaultFaculty();
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
 
-        FacultyProposal facultyProposal = new FacultyProposal("Informatik");
+        FacultyProposal facultyProposal = createDefaultFacultyProposal();
         assertThat(facultyService.create(facultyProposal)).isNotNull();
     }
 
     @Test
     void Update_IsNotNull() {
-        Faculty faculty = new Faculty("Informatik");
+        Faculty faculty = createDefaultFaculty();
         when(facultyRepository.find(1L)).thenReturn(faculty);
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
 
-        FacultyProposal facultyProposal = new FacultyProposal("Informatik");
+        FacultyProposal facultyProposal = createDefaultFacultyProposal();
         assertThat(facultyService.update(1L, facultyProposal)).isNotNull();
     }
 
     @Test
     void Delete_DoesNotThrow() {
-        Faculty faculty = new Faculty("Informatik");
+        Faculty faculty = createDefaultFaculty();
         when(facultyRepository.find(1L)).thenReturn(faculty);
 
         assertDoesNotThrow(() -> facultyService.delete(1L));

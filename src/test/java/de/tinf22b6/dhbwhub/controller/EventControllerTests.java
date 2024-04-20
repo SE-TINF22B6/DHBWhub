@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.EventMapper;
 import de.tinf22b6.dhbwhub.model.Event;
 import de.tinf22b6.dhbwhub.proposal.EventProposal;
@@ -17,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.sql.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class EventControllerTests {
+class EventControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,7 +45,7 @@ public class EventControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Event event = new Event("Master-Event",new Date(1701242553L));
+        Event event = createDefaultEvent();
         when(eventService.getAll()).thenReturn(List.of(event, event));
 
         ResultActions response = mockMvc.perform(get("/event")
@@ -57,7 +57,7 @@ public class EventControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Event event = new Event("Master-Event",new Date(1701242553L));
+        Event event = createDefaultEvent();
         when(eventService.get(any(Long.class))).thenReturn(event);
 
         ResultActions response = mockMvc.perform(get("/event/1")
@@ -69,7 +69,7 @@ public class EventControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        EventProposal eventProposal = new EventProposal("Master-Event",new Date(1701242553L));
+        EventProposal eventProposal = createDefaultEventProposal();
         given(eventService.create(any(EventProposal.class))).willAnswer(i -> EventMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/event")
@@ -82,7 +82,7 @@ public class EventControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        EventProposal eventProposal = new EventProposal("Master-Event",new Date(1701242553L));
+        EventProposal eventProposal = createDefaultEventProposal();
         when(eventService.update(any(Long.class), any(EventProposal.class))).thenReturn(EventMapper.mapToModel(eventProposal));
 
         ResultActions response = mockMvc.perform(put("/event/1")

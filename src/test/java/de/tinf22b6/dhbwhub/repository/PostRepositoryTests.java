@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Post;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,22 +10,20 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.sql.Date;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class PostRepositoryTests {
+class PostRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private PostRepository postRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Post post1 = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
-        Post post2 = new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555, null, null, null, null);
+        Post post1 = createDefaultPost();
+        Post post2 = createDefaultPost2();
 
         postRepository.save(post1);
         postRepository.save(post2);
@@ -39,7 +38,7 @@ public class PostRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
+        Post post = createDefaultPost();
 
         postRepository.save(post);
 
@@ -53,7 +52,7 @@ public class PostRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
+        Post post = createDefaultPost();
 
         postRepository.save(post);
 
@@ -62,7 +61,7 @@ public class PostRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
+        Post post = createDefaultPost();
         postRepository.save(post);
 
         postRepository.delete(post.getId());

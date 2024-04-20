@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class UserRepositoryTests {
+class UserRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private UserRepository userRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        User user1 = new User(19, "Ich studiere Informatik", null, null);
-        User user2 = new User(21, "Ich studiere Jura", null, null);
+        User user1 = createDefaultUser();
+        User user2 = createDefaultUser2();
 
         userRepository.save(user1);
         userRepository.save(user2);
@@ -37,7 +38,7 @@ public class UserRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        User user = new User(19, "Ich studiere Informatik", null, null);
+        User user = createDefaultUser();
 
         userRepository.save(user);
 
@@ -51,7 +52,7 @@ public class UserRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        User user = new User(19, "Ich studiere Informatik", null, null);
+        User user = createDefaultUser();
 
         userRepository.save(user);
 
@@ -60,7 +61,7 @@ public class UserRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        User user = new User(19, "Ich studiere Informatik", null, null);
+        User user = createDefaultUser();
         userRepository.save(user);
 
         userRepository.delete(user.getId());

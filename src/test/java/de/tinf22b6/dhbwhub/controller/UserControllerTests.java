@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.UserMapper;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
@@ -33,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class UserControllerTests {
+class UserControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,7 +46,7 @@ public class UserControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        User user = new User(19, "Ich studiere Informatik", null, null);
+        User user = createDefaultUser();
         when(userService.getAll()).thenReturn(List.of(user, user));
 
         ResultActions response = mockMvc.perform(get("/user")
@@ -57,7 +58,7 @@ public class UserControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        User user = new User(19, "Ich studiere Informatik", null, null);
+        User user = createDefaultUser();
         when(userService.get(any(Long.class))).thenReturn(user);
 
         ResultActions response = mockMvc.perform(get("/user/1")
@@ -70,7 +71,7 @@ public class UserControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        UserProposal userProposal = new UserProposal(19, "Ich studiere Informatik", null, null);
+        UserProposal userProposal = createDefaultUserProposal();
         given(userService.create(any(UserProposal.class))).willAnswer(i -> UserMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/user")
@@ -84,7 +85,7 @@ public class UserControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        UserProposal userProposal = new UserProposal(19, "Ich studiere Informatik", null, null);
+        UserProposal userProposal = createDefaultUserProposal();
         when(userService.update(any(Long.class), any(UserProposal.class))).thenReturn(UserMapper.mapToModel(userProposal));
 
         ResultActions response = mockMvc.perform(put("/user/1")
@@ -105,5 +106,4 @@ public class UserControllerTests {
 
         response.andExpect(status().isNoContent());
     }
-  
 }
