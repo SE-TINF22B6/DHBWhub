@@ -28,19 +28,18 @@ public class Post {
 
     private final int likes;
 
-    @Lob
+    @ElementCollection
     private final List<String> tags;
 
     @JoinColumn(name = "picture_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Picture picture;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final User user;
 
     @JoinColumn(name = "course_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private final Course course;
-
 }

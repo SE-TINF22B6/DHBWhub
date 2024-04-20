@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Comment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,22 +10,20 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.sql.Date;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class CommentRepositoryTests {
+class CommentRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private CommentRepository commentRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Comment comment1 = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), 4, null, null, null);
-        Comment comment2 = new Comment("Du mieser Hund!", new Date(1478979183L), 5, null, null, null);
+        Comment comment1 = createDefaultComment();
+        Comment comment2 = createDefaultComment2();
 
         commentRepository.save(comment1);
         commentRepository.save(comment2);
@@ -39,7 +38,7 @@ public class CommentRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), 4, null, null, null);
+        Comment comment = createDefaultComment();
 
         commentRepository.save(comment);
 
@@ -53,7 +52,7 @@ public class CommentRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), 4, null, null, null);
+        Comment comment = createDefaultComment();
 
         commentRepository.save(comment);
 
@@ -62,7 +61,7 @@ public class CommentRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Comment comment = new Comment("Das ist ganz normaler Kommentar", new Date(1478979207L), 4, null, null, null);
+        Comment comment = createDefaultComment();
         commentRepository.save(comment);
 
         commentRepository.delete(comment.getId());

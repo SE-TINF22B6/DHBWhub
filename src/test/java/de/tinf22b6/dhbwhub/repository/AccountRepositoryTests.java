@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.repository;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Account;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
 @ComponentScan(basePackages = "de.tinf22b6.dhbwhub.repository")
-public class AccountRepositoryTests {
+class AccountRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private AccountRepository accountRepository;
 
     @Test
     void FindAll_HasSize_Two() {
-        Account account1 = new Account("maxmustermann1234", "max@mustermann.de", "1234", null,true);
-        Account account2 = new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", null,true);
+        Account account1 = createDefaultAccount();
+        Account account2 = createDefaultAccount2();
 
         accountRepository.save(account1);
         accountRepository.save(account2);
@@ -37,7 +38,7 @@ public class AccountRepositoryTests {
 
     @Test
     void Find_IsNotNull_True() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
+        Account account = createDefaultAccount();
 
         accountRepository.save(account);
 
@@ -51,7 +52,7 @@ public class AccountRepositoryTests {
 
     @Test
     void Save_HasSize_One() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
+        Account account = createDefaultAccount();
 
         accountRepository.save(account);
 
@@ -60,7 +61,7 @@ public class AccountRepositoryTests {
 
     @Test
     void Delete_SizeChange() {
-        Account account = new Account("maxmustermann1234", "max@mustermann.de", "1234", null, true);
+        Account account = createDefaultAccount();
         accountRepository.save(account);
 
         accountRepository.delete(account.getId());

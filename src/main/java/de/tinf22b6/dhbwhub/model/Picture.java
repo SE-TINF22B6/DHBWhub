@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -19,6 +21,6 @@ public class Picture {
 
     private final String name;
 
-    @Lob
-    private final Byte[] imageData;
+    @ElementCollection
+    private final List<Byte> imageData;
 }

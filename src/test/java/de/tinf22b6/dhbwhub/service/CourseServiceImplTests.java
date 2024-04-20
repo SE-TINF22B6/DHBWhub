@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.service;
 
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.Course;
 import de.tinf22b6.dhbwhub.proposal.CourseProposal;
@@ -16,12 +17,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class CourseServiceImplTests {
+class CourseServiceImplTests extends AbstractApplicationTest {
     @Mock
     private CourseRepository courseRepository;
 
@@ -30,8 +30,8 @@ public class CourseServiceImplTests {
 
     @Test
     void GetAll_HasSize_Two() {
-        Course course1 = new Course("TINF22B6", null);
-        Course course2 = new Course("TINF22B5", null);
+        Course course1 = createDefaultCourse();
+        Course course2 = createDefaultCourse2();
         when(courseRepository.findAll()).thenReturn(List.of(course1, course2));
 
         assertThat(courseService.getAll()).hasSize(2);
@@ -44,8 +44,8 @@ public class CourseServiceImplTests {
 
     @Test
     void Get_IsNotNull() {
-        Course course = new Course("TINF22B6", null);
-        lenient().when(courseRepository.find(1L)).thenReturn(course);
+        Course course = createDefaultCourse();
+        when(courseRepository.find(1L)).thenReturn(course);
 
         assertThat(courseService.get(1L)).isNotNull();
     }
@@ -58,26 +58,26 @@ public class CourseServiceImplTests {
 
     @Test
     void Create_IsNotNull() {
-        Course course = new Course("TINF22B6", null);
+        Course course = createDefaultCourse();
         when(courseRepository.save(any(Course.class))).thenReturn(course);
 
-        CourseProposal courseProposal = new CourseProposal("TINF22B6", null);
+        CourseProposal courseProposal = createDefaultCourseProposal();
         assertThat(courseService.create(courseProposal)).isNotNull();
     }
 
     @Test
     void Update_IsNotNull() {
-        Course course = new Course("TINF22B6", null);
+        Course course = createDefaultCourse();
         when(courseRepository.find(1L)).thenReturn(course);
         when(courseRepository.save(any(Course.class))).thenReturn(course);
 
-        CourseProposal courseProposal = new CourseProposal("TINF22B6", null);
+        CourseProposal courseProposal = createDefaultCourseProposal();
         assertThat(courseService.update(1L, courseProposal)).isNotNull();
     }
 
     @Test
     void Delete_DoesNotThrow() {
-        Course course = new Course("TINF22B6", null);
+        Course course = createDefaultCourse();
         when(courseRepository.find(1L)).thenReturn(course);
 
         assertDoesNotThrow(() -> courseService.delete(1L));

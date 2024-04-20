@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.CourseMapper;
 import de.tinf22b6.dhbwhub.model.Course;
 import de.tinf22b6.dhbwhub.proposal.CourseProposal;
@@ -33,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class CourseControllerTests {
+class CourseControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,7 +46,7 @@ public class CourseControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Course course = new Course("TINF22B5", null);
+        Course course = createDefaultCourse();
         when(courseService.getAll()).thenReturn(List.of(course, course));
 
         ResultActions response = mockMvc.perform(get("/course")
@@ -57,7 +58,7 @@ public class CourseControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Course course = new Course("TINF22B5", null);
+        Course course = createDefaultCourse();
         when(courseService.get(any(Long.class))).thenReturn(course);
 
         ResultActions response = mockMvc.perform(get("/course/1")
@@ -69,7 +70,7 @@ public class CourseControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        CourseProposal courseProposal = new CourseProposal("TINF22B5", null);
+        CourseProposal courseProposal = createDefaultCourseProposal();
         given(courseService.create(any(CourseProposal.class))).willAnswer(i -> CourseMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/course")
@@ -82,7 +83,7 @@ public class CourseControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        CourseProposal courseProposal = new CourseProposal("TINF22B5", null);
+        CourseProposal courseProposal = createDefaultCourseProposal();
         when(courseService.update(any(Long.class), any(CourseProposal.class))).thenReturn(CourseMapper.mapToModel(courseProposal));
 
         ResultActions response = mockMvc.perform(put("/course/1")
@@ -102,5 +103,4 @@ public class CourseControllerTests {
 
         response.andExpect(status().isNoContent());
     }
-
 }

@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
@@ -17,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.sql.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class PostControllerTests {
+class PostControllerTests extends AbstractApplicationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -46,7 +46,7 @@ public class PostControllerTests {
 
     @Test
     void GetAll_StatusIsOk() throws Exception {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
+        Post post = createDefaultPost();
         when(postService.getAll()).thenReturn(List.of(post, post));
 
         ResultActions response = mockMvc.perform(get("/post")
@@ -58,7 +58,7 @@ public class PostControllerTests {
 
     @Test
     void Get_StatusIsOk() throws Exception {
-        Post post = new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
+        Post post = createDefaultPost();
         when(postService.get(any(Long.class))).thenReturn(post);
 
         ResultActions response = mockMvc.perform(get("/post/1")
@@ -72,7 +72,7 @@ public class PostControllerTests {
 
     @Test
     void Create_StatusIsOk() throws Exception {
-        PostProposal postProposal = new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
+        PostProposal postProposal = createDefaultPostProposal();
         given(postService.create(any(PostProposal.class))).willAnswer(i -> PostMapper.mapToModel(i.getArgument(0)));
 
         ResultActions response = mockMvc.perform(post("/post")
@@ -87,7 +87,7 @@ public class PostControllerTests {
 
     @Test
     void Update_StatusIsOk() throws Exception {
-        PostProposal postProposal = new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, null, null, null, null);
+        PostProposal postProposal = createDefaultPostProposal();
         when(postService.update(any(Long.class), any(PostProposal.class))).thenReturn(PostMapper.mapToModel(postProposal));
 
         ResultActions response = mockMvc.perform(put("/post/1")
@@ -109,5 +109,4 @@ public class PostControllerTests {
 
         response.andExpect(status().isNoContent());
     }
-
 }
