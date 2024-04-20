@@ -1,0 +1,138 @@
+.create-post {
+  background-color: var(--component-grey);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 820px;
+  padding: var(--component-padding);
+}
+
+.profile-picture-create-post {
+  border-radius: var(--border-radius);
+  height: 45px;
+  top: 50%;
+  transform: translate(0%, -50%);
+  object-fit: cover;
+  position: relative;
+  width: 45px;
+}
+
+.post-text-area {
+  background-color: var(--grey);
+  border-radius: 15px;
+  height: 45px;
+  top: 50%;
+  transform: translate(0%, -50%);
+  position: absolute;
+  width: 575px;
+  box-shadow: 0 1px 3px var(--box-shadow);
+  border: 1px solid transparent;
+  margin-left: 70px;
+  &&:active, &&:focus, &&:focus-within {
+    border: 1px solid black;
+  }
+}
+
+.create-post-button {
+  background-color: var(--red);
+  border-radius: 15px;
+  top: 50%;
+  transform: translate(-0%, -50%);
+  position: absolute;
+  width: 150px;
+  height: 45px;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 4px var(--box-shadow);
+  right: 20px;
+}
+
+.button-label {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  position: absolute;
+  white-space: nowrap;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.post-input-field {
+  border: none;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: var(--headline-font-size);
+  font-weight: var(--normal-font-weight);
+  left: 20px;
+  right: 20px;
+  line-height: 24px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  height: 34px;
+  color: var(--white);
+  &&::placeholder {
+    color: var(--placeholder-grey);
+    font-family: var(--font-family);
+    line-height: 24px;
+    position: absolute;
+    white-space: nowrap;
+    width: 300px;
+  }
+}
+
+.post-input-field:focus,
+.post-input-field:hover,
+.post-input-field:active {
+  outline: none;
+}
+
+@media (max-width: 1024px) {
+  .create-post {
+    width: 750px;
+  }
+  .post-text-area {
+    width: 510px;
+  }
+  .post-input-field {
+    width: 510px;
+  }
+}
+
+@media (max-width: 412px) {
+  .create-post {
+    width: 370px;
+    height: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: -15px;
+  }
+  .post-text-area {
+    margin-left: 60px;
+    width: 180px;
+    height: 45px;
+  }
+  .post-input-field {
+    left: 10px;
+    width: 160px;
+  }
+  .create-post-button {
+    width: 110px;
+    height: 45px;
+    right: 10px;
+  }
+  .button-label {
+    font-size: 14px;
+    font-weight: var(--strong-font-weight);
+    line-height: 24px;
+  }
+  .profile-picture-create-post {
+    height: 45px;
+    width: 45px;
+  }
+}

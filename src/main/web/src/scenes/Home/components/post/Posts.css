@@ -2,12 +2,5 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
-  position: absolute;
-  margin-top: 110px;
-}
-
-@media (max-width: 412px) {
-  .posts {
-
-  }
+  position: relative;
 }

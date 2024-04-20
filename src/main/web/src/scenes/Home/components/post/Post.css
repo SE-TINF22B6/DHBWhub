@@ -13,9 +13,14 @@
 
 .post-image {
   height: 170px;
+  width: 155px;
   top: 50%;
   transform: translateY(-50%);
   position: relative;
+  &&:hover {
+    filter: brightness(75%);
+    transition: var(--transition);
+  }
 }
 
 .post-menu-points {

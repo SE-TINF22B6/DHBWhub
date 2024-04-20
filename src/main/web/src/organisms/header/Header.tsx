@@ -54,7 +54,7 @@ export const Header = () => {
         {loggedIn ? (
             <div className="profile-component">
               <Link to="/profile" aria-label="To the profile" onClick={() => setLoggedIn(false)}>
-                <img className="profile-picture-header" alt="Profile" src={process.env.PUBLIC_URL + '/assets/home/header/profile-header.svg'}/>
+                <img className="profile-picture-header" alt="Profile" src={process.env.PUBLIC_URL + '/assets/profile.svg'}/>
               </Link>
             </div>
         ) : (
