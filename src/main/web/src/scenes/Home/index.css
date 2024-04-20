@@ -5,17 +5,18 @@
   align-items: center;
 }
 
-.body {
-  margin-top: -50px;
-  margin-left: -50%;
+.homepage-content {
   gap: 20px;
+  align-items: flex-start;
+  display: inline-flex;
   justify-content: center;
-  display: flex;
   position: relative;
 }
 
 .sidebar-left, .sidebar-right {
   align-items: flex-start;
+.sidebar-left, .sidebar-right, .middle-content {
+  align-items: center;
   display: inline-flex;
   flex-direction: column;
   gap: 20px;
@@ -28,7 +29,7 @@
 }
 
 @media (max-width: 1024px) {
-  .body {
+  .homepage-content {
     margin-top: -60px;
     gap: 10px;
     flex-direction: column;

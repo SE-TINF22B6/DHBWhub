@@ -115,7 +115,7 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
       <div className="post-container">
         <div className="post">
           <Link to={`/post/?id=${postId}`} className="post-button">
-            <img className="post-image" alt="Post" src={imageSrc}/>
+            <img className="post-image" alt="Post" src={process.env.PUBLIC_URL + imageSrc}/>
           </Link>
           <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots" src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
           <div className="post-infos">
