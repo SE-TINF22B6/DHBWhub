@@ -13,8 +13,6 @@
   position: relative;
 }
 
-.sidebar-left, .sidebar-right {
-  align-items: flex-start;
 .sidebar-left, .sidebar-right, .middle-content {
   align-items: center;
   display: inline-flex;
