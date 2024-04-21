@@ -1,10 +1,11 @@
 package de.tinf22b6.dhbwhub.model;
 
+import de.tinf22b6.dhbwhub.model.utils.CustomStringArrayType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,8 +27,9 @@ public class Post {
 
     private final int likes;
 
-    @ElementCollection
-    private final List<String> tags;
+    @Column(columnDefinition = "text[]")
+    @Type(value = CustomStringArrayType.class)
+    private final String[] tags;
 
     @JoinColumn(name = "picture_id")
     @ManyToOne(cascade = CascadeType.PERSIST)

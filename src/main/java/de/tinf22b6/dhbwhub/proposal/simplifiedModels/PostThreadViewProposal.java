@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HomepagePostPreviewProposal {
+public class PostThreadViewProposal {
     private Long id;
 
     private String title;
@@ -31,5 +31,8 @@ public class HomepagePostPreviewProposal {
     private Long accountId;
 
     private String username;
+
+    private List<CommentThreadViewProposal> comments;
+
 
 }

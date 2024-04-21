@@ -57,4 +57,8 @@ public class CommentServiceImpl implements CommentService {
         repository.delete(id);
     }
 
+    @Override
+    public List<Comment> findByPostId(Long postId) {
+        return repository.findByPostId(postId);
+    }
 }

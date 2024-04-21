@@ -1,38 +1,24 @@
 package de.tinf22b6.dhbwhub.repository;
 
-import de.tinf22b6.dhbwhub.mapper.views.ViewPostMapper;
+import de.tinf22b6.dhbwhub.mapper.CommentMapper;
+import de.tinf22b6.dhbwhub.mapper.PostMapper;
+import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.model.Post;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringPostRepository;
-import de.tinf22b6.dhbwhub.repository.interfaces_views.*;
-import de.tinf22b6.dhbwhub.repository.views.ViewHomepagePostsRepository;
+import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class PostRepository {
     private final SpringPostRepository postRepository;
-    private final SpringViewFacGesundheitPostsRepository viewFacGesundheitPostsRepository;
-    private final SpringViewFacWirtschaftPostsRepository viewFacWirtschaftPostsRepository;
-    private final SpringViewFacTechnikPostsRepository viewFacTechnikPostsRepository;
-    private final SpringViewHomepagePostsRepository viewHomepagePostsRepository;
-    private final SpringViewCommentAmountRepository viewCommentAmountRepository;
+    private final CommentRepository commentRepository;
 
-    public PostRepository(@Autowired SpringPostRepository postRepository,
-                          @Autowired SpringViewHomepagePostsRepository viewHomepagePostsRepository,
-                          @Autowired SpringViewFacGesundheitPostsRepository viewFacGesundheitPostsRepository,
-                          @Autowired SpringViewFacTechnikPostsRepository viewFacTechnikPostsRepository,
-                          @Autowired SpringViewFacWirtschaftPostsRepository viewFacWirtschaftPostsRepository,
-                          @Autowired SpringViewCommentAmountRepository viewCommentAmountRepository) {
+    public PostRepository(@Autowired SpringPostRepository postRepository, @Autowired CommentRepository commentRepository) {
         this.postRepository = postRepository;
-        this.viewHomepagePostsRepository = viewHomepagePostsRepository;
-        this.viewFacGesundheitPostsRepository = viewFacGesundheitPostsRepository;
-        this.viewFacTechnikPostsRepository = viewFacTechnikPostsRepository;
-        this.viewFacWirtschaftPostsRepository = viewFacWirtschaftPostsRepository;
-        this.viewCommentAmountRepository = viewCommentAmountRepository;
+        this.commentRepository = commentRepository;
     }
 
     public List<Post> findAll() {
@@ -52,22 +38,31 @@ public class PostRepository {
     }
 
     public List<Post> findHomepagePosts(){
-        return viewHomepagePostsRepository.findAll().stream().map(ViewPostMapper::mapToModel).collect(Collectors.toList());
+        return postRepository.getHomepagePosts();
     }
 
     public List<Post> findPostsFromFacGesundheit(){
-        return viewFacGesundheitPostsRepository.findAll().stream().map(ViewPostMapper::mapToModel).collect(Collectors.toList());
+        return postRepository.getFacGesundheitPosts();
     }
 
     public List<Post> findPostsFromFacTechnik(){
-        return viewFacTechnikPostsRepository.findAll().stream().map(ViewPostMapper::mapToModel).collect(Collectors.toList());
+        return postRepository.getFacTechnikPosts();
     }
 
     public List<Post> findPostsFromFacWirtschaft(){
-        return viewFacWirtschaftPostsRepository.findAll().stream().map(ViewPostMapper::mapToModel).collect(Collectors.toList());
+        return postRepository.getFacWirtschaftPosts();
     }
 
-    public int findAmountOfComments(Long id){
-        return viewCommentAmountRepository.findById(id).get().getComment_amount();
+    public int getAmountOfComments(Long id){
+        Integer commentAmount = postRepository.getCommentAmount(id);
+        return commentAmount != null ? commentAmount : 0;
+    }
+
+    public List<CommentThreadViewProposal> getPostComments(Long id) {
+        List<Comment> postComments = commentRepository.findByPostId(id);
+        if (postComments == null){
+            return Collections.emptyList();
+        }
+        return postComments.stream().map(CommentMapper::mapToThreadView).toList();
     }
 }

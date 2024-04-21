@@ -1,17 +1,20 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.mapper.CommentMapper;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.PostThreadViewProposal;
+import de.tinf22b6.dhbwhub.repository.CommentRepository;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -61,24 +64,45 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public int getAmountOfComments(Long id) {
-        return repository.findAmountOfComments(id);
+        return repository.getAmountOfComments(id);
     }
+
+
 
     @Override
     public List<HomepagePostPreviewProposal> getHomepagePosts() {
-        List<HomepagePostPreviewProposal> homepagePostPreviewProposals = getAll().stream().map(PostMapper::mapToHomepagePreviewProposal).collect(Collectors.toList());
-        homepagePostPreviewProposals.forEach(p -> p.setAmountComments(getAmountOfComments(p.getId())));
+        List<HomepagePostPreviewProposal> homepagePostPreviewProposals = repository.findHomepagePosts().stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        homepagePostPreviewProposals.forEach(p -> p.setCommentAmount(getAmountOfComments(p.getId())));
         return homepagePostPreviewProposals;
     }
 
     @Override
-    public List<Post> getFacPosts(int id) {
-        return switch (id) {
-            case 0 -> repository.findPostsFromFacTechnik();
-            case 1 -> repository.findPostsFromFacGesundheit();
-            case 2 -> repository.findPostsFromFacWirtschaft();
-            default -> repository.findAll();
-        };
+    public List<HomepagePostPreviewProposal> getFacPosts(Long id) {
+       List<HomepagePostPreviewProposal> posts;
+       switch (id.intValue()) {
+            case 0 -> posts = repository.findPostsFromFacTechnik().stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+            case 1 -> posts = repository.findPostsFromFacGesundheit().stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+            case 2 -> posts = repository.findPostsFromFacWirtschaft().stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+            default -> posts = repository.findHomepagePosts().stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        }
+       posts.forEach(p -> p.setCommentAmount(getAmountOfComments(p.getId())));
+       return posts;
+    }
+
+    @Override
+    public PostThreadViewProposal getPostThreadView(Long id) {
+        PostThreadViewProposal postThreadViewProposal = PostMapper.mapToPostThreadViewProposal(get(id));
+        if(postThreadViewProposal == null) {
+            return null;
+        }
+        postThreadViewProposal.setCommentAmount(getAmountOfComments(id));
+        postThreadViewProposal.setComments(getPostComments(id));
+        return postThreadViewProposal;
+    }
+
+    @Override
+    public List<CommentThreadViewProposal> getPostComments(Long id) {
+        return repository.getPostComments(id);
     }
 
 

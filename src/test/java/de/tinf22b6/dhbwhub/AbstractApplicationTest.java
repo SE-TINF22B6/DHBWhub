@@ -73,11 +73,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected Post createDefaultPost() {
-		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, List.of("furry", "pride"), createDefaultPicture(), createDefaultUser(), createDefaultCourse());
+		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, new String[]{"furry", "pride"}, createDefaultPicture(), createDefaultUser(), createDefaultCourse());
 	}
 
 	protected Post createDefaultPost2() {
-		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555, List.of("car", "dodge"), createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
+		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555, new String[]{"car", "dodge"}, createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
 	}
 
 	protected Comment createDefaultComment() {
