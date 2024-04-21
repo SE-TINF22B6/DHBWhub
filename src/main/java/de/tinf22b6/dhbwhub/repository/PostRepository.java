@@ -1,24 +1,29 @@
 package de.tinf22b6.dhbwhub.repository;
 
 import de.tinf22b6.dhbwhub.mapper.CommentMapper;
-import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.model.Post;
+import de.tinf22b6.dhbwhub.model.PostTag;
 import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringPostRepository;
-import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
 import java.util.List;
 
 @Repository
 public class PostRepository {
     private final SpringPostRepository postRepository;
     private final CommentRepository commentRepository;
+    private final PostTagRepository postTagRepository;
 
-    public PostRepository(@Autowired SpringPostRepository postRepository, @Autowired CommentRepository commentRepository) {
+    public PostRepository(@Autowired SpringPostRepository postRepository,
+                          @Autowired CommentRepository commentRepository,
+                          @Autowired PostTagRepository postTagRepository) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
+        this.postTagRepository = postTagRepository;
     }
 
     public List<Post> findAll() {
@@ -64,5 +69,13 @@ public class PostRepository {
             return Collections.emptyList();
         }
         return postComments.stream().map(CommentMapper::mapToThreadView).toList();
+    }
+
+    public List<String> getPostTags(Long id) {
+       List<PostTag> postTags = postTagRepository.findByPostId(id);
+       if (postTags == null){
+           return Collections.emptyList();
+       }
+        return postTags.stream().map(PostTag::getTag).toList();
     }
 }

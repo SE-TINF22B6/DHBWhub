@@ -5,7 +5,6 @@ import de.tinf22b6.dhbwhub.proposal.*;
 
 import java.sql.Date;
 import java.util.Arrays;
-import java.util.List;
 
 public abstract class AbstractApplicationTest {
 	protected Picture createDefaultPicture() {
@@ -73,11 +72,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected Post createDefaultPost() {
-		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, new String[]{"furry", "pride"}, createDefaultPicture(), createDefaultUser(), createDefaultCourse());
+		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, createDefaultPicture(), createDefaultUser(), createDefaultCourse());
 	}
 
 	protected Post createDefaultPost2() {
-		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555, new String[]{"car", "dodge"}, createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
+		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555,  createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
 	}
 
 	protected Comment createDefaultComment() {
@@ -130,7 +129,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected PostProposal createDefaultPostProposal() {
-		return new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, List.of("furry", "pride"), createDefaultPictureProposal(), createDefaultUserProposal(), createDefaultCourseProposal());
+		return new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, createDefaultPictureProposal(), createDefaultUserProposal(), createDefaultCourseProposal());
 	}
 
 	protected CommentProposal createDefaultCommentProposal() {

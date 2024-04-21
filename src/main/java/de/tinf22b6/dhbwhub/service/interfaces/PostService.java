@@ -19,4 +19,5 @@ public interface PostService {
     List<HomepagePostPreviewProposal> getFacPosts(Long id);
     PostThreadViewProposal getPostThreadView(Long id);
     List<CommentThreadViewProposal> getPostComments(Long id);
+    List<String> getPostTags(Long id);
 }

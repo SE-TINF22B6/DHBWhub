@@ -1,9 +1,7 @@
 package de.tinf22b6.dhbwhub.model;
 
-import de.tinf22b6.dhbwhub.model.utils.CustomStringArrayType;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
 
 import java.util.Date;
 
@@ -26,10 +24,6 @@ public class Post {
     private final Date timestamp;
 
     private final int likes;
-
-    @Column(columnDefinition = "text[]")
-    @Type(value = CustomStringArrayType.class)
-    private final String[] tags;
 
     @JoinColumn(name = "picture_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
