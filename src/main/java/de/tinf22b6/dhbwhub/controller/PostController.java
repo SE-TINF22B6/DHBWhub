@@ -2,6 +2,9 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.PostThreadViewProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,21 @@ public class PostController {
     @GetMapping
     public List<Post> getAll() {
         return service.getAll();
+    }
+
+    @GetMapping("/homepage-preview-posts")
+    public List<HomepagePostPreviewProposal> getPostPreviewsHomepage() {
+        return service.getHomepagePosts();
+    }
+
+    @GetMapping("/homepage-preview-posts/{id}")
+    public List<HomepagePostPreviewProposal> getPostPreviewsHomepage(@PathVariable Long id) {
+        return service.getFacPosts(id);
+    }
+
+    @GetMapping("/post-thread/{id}")
+    public PostThreadViewProposal getPostThreadView(@PathVariable Long id) {
+        return service.getPostThreadView(id);
     }
 
     @PostMapping
@@ -43,4 +61,6 @@ public class PostController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+
+
 }

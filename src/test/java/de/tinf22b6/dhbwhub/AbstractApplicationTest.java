@@ -2,6 +2,9 @@ package de.tinf22b6.dhbwhub;
 
 import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.*;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.PostThreadViewProposal;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -73,11 +76,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected Post createDefaultPost() {
-		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, List.of("furry", "pride"), createDefaultPicture(), createDefaultUser(), createDefaultCourse());
+		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, createDefaultPicture(), createDefaultUser(), createDefaultCourse());
 	}
 
 	protected Post createDefaultPost2() {
-		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555, List.of("car", "dodge"), createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
+		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555,  createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
 	}
 
 	protected Comment createDefaultComment() {
@@ -130,7 +133,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected PostProposal createDefaultPostProposal() {
-		return new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, List.of("furry", "pride"), createDefaultPictureProposal(), createDefaultUserProposal(), createDefaultCourseProposal());
+		return new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, createDefaultPictureProposal(), createDefaultUserProposal(), createDefaultCourseProposal());
 	}
 
 	protected CommentProposal createDefaultCommentProposal() {
@@ -139,5 +142,17 @@ public abstract class AbstractApplicationTest {
 
 	protected SavedPostProposal createDefaultSavedPostProposal() {
 		return new SavedPostProposal(createDefaultUserProposal(), createDefaultPostProposal());
+	}
+
+	protected HomepagePostPreviewProposal createDefaultHomepagePostPreviewProposal() {
+		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList(), 1L, "Bruno");
+	}
+
+	protected PostThreadViewProposal createDefaultPostThreadViewProposal() {
+		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList(), 1L, "Bruno", List.of(createDefaultCommentThreadViewProposal()));
+	}
+
+	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
+		return new CommentThreadViewProposal(1L, 0L, 1L, "Bruno", Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList(), "Beschreibung 1", 23, 3, Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList());
 	}
 }

@@ -1,0 +1,43 @@
+.share {
+  background-color: var(--grey);
+  border-radius: 20px;
+  box-shadow: 0 2px 2px var(--box-shadow);
+  width: 340px;
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 9;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.share > * {
+  margin: 8px 5px 5px;
+}
+
+.copy-link-button, .windows-share-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 60%;
+}
+
+@media (max-width: 412px) {
+  .share {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 2px var(--box-shadow);
+    width: 250px;
+    height: 50px;
+  }
+  .share > * {
+    margin: 8px 3px 3px;
+  }
+  .copy-link-button, .windows-share-button {
+    width: 25px;
+    height: 25px;
+    margin-top: 12px;
+  }
+}

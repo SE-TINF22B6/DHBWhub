@@ -2,7 +2,8 @@ import React from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 
-export const Friends = (): JSX.Element => {
+export const Friends = () => {
+
   return (
       <div className="friends">
         <Header></Header>

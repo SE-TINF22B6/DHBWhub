@@ -31,7 +31,7 @@ export const SearchBar = () => {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
         />
-        <div className="search-icon" onClick={submitSearch} />
+        <img src={process.env.PUBLIC_URL + "/assets/header/search-icon.svg"} className="search-icon" onClick={submitSearch}  alt="Search"/>
       </div>
   );
 };

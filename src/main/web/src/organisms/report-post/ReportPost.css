@@ -1,56 +1,45 @@
 .report-popup {
-  background-color: #2C353D;
-  border-radius: 25px;
-  box-shadow: 0 2px 2px #000000;
+  background-color: var(--grey);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 2px var(--box-shadow);
   position: relative;
   object-fit: cover;
-  width: 250px;
-  height: 280px;
   z-index: 10;
-  top: 184px;
-  left: 575px;
-}
-
-.report-popup-element-wrapper {
-  margin-left: 15px;
-  margin-top: 15px;
+  left: 50%;
+  top: 50%;
+  transform: translate(50%, 50%);
+  padding: var(--component-padding);
 }
 
 .report-popup-header {
-  color: #ffffff;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-size: 16px;
-  font-weight: 600;
-  height: 25px;
-  letter-spacing: 0;
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: var(--headline-font-size);
+  font-weight: var(--strong-font-weight);
   line-height: 24px;
   position: relative;
   white-space: nowrap;
-  width: 360px;
   top: 15px;
   margin-bottom: 4px;
 }
 
 .report-popup-field {
-  color: #ffffff;
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
+  color: var(--white);
+  font-family: var(--font-family);
   font-size: 14px;
-  font-weight: 500;
-  height: 25px;
-  letter-spacing: 0;
+  font-weight: var(--normal-font-weight);
   line-height: 24px;
   position: relative;
   white-space: nowrap;
-  width: 500px;
   top: 15px;
 }
 
 .report-popup-input {
-  background-color: #FFFFFF;
+  background-color: var(--white);
   border-radius: 5px;
   border: none;
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px var(--box-shadow);
   height: 20px;
   width: 210px;
   top: 15px;
@@ -68,7 +57,7 @@
 .report-popup-textarea {
   border-radius: 5px;
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);;
+  box-shadow: 0 2px 4px var(--box-shadow);
   border: none;
   width: 210px;
   height: 100px;
@@ -78,12 +67,12 @@
 }
 
 .report-popup-button {
-  background-color: #e3001b;
+  background-color: var(--red);
   border-radius: 5px;
   border-style: hidden;
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  margin-top: 4px;
+  box-shadow: 0 2px 4px var(--box-shadow);
+  margin-top: 6px;
   width: 60px;
   height: 30px;
   display: flex;
@@ -95,21 +84,21 @@
 .report-popup-field,
 .report-popup-input,
 .report-popup-textarea {
-  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
-  font-weight: 500;
+  font-family: var(--font-family);
+  font-weight: var(--normal-font-weight);
 }
 
 .report-popup-field,
-.report-popup-header {
+.report-popup-header,
+.report-popup-button-label {
   font-size: 14px;
 }
 
 .report-popup-input,
 .report-popup-textarea {
-  font-size: 12px;
+  font-size: var(--text-font-size);
 }
 
 .report-popup-button-label {
-  color: #ffffff;
-  font-size: 14px;
+  color: var(--white);
 }
