@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,7 +18,7 @@ public class CommentThreadViewProposal {
 
     private String username;
 
-    private List<Byte> userImageData;
+    private byte[] userImageData;
 
     private String description;
 
@@ -28,6 +26,5 @@ public class CommentThreadViewProposal {
 
     private int dateDifference;
 
-    private List<Byte> commentImageData;
-
+    private byte[] commentImageData;
 }

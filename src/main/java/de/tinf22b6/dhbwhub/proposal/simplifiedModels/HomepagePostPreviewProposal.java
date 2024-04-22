@@ -26,10 +26,9 @@ public class HomepagePostPreviewProposal {
 
     private int dateDifference;
 
-    private List<Byte> postImage;
+    private byte[] postImage;
 
     private Long accountId;
 
     private String username;
-
 }

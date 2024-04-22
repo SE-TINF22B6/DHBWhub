@@ -26,13 +26,11 @@ public class PostThreadViewProposal {
 
     private int dateDifference;
 
-    private List<Byte> postImage;
+    private byte[] postImage;
 
     private Long accountId;
 
     private String username;
 
     private List<CommentThreadViewProposal> comments;
-
-
 }
