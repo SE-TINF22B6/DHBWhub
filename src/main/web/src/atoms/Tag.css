@@ -1,0 +1,34 @@
+.tag-button {
+  color: transparent;
+}
+
+.tag {
+  background-color: var(--grey);
+  border: 1px solid var(--red);
+  border-radius: 20px;
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  white-space: nowrap;
+  height: 26px;
+  position: relative;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  &&:hover {
+    background-color: var(--dark-red);
+  }
+}
+
+@media (max-width: 412px) {
+  .tag {
+    font-size: 10px;
+    font-weight: var(--strong-font-weight);
+    height: 22px;
+    width: 60px;
+  }
+}
