@@ -16,7 +16,8 @@ import java.util.List;
 @Entity
 public class Post {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_generator")
+    @SequenceGenerator(name = "post_generator", sequenceName = "post_seq", allocationSize = 1)
     @Column(name = "post_id")
     private Long id;
 
