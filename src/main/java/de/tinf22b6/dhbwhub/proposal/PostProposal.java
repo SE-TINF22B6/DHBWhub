@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -20,8 +19,6 @@ public class PostProposal {
     private Date timestamp;
 
     private int likes;
-
-    private List<String> tags;
 
     private PictureProposal picture;
 

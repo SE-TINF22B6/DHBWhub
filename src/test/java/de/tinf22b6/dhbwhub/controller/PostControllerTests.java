@@ -5,6 +5,8 @@ import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.PostThreadViewProposal;
 import de.tinf22b6.dhbwhub.service.PostServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,6 +57,45 @@ class PostControllerTests extends AbstractApplicationTest {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
+
+    @Test
+    void GetPostPreviewsHomepage_StatusIsOk() throws Exception {
+        HomepagePostPreviewProposal homepagePost = createDefaultHomepagePostPreviewProposal();
+        when(postService.getHomepagePosts()).thenReturn(List.of(homepagePost, homepagePost));
+
+        ResultActions response = mockMvc.perform(get("/post/homepage-preview-posts")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    void GetPostPreviewsHomepageFaculty_StatusIsOk() throws Exception {
+        HomepagePostPreviewProposal homepagePost = createDefaultHomepagePostPreviewProposal();
+        when(postService.getFacPosts(1L)).thenReturn(List.of(homepagePost, homepagePost));
+
+        ResultActions response = mockMvc.perform(get("/post/homepage-preview-posts/1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    void GetPostThreadView_StatusIsOk() throws Exception {
+        PostThreadViewProposal postThreadView = createDefaultPostThreadViewProposal();
+        when(postService.getPostThreadView(1L)).thenReturn(postThreadView);
+
+        ResultActions response = mockMvc.perform(get("/post/post-thread/1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(postThreadView.getTitle())))
+                .andExpect(jsonPath("$.description", is(postThreadView.getDescription())))
+                .andExpect(jsonPath("$.amountLikes", is(postThreadView.getAmountLikes())));
+    }
+
 
     @Test
     void Get_StatusIsOk() throws Exception {
