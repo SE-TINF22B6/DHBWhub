@@ -56,11 +56,6 @@ public class PostController {
         return service.update(id, proposal);
     }
 
-    @GetMapping("/comment/{id}")
-    public List<CommentThreadViewProposal> update(@PathVariable Long id) {
-        return service.getPostComments(id);
-    }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
