@@ -12,11 +12,11 @@ import java.util.List;
 
 public abstract class AbstractApplicationTest {
 	protected Picture createDefaultPicture() {
-		return new Picture("profile.png", Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList());
+		return new Picture("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 
 	protected Picture createDefaultPicture2() {
-		return new Picture("img-user", Arrays.stream(new Byte[]{ 12, 34, 44, 67, 78 }).toList());
+		return new Picture("img-user", new byte[]{ 12, 34, 44, 67, 78 });
 	}
 
 	protected Account createDefaultAccount() {
@@ -101,7 +101,7 @@ public abstract class AbstractApplicationTest {
 
 
 	protected PictureProposal createDefaultPictureProposal() {
-		return new PictureProposal("profile.png", Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList());
+		return new PictureProposal("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 
 	protected AccountProposal createDefaultAccountProposal() {
@@ -145,14 +145,14 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected HomepagePostPreviewProposal createDefaultHomepagePostPreviewProposal() {
-		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList(), 1L, "Bruno");
+		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno");
 	}
 
 	protected PostThreadViewProposal createDefaultPostThreadViewProposal() {
-		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList(), 1L, "Bruno", List.of(createDefaultCommentThreadViewProposal()));
+		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno", List.of(createDefaultCommentThreadViewProposal()));
 	}
 
 	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
-		return new CommentThreadViewProposal(1L, 0L, 1L, "Bruno", Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList(), "Beschreibung 1", 23, 3, Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList());
+		return new CommentThreadViewProposal(1L, 0L, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Beschreibung 1", 23, 3, new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 }

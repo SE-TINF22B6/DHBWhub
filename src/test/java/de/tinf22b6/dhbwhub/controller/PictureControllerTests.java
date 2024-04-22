@@ -66,8 +66,7 @@ class PictureControllerTests extends AbstractApplicationTest {
 
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(picture.getName())))
-                .andExpect(jsonPath("$.imageData").isArray())
-                .andExpect(jsonPath("$.imageData", hasSize(picture.getImageData().size())));
+                .andExpect(jsonPath("$.imageData").isString());
     }
 
     @Test
@@ -81,8 +80,7 @@ class PictureControllerTests extends AbstractApplicationTest {
 
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(pictureProposal.getName())))
-                .andExpect(jsonPath("$.imageData").isArray())
-                .andExpect(jsonPath("$.imageData", hasSize(pictureProposal.getImageData().size())));
+                .andExpect(jsonPath("$.imageData").isString());
     }
 
     @Test
@@ -96,8 +94,7 @@ class PictureControllerTests extends AbstractApplicationTest {
 
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(pictureProposal.getName())))
-                .andExpect(jsonPath("$.imageData").isArray())
-                .andExpect(jsonPath("$.imageData", hasSize(pictureProposal.getImageData().size())));
+                .andExpect(jsonPath("$.imageData").isString());
     }
 
     @Test
@@ -109,5 +106,4 @@ class PictureControllerTests extends AbstractApplicationTest {
 
         response.andExpect(status().isNoContent());
     }
-  
 }
