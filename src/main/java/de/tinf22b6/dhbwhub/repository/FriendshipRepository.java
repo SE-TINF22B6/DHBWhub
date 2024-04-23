@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public class FriendshipRepository {
     private final SpringFriendshipRepository repository;
@@ -28,5 +29,9 @@ public class FriendshipRepository {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<Friendship> getFriendlist(Long accountId) {
+        return repository.findFriendlist(accountId);
     }
 }
