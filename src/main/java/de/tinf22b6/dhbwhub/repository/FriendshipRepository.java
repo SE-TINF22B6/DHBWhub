@@ -34,4 +34,13 @@ public class FriendshipRepository {
     public List<Friendship> getFriendlist(Long accountId) {
         return repository.findFriendlist(accountId);
     }
+
+    public List<Friendship> getSentFriendrequests(Long accountId) {
+        return repository.findSentRequests(accountId);
+    }
+
+    public List<Friendship> getReceivedFriendrequests(Long accountId) {
+        return repository.findReceivedRequests(accountId);
+    }
+
 }

@@ -4,6 +4,7 @@ import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
 import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendlistProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendrequestProposal;
 
 import java.util.Objects;
 
@@ -26,5 +27,25 @@ public class FriendshipMapper {
                 account.getUsername(),
                 account.getPicture() != null ? account.getPicture().getImageData() : null
                 );
+    }
+
+    public static FriendrequestProposal mapToFriendrequest(Friendship friendship, Long id){
+        Account account;
+        String status;
+
+        if(Objects.equals(friendship.getReceiver().getId(), id)){
+            account = friendship.getRequester();
+            status = "Received";
+        }else{
+            account = friendship.getReceiver();
+            status = "Sent";
+        }
+        return new FriendrequestProposal(
+                friendship.getId(),
+                account.getId(),
+                account.getUsername(),
+                account.getPicture() != null ? account.getPicture().getImageData() : null,
+                status
+        );
     }
 }

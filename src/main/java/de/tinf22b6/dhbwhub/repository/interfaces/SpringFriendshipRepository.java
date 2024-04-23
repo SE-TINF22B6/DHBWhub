@@ -10,4 +10,11 @@ public interface SpringFriendshipRepository extends JpaRepository<Friendship, Lo
 
     @Query(value = "SELECT DISTINCT * FROM friendship WHERE (requester_id = ?1 OR receiver_id = ?1) AND accepted = true", nativeQuery = true)
     List<Friendship> findFriendlist(Long accountId);
+
+    @Query(value = "SELECT DISTINCT * FROM friendship WHERE requester_id = ?1 AND accepted = false", nativeQuery = true)
+    List<Friendship> findSentRequests(Long accountId);
+
+    @Query(value = "SELECT DISTINCT * FROM friendship WHERE receiver_id = ?1 AND accepted = false", nativeQuery = true)
+    List<Friendship> findReceivedRequests(Long accountId);
+
 }

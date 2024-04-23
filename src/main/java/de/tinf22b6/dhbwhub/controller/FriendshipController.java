@@ -3,6 +3,7 @@ package de.tinf22b6.dhbwhub.controller;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
 import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendlistProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendrequestProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.FriendshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,12 @@ public class FriendshipController {
     @GetMapping("/friendlist/{id}")
     public List<FriendlistProposal> getFriendlist(@PathVariable Long id) {
         return service.getFriendlist(id);
+    }
+
+
+    @GetMapping("/friendrequests/{id}")
+    public List<FriendrequestProposal> getFriendrequests(@PathVariable Long id) {
+        return service.getFriendrequests(id);
     }
 
 
