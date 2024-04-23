@@ -2,19 +2,14 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.FriendshipMapper;
-import de.tinf22b6.dhbwhub.model.Account;
-import de.tinf22b6.dhbwhub.model.Friendship;
+import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendlistProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendrequestProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
 import de.tinf22b6.dhbwhub.repository.FriendshipRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.FriendshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FriendshipServiceImpl implements FriendshipService {

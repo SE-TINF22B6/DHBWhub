@@ -2,8 +2,7 @@ package de.tinf22b6.dhbwhub.service.interfaces;
 
 import de.tinf22b6.dhbwhub.model.Friendship;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendlistProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendrequestProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
 
 import java.util.List;
 
