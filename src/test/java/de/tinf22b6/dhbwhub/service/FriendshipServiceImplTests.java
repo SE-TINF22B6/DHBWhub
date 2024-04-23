@@ -44,6 +44,37 @@ class FriendshipServiceImplTests extends AbstractApplicationTest {
     }
 
     @Test
+    void GetFriendlist_HasSize_Two() {
+        Friendship friendship1 = createDefaultFriendship();
+        Friendship friendship2 = createDefaultFriendship2();
+
+        when(friendshipRepository.getFriendlist(1L)).thenReturn(List.of(friendship1, friendship2));
+
+        assertThat(friendshipService.getFriendlist(1L)).hasSize(2);
+    }
+
+    @Test
+    void GetFriendlist_IsEmpty() {
+        assertThat(friendshipService.getFriendlist(1L)).isEmpty();
+    }
+
+    @Test
+    void GetFriendrequests_HasSize_Two() {
+        Friendship friendship1 = createDefaultFriendship();
+        Friendship friendship2 = createDefaultFriendship2();
+
+        when(friendshipRepository.getSentFriendrequests(1L)).thenReturn(List.of(friendship1));
+        when(friendshipRepository.getReceivedFriendrequests(1L)).thenReturn(List.of(friendship2));
+
+        assertThat(friendshipService.getFriendrequests(1L)).hasSize(2);
+    }
+
+    @Test
+    void GetFriendrequests_IsEmpty() {
+        assertThat(friendshipService.getFriendrequests(1L)).isEmpty();
+    }
+
+    @Test
     void Get_IsNotNull() {
         Friendship friendship = createDefaultFriendship();
         when(friendshipRepository.find(1L)).thenReturn(friendship);
