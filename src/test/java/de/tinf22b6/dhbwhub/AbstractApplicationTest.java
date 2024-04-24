@@ -2,9 +2,7 @@ package de.tinf22b6.dhbwhub;
 
 import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.*;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.PostThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -25,6 +23,10 @@ public abstract class AbstractApplicationTest {
 
 	protected Account createDefaultAccount2() {
 		return new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", createDefaultPicture2(), true);
+	}
+
+	protected Account createDefaultAccount3() {
+		return new Account("vladipu", "vladipu@gmail.de", "aioli", createDefaultPicture2(), true);
 	}
 
 	protected Administrator createDefaultAdministrator() {
@@ -68,11 +70,15 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected Friendship createDefaultFriendship() {
-		return new Friendship(createDefaultAccount(), createDefaultAccount2(), false);
+		return new Friendship(createDefaultAccount(), createDefaultAccount2(), true);
 	}
 
 	protected Friendship createDefaultFriendship2() {
 		return new Friendship(createDefaultAccount2(), createDefaultAccount(), false);
+	}
+
+	protected Friendship createDefaultFriendship3() {
+		return new Friendship(createDefaultAccount3(), createDefaultAccount(), true);
 	}
 
 	protected Post createDefaultPost() {
@@ -155,4 +161,17 @@ public abstract class AbstractApplicationTest {
 	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
 		return new CommentThreadViewProposal(1L, 0L, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Beschreibung 1", 23, 3, new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
+
+	protected FriendlistProposal createDefaultFriendlistProposal() {
+		return new FriendlistProposal(1L,1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
+	}
+
+	protected FriendrequestProposal createDefaultFriendrequestProposal() {
+		return new FriendrequestProposal(1L,1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Sent");
+	}
+
+	protected FriendrequestProposal createDefaultFriendrequestProposal2() {
+		return new FriendrequestProposal(2L,2L, "Berthold", new byte[]{ 12, 34, 45, 67, 78, 91 },"Received");
+	}
+
 }

@@ -11,7 +11,8 @@ import lombok.*;
 @Entity
 public class PostTag {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_tag_generator")
+    @SequenceGenerator(name = "post_tag_generator", sequenceName = "post_tag_seq", allocationSize = 1)
     @Column(name = "tag_id")
     private Long id;
 
