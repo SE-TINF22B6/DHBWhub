@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -55,14 +56,28 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http.csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(authorizeRequests ->
+//                        authorizeRequests
+//                                .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll() // Zugriff für alle erlauben
+//                                .anyRequest().authenticated() // Andere Anfragen erfordern eine Authentifizierung
+//                ); // CSRF-Schutz deaktivieren, falls erforderlich
+//
+//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+//    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll() // Zugriff für alle erlauben
+                        authorizeRequests.requestMatchers("/api/auth/login", "/api/auth/signup").permitAll() // Zugriff für alle erlauben
                                 .anyRequest().authenticated() // Andere Anfragen erfordern eine Authentifizierung
-                ); // CSRF-Schutz deaktivieren, falls erforderlich
+                ) // CSRF-Schutz deaktivieren, falls erforderlich
+                .formLogin(Customizer.withDefaults()); // Formular-Login aktivieren
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
