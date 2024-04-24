@@ -1,12 +1,11 @@
 package de.tinf22b6.dhbwhub.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
-@AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
 public class Account {
