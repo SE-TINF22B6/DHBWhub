@@ -24,10 +24,10 @@ const style = {
 };
 
 const buttonStyles = {
-    backgroundColor: 'red',
+    backgroundColor: 'var(--red)',
     transition: 'var(--transition)',
     '&:hover': {
-        backgroundColor: 'darkred',
+        backgroundColor: 'var(--dark-red)',
     },
 };
 
@@ -103,6 +103,18 @@ export default function Login() {
                     </Typography>
                     <Typography sx={{mt: 2}}>
                         <h5 className="heading">Email address</h5>
+                        <form noValidate autoComplete="off">
+                            <FormControl sx={{marginBottom: '25px'}} className="textfield">
+                                <OutlinedInput
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <MyFormHelperText/>
+                            </FormControl>
+                        </form>
+                    </Typography>
+                    <Typography sx={{mt: 2}}>
+                        <h5 className="heading">Password</h5>
                         <form noValidate autoComplete="off">
                             <FormControl sx={{marginBottom: '25px'}} className="textfield">
                                 <OutlinedInput

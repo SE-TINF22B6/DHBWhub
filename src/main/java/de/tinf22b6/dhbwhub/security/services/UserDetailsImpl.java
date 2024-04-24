@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Administrator;
 import de.tinf22b6.dhbwhub.model.ERole;
+import de.tinf22b6.dhbwhub.repository.AdministratorRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -39,12 +41,11 @@ public class UserDetailsImpl implements UserDetails {
         //this.administratorService = new AdministratorService();
     }
 
-    public static UserDetailsImpl build(Account user) {
+    public static UserDetailsImpl build(Account user, AdministratorRepository administratorRepository) {
         // TODO: Solve Dependency Injection
-        AdministratorService administratorService = new AdministratorService();
-        List<Administrator> administratorList = administratorService.loadAdministrators();
+        List<Administrator> administratorList = administratorRepository.findAll();
 
-        List<GrantedAuthority> simpleGrantedAuthority = List.of();
+        List<GrantedAuthority> simpleGrantedAuthority = new ArrayList<>();
         boolean isAdmin = administratorList.stream().anyMatch(admin -> admin.getId().equals(user.getId()));
         if (isAdmin) {
             simpleGrantedAuthority.add(new SimpleGrantedAuthority(ERole.ROLE_ADMIN.toString()));

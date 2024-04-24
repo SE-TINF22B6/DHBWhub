@@ -21,4 +21,5 @@ public class Picture {
     private final String name;
 
     private final byte[] imageData;
+
 }

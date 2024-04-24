@@ -37,8 +37,13 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
 
-    @PostMapping("login")
+    @GetMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+
+        // test
+        System.out.println(loginRequest.getUsername());
+
+
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -57,7 +62,7 @@ public class AuthController {
                 roles));
     }
 
-    @PostMapping("signup")
+    @GetMapping("signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signupRequest) {
         if (accountRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity
