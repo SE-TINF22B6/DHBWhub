@@ -13,7 +13,8 @@ import lombok.Setter;
 @Entity
 public class Friendship {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "friendship_generator")
+    @SequenceGenerator(name = "friendship_generator", sequenceName = "friendship_seq", allocationSize = 1)
     @Column(name = "friendship_id")
     private Long id;
 

@@ -3,15 +3,21 @@ package de.tinf22b6.dhbwhub.repository;
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Post;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
+@RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ActiveProfiles("test")
@@ -37,6 +43,11 @@ class PostRepositoryTests extends AbstractApplicationTest {
     }
 
     @Test
+    void FindPostTags_IsEmpty_True() {
+        assertThat(postRepository.getPostTags(1L)).isEmpty();
+    }
+
+    @Test
     void Find_IsNotNull_True() {
         Post post = createDefaultPost();
 
@@ -44,6 +55,7 @@ class PostRepositoryTests extends AbstractApplicationTest {
 
         assertThat(postRepository.find(post.getId())).isNotNull();
     }
+
 
     @Test
     void Find_IsNull_True() {

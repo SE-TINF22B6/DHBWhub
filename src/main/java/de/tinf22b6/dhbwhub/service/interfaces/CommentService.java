@@ -11,4 +11,6 @@ public interface CommentService {
     Comment get(Long id);
     Comment update(Long id, CommentProposal proposal);
     void delete(Long id);
+    List<Comment> findByPostId(Long postId);
+
 }

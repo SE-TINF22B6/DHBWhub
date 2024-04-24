@@ -3,10 +3,8 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: transparent;
-  width: 100%;
   position: relative;
-  margin-bottom: 75px;
+  margin-bottom: 20px;
   padding: 20px;
   gap: 50px;
 }
@@ -33,8 +31,6 @@
 
 .home-background, .friends-background, .calendar-background {
   background-color: var(--grey);
-  background-repeat: no-repeat;
-  background-position: center;
   height: 45px;
   width: 45px;
   box-shadow: 0 2px 4px var(--box-shadow);
@@ -87,11 +83,10 @@
 }
 
 .profile-picture-header {
-  height: 43px;
-  border: 2px solid var(--red);
+  height: 45px;
   border-radius: var(--border-radius);
   position: relative;
-  width: 43px;
+  width: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,6 +118,12 @@
   border: none;
 }
 
+.notifications {
+  width: 0;
+  height: 0;
+  margin-right: -50px;
+}
+
 @media (max-width: 1800px) {
   .header-content {
     gap: 30px;
@@ -141,10 +142,4 @@
     width: 0;
     height: 0;
   }
-}
-
-.notifications {
-  width: 0;
-  height: 0;
-  margin-right: -50px;
 }

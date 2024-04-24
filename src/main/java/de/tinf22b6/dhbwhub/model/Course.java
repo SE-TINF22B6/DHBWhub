@@ -13,7 +13,8 @@ import lombok.Setter;
 @Entity
 public class Course {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_generator")
+    @SequenceGenerator(name = "course_generator", sequenceName = "course_seq", allocationSize = 1)
     @Column(name = "course_id")
     private Long id;
 

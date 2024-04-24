@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,5 +12,5 @@ import java.util.List;
 public class PictureProposal {
     private String name;
 
-    private List<Byte> imageData;
+    private byte[] imageData;
 }
