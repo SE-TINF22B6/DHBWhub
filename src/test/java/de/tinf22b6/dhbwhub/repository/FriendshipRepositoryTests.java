@@ -38,6 +38,12 @@ class FriendshipRepositoryTests extends AbstractApplicationTest {
     }
 
     @Test
+    void GetFriendlist_IsEmpty_True() {
+        assertThat(friendshipRepository.findAll()).isEmpty();
+    }
+
+
+    @Test
     void Find_IsNotNull_True() {
         Friendship friendship = createDefaultFriendship();
 
