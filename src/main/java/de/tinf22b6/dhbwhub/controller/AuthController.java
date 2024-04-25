@@ -2,7 +2,6 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Administrator;
-import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
 import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
@@ -81,7 +80,7 @@ public class AuthController {
 
         Account user = new Account(signupRequest.getUsername(),
                 signupRequest.getEmail(),
-                passwordEncoder.encode(signupRequest.getPassword()), new Picture(),true);
+                passwordEncoder.encode(signupRequest.getPassword()), null,true);
 
 //        Set<String> strRoles = signupRequest.getRole();
 //        Set<Role> roles = new HashSet<>();
