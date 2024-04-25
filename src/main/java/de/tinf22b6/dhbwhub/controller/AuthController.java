@@ -6,7 +6,6 @@ import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
 import de.tinf22b6.dhbwhub.payload.response.MessageResponse;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
-import de.tinf22b6.dhbwhub.repository.AdministratorRepository;
 import de.tinf22b6.dhbwhub.security.jwt.JwtUtils;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
@@ -30,17 +29,19 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final AdministratorRepository administratorRepository;
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
 
-    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-    @ResponseBody
+    //@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST }, produces = "application/json")
+    //@ResponseBody
+    @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
 
+        System.out.println(loginRequest.getUsername());
+
         Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), passwordEncoder.encode(loginRequest.getPassword())));
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(auth);
         String jwt = jwtUtils.generateJwtToken(auth);
@@ -49,6 +50,9 @@ public class AuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
+
+        System.out.println("1");
+        System.out.println("JWT: " + jwt);
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),

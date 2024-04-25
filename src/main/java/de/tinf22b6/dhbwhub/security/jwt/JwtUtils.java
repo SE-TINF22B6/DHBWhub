@@ -1,20 +1,20 @@
 package de.tinf22b6.dhbwhub.security.jwt;
 
-import java.security.Key;
-import java.util.Date;
-
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-
 import javax.crypto.SecretKey;
+import java.util.Date;
 
 @Component
 public class JwtUtils {
@@ -26,10 +26,17 @@ public class JwtUtils {
     @Value("${DHBWhub.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    // TODO: Deprecated
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+
+        System.out.println("Jwt");
+        System.out.println(Jwts.builder()
+                .subject((userPrincipal.getUsername()))
+                .issuedAt(new Date())
+                .expiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(key())
+                .compact());
 
         return Jwts.builder()
                 .subject((userPrincipal.getUsername()))
@@ -43,7 +50,6 @@ public class JwtUtils {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
-    // TODO: Deprecated
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
                 .verifyWith(key())
@@ -53,7 +59,6 @@ public class JwtUtils {
                 .getSubject();
     }
 
-    // TODO: Deprecated
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser()

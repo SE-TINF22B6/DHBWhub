@@ -27,8 +27,6 @@ public class UserDetailsImpl implements UserDetails {
     @JsonIgnore
     private String password;
 
-    //private AdministratorService administratorService;
-
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String email, String password,
@@ -38,7 +36,6 @@ public class UserDetailsImpl implements UserDetails {
         this.email = email;
         this.password = password;
         this.authorities = authorities;
-        //this.administratorService = new AdministratorService();
     }
 
     public static UserDetailsImpl build(Account user, AdministratorRepository administratorRepository) {
@@ -52,10 +49,6 @@ public class UserDetailsImpl implements UserDetails {
         } else {
             simpleGrantedAuthority.add(new SimpleGrantedAuthority(ERole.ROLE_USER.toString()));
         }
-
-//        List<GrantedAuthority> authorities = user.getRoles().stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-//                .collect(Collectors.toList());
 
         return new UserDetailsImpl(
                 user.getId(),
