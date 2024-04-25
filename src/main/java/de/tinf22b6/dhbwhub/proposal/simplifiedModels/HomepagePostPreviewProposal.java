@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -20,11 +21,11 @@ public class HomepagePostPreviewProposal {
 
     private List<String> tags;
 
-    private int amountLikes;
+    private int likeAmount;
 
     private int commentAmount;
 
-    private int dateDifference;
+    private Date timestamp;
 
     private byte[] postImage;
 
