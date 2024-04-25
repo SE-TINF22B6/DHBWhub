@@ -1,13 +1,16 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
 import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
 import de.tinf22b6.dhbwhub.payload.response.MessageResponse;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
+import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.security.jwt.JwtUtils;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +35,7 @@ public class AuthController {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
+    private final UserRepository userRepository;
 
     //@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST }, produces = "application/json")
     //@ResponseBody
@@ -75,13 +79,29 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        Account user = new Account(signupRequest.getUsername(),
+        Account newAccount = new Account(signupRequest.getUsername(),
                 signupRequest.getEmail(),
                 passwordEncoder.encode(signupRequest.getPassword()), null,true);
 
-        accountRepository.save(user);
+        User newUser = new User(null, "new User", null, newAccount);
+
+        accountRepository.save(newAccount);
+
+        saveOrUpdateUser(newUser);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @Transactional
+    public void saveOrUpdateUser(User user) {
+        // Überprüfen, ob die Entität bereits in der Datenbank vorhanden ist
+        if (user.getId() != null && userRepository.find(user.getId()) != null) {
+            // Falls vorhanden, aktualisiere die Entität
+            userRepository.save(user);
+        } else {
+            // Falls nicht vorhanden, füge die Entität hinzu
+            userRepository.save(user);
+        }
     }
 
 }

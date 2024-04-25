@@ -39,7 +39,6 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(Account user, AdministratorRepository administratorRepository) {
-        // TODO: Solve Dependency Injection
         List<Administrator> administratorList = administratorRepository.findAll();
 
         List<GrantedAuthority> simpleGrantedAuthority = new ArrayList<>();
