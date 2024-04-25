@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -24,7 +25,7 @@ public class PostThreadViewProposal {
 
     private int commentAmount;
 
-    private int dateDifference;
+    private Date timestamp;
 
     private byte[] postImage;
 
