@@ -21,7 +21,7 @@ public class HomepagePostPreviewProposal {
 
     private List<String> tags;
 
-    private int amountLikes;
+    private int likeAmount;
 
     private int commentAmount;
 
