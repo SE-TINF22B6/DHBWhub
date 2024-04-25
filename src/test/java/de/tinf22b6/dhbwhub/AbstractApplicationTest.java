@@ -151,11 +151,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected HomepagePostPreviewProposal createDefaultHomepagePostPreviewProposal() {
-		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno");
+		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno");
 	}
 
 	protected PostThreadViewProposal createDefaultPostThreadViewProposal() {
-		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno", List.of(createDefaultCommentThreadViewProposal()));
+		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno", List.of(createDefaultCommentThreadViewProposal()));
 	}
 
 	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
@@ -173,5 +173,4 @@ public abstract class AbstractApplicationTest {
 	protected FriendrequestProposal createDefaultFriendrequestProposal2() {
 		return new FriendrequestProposal(2L,2L, "Berthold", new byte[]{ 12, 34, 45, 67, 78, 91 },"Received");
 	}
-
 }

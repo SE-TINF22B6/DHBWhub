@@ -2,9 +2,9 @@ name: React CI
 
 on:
   push:
-    branches: [ "master", "frontend" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "master", "frontend" ]
+    branches: [ "master" ]
 
 jobs:
   build:
