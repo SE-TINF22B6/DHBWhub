@@ -1,7 +1,6 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Account;
-import de.tinf22b6.dhbwhub.model.Administrator;
 import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
 import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
@@ -36,15 +35,9 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
 
-    //@PostMapping("login")
     @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
-
-        //test
-        System.out.println(loginRequest.getUsername());
-
-        System.out.println(passwordEncoder.encode(loginRequest.getPassword()));
 
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), passwordEncoder.encode(loginRequest.getPassword())));
@@ -82,40 +75,9 @@ public class AuthController {
                 signupRequest.getEmail(),
                 passwordEncoder.encode(signupRequest.getPassword()), null,true);
 
-//        Set<String> strRoles = signupRequest.getRole();
-//        Set<Role> roles = new HashSet<>();
-//
-//        if (strRoles == null) {
-//            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//            roles.add(userRole);
-//        } else {
-//            strRoles.forEach(role -> {
-////                switch (role) {
-////                    case "admin":
-////                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-////                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-////                        roles.add(adminRole);
-////                        break;
-////                    default:
-////                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-////                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-////                        roles.add(userRole);
-////                }
-//                if (role.equals("admin")) {
-//                    Administrator administrator = new Administrator();
-//                }
-//            });
-//        }
-
-        //user.setRoles(roles);
         accountRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-    }
-
-    private List<Administrator> loadAdministrators() {
-        return administratorRepository.findAll();
     }
 
 }
