@@ -25,11 +25,11 @@ public class PostMapper {
         return new HomepagePostPreviewProposal(
                 post.getId(),
                 post.getTitle(),
-                (post.getDescription().length() > 200) ? post.getDescription().substring(0,201) + "..." : post.getDescription(),
+                post.getDescription(),
                 null,
                 post.getLikes(),
                 0,
-                (int) TimeUnit.MILLISECONDS.toDays(new Date().getTime() - post.getTimestamp().getTime()),
+                post.getTimestamp(),
                 post.getPicture() != null ? post.getPicture().getImageData() : null,
                 post.getUser() != null ? post.getUser().getAccount().getId() : null,
                 post.getUser() != null ? post.getUser().getAccount().getUsername(): null
@@ -44,7 +44,7 @@ public class PostMapper {
                 null,
                 post.getLikes(),
                 0,
-                (int) TimeUnit.MILLISECONDS.toDays(new Date().getTime() - post.getTimestamp().getTime()),
+                post.getTimestamp(),
                 post.getPicture() != null ? post.getPicture().getImageData() : null,
                 post.getUser() != null ? post.getUser().getAccount().getId() : null,
                 post.getUser() != null ? post.getUser().getAccount().getUsername(): null,
