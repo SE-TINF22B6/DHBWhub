@@ -2,6 +2,7 @@ package de.tinf22b6.dhbwhub;
 
 import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.*;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -9,11 +10,11 @@ import java.util.List;
 
 public abstract class AbstractApplicationTest {
 	protected Picture createDefaultPicture() {
-		return new Picture("profile.png", Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList());
+		return new Picture("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 
 	protected Picture createDefaultPicture2() {
-		return new Picture("img-user", Arrays.stream(new Byte[]{ 12, 34, 44, 67, 78 }).toList());
+		return new Picture("img-user", new byte[]{ 12, 34, 44, 67, 78 });
 	}
 
 	protected Account createDefaultAccount() {
@@ -22,6 +23,10 @@ public abstract class AbstractApplicationTest {
 
 	protected Account createDefaultAccount2() {
 		return new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", createDefaultPicture2(), true);
+	}
+
+	protected Account createDefaultAccount3() {
+		return new Account("vladipu", "vladipu@gmail.de", "aioli", createDefaultPicture2(), true);
 	}
 
 	protected Administrator createDefaultAdministrator() {
@@ -65,19 +70,23 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected Friendship createDefaultFriendship() {
-		return new Friendship(createDefaultAccount(), createDefaultAccount2(), false);
+		return new Friendship(createDefaultAccount(), createDefaultAccount2(), true);
 	}
 
 	protected Friendship createDefaultFriendship2() {
 		return new Friendship(createDefaultAccount2(), createDefaultAccount(), false);
 	}
 
+	protected Friendship createDefaultFriendship3() {
+		return new Friendship(createDefaultAccount3(), createDefaultAccount(), true);
+	}
+
 	protected Post createDefaultPost() {
-		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, List.of("furry", "pride"), createDefaultPicture(), createDefaultUser(), createDefaultCourse());
+		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, createDefaultPicture(), createDefaultUser(), createDefaultCourse());
 	}
 
 	protected Post createDefaultPost2() {
-		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555, List.of("car", "dodge"), createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
+		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555,  createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
 	}
 
 	protected Comment createDefaultComment() {
@@ -98,7 +107,7 @@ public abstract class AbstractApplicationTest {
 
 
 	protected PictureProposal createDefaultPictureProposal() {
-		return new PictureProposal("profile.png", Arrays.stream(new Byte[]{ 12, 34, 45, 67, 78, 91 }).toList());
+		return new PictureProposal("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 
 	protected AccountProposal createDefaultAccountProposal() {
@@ -130,7 +139,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected PostProposal createDefaultPostProposal() {
-		return new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, List.of("furry", "pride"), createDefaultPictureProposal(), createDefaultUserProposal(), createDefaultCourseProposal());
+		return new PostProposal("Titel 1", "Beschreibung 1", new Date(1478979207L), 444, createDefaultPictureProposal(), createDefaultUserProposal(), createDefaultCourseProposal());
 	}
 
 	protected CommentProposal createDefaultCommentProposal() {
@@ -140,4 +149,29 @@ public abstract class AbstractApplicationTest {
 	protected SavedPostProposal createDefaultSavedPostProposal() {
 		return new SavedPostProposal(createDefaultUserProposal(), createDefaultPostProposal());
 	}
+
+	protected HomepagePostPreviewProposal createDefaultHomepagePostPreviewProposal() {
+		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno");
+	}
+
+	protected PostThreadViewProposal createDefaultPostThreadViewProposal() {
+		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, 12, new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno", List.of(createDefaultCommentThreadViewProposal()));
+	}
+
+	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
+		return new CommentThreadViewProposal(1L, 0L, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Beschreibung 1", 23, 3, new byte[]{ 12, 34, 45, 67, 78, 91 });
+	}
+
+	protected FriendlistProposal createDefaultFriendlistProposal() {
+		return new FriendlistProposal(1L,1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
+	}
+
+	protected FriendrequestProposal createDefaultFriendrequestProposal() {
+		return new FriendrequestProposal(1L,1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Sent");
+	}
+
+	protected FriendrequestProposal createDefaultFriendrequestProposal2() {
+		return new FriendrequestProposal(2L,2L, "Berthold", new byte[]{ 12, 34, 45, 67, 78, 91 },"Received");
+	}
+
 }

@@ -14,7 +14,8 @@ import lombok.Setter;
 @Table(name = "saved_post")
 public class SavedPost {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "saved_post_generator")
+    @SequenceGenerator(name = "saved_post_generator", sequenceName = "saved_post_seq", allocationSize = 1)
     @Column(name = "saved_post_id")
     private Long id;
 

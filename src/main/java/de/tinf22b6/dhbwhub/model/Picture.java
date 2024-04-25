@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -15,12 +13,12 @@ import java.util.List;
 @Entity
 public class Picture {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "picture_generator")
+    @SequenceGenerator(name = "picture_generator", sequenceName = "picture_seq", allocationSize = 1)
     @Column(name = "picture_id")
     private Long id;
 
     private final String name;
 
-    @ElementCollection
-    private final List<Byte> imageData;
+    private final byte[] imageData;
 }

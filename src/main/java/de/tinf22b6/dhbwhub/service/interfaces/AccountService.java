@@ -2,6 +2,7 @@ package de.tinf22b6.dhbwhub.service.interfaces;
 
 import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.proposal.AccountProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
 
 import java.util.List;
 

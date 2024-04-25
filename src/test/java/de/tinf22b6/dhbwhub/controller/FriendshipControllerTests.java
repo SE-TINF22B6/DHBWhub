@@ -5,6 +5,8 @@ import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.FriendshipMapper;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendlistProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.FriendrequestProposal;
 import de.tinf22b6.dhbwhub.service.FriendshipServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,6 +67,32 @@ class FriendshipControllerTests extends AbstractApplicationTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk());
+    }
+
+    @Test
+    void GetFriendlist_StatusIsOk() throws Exception {
+        FriendlistProposal friendlistProposal = createDefaultFriendlistProposal();
+
+        when(friendshipService.getFriendlist(1L)).thenReturn(List.of(friendlistProposal, friendlistProposal));
+
+        ResultActions response = mockMvc.perform(get("/friendship/friendlist/1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    void GetFriendrequests_StatusIsOk() throws Exception {
+        FriendrequestProposal friendrequestProposal = createDefaultFriendrequestProposal();
+
+        when(friendshipService.getFriendrequests(1L)).thenReturn(List.of(friendrequestProposal, friendrequestProposal));
+
+        ResultActions response = mockMvc.perform(get("/friendship/friendrequests/1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test

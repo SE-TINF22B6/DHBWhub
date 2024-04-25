@@ -14,7 +14,8 @@ import lombok.Setter;
 @Table(name = "client_user")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+    @SequenceGenerator(name = "user_generator", sequenceName = "user_seq", allocationSize = 1)
     @Column(name = "user_id")
     private Long id;
 
