@@ -1,0 +1,102 @@
+.popular-tags {
+  background-color: var(--component-grey);
+  border-radius: var(--border-radius);
+  padding: var(--component-padding);
+  position: relative;
+}
+
+.popular-tags-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+  width: 235px;
+}
+
+@media (max-width: 1440px) {
+  .popular-tags {
+
+  }
+  .popular-tags-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+    width: 235px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .popular-tags {
+
+  }
+  .popular-tags-list {
+
+  }
+}
+
+@media (max-width: 1280px) {
+  .popular-tags {
+
+  }
+  .popular-tags-list {
+
+  }
+}
+
+@media (max-width: 1024px) {
+  .popular-tags {
+    height: auto;
+    width: auto;
+  }
+  .popular-tags-list {
+    flex-direction: column;
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 820px) {
+  .popular-tags {
+    width: 740px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .popular-tags-list {
+    width: 600px;
+  }
+}
+
+@media (max-width: 412px) {
+  .popular-tags {
+    height: auto;
+    width: 360px;
+    padding: 15px;
+    margin-top: -5px;
+    margin-bottom: 20px;
+    margin-left: 40px;
+  }
+  .popular-tags-list {
+    width: 350px;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 390px) {
+  .popular-tags {
+
+  }
+  .popular-tags-list {
+
+  }
+}
+
+@media (max-width: 360px) {
+  .popular-tags {
+
+  }
+  .popular-tags-list {
+
+  }
+}

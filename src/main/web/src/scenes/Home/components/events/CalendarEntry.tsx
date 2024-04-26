@@ -1,6 +1,7 @@
 import React from "react";
 import "./CalendarEntry.css";
 import {Link} from "react-router-dom";
+import {Tag} from "../../../../atoms/Tag";
 
 interface CalenderEntryProps {
   title: string;
@@ -8,21 +9,23 @@ interface CalenderEntryProps {
   tags: string[];
   day: number;
   month: string;
+  year: number;
   id: number;
 }
 
 export const CalendarEntry: React.FC<CalenderEntryProps> = (props: CalenderEntryProps) => {
-  const {
-    title,
-    address,
-    tags,
-    day,
-    month,
-    id,
-  } = props;
+  const {title, address, tags, day, month, id} = props;
 
   return (
       <div className="calendar-entry">
+        <div className="date">
+          <Link to={`/event/?id=${id}`} className="event-tag-button">
+            <div className="date-background">
+              <div className="day">{day}</div>
+              <div className="month">{month}</div>
+            </div>
+          </Link>
+        </div>
         <Link to={"/event/?id=" + id} className="event-link">
           <div className="event-title">{title}</div>
         </Link>
@@ -30,18 +33,12 @@ export const CalendarEntry: React.FC<CalenderEntryProps> = (props: CalenderEntry
         {tags && tags.length > 0 && (
             <div className="event-tags">
               {tags.map((tag: string, index: number) => (tag && (
-                  <div className="event-tag" key={index}>
-                    {tag}
-                  </div>
+                  <Link key={tag} to={`/tag/?name=${tag.toLowerCase().replace(' ', '-')}`} className="event-tag-button">
+                    <Tag name={tag} index={index} isEventTag={true}/>
+                  </Link>
               )))}
             </div>
         )}
-        <div className="date">
-          <div className="date-background">
-            <div className="day">{day}</div>
-            <div className="month">{month}</div>
-          </div>
-        </div>
       </div>
   );
 }

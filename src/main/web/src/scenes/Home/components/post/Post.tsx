@@ -124,7 +124,7 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
             </Link>
             <div className="post-tags">
               {tags.slice(0, 3).map((tag, index) => (
-                  <Tag name={tag} index={index}/>
+                  <Tag name={tag} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
             <p className="short-description">{shortDescription}</p>
