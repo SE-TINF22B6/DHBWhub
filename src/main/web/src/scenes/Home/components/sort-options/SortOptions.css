@@ -14,6 +14,7 @@
   border-style: none;
   width: 235px;
   height: 45px;
+  transition: var(--transition);
   &&:focus, &&:active {
     background-color: var(--red);
   }
