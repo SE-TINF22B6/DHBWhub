@@ -48,10 +48,17 @@ atomic component architecture. The web design is composed of several small compo
 the addition of new features should reduce the development time drastically.  
   
 A fast response time is also a top priority. High latency worsens the mood of the end user. Thus, some structures need to be included in our software architecture design such as using
-intermediate data layers where relevant data is already stored and can be retrieved easily or asynchronous loading of data, where the probablity of a retrieval is very high.
+intermediate data layers where relevant data is already stored and can be retrieved easily or asynchronous loading, in which the retrieval of specific data happens in the background and  
+can be used, when actually needed.
 
 ### 3. Architecture design
 #### 3.1 Overview 
+In the following image you can see the three main components of our software, the website itself (frontend), the backend and our database:  
+  
+![PackageDiagram](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/5445e198-1f31-43db-a00a-0998bbb98c5f)  
+
+The website consists of the packages atoms and molecules, which is included in the well known frontend framework 'component-based architecture'. Hereby, these packages consist of components
+which on the other hand can be decomposed to smaller components, that are also reusable. 
 
 #### 3.2 Runtime view (Tips: https://docs.arc42.org/section-6/)
 
