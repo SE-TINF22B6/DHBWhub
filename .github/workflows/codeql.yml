@@ -5,11 +5,13 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  schedule:
+    - cron: "17 11 * * 2"
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: 'ubuntu-latest'
     timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
     permissions:
       actions: read
@@ -18,22 +20,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'javascript-typescript', 'java-kotlin' ]
+        language: [ 'javascript-typescript', 'java' ]
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-    - uses: actions/setup-java@v3
+    - name: Autobuild
+      if: ${{ matrix.language != 'java' }}
+      uses: github/codeql-action/autobuild@v2
+    - name: Setup JDK
+      uses: actions/setup-java@v4
+      if: ${{ matrix.language == 'java' }}
       with:
         java-version: 17
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-    #- run: |
-    #    sudo apt install maven
-    #    mvn clean install
+        distribution: temurin
+        cache: maven
+    - name: Build Java
+      if: ${{ matrix.language == 'java' }}
+      run: ./mvnw -B -DskipTests -Pcompile-jdk17 clean install --file pom.xml
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
