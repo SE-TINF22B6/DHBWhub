@@ -1,25 +1,35 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.mapper.PictureMapper;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
-import de.tinf22b6.dhbwhub.model.Post;
+import de.tinf22b6.dhbwhub.mapper.PostTagMapper;
+import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.PostThreadViewProposal;
-import de.tinf22b6.dhbwhub.repository.PostRepository;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
+import de.tinf22b6.dhbwhub.repository.*;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class PostServiceImpl implements PostService {
     private final PostRepository repository;
+    private final UserRepository userRepository;
+    private final PictureRepository pictureRepository;
+    private final PostTagRepository postTagRepository;
 
-    public PostServiceImpl(@Autowired PostRepository repository) {
+    public PostServiceImpl(@Autowired PostRepository repository,
+                           @Autowired UserRepository userRepository,
+                           @Autowired PictureRepository pictureRepository,
+                           @Autowired PostTagRepository postTagRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
+        this.pictureRepository = pictureRepository;
+        this.postTagRepository = postTagRepository;
     }
 
     @Override
@@ -31,6 +41,25 @@ public class PostServiceImpl implements PostService {
     public Post create(PostProposal proposal) {
         Post post = PostMapper.mapToModel(proposal);
         return repository.save(post);
+    }
+
+    @Override
+    public PostThreadViewProposal create(CreatePostProposal proposal) {
+        // Creating the Post itself
+        User user = userRepository.findByAccountId(proposal.getAccountId());
+        Picture picture = proposal.getPostImage().length != 0 ?
+                pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage())): null;
+
+        Post post = repository.save(PostMapper.mapToModel(proposal,user,picture));
+
+        // Creating Tags after the Post is created
+        proposal.getTags().forEach(t -> {
+            new Post();
+            PostTag postTag = new PostTag(post, t);
+            postTagRepository.save(postTag);
+        } );
+
+        return getPostThreadView(post.getId());
     }
 
     @Override
@@ -50,6 +79,59 @@ public class PostServiceImpl implements PostService {
         Post post = PostMapper.mapToModel(proposal);
         post.setId(id);
         return repository.save(post);
+    }
+
+    @Override
+    public int increaseLikes(Long id) {
+        Post post = get(id);
+        int likes = post.getLikes() + 1;
+        Post updatedPost = repository.save(PostMapper.mapToModel(post,likes));
+        return updatedPost.getLikes();
+    }
+
+    @Override
+    public int decreaseLikes(Long id) {
+        Post post = get(id);
+        int likes = post.getLikes() - 1;
+        Post updatedPost = repository.save(PostMapper.mapToModel(post,likes));
+        return updatedPost.getLikes();
+    }
+
+    @Override
+    public PostThreadViewProposal update(Long id, UpdatePostProposal proposal) {
+        Post initialPost = get(id);
+        Picture picture;
+
+        // Check if Picture has changed
+        if(!Arrays.equals(initialPost.getPicture().getImageData(), proposal.getPostImage())){
+            pictureRepository.delete(initialPost.getPicture().getId());
+            picture = pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage()));
+        } else {
+            picture = PictureMapper.mapToModelComment(initialPost.getPicture().getImageData());
+        }
+
+        // Update post
+        Post updatedPost = PostMapper.mapToModel(proposal, initialPost, picture);
+        repository.save(updatedPost);
+
+        /* Check if Tags changed
+            formerTags = Tags in the database
+            proposedTags = Tags proposed
+            updatedTags = Tags, which will be delivered to requester
+        * */
+        List<PostTag> formerTags = postTagRepository.findByPostId(initialPost.getId());
+        List<String> proposedTags = proposal.getTags();
+
+        for (PostTag postTag : formerTags) {
+            if (proposedTags.contains(postTag.getTag())) {
+                proposedTags.remove(postTag.getTag());
+            } else {
+                postTagRepository.delete(postTag.getId());
+            }
+        }
+        proposedTags.forEach(t -> postTagRepository.save(PostTagMapper.mapToModel(updatedPost, t)));
+
+        return getPostThreadView(updatedPost.getId());
     }
 
     @Override
@@ -97,12 +179,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostThreadViewProposal getPostThreadView(Long id) {
         PostThreadViewProposal postThreadViewProposal = PostMapper.mapToPostThreadViewProposal(get(id));
-        /*if(postThreadViewProposal == null) {
-            return null;
-        }*/
+
         postThreadViewProposal.setTags(getPostTags(id));
         postThreadViewProposal.setCommentAmount(getAmountOfComments(id));
         postThreadViewProposal.setComments(getPostComments(id));
+
         return postThreadViewProposal;
     }
 

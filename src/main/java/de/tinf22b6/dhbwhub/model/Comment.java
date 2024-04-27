@@ -20,21 +20,21 @@ public class Comment {
     @Column(name = "comment_id")
     private Long id;
 
-    private final String description;
+    private String description;
 
-    private final Date timestamp;
+    private Date timestamp;
 
-    private final int likes;
+    private int likes;
 
     @JoinColumn(name = "picture_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private final Picture picture;
+    private Picture picture;
 
     @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private final User user;
+    private User user;
 
     @JoinColumn(name = "post_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private final Post post;
+    private Post post;
 }

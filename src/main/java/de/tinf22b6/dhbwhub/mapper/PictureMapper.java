@@ -10,4 +10,17 @@ public class PictureMapper {
                 proposal.getImageData()
         );
     }
+    public static Picture mapToModelPost(byte[] imageData) {
+        return new Picture(
+                "post.png",
+                imageData
+        );
+    }
+    public static Picture mapToModelComment(byte[] imageData) {
+        return new Picture(
+                "comment.png",
+                imageData
+        );
+    }
+
 }

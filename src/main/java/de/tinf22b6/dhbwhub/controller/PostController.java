@@ -2,9 +2,7 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.PostThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +44,11 @@ public class PostController {
         return service.create(proposal);
     }
 
+    @PostMapping("/createPost")
+    public PostThreadViewProposal create(@RequestBody CreatePostProposal proposal) {
+        return service.create(proposal);
+    }
+
     @GetMapping("/{id}")
     public Post get(@PathVariable Long id) {
         return service.get(id);
@@ -54,6 +57,21 @@ public class PostController {
     @PutMapping("/{id}")
     public Post update(@PathVariable Long id, @RequestBody PostProposal proposal) {
         return service.update(id, proposal);
+    }
+
+    @PutMapping("/updatePost/{id}")
+    public PostThreadViewProposal update(@PathVariable Long id, @RequestBody UpdatePostProposal proposal) {
+        return service.update(id, proposal);
+    }
+
+    @PutMapping("/increaseLikes/{id}")
+    public int increaseLikes(@PathVariable Long id) {
+         return service.increaseLikes(id);
+    }
+
+    @PutMapping("/decreaseLikes/{id}")
+    public int decreaseLikes(@PathVariable Long id) {
+        return service.decreaseLikes(id);
     }
 
     @DeleteMapping("/{id}")
