@@ -1,9 +1,9 @@
-# Project Name
+# DHBWhub
 ## Software Architecture Documentation
 
 ### 1. Introduction
 #### 1.1 Overview
-The architecture design of our project DHBWHub is based on several principles:
+The architecture design of our project DHBWhub is based on several principles:
 1. **Data independence**    
    Each layer or component in our architectural system only works with a data model, which contains all the relevant data. For example, several components may
    need data from one database table, but each one gets their data delivered in an appropriate format leaving out all the unnecessary information.
@@ -30,11 +30,11 @@ The choice for our software architecture is due to some organizational and techn
 - CRUD: Create, Read, Update and Delete
   
 #### 1.4 References
-- CreateCommentComponentSequenceDiagram, 27.04.2024:
+- CreateCommentComponentSequenceDiagram, 27.04.2024:  
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreateCommentComponentSequenceDiagram.drawio.png
-- UML-PackageDiagram, 27.04.2024:
+- UML-PackageDiagram, 27.04.2024:  
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/PackageDiagram.drawio.png
-- Utility-Tree, 27.04.2024:
+- Utility-Tree, 27.04.2024:  
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UtilityTree.drawio.png
 
 ### 2. Architecture tactics
@@ -74,6 +74,18 @@ requested queries and get updated in the background every time, when the main en
 complex query results already established and retrieval-ready for the backend and thus, reduce the latency time.
 
 #### 3.2 Runtime view
+In the next sequence diagram, you can see the interaction between the components during runtime in a more clearer way. Hereby, we are regarding the process of creating a comment under a post:
+
+![CreateCommentComponentSequenceDiagram](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/c9f5390b-4ab2-4d80-b54e-3d3362ca8c13)
+
+The process starts on the website in a post thread. It gets triggered, when the user has created a comment and clicks on the 'Send'-button. The website sends a HTTP-Post-Request to the CommentController
+in the backend, with the necessary data in the HTTP-RequestBody. The Controller calls the 'createComment()' command from the CommentService and also transfers the data, which was received from the website.
+Latter is called 'CommentProposal', which then gets mapped into a database-conform 'CommentModel' through the usage of a 'CommentMapper' (Utility Layer). This model then gets transfered to the 'CommentRepository',
+that is responsible for inserting the data into the database. If the values of the data tuple is correct and doesn't violate database checks, the database returns the same model with an unique assigned id number.
+The 'CommentRepository' returns this model back to the 'CommentService' which then maps latter to a more website-conform view by removing all the unnecessary data (e.g. 'ThreadComment'). The HTTP-Response is then
+delivered to the frontend with the 'ThreadComment' in the HTTP-Body. The website then rerenders the whole Post and visualizes to the user, that the comment has been created successfully.
+
+This process visualizes best, how each layer has their own responsibility as well as works with only the data, that is relevant to them.
 
 #### 3.3 Deployment view
 
