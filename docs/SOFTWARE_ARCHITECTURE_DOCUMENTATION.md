@@ -26,8 +26,9 @@ The choice for our software architecture is due to some organizational and techn
 > May need some revisal in the near future
 
 #### 1.3 Definitions, Acronyms and Abbreviations
-> TODO
- 
+- REST: Representational State Transfer
+- CRUD: Create, Read, Update and Delete
+  
 #### 1.4 References
 - CreateCommentComponentSequenceDiagram, 27.04.2024:
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreateCommentComponentSequenceDiagram.drawio.png
@@ -53,16 +54,28 @@ can be used, when actually needed.
 
 ### 3. Architecture design
 #### 3.1 Overview 
-In the following image you can see the three main components of our software, the website itself (frontend), the backend and our database:  
+In general, our software architecture style is based on "REST". In the following image you can see the three main components of our software, the website itself (frontend), the backend and our database:  
   
 ![PackageDiagram](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/5445e198-1f31-43db-a00a-0998bbb98c5f)  
 
 The website consists of the packages atoms and molecules, which is included in the well known frontend framework 'component-based architecture'. Hereby, these packages consist of components
-which on the other hand can be decomposed to smaller components, that are also reusable. 
+which on the other hand can be decomposed to smaller components, that are also reusable.  
+  
+The backend on the other hand consists of four different modules/layer. The first layer is the 'Controller Layer' that consists of so called 'Controller' for each entity of
+our project. Every controller provides end points in which external components such as the website can retrieve, insert or update data through HTTP-Requests to the respective
+entity-controller. In order to work with the data, the 'Controller Layer' communicates with the 'Service Layer'. Latter consists of the actual implementations of the
+'EntityService'-interfaces and is responsible for applying logic to the necessary data. It acts as the middle man between the 'Controller Layer' and the third layer, which is
+called 'Repository Layer'. It includes 'Entity Repostories', which on the other hand use 'SpringEntityRepositories' to directly access the data which persists on our database.
+The mapping between each layer happens through the 'Utility Layer' that provides, inter alia the packages 'Model' and 'Proposal', that are used for this purpose. This whole
+structure in the backend accomplishes data independence, since every layer gets to see and work with the relevant part of the needed data.  
+  
+The last component is the database, which mainly consists of the tables of each entity as well as external views that are created through certain trigger functions. Views can store frequently
+requested queries and get updated in the background every time, when the main entity table itself gets updated through CRUD-operations by the 'Repository Layer'. In this way, we can provide 
+complex query results already established and retrieval-ready for the backend and thus, reduce the latency time.
 
-#### 3.2 Runtime view (Tips: https://docs.arc42.org/section-6/)
+#### 3.2 Runtime view
 
-#### 3.3 Deployment view (Tips: https://docs.arc42.org/section-7/)
+#### 3.3 Deployment view
 
 #### 3.4 ... ...
 
