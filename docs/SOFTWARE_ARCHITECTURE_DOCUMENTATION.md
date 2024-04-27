@@ -29,21 +29,29 @@ The choice for our software architecture is due to some organizational and techn
 > TODO
  
 #### 1.4 References
-- CreateCommentComponentSequenceDiagram, 27.04.2024: https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreateCommentComponentSequenceDiagram.drawio.png
-- UML-PackageDiagram, 27.04.2024: https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/PackageDiagram.drawio.png
+- CreateCommentComponentSequenceDiagram, 27.04.2024:
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreateCommentComponentSequenceDiagram.drawio.png
+- UML-PackageDiagram, 27.04.2024:
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/PackageDiagram.drawio.png
+- Utility-Tree, 27.04.2024:
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UtilityTree.drawio.png
 
 ### 2. Architecture tactics
-> Reference your architecturally significant requirements from Semester 3.
-> Revise your architecture tactics from Semester 3.
+The reason for our architectural choice is partly based on our significant architecture requirements analysis. The following image depicts a summary of our top three quality attributes:  
+
+![UtilityTree](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/e9a99f50-a210-43b4-9c1a-2e8feb230323)  
+
+A modular structure, as aleady mentioned in the chapter 1.1, is important since it allows our developers an easier und faster development of new features. On the one hand, 
+it helps the end users to navigate through our application without getting confused. On the other hand, developers can extend the application with new code components without
+disturbing the already existing system. This goal can be reached through an previously established CI/CD pipeline which already covers most areas. Another way is through 
+atomic component architecture. The web design is composed of several small components which are composed of even smaller different components. By reusing already programmed assets,
+the addition of new features should reduce the development time drastically.  
+  
+A fast response time is also a top priority. High latency worsens the mood of the end user. Thus, some structures need to be included in our software architecture design such as using
+intermediate data layers where relevant data is already stored and can be retrieved easily or asynchronous loading of data, where the probablity of a retrieval is very high.
 
 ### 3. Architecture design
-> This section specifies the architecture design in various views.
-> Minimum requirement:
-> - sequence diagram on a component level and necessary description
-> - component diagrams and/or package diagrams, and necessary description
-
 #### 3.1 Overview 
-> A summary of the architecture design -- highlights.  
 
 #### 3.2 Runtime view (Tips: https://docs.arc42.org/section-6/)
 
