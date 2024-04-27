@@ -10,6 +10,12 @@ spring:
     properties:
       hibernate:
         format_sql: true # Enabled for debug purposes
+#App Properties
+DHBWhub:
+  app:
+    jwtSecret: ======================DHBWhub=Spring===========================
+    jwtExpirationMs: 86400000
+
 # server:
   # error:
     # whitelabel:

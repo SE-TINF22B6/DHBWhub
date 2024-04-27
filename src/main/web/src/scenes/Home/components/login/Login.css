@@ -47,6 +47,8 @@
     color: var(--white);
     font-weight: var(--normal-font-weight);
     font-size: var(--title-font-size);
+    background-color: var(--component-grey);
+    border: none;
     text-align: left;
     position: relative;
     left: 0;
