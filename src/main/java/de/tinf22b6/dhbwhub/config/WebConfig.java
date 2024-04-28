@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://se-tinf22b6.github.io/DHBWhub")
+                .allowedOrigins("https://se-tinf22b6.github.io/DHBWhub", "http://localhost:3000", "https://dhbwhub.de")
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 }
