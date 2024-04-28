@@ -78,6 +78,7 @@ export default function SignUp() {
                         <form noValidate autoComplete="off">
                             <FormControl sx={{marginBottom: '25px'}} className="textfield">
                                 <OutlinedInput
+                                    type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />

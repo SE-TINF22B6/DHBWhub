@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {SearchBar} from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
-import Login from '../../scenes/Home/components/login/Login';
+import ModalLoginContainer from '../../scenes/Home/components/login/ModalLoginContainer';
 import SignUp from "../../scenes/Home/components/signup/SignUp";
 import {Notifications} from "./Notifications";
 import "./Header.css";
@@ -62,7 +62,7 @@ export const Header = () => {
               <button className="header-menu" onClick={() => setLoggedIn(true)} aria-label="ArrowDown-Button">
                 <img src={process.env.PUBLIC_URL + '/assets/header/arrow-down.svg'} alt="Arrow Down" className="arrow-down"/>
               </button>
-              <Login/>
+              <ModalLoginContainer/>
               <SignUp/>
             </div>
         )}
