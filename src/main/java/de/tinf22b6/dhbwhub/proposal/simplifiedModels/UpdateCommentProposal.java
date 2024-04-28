@@ -5,19 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdatePostProposal {
+public class UpdateCommentProposal {
 
-    private String title;
+    private Long commentId;
 
     private String description;
-
-    private List<String> tags;
 
     private byte[] postImage;
 

@@ -1,8 +1,13 @@
 package de.tinf22b6.dhbwhub.mapper;
 
 import de.tinf22b6.dhbwhub.model.Comment;
+import de.tinf22b6.dhbwhub.model.Picture;
+import de.tinf22b6.dhbwhub.model.Post;
+import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CreateCommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplifiedModels.UpdateCommentProposal;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +24,28 @@ public class CommentMapper {
         );
     }
 
+    public static Comment mapToModel(CreateCommentProposal proposal, User user, Picture picture, Post post) {
+        return new Comment(
+                proposal.getDescription(),
+                proposal.getTimestamp(),
+                0,
+                picture,
+                user,
+                post
+        );
+    }
+
+    public static Comment mapToModel(UpdateCommentProposal proposal, Comment comment, Picture picture) {
+        return new Comment(
+                proposal.getDescription(),
+                comment.getTimestamp(),
+                comment.getLikes(),
+                picture,
+                comment.getUser(),
+                comment.getPost()
+        );
+    }
+
     public static CommentThreadViewProposal mapToThreadView(Comment comment) {
         return new CommentThreadViewProposal(
                 comment.getPost() != null? comment.getPost().getId() : null,
@@ -31,5 +58,16 @@ public class CommentMapper {
                 (int) TimeUnit.MILLISECONDS.toDays(new Date().getTime() - comment.getTimestamp().getTime()),
                 comment.getPicture() != null ? comment.getPicture().getImageData() : null
                 );
+    }
+
+    public static Comment mapToModel(Comment comment, int likes) {
+        return new Comment(
+                comment.getDescription(),
+                comment.getTimestamp(),
+                likes,
+                comment.getPicture(),
+                comment.getUser(),
+                comment.getPost()
+        );
     }
 }

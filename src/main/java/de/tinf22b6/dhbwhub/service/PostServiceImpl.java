@@ -92,7 +92,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public int decreaseLikes(Long id) {
         Post post = get(id);
-        int likes = post.getLikes() - 1;
+        int likes = post.getLikes() != 0? post.getLikes() - 1 : 0;
         Post updatedPost = repository.save(PostMapper.mapToModel(post,likes));
         return updatedPost.getLikes();
     }
@@ -117,7 +117,6 @@ public class PostServiceImpl implements PostService {
         /* Check if Tags changed
             formerTags = Tags in the database
             proposedTags = Tags proposed
-            updatedTags = Tags, which will be delivered to requester
         * */
         List<PostTag> formerTags = postTagRepository.findByPostId(initialPost.getId());
         List<String> proposedTags = proposal.getTags();
@@ -146,9 +145,6 @@ public class PostServiceImpl implements PostService {
     public int getAmountOfComments(Long id) {
         return repository.getAmountOfComments(id);
     }
-
-
-
 
     @Override
     public List<HomepagePostPreviewProposal> getHomepagePosts() {
