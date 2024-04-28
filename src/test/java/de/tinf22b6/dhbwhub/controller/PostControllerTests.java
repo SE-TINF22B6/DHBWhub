@@ -5,8 +5,10 @@ import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreatePostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepagePostPreviewProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.PostThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdatePostProposal;
 import de.tinf22b6.dhbwhub.service.PostServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
 
@@ -28,6 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -140,6 +144,63 @@ class PostControllerTests extends AbstractApplicationTest {
                 .andExpect(jsonPath("$.description", is(postProposal.getDescription())))
                 .andExpect(jsonPath("$.likes", is(postProposal.getLikes())));
     }
+
+    @Test
+    void CreatePost_StatusIsOk() throws Exception {
+        CreatePostProposal postProposal = createDefaultCreatePostProposal();
+        PostThreadViewProposal postThreadViewProposal = createDefaultPostThreadViewProposal();
+
+        given(postService.create(any(CreatePostProposal.class))).willAnswer(i -> postThreadViewProposal);
+
+        ResultActions response = mockMvc.perform(post("/post/create-post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(postProposal)));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(postProposal.getTitle())))
+                .andExpect(jsonPath("$.description", is(postProposal.getDescription())));
+    }
+
+    @Test
+    void UpdatePost_StatusIsOk() throws Exception {
+        UpdatePostProposal postProposal = createDefaultUpdatePostProposal();
+        PostThreadViewProposal postThreadViewProposal = createDefaultPostThreadViewProposal();
+
+        when(postService.update(any(Long.class), any(UpdatePostProposal.class))).thenReturn(postThreadViewProposal);
+
+        ResultActions response = mockMvc.perform(put("/post/update-post/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(postProposal)));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(postProposal.getTitle())))
+                .andExpect(jsonPath("$.description", is(postProposal.getDescription())));
+    }
+
+    @Test
+    void IncreaseLikes_StatusIsOk() throws Exception {
+        Integer likes = 1;
+        when(postService.increaseLikes(any(Long.class))).thenReturn(1);
+
+        ResultActions response = mockMvc.perform(put("/post/increase-likes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(likes)));
+
+        response.andExpect(status().isOk());
+    }
+
+    @Test
+    void DecreaseLikes_StatusIsOk() throws Exception {
+        Integer likes = 0;
+        when(postService.decreaseLikes(any(Long.class))).thenReturn(0);
+
+        ResultActions response = mockMvc.perform(put("/post/decrease-likes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(likes)));
+
+        response.andExpect(status().isOk());
+    }
+
 
     @Test
     void Delete_StatusIsOk() throws Exception {

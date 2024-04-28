@@ -44,7 +44,7 @@ public class PostController {
         return service.create(proposal);
     }
 
-    @PostMapping("/createPost")
+    @PostMapping("/create-post")
     public PostThreadViewProposal create(@RequestBody CreatePostProposal proposal) {
         return service.create(proposal);
     }
@@ -59,17 +59,17 @@ public class PostController {
         return service.update(id, proposal);
     }
 
-    @PutMapping("/updatePost/{id}")
+    @PutMapping("/update-post/{id}")
     public PostThreadViewProposal update(@PathVariable Long id, @RequestBody UpdatePostProposal proposal) {
         return service.update(id, proposal);
     }
 
-    @PutMapping("/increaseLikes/{id}")
+    @PutMapping("/increase-likes/{id}")
     public int increaseLikes(@PathVariable Long id) {
          return service.increaseLikes(id);
     }
 
-    @PutMapping("/decreaseLikes/{id}")
+    @PutMapping("/decrease-likes/{id}")
     public int decreaseLikes(@PathVariable Long id) {
         return service.decreaseLikes(id);
     }

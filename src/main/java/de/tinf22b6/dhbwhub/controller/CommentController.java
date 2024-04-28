@@ -31,7 +31,7 @@ public class CommentController {
         return service.create(proposal);
     }
 
-    @PostMapping("/createComment")
+    @PostMapping("/create-comment")
     public CommentThreadViewProposal create(@RequestBody CreateCommentProposal proposal) {
         return service.create(proposal);
     }
@@ -46,17 +46,17 @@ public class CommentController {
         return service.update(id, proposal);
     }
 
-    @PutMapping("/updateComment/{id}")
+    @PutMapping("/update-comment/{id}")
     public CommentThreadViewProposal update(@PathVariable Long id, @RequestBody UpdateCommentProposal proposal) {
         return service.update(id, proposal);
     }
 
-    @PutMapping("/increaseLikes/{id}")
+    @PutMapping("/increase-likes/{id}")
     public int increaseLikes(@PathVariable Long id) {
         return service.increaseLikes(id);
     }
 
-    @PutMapping("/decreaseLikes/{id}")
+    @PutMapping("/decrease-likes/{id}")
     public int decreaseLikes(@PathVariable Long id) {
         return service.decreaseLikes(id);
     }
