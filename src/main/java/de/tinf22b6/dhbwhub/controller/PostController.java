@@ -2,7 +2,7 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

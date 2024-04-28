@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.FriendshipMapper;
 import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.FriendshipRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.FriendshipService;
 import org.springframework.beans.factory.annotation.Autowired;

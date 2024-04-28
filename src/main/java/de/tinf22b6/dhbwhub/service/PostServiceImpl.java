@@ -6,7 +6,7 @@ import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.mapper.PostTagMapper;
 import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.*;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,9 +2,9 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CreateCommentProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.UpdateCommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateCommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateCommentProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

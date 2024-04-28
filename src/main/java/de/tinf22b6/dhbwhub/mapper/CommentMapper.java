@@ -5,9 +5,9 @@ import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CreateCommentProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.UpdateCommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateCommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateCommentProposal;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;

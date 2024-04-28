@@ -2,12 +2,10 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

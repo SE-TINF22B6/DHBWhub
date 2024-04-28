@@ -1,4 +1,4 @@
-package de.tinf22b6.dhbwhub.proposal.simplifiedModels;
+package de.tinf22b6.dhbwhub.proposal.simplified_models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,8 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostThreadViewProposal {
-    private Long id;
+public class CreatePostProposal {
 
     private String title;
 
@@ -21,17 +20,10 @@ public class PostThreadViewProposal {
 
     private List<String> tags;
 
-    private int amountLikes;
-
-    private int commentAmount;
-
     private Date timestamp;
 
     private byte[] postImage;
 
     private Long accountId;
 
-    private String username;
-
-    private List<CommentThreadViewProposal> comments;
 }

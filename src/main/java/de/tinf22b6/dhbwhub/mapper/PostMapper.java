@@ -4,10 +4,10 @@ import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CreatePostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.HomepagePostPreviewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.PostThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.UpdatePostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreatePostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepagePostPreviewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.PostThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdatePostProposal;
 
 public class PostMapper {
     public static Post mapToModel(PostProposal proposal) {
