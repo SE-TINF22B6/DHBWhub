@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import './Login.css';
 
 import {login} from "../../../../services/auth.service";
+import {Checkbox, FormControlLabel} from "@mui/material";
 
 type Props = {}
 
@@ -63,7 +64,7 @@ const Login: React.FC<Props> = () => {
                     <Form>
                         <div className="modal">
                             <div className="modalHeader">
-                                <h3 className="heading">LOGIN</h3>
+                                <h3 className="modalHeadline">LOGIN</h3>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="username" className="heading">Username</label>
@@ -85,13 +86,26 @@ const Login: React.FC<Props> = () => {
                                 />
                             </div>
 
+                            <div className="forgot-password-option">
+                                <label className="forgot-password-option-text">Forgot Password?</label>
+                            </div>
+
+                            <div className="remember-me-option">
+                                <FormControlLabel control={<Checkbox/>} label="Label" className="remember-me-checkbox"/>
+                                <label className="remember-me-text">Remember me?</label>
+                            </div>
+
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+                                <button type="submit" className="loading-btn" disabled={loading}>
                                     {loading && (
                                         <span className="spinner-border spinner-border-sm"></span>
                                     )}
-                                    <span>Login</span>
+                                    <span className="btn-text">Login</span>
                                 </button>
+                            </div>
+
+                            <div className="signup-option">
+                                <label className="signup-option-text">Need an account? SIGN UP</label>
                             </div>
 
                             {message && (
