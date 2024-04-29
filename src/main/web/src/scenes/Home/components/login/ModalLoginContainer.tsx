@@ -25,7 +25,7 @@ export default function ModalLoginContainer() {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <Login></Login>
+                    <Login />
                 </Modal>
             </div>
         </>
