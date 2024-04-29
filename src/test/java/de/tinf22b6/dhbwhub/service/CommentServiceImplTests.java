@@ -3,7 +3,6 @@ package de.tinf22b6.dhbwhub.service;
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.Comment;
-import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
 import de.tinf22b6.dhbwhub.repository.CommentRepository;
 import org.junit.jupiter.api.Test;

@@ -13,8 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateCommentProposal {
 
-    private Long commentId;
-
     private String description;
 
     private byte[] postImage;

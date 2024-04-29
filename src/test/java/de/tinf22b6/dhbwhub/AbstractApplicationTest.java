@@ -5,6 +5,7 @@ import de.tinf22b6.dhbwhub.proposal.*;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -191,15 +192,15 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected UpdateCommentProposal createDefaultUpdateCommentProposal(){
-		return new UpdateCommentProposal(1L, "Beschreibung 1", createDefaultPicture().getImageData());
+		return new UpdateCommentProposal("Beschreibung 1", createDefaultPicture().getImageData());
 	}
 
 	protected CreatePostProposal createDefaultCreatePostProposal(){
-		return new CreatePostProposal("Titel 1", "Beschreibung 1", List.of("Tag 1", "Tag 2"), new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L);
+		return new CreatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L);
 	}
 
 	protected UpdatePostProposal createDefaultUpdatePostProposal(){
-		return new UpdatePostProposal("Titel 1", "Beschreibung 1", List.of("Tag 1", "Tag 2"), createDefaultPicture().getImageData());
+		return new UpdatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
 	}
 
 	protected List<PostTag> createDefaultPostTags() {

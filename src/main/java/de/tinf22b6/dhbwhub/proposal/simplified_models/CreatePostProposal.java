@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -18,7 +17,7 @@ public class CreatePostProposal {
 
     private String description;
 
-    private List<String> tags;
+    private String[] tags;
 
     private Date timestamp;
 

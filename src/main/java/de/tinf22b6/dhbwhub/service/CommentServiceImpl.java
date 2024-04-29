@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -76,15 +77,21 @@ public class CommentServiceImpl implements CommentService {
     public CommentThreadViewProposal update(Long id, UpdateCommentProposal proposal) {
         Comment initialComment = get(id);
         Picture picture;
-
+        byte[] proposalImageData = proposal.getPostImage() != null? proposal.getPostImage() : new byte[0];
+        byte[] initialImageData = initialComment.getPicture() != null? initialComment.getPicture().getImageData() : new byte[0];
         // Check if Picture has changed
-        if(!Arrays.equals(initialComment.getPicture().getImageData(), proposal.getPostImage())){
+        if (proposalImageData.length == 0 && initialImageData.length != 0) {
             pictureRepository.delete(initialComment.getPicture().getId());
-            picture = pictureRepository.save(PictureMapper.mapToModelComment(proposal.getPostImage()));
+            picture = null;
+        } else if (!Arrays.equals(proposalImageData, initialImageData)) {
+            pictureRepository.delete(initialComment.getPicture().getId());
+            picture = pictureRepository.save(PictureMapper.mapToModelComment(proposalImageData));
         } else {
-            picture = PictureMapper.mapToModelComment(initialComment.getPicture().getImageData());
+            picture = initialComment.getPicture();
         }
         Comment updatedComment = CommentMapper.mapToModel(proposal, initialComment, picture);
+        updatedComment.setId(id);
+
         repository.save(updatedComment);
 
         return CommentMapper.mapToThreadView(get(id));
@@ -107,15 +114,17 @@ public class CommentServiceImpl implements CommentService {
     public int increaseLikes(Long id) {
         Comment comment = get(id);
         int likes = comment.getLikes() + 1;
-        Comment updatedComment = repository.save(CommentMapper.mapToModel(comment,likes));
-        return updatedComment.getLikes();
+        Comment updatedComment = CommentMapper.mapToModel(comment,likes);
+        updatedComment.setId(id);
+        return repository.save(updatedComment).getLikes();
     }
 
     @Override
     public int decreaseLikes(Long id) {
         Comment comment = get(id);
         int likes = comment.getLikes() != 0 ? comment.getLikes() - 1 : 0;
-        Comment updatedComment = repository.save(CommentMapper.mapToModel(comment,likes));
-        return updatedComment.getLikes();
+        Comment updatedComment = CommentMapper.mapToModel(comment,likes);
+        updatedComment.setId(id);
+        return repository.save(updatedComment).getLikes();
     }
 }

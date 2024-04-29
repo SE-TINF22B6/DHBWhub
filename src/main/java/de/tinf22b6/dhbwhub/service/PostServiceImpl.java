@@ -12,6 +12,7 @@ import de.tinf22b6.dhbwhub.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class PostServiceImpl implements PostService {
         Post post = repository.save(PostMapper.mapToModel(proposal,user,picture));
 
         // Creating Tags after the Post is created
-        proposal.getTags().forEach(t -> {
+        Arrays.stream(proposal.getTags()).forEach(t -> {
             new Post();
             PostTag postTag = new PostTag(post, t);
             postTagRepository.save(postTag);
@@ -85,16 +86,18 @@ public class PostServiceImpl implements PostService {
     public int increaseLikes(Long id) {
         Post post = get(id);
         int likes = post.getLikes() + 1;
-        Post updatedPost = repository.save(PostMapper.mapToModel(post,likes));
-        return updatedPost.getLikes();
+        Post updatedPost = PostMapper.mapToModel(post,likes);
+        updatedPost.setId(id);
+        return repository.save(updatedPost).getLikes();
     }
 
     @Override
     public int decreaseLikes(Long id) {
         Post post = get(id);
         int likes = post.getLikes() != 0? post.getLikes() - 1 : 0;
-        Post updatedPost = repository.save(PostMapper.mapToModel(post,likes));
-        return updatedPost.getLikes();
+        Post updatedPost = PostMapper.mapToModel(post,likes);
+        updatedPost.setId(id);
+        return repository.save(updatedPost).getLikes();
     }
 
     @Override
@@ -102,24 +105,32 @@ public class PostServiceImpl implements PostService {
         Post initialPost = get(id);
         Picture picture;
 
+        byte[] proposalImageData = proposal.getPostImage() != null? proposal.getPostImage() : new byte[0];
+        byte[] initialImageData = initialPost.getPicture() != null? initialPost.getPicture().getImageData() : new byte[0];
         // Check if Picture has changed
-        if(!Arrays.equals(initialPost.getPicture().getImageData(), proposal.getPostImage())){
+        if (proposalImageData.length == 0 && initialImageData.length != 0) {
             pictureRepository.delete(initialPost.getPicture().getId());
-            picture = pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage()));
+            picture = null;
+        }
+        else if (!Arrays.equals(initialImageData, proposalImageData)) {
+            pictureRepository.delete(initialPost.getPicture().getId());
+            picture = pictureRepository.save(PictureMapper.mapToModelPost(proposalImageData));
         } else {
-            picture = PictureMapper.mapToModelComment(initialPost.getPicture().getImageData());
+            picture = initialPost.getPicture();
         }
 
         // Update post
         Post updatedPost = PostMapper.mapToModel(proposal, initialPost, picture);
-        repository.save(updatedPost);
+        updatedPost.setId(id);
+
+        Post post = repository.save(updatedPost);
 
         /* Check if Tags changed
             formerTags = Tags in the database
             proposedTags = Tags proposed
         * */
-        List<PostTag> formerTags = postTagRepository.findByPostId(initialPost.getId());
-        List<String> proposedTags = proposal.getTags();
+        List<PostTag> formerTags = postTagRepository.findByPostId(id);
+        List<String> proposedTags = new ArrayList<>(Arrays.stream(proposal.getTags()).toList());
 
         for (PostTag postTag : formerTags) {
             if (proposedTags.contains(postTag.getTag())) {
@@ -128,7 +139,9 @@ public class PostServiceImpl implements PostService {
                 postTagRepository.delete(postTag.getId());
             }
         }
-        proposedTags.forEach(t -> postTagRepository.save(PostTagMapper.mapToModel(updatedPost, t)));
+        proposedTags.forEach(t -> {
+            if( t != null) postTagRepository.save(PostTagMapper.mapToModel(post, t));
+        });
 
         return getPostThreadView(updatedPost.getId());
     }
