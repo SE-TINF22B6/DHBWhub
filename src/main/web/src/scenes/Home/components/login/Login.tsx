@@ -91,8 +91,8 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="remember-me-option">
-                                <FormControlLabel control={<Checkbox/>} label="Label" className="remember-me-checkbox"/>
-                                <label className="remember-me-text">Remember me?</label>
+                                <FormControlLabel control={<Checkbox/>} label="Remember me?"
+                                                  className="remember-me-checkbox"/>
                             </div>
 
                             <div className="form-group">

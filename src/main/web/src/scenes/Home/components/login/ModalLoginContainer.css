@@ -1,13 +1,18 @@
 .modal-container {
-    width: 345px;
-    height: 800px;
+    width: 400px;
+    height: auto;
     z-index: 10;
     border-radius: 16px;
     box-shadow: 0 5px 20px var(--box-shadow);
-    position: relative;
+    position: fixed;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
+    background-color: var(--component-grey);
+    padding: 40px;
+    box-sizing: border-box;
 }
+
 
 .login {
     display: flex;
