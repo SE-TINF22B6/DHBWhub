@@ -2,7 +2,7 @@ package de.tinf22b6.dhbwhub.mapper;
 
 import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
 import java.util.Objects;
 

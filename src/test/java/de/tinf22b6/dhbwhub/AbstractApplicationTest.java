@@ -2,9 +2,10 @@ package de.tinf22b6.dhbwhub;
 
 import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.*;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.*;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -89,12 +90,28 @@ public abstract class AbstractApplicationTest {
 		return new Post("Titel 2", "Beschreibung 2", new Date(1478979183L), 555,  createDefaultPicture2(), createDefaultUser2(), createDefaultCourse2());
 	}
 
+	protected Post createUpdatedDefaultPost() {
+		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 445, createDefaultPicture(), createDefaultUser(), createDefaultCourse());
+	}
+
+	protected Post createUpdatedDefaultPost2() {
+		return new Post("Titel 1", "Beschreibung 1", new Date(1478979207L), 443, createDefaultPicture(), createDefaultUser(), createDefaultCourse());
+	}
+
 	protected Comment createDefaultComment() {
 		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 4, createDefaultPicture(), createDefaultUser(), createDefaultPost());
 	}
 
 	protected Comment createDefaultComment2() {
 		return new Comment("Du mieser Hund!", new Date(1678979183L), 5, createDefaultPicture2(), createDefaultUser2(), createDefaultPost2());
+	}
+
+	protected Comment createUpdatedDefaultComment() {
+		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 5, createDefaultPicture(), createDefaultUser(), createDefaultPost());
+	}
+
+	protected Comment createUpdatedDefaultComment2() {
+		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 3, createDefaultPicture(), createDefaultUser(), createDefaultPost());
 	}
 
 	protected SavedPost createDefaultSavedPost() {
@@ -163,14 +180,38 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected FriendlistProposal createDefaultFriendlistProposal() {
-		return new FriendlistProposal(1L,1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new FriendlistProposal(1L,1L,"Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 
 	protected FriendrequestProposal createDefaultFriendrequestProposal() {
-		return new FriendrequestProposal(1L,1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Sent");
+		return new FriendrequestProposal(1L,1L,"Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Sent");
 	}
 
-	protected FriendrequestProposal createDefaultFriendrequestProposal2() {
-		return new FriendrequestProposal(2L,2L, "Berthold", new byte[]{ 12, 34, 45, 67, 78, 91 },"Received");
+	protected CreateCommentProposal createDefaultCreateCommentProposal(){
+		return new CreateCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L), createDefaultPicture().getImageData());
+	}
+
+	protected UpdateCommentProposal createDefaultUpdateCommentProposal(){
+		return new UpdateCommentProposal("Beschreibung 1", createDefaultPicture().getImageData());
+	}
+
+	protected CreatePostProposal createDefaultCreatePostProposal(){
+		return new CreatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L);
+	}
+
+	protected UpdatePostProposal createDefaultUpdatePostProposal(){
+		return new UpdatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
+	}
+
+	protected List<PostTag> createDefaultPostTags() {
+		return List.of(createDefaultPostTag(), createDefaultPostTag2());
+	}
+
+	protected PostTag createDefaultPostTag(){
+		return new PostTag(createDefaultPost(), "Tag 1");
+	}
+
+	protected PostTag createDefaultPostTag2(){
+		return new PostTag(createDefaultPost(), "Tag 2");
 	}
 }

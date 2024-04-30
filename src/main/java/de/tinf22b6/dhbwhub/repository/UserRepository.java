@@ -23,6 +23,8 @@ public class UserRepository {
         return repository.findById(id).orElse(null);
     }
 
+    public User findByAccountId(Long accountId) { return repository.findByAccoundId(accountId); }
+
     public User save(User user) {
         return repository.save(user);
     }

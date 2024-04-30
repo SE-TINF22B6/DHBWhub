@@ -1,4 +1,4 @@
-package de.tinf22b6.dhbwhub.proposal.simplifiedModels;
+package de.tinf22b6.dhbwhub.proposal.simplified_models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

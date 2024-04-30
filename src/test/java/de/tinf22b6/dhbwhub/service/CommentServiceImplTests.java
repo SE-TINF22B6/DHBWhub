@@ -82,4 +82,26 @@ class CommentServiceImplTests extends AbstractApplicationTest {
 
         assertDoesNotThrow(() -> commentService.delete(1L));
     }
+
+    @Test
+    void IncreaseLikes_ValueIncreased() {
+        Comment comment = createDefaultComment();
+        Comment updatedComment = createUpdatedDefaultComment();
+
+        when(commentRepository.find(1L)).thenReturn(comment);
+        when(commentRepository.save(any(Comment.class))).thenReturn(updatedComment);
+
+        assertThat(commentService.increaseLikes(1L)).isEqualTo(5);
+    }
+
+    @Test
+    void IncreaseLikes_ValueDecreased() {
+        Comment comment = createDefaultComment();
+        Comment updatedComment = createUpdatedDefaultComment2();
+
+        when(commentRepository.find(1L)).thenReturn(comment);
+        when(commentRepository.save(any(Comment.class))).thenReturn(updatedComment);
+
+        assertThat(commentService.increaseLikes(1L)).isEqualTo(3);
+    }
 }

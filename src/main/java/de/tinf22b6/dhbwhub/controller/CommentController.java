@@ -2,6 +2,9 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateCommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateCommentProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,11 @@ public class CommentController {
         return service.create(proposal);
     }
 
+    @PostMapping("/create-comment")
+    public CommentThreadViewProposal create(@RequestBody CreateCommentProposal proposal) {
+        return service.create(proposal);
+    }
+
     @GetMapping("/{id}")
     public Comment get(@PathVariable Long id) {
         return service.get(id);
@@ -36,6 +44,21 @@ public class CommentController {
     @PutMapping("/{id}")
     public Comment update(@PathVariable Long id, @RequestBody CommentProposal proposal) {
         return service.update(id, proposal);
+    }
+
+    @PutMapping("/update-comment/{id}")
+    public CommentThreadViewProposal update(@PathVariable Long id, @RequestBody UpdateCommentProposal proposal) {
+        return service.update(id, proposal);
+    }
+
+    @PutMapping("/increase-likes/{id}")
+    public int increaseLikes(@PathVariable Long id) {
+        return service.increaseLikes(id);
+    }
+
+    @PutMapping("/decrease-likes/{id}")
+    public int decreaseLikes(@PathVariable Long id) {
+        return service.decreaseLikes(id);
     }
 
     @DeleteMapping("/{id}")
