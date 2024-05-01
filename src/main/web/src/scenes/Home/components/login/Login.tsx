@@ -6,7 +6,8 @@ import './Login.css';
 
 import {login} from "../../../../services/auth.service";
 import {Checkbox, checkboxClasses, FormControlLabel} from "@mui/material";
-import {styled} from "@mui/system";
+import DividerWithText from "./DividerWithText";
+import AlternativeLoginMethods from "./AlternativeLoginMethods";
 
 type Props = {}
 
@@ -106,8 +107,18 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="signup-option">
-                                <label className="signup-option-text">Need an account? SIGN UP</label>
+                                <label className="signup-option-text">Need an account?
+                                    <label className="signup-option-text-link">SIGN UP</label>
+                                </label>
                             </div>
+
+                            {/*<div className="divider-with-text">*/}
+                            {/*    <DividerWithText/>*/}
+                            {/*</div>*/}
+
+                            {/*<div className="alternative-login-methods">*/}
+                            {/*    <AlternativeLoginMethods/>*/}
+                            {/*</div>*/}
 
                             {message && (
                                 <div className="form-group">

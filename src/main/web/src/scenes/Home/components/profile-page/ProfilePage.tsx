@@ -28,7 +28,7 @@ const ProfilePage = () => {
 
     return (
         <div>
-            <h1 >Hallo: {username}</h1>
+            <h1>Hallo: {username}</h1>
             {/* Weitere Profilinformationen hier */}
         </div>
     );

@@ -18,16 +18,25 @@ export default function ModalLoginContainer() {
                     <div className="log-in-text">LOGIN</div>
                 </div>
             </button>
-            <div className="modal-conatiner">
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Login />
-                </Modal>
-            </div>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '16px',
+                    boxShadow: '0 5px 20px rgba(0, 0, 0, 0.2)',
+                    padding: '40px',
+                    boxSizing: 'border-box',
+                }}
+            >
+                <Login/>
+            </Modal>
         </>
     );
 }
