@@ -5,9 +5,7 @@ import * as Yup from "yup";
 import './Login.css';
 
 import {login} from "../../../../services/auth.service";
-import {Checkbox, checkboxClasses, FormControlLabel} from "@mui/material";
-import DividerWithText from "./DividerWithText";
-import AlternativeLoginMethods from "./AlternativeLoginMethods";
+import {Checkbox, FormControlLabel} from "@mui/material";
 
 type Props = {}
 
@@ -16,13 +14,16 @@ const Login: React.FC<Props> = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
+    const [rememberMe, setRememberMe] = useState(false);
 
     const initialValues: {
         username: string;
         password: string;
+        rememberMe: boolean;
     } = {
         username: "",
         password: "",
+        rememberMe: false
     };
 
     const validationSchema = Yup.object().shape({
@@ -30,13 +31,13 @@ const Login: React.FC<Props> = () => {
         password: Yup.string().required("This field is required!"),
     });
 
-    const handleLogin = (formValue: { username: string; password: string }) => {
-        const {username, password} = formValue;
+    const handleLogin = (formValue: { username: string; password: string; rememberMe: boolean}) => {
+        const {username, password, rememberMe} = formValue;
 
         setMessage("");
         setLoading(true);
 
-        login(username, password).then(
+        login(username, password, rememberMe).then(
             () => {
                 navigate("/profile");
                 window.location.reload();
@@ -93,7 +94,7 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="remember-me-option">
-                                <FormControlLabel control={<Checkbox/>} label="Remember me?"
+                                <FormControlLabel control={<Checkbox checked={rememberMe} onChange={(e)=> setRememberMe(e.target.checked)}/>} label="Remember me?"
                                                   className="remember-me-checkbox"/>
                             </div>
 
@@ -111,14 +112,6 @@ const Login: React.FC<Props> = () => {
                                     <label className="signup-option-text-link">SIGN UP</label>
                                 </label>
                             </div>
-
-                            {/*<div className="divider-with-text">*/}
-                            {/*    <DividerWithText/>*/}
-                            {/*</div>*/}
-
-                            {/*<div className="alternative-login-methods">*/}
-                            {/*    <AlternativeLoginMethods/>*/}
-                            {/*</div>*/}
 
                             {message && (
                                 <div className="form-group">

@@ -10,11 +10,12 @@ export const register = (username: string, email: string, password: string) => {
     });
 };
 
-export const login = (username: string, password: string) => {
+export const login = (username: string, password: string, rememberMe: boolean) => {
     return axios
         .post(API_URL + "login", {
             username,
             password,
+            rememberMe
         })
         .then((response) => {
             if (response.data.accessToken) {
