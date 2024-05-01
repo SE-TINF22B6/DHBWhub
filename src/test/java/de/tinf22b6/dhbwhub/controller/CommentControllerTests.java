@@ -5,6 +5,7 @@ import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.CommentMapper;
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.service.CommentServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -98,6 +99,36 @@ class CommentControllerTests extends AbstractApplicationTest {
     }
 
     @Test
+    void CreateComment_StatusIsOk() throws Exception {
+        CreateCommentProposal commentProposal = createDefaultCreateCommentProposal();
+        CommentThreadViewProposal commentThreadViewProposal = createDefaultCommentThreadViewProposal();
+
+        given(commentService.create(any(CreateCommentProposal.class))).willAnswer(i -> commentThreadViewProposal);
+
+        ResultActions response = mockMvc.perform(post("/comment/create-comment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(commentProposal)));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.description", is(commentProposal.getDescription())));
+    }
+
+    @Test
+    void UpdateComment_StatusIsOk() throws Exception {
+        UpdateCommentProposal commentProposal = createDefaultUpdateCommentProposal();
+        CommentThreadViewProposal commentThreadViewProposal = createDefaultCommentThreadViewProposal();
+
+        when(commentService.update(any(Long.class), any(UpdateCommentProposal.class))).thenReturn(commentThreadViewProposal);
+
+        ResultActions response = mockMvc.perform(put("/comment/update-comment/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(commentProposal)));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.description", is(commentProposal.getDescription())));
+    }
+
+    @Test
     void Delete_StatusIsOk() throws Exception {
         doNothing().when(commentService).delete(any(Long.class));
 
@@ -105,5 +136,29 @@ class CommentControllerTests extends AbstractApplicationTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isNoContent());
+    }
+
+    @Test
+    void IncreaseLikes_StatusIsOk() throws Exception {
+        Integer likes = 1;
+        when(commentService.increaseLikes(any(Long.class))).thenReturn(1);
+
+        ResultActions response = mockMvc.perform(put("/comment/increase-likes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(likes)));
+
+        response.andExpect(status().isOk());
+    }
+
+    @Test
+    void DecreaseLikes_StatusIsOk() throws Exception {
+        Integer likes = 0;
+        when(commentService.decreaseLikes(any(Long.class))).thenReturn(0);
+
+        ResultActions response = mockMvc.perform(put("/comment/decrease-likes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(likes)));
+
+        response.andExpect(status().isOk());
     }
 }

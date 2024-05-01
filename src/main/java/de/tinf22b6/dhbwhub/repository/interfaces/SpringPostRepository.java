@@ -23,4 +23,5 @@ public interface SpringPostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT v.comment_amount FROM view_comment_amount v WHERE v.post_id = ?1", nativeQuery = true)
     Integer getCommentAmount(Long id);
 
+
 }
