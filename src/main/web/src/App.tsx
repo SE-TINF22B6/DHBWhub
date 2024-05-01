@@ -10,6 +10,7 @@ import {Contact} from "./scenes/Contact";
 import {Calendar} from "./scenes/Calendar";
 import {PrivacyPolicy} from "./scenes/PrivacyPolicy";
 import {PageNotFound} from "./scenes/PageNotFound";
+import ProfilePage from "./scenes/Home/components/profile-page/ProfilePage";
 
 class App extends Component {
 
@@ -25,6 +26,7 @@ class App extends Component {
             <Route path='/contact' element={<Contact/>}/>
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
+            <Route path='/profile' element={<ProfilePage/>}/>
             <Route
                 path="*"
                 element={<PageNotFound />}
