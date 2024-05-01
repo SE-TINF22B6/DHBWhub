@@ -4,7 +4,7 @@ import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import './Login.css';
 
-import {login} from "../../../../services/auth.service";
+import {login} from "../../../../services/auth.service.mjs";
 import {Checkbox, FormControlLabel} from "@mui/material";
 
 type Props = {}
