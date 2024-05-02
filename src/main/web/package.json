@@ -93,5 +93,9 @@
     "@types/react-big-calendar": "^1.8.9",
     "gh-pages": "^6.1.1",
     "webpack-dev-server": "^5.0.4"
+  },
+  "jest": {
+    "preset": "@vue/cli-plugin-unit-jest",
+    "transformIgnorePatterns": ["node_modules\/(?!axios)"]
   }
 }
