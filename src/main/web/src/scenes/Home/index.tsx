@@ -7,9 +7,11 @@ import {CreatePost} from "./components/create-post/CreatePost";
 import {Posts} from "./components/post/Posts";
 import {SortOptions} from "./components/sort-options/SortOptions";
 import {PopularTags} from "./components/popular-tags/PopularTags";
+import ScrollUpButton from "../../atoms/ScrollUpButton";
 
 export const Home = () => {
   const [sortOption, setSortOption] = useState<string>('popular');
+  const scrollUpRef = useRef<HTMLDivElement>(null);
 
   const [showMobileScrollUpButton, setShowMobileScrollUpButton] = useState(false);
   const handleSortChange = (option: string): void => {
