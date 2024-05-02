@@ -5,8 +5,6 @@ import Login from "./Login";
 
 export default function ModalLoginContainer() {
     const [open, setOpen] = useState(false);
-    const [email, setEmail] = useState('');
-    const [openLoginStep2, setOpenLoginStep2] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

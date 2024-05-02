@@ -5,6 +5,7 @@ import ModalLoginContainer from '../../scenes/Home/components/login/ModalLoginCo
 import SignUp from "../../scenes/Home/components/signup/SignUp";
 import {Notifications} from "./Notifications";
 import "./Header.css";
+import ModalSignUpContainer from "../../scenes/Home/components/signup/ModalSignUpContainer";
 
 export const Header = () => {
 
@@ -71,7 +72,7 @@ export const Header = () => {
                              className="arrow-down"/>
                     </button>
                     <ModalLoginContainer/>
-                    <SignUp/>
+                    <ModalSignUpContainer/>
                 </div>
             )}
         </div>

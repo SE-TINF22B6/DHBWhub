@@ -6,12 +6,14 @@ import './Login.css';
 
 import {login} from "../../../../services/auth.service.mjs";
 import {Checkbox, FormControlLabel} from "@mui/material";
+import SignUp from "../signup/SignUp";
 
 type Props = {}
 
 const Login: React.FC<Props> = () => {
     let navigate: NavigateFunction = useNavigate();
 
+    const [showSignUp, setShowSignUp] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
     const [rememberMe, setRememberMe] = useState(false);
@@ -31,7 +33,11 @@ const Login: React.FC<Props> = () => {
         password: Yup.string().required("This field is required!"),
     });
 
-    const handleLogin = (formValue: { username: string; password: string; rememberMe: boolean}) => {
+    const handleOpenSignUp = () => {
+        setShowSignUp(true);
+    };
+
+    const handleLogin = (formValue: { username: string; password: string; rememberMe: boolean }) => {
         const {username, password, rememberMe} = formValue;
 
         setMessage("");
@@ -94,7 +100,9 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="remember-me-option">
-                                <FormControlLabel control={<Checkbox className="checkbox" checked={rememberMe} onChange={(e)=> setRememberMe(e.target.checked)}/>} label="Remember me?"
+                                <FormControlLabel control={<Checkbox className="checkbox" checked={rememberMe}
+                                                                     onChange={(e) => setRememberMe(e.target.checked)}/>}
+                                                  label="Remember me?"
                                                   className="remember-me-checkbox"/>
                             </div>
 
@@ -108,10 +116,11 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="signup-option">
-                                <label className="signup-option-text">Need an account?
-                                    <label className="signup-option-text-link">SIGN UP</label>
-                                </label>
+                                <label className="signup-option-text">Need an account? </label>
+                                <label className="signup-option-text-link" onClick={handleOpenSignUp}>SIGN UP</label>
                             </div>
+
+                            {showSignUp && <SignUp/>}
 
                             {message && (
                                 <div className="form-group">
