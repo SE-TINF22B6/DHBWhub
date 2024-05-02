@@ -12,7 +12,7 @@
 }
 
 .heading {
-    margin-top: 20px;
+    margin-top: 10px;
     color: white;
     font-weight: 700;
     font-size: 18px;
@@ -42,6 +42,13 @@
     transform: translateX(-50%);
 }
 
+.checkbox input[type="checkbox"]:hover + .MuiSvgIcon-root,
+.checkbox input[type="checkbox"]:focus + .MuiSvgIcon-root,
+.checkbox input[type="checkbox"]:checked + .MuiSvgIcon-root,
+.checkbox input[type="checkbox"]:checked:hover + .MuiSvgIcon-root,
+.checkbox input[type="checkbox"]:checked:focus + .MuiSvgIcon-root {
+    color: red;
+}
 .form-control {
     width: 100%;
     height: 40px;
