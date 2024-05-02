@@ -6,6 +6,7 @@ export const PrivacyPolicy = () => {
   return (
       <div className="privacy-policy-component">
         <Header/>
+        <Footer/>
       </div>
   );
 }

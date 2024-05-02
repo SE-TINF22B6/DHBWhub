@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
+import {Footer} from "../../organisms/footer/Footer";
+import ScrollUpButton from "../../atoms/ScrollUpButton";
 
 export const Contact = () => {
   return (
@@ -10,6 +12,7 @@ export const Contact = () => {
                 className="google-form"
                 title = "contact-form">Wird geladen…
         </iframe>
+        <Footer/>
       </div>
   );
 };
