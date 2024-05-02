@@ -1,24 +1,51 @@
 .modalHeader {
     padding: 20px;
+    height: 50px;
     color: white;
+    background: var(--grey);
     font-size: 24px;
     font-weight: 700;
     font-family: Arial, sans-serif;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    overflow: hidden;
 }
 
 .heading {
-    padding: 0 20px;
-    margin-top: 0;
+    margin-top: 20px;
     color: white;
     font-weight: 700;
     font-size: 18px;
     font-family: Arial, sans-serif;
+    display: inline-block; /* Ändere die Anzeige auf inline-block */
+    vertical-align: top; /* Setze die vertikale Ausrichtung auf oben */
+    width: calc(20% - 20px); /* Setze die Breite auf 20% des Containers */
+}
+
+.form-group {
+    margin-left: 20px;
+    margin-right: 10px;
+    display: inline-block; /* Ändere die Anzeige auf inline-block */
+    width: calc(90% - 10px); /* Setze die Breite auf 80% des Containers */
+}
+
+.modal-content {
+    width: 400px;
+    height: 620px;
+    background: var(--grey);
+    color: var(--grey);
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px var(--box-shadow);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .form-control {
-    width: calc(100% - 40px);
+    width: 100%;
     height: 40px;
-    margin: 0 auto 20px;
+    margin: 20px auto;
     display: block;
     background-color: white;
     border: 1px solid #CCCCCC;
@@ -29,6 +56,7 @@
 
 .forgot-password-option {
     margin-top: 10px;
+    margin-left: 20px;
     color: #AAA4A4;
     font-size: 16px;
     font-family: Arial, sans-serif;
@@ -44,6 +72,7 @@
 
 .remember-me-option {
     margin-top: 10px;
+    margin-left: 20px;
     color: #AAA4A4;
     font-size: 16px;
     font-family: Arial, sans-serif;
@@ -52,7 +81,7 @@
 }
 
 .loading-btn {
-    width: calc(100% - 40px);
+    width: 100%;
     height: 40px;
     background: #E3001B;
     border-radius: 5px;

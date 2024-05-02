@@ -65,7 +65,7 @@ const Login: React.FC<Props> = () => {
                     onSubmit={handleLogin}
                 >
                     <Form>
-                        <div className="modal">
+                        <div className="modal-content">
                             <div className="modalHeader">
                                 <h3 className="modalHeadline">LOGIN</h3>
                             </div>
@@ -94,7 +94,7 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="remember-me-option">
-                                <FormControlLabel control={<Checkbox checked={rememberMe} onChange={(e)=> setRememberMe(e.target.checked)}/>} label="Remember me?"
+                                <FormControlLabel control={<Checkbox className="checkbox" checked={rememberMe} onChange={(e)=> setRememberMe(e.target.checked)}/>} label="Remember me?"
                                                   className="remember-me-checkbox"/>
                             </div>
 
