@@ -75,7 +75,7 @@ const Login: React.FC<Props> = () => {
                                 <ErrorMessage
                                     name="username"
                                     component="div"
-                                    className="alert alert-danger"
+                                    className="alert-danger"
                                 />
                             </div>
 
@@ -85,7 +85,7 @@ const Login: React.FC<Props> = () => {
                                 <ErrorMessage
                                     name="password"
                                     component="div"
-                                    className="alert alert-danger"
+                                    className="alert-danger"
                                 />
                             </div>
 
@@ -115,7 +115,7 @@ const Login: React.FC<Props> = () => {
 
                             {message && (
                                 <div className="form-group">
-                                    <div className="alert alert-danger" role="alert">
+                                    <div className="alert-danger" role="alert">
                                         {message}
                                     </div>
                                 </div>
