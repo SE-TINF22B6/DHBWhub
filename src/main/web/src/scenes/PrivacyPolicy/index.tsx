@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
+import {Header} from "../../organisms/footer/Footer";
 
 export const PrivacyPolicy = () => {
   return (
@@ -8,7 +9,6 @@ export const PrivacyPolicy = () => {
         <Header/>
         <div className="privacy-policy-content">
           <h1 className="loading">Work in progress</h1>
-          <DigitalOceanAd/>
         </div>
         <Footer/>
       </div>
