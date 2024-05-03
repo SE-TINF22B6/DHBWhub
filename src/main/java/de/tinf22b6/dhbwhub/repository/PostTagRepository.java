@@ -35,6 +35,10 @@ public class PostTagRepository {
         return repository.findByPostId(postId);
     }
 
+    public PostTag findByPostIdAndTag(Long id, String tag) {
+        return repository.findByPostIdAndTag(id, tag);
+    }
+
     public void delete(Long id) {
         repository.deleteById(id);
     }

@@ -4,7 +4,7 @@ import de.tinf22b6.dhbwhub.mapper.CommentMapper;
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.PostTag;
-import de.tinf22b6.dhbwhub.proposal.simplifiedModels.CommentThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -78,4 +78,6 @@ public class PostRepository {
        }
         return postTags.stream().map(PostTag::getTag).toList();
     }
+
+
 }
