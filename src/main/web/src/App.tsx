@@ -10,36 +10,11 @@ import {Contact} from "./scenes/Contact";
 import {Calendar} from "./scenes/Calendar";
 import {PrivacyPolicy} from "./scenes/PrivacyPolicy";
 import {PageNotFound} from "./scenes/PageNotFound";
-import AuthService from "./services/auth.service";
+import ProfilePage from "./scenes/Home/components/profile-page/ProfilePage";
 
 class App extends Component {
-  // constructor(props: any) {
-  //   super(props);
-  //   this.logOut = this.logOut.bind(this);
-  //
-  //   this.state = {
-  //     showAdminBoard: false,
-  //     currentUser: undefined
-  //   }
-  // }
-  //
-  // componentDidMount() {
-  //   const user = AuthService.getCurrentUser();
-  //
-  //   if (user) {
-  //     this.setState({
-  //       currentUser: AuthService.getCurrentUser(),
-  //       showAdminBoard: user.roles.includes("ROLE_ADMIN")
-  //     });
-  //   }
-  // }
-
-  // logOut() {
-  //   AuthService.logout();
-  // }
 
   public render(): JSX.Element {
-    //const { currentUser, showAdminBoard } = this.state;
 
     return (
         <HashRouter basename="/">
@@ -51,6 +26,7 @@ class App extends Component {
             <Route path='/contact' element={<Contact/>}/>
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
+            <Route path='/profile' element={<ProfilePage/>}/>
             <Route
                 path="*"
                 element={<PageNotFound />}
