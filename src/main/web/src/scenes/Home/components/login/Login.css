@@ -1,32 +1,39 @@
-.darkBG {
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
+.modalHeader {
+    padding: 20px;
+    height: 50px;
+    color: white;
+    background: var(--component-grey);
+    font-size: 24px;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    overflow: hidden;
 }
 
-.centered {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.heading {
+    margin-top: 10px;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    display: inline-block; /* Ändere die Anzeige auf inline-block */
+    vertical-align: top; /* Setze die vertikale Ausrichtung auf oben */
+    width: calc(20% - 20px); /* Setze die Breite auf 20% des Containers */
 }
 
-.textfield {
-    width: 100%;
-    position: relative;
-    text-align: center;
-    background-color: var(--white);
-    border: 1px solid #CCCCCC;
-    border-radius: 8px;
+.form-group {
+    margin-left: 20px;
+    margin-right: 10px;
+    display: inline-block; /* Ändere die Anzeige auf inline-block */
+    width: calc(90% - 10px); /* Setze die Breite auf 80% des Containers */
 }
 
-.modal {
-    width: 345px;
+.modal-content {
+    width: 400px;
     height: 620px;
+    background: var(--component-grey);
+    color: var(--component-grey);
     z-index: 10;
     border-radius: 16px;
     box-shadow: 0 5px 20px var(--box-shadow);
@@ -35,97 +42,88 @@
     transform: translateX(-50%);
 }
 
-.modalHeader {
-    height: 50px;
-    overflow: hidden;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+.checkbox input[type="checkbox"]:hover + .MuiSvgIcon-root,
+.checkbox input[type="checkbox"]:focus + .MuiSvgIcon-root,
+.checkbox input[type="checkbox"]:checked + .MuiSvgIcon-root,
+.checkbox input[type="checkbox"]:checked:hover + .MuiSvgIcon-root,
+.checkbox input[type="checkbox"]:checked:focus + .MuiSvgIcon-root {
+    color: red;
 }
-
-.heading {
-    padding: 10px;
-    color: var(--white);
-    font-weight: var(--normal-font-weight);
-    font-size: var(--title-font-size);
-    background-color: var(--component-grey);
-    border: none;
-    text-align: left;
-    position: relative;
-    left: 0;
-    transform: none;
-    margin: 0 0 0 -9px;
-}
-
-.paragraph {
-    margin: 0;
-    color: var(--white);
-    text-align: left;
-    position: relative;
-    left: 0;
-    transform: none;
-}
-
-.signInContent {
-    text-align: center;
-}
-
-.modalContent {
-    padding: 10px;
-    font-size: 14px;
-    text-align: center;
-}
-
-.modalActions {
-    position: absolute;
-    bottom: 2px;
-    margin-bottom: 10px;
+.form-control {
     width: 100%;
-}
-
-.actionsContainer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    background: none;
-    border: none;
-}
-
-.log-in-wrapper {
-    border: 1px solid var(--red);
-    border-radius: 10px;
     height: 40px;
-    position: relative;
-    width: 89px;
-    transition: var(--transition);
-    &&:hover {
-        background-color: var(--dark-red);
-    }
+    margin: 20px auto;
+    display: block;
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
-.log-in-text {
-    color: var(--white);
-    font-family: "Source Sans Pro-Regular", Helvetica, serif;
-    font-size: var(--title-font-size);
+.forgot-password-option {
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #AAA4A4;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.forgot-password-option-text {
+    color: #AAA4A4;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+.remember-me-option {
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #AAA4A4;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.loading-btn {
+    width: 100%;
+    height: 40px;
+    background: #E3001B;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.signup-option {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.signup-option-text {
+    color: #989494;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
     font-weight: 400;
-    left: 16px;
-    line-height: 24px;
-    position: absolute;
-    top: 9px;
-    white-space: nowrap;
-    width: 59px;
+    cursor: pointer;
 }
 
-@media (max-width: 412px) {
-    .log-in-wrapper {
-        visibility: hidden;
-        width: 0;
-        height: 0;
-    }
+.signup-option-text-link {
+    color: #989494;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.alert-danger {
+    color: red;
+    font-family: Arial, sans-serif;
 }

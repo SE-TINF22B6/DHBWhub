@@ -1,0 +1,59 @@
+.modal-container {
+    width: 500px; /* Ändere die Breite hier nach Bedarf */
+    max-width: 90%; /* Optional: Maximalbreite auf 90% des Viewports setzen */
+    height: auto;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px var(--box-shadow);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--component-grey);
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+.log-in-wrapper {
+    border: 1px solid var(--red);
+    border-radius: 10px;
+    height: 40px;
+    position: relative;
+    width: 89px;
+    transition: var(--transition);
+
+    & &:hover {
+        background-color: var(--dark-red);
+    }
+}
+
+.log-in-text {
+    color: var(--white);
+    font-family: "Source Sans Pro-Regular", Helvetica, serif;
+    font-size: var(--title-font-size);
+    font-weight: 400;
+    left: 16px;
+    line-height: 24px;
+    position: absolute;
+    top: 9px;
+    white-space: nowrap;
+    width: 59px;
+}
+
+@media (max-width: 412px) {
+    .log-in-wrapper {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
+}

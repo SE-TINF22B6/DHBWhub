@@ -20,21 +20,11 @@ function MicrosoftLogin() {
     );
 }
 
-function AppleLogin() {
-    return (
-        <Box className="login-box">
-            <img src={`${process.env.PUBLIC_URL}/appleLogo.png`} alt="Apple Logo" className="login-image" />
-            <span className="login-text">Continue with Apple</span>
-        </Box>
-    );
-}
-
 function AlternativeLoginMethods() {
     return (
         <>
             <GoogleLogin/>
             <MicrosoftLogin />
-            <AppleLogin />
         </>
     );
 }
