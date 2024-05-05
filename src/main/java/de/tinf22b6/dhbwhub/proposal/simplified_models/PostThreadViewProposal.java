@@ -33,5 +33,7 @@ public class PostThreadViewProposal {
 
     private String username;
 
+    private byte[] userImage;
+
     private List<CommentThreadViewProposal> comments;
 }

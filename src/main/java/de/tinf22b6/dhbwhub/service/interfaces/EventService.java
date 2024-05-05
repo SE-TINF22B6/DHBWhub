@@ -1,14 +1,26 @@
 package de.tinf22b6.dhbwhub.service.interfaces;
 
-import de.tinf22b6.dhbwhub.model.Event;
-import de.tinf22b6.dhbwhub.proposal.EventProposal;
+import de.tinf22b6.dhbwhub.model.EventComment;
+import de.tinf22b6.dhbwhub.model.EventPost;
+import de.tinf22b6.dhbwhub.model.EventTag;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
 import java.util.List;
 
 public interface EventService {
-    List<Event> getAll();
-    Event create(EventProposal proposal);
-    Event get(Long id);
-    Event update(Long id, EventProposal proposal);
-    void delete(Long id);
+    EventPost getEventPost(Long id);
+    EventComment getEventComment(Long id);
+    EventTag getEventTag(Long id);
+    List<HomepageEventPreviewProposal> getHomepageEvents();
+    EventThreadViewProposal create(CreateEventPostProposal proposal);
+    EventThreadViewProposal getEventThreadView(Long id);
+    EventThreadViewProposal update(Long id, UpdateEventPostProposal proposal);
+    void deletePost(Long id);
+    void deleteComment(Long id);
+    void deleteTag(Long id);
+    List<EventCommentThreadViewProposal> getEventComments(Long id);
+    List<String> getEventTags(Long id);
+    int getAmountOfComments(Long id);
+    int increaseLikes(Long id, int mode);
+    int decreaseLikes(Long id, int mode);
 }

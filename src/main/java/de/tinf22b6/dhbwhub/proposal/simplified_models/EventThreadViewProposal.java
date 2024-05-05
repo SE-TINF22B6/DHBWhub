@@ -29,11 +29,17 @@ public class EventThreadViewProposal {
 
     private Date timestamp;
 
+    private Date startdate;
+
+    private Date enddate;
+
     private byte[] postImage;
 
     private Long accountId;
 
     private String username;
+
+    private byte[] userImage;
 
     private List<EventCommentThreadViewProposal> comments;
 }

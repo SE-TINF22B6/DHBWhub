@@ -1,7 +1,9 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.model.Event;
-import de.tinf22b6.dhbwhub.proposal.EventProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateEventPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.EventThreadViewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageEventPreviewProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateEventPostProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,29 +20,49 @@ public class EventController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<Event> getAll() {
-        return service.getAll();
+    @GetMapping("/homepage-preview-events")
+    public List<HomepageEventPreviewProposal> getEventPreviewsHomepage() {
+        return service.getHomepageEvents();
     }
 
-    @PostMapping
-    public Event create(@RequestBody EventProposal proposal) {
+    @GetMapping("/event-thread/{id}")
+    public EventThreadViewProposal getEventThreadView(@PathVariable Long id) {
+        return service.getEventThreadView(id);
+    }
+
+    @PostMapping("/create-event")
+    public EventThreadViewProposal create(@RequestBody CreateEventPostProposal proposal) {
         return service.create(proposal);
     }
 
-    @GetMapping("/{id}")
-    public Event get(@PathVariable Long id) {
-        return service.get(id);
+    @PutMapping("/update-event/{id}")
+    public EventThreadViewProposal update(@PathVariable Long id, @RequestBody UpdateEventPostProposal proposal) {
+        return service.update(id, proposal);
     }
 
-    @PutMapping("/{id}")
-    public Event update(@PathVariable Long id, @RequestBody EventProposal proposal) {
-        return service.update(id, proposal);
+    @PutMapping("/post-increase-likes/{id}")
+    public int increaseLikesPost(@PathVariable Long id) {
+        return service.increaseLikes(id,0);
+    }
+
+    @PutMapping("/post-decrease-likes/{id}")
+    public int decreaseLikesPost(@PathVariable Long id) {
+        return service.decreaseLikes(id,0);
+    }
+
+    @PutMapping("/comment-increase-likes/{id}")
+    public int increaseLikesComment(@PathVariable Long id) {
+        return service.increaseLikes(id,1);
+    }
+
+    @PutMapping("/comment-decrease-likes/{id}")
+    public int decreaseLikesComment(@PathVariable Long id) {
+        return service.decreaseLikes(id,1);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        service.delete(id);
+        service.deletePost(id);
     }
 }

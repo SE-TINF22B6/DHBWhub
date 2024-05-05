@@ -55,7 +55,6 @@ public class PostServiceImpl implements PostService {
 
         // Creating Tags after the Post is created
         Arrays.stream(proposal.getTags()).forEach(t -> {
-            new Post();
             PostTag postTag = new PostTag(post, t);
             postTagRepository.save(postTag);
         } );

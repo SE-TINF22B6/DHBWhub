@@ -85,6 +85,7 @@ public class PostMapper {
                 post.getPicture() != null ? post.getPicture().getImageData() : null,
                 post.getUser() != null ? post.getUser().getAccount().getId() : null,
                 post.getUser() != null ? post.getUser().getAccount().getUsername(): null,
+                post.getUser().getAccount().getPicture() != null ? post.getUser().getAccount().getPicture().getImageData() : null,
                 null
         );
     }
