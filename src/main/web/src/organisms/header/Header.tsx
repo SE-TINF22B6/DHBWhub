@@ -46,7 +46,7 @@ export const Header = () => {
                 {showNotifications ? (
                     <button className="notifications-button-new" onClick={handleNotificationsButtonClick}>
                         <img alt="New notifications"
-                             src={process.env.PUBLIC_URL + '/assets/home/header/notifications.svg'}/>
+                             src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}/>
                         <img className="notifications-dot" alt="New notifications"
                              src={process.env.PUBLIC_URL + '/assets/header/notifications-dot.svg'}/>
                     </button>
