@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {SearchBar} from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
 import ModalLoginContainer from '../../scenes/Home/components/login/ModalLoginContainer';
-import SignUp from "../../scenes/Home/components/signup/SignUp";
 import {Notifications} from "./Notifications";
 import "./Header.css";
 import ModalSignUpContainer from "../../scenes/Home/components/signup/ModalSignUpContainer";

@@ -6,7 +6,7 @@ import './Login.css';
 
 import {login} from "../../../../services/auth.service.mjs";
 import {Checkbox, FormControlLabel} from "@mui/material";
-import SignUp from "../signup/SignUp";
+import EmailInput from "../signup/EmailInput";
 
 type Props = {}
 
@@ -120,7 +120,7 @@ const Login: React.FC<Props> = () => {
                                 <label className="signup-option-text-link" onClick={handleOpenSignUp}>SIGN UP</label>
                             </div>
 
-                            {showSignUp && <SignUp/>}
+                            {showSignUp && <EmailInput/>}
 
                             {message && (
                                 <div className="form-group">

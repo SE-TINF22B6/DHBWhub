@@ -10,6 +10,11 @@ spring:
     properties:
       hibernate:
         format_sql: true # Enabled for debug purposes
+  mail:
+    host:
+    port:
+    username:
+    password:
 #App Properties
 DHBWhub:
   app:

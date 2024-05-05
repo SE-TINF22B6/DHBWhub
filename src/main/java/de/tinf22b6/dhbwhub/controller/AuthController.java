@@ -2,6 +2,7 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.payload.request.EmailVerificationRequest;
 import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
 import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
@@ -10,6 +11,8 @@ import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.security.jwt.JwtUtils;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
+import de.tinf22b6.dhbwhub.service.EmailService;
+import de.tinf22b6.dhbwhub.service.EmailVerificationTokenGenerator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +38,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
+    private final EmailService emailService;
 
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
@@ -82,6 +86,16 @@ public class AuthController {
         userRepository.save(newUser);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PostMapping("email-verification")
+    public ResponseEntity<?> emailVerification (@Valid @RequestBody EmailVerificationRequest emailVerificationRequest) {
+
+        String token = EmailVerificationTokenGenerator.generateToken();
+
+        emailService.sendEmail(emailVerificationRequest.getEmail(), "Email Verification", "Your token is: " + token);
+
+        return ResponseEntity.ok(new MessageResponse("Email with token send successfully!"));
     }
 
 }

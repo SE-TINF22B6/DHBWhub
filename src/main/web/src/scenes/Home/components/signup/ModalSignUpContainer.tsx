@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Modal from "@mui/material/Modal";
 import './SignUp.css';
-import SignUp from "./SignUp";
+import EmailInput from "./EmailInput";
 
 export default function ModalSignUpContainer() {
     const [open, setOpen] = useState(false);
@@ -29,7 +29,8 @@ export default function ModalSignUpContainer() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <SignUp/>
+                {/*<SignUp/>*/}
+                <EmailInput/>
             </Modal>
         </>
     );
