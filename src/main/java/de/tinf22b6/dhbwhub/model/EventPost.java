@@ -22,6 +22,8 @@ public class EventPost {
 
     private final String description;
 
+    private final String location;
+
     private final Double latitude;
 
     private final Double longitude;

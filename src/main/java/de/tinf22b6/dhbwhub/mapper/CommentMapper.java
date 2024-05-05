@@ -9,9 +9,6 @@ import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateCommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateCommentProposal;
 
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 public class CommentMapper {
     public static Comment mapToModel(CommentProposal proposal) {
         return new Comment(
@@ -55,7 +52,7 @@ public class CommentMapper {
                 comment.getUser() != null && comment.getUser().getAccount().getPicture() != null ? comment.getUser().getAccount().getPicture().getImageData() : null,
                 comment.getDescription(),
                 comment.getLikes(),
-                (int) TimeUnit.MILLISECONDS.toDays(new Date().getTime() - comment.getTimestamp().getTime()),
+                comment.getTimestamp(),
                 comment.getPicture() != null ? comment.getPicture().getImageData() : null
                 );
     }

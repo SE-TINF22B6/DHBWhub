@@ -5,33 +5,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.xml.stream.Location;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostThreadViewProposal {
-    private Long id;
-
+public class CreateEventPostProposal {
     private String title;
 
     private String description;
 
-    private List<String> tags;
-
-    private int likes;
-
-    private int commentAmount;
+    private LocationProposal location;
 
     private Date timestamp;
+
+    private Date startdate;
+
+    private Date enddate;
+
+    private String[] tags;
 
     private byte[] postImage;
 
     private Long accountId;
-
-    private String username;
-
-    private List<CommentThreadViewProposal> comments;
 }
