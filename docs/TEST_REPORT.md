@@ -2,10 +2,16 @@
 ## Test Report
 
 ### 1. Introduction
-> This section provides an overview of the software testing process and the scope of the testing activities.
-> 
+Our application is mainly divided into three major components:
+1.  Frontend
+2.  Backend
+3.  Database  
+
+Each component requires its own methodology of testing since they focus on different things. These will be elaborated in further detail in the next section.
+
 ### 2. Test Strategy
-> This section describes the overall approach to testing, including the testing methodology, testing types, and testing techniques used. Highlight which automatic testing tools/frameworks are used for your project. 
+#### Frontend
+The focus lies on the correct (re-)rendering of objects as well as the right function calls of the buttons. Hereby, integration and unit tests are crucial when testing the frontend. For the Manual testing is also required, because some visual aspects need to be reviewed by the actual developers.
 
 ### 3. Test Plan
 > This section outlines the specific testing tasks, timelines, and resources required to achieve the testing objectives.
