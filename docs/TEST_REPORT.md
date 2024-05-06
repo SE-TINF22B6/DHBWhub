@@ -11,7 +11,11 @@ Each component requires its own methodology of testing since they focus on diffe
 
 ### 2. Test Strategy
 #### Frontend
-The focus lies on the correct (re-)rendering of objects as well as the right function calls of the buttons. Hereby, integration and unit tests are crucial when testing the frontend. For the Manual testing is also required, because some visual aspects need to be reviewed by the actual developers.
+The focus lies on the correct (re-)rendering of objects as well as the right function calls of the buttons. Hereby, integration and unit tests are crucial when testing the frontend. For the framework React, the 'React Testing Library' is quite useful to implement these kind of tests. Manual testing is also required, because some visual aspects need to be reviewed by the actual developers.
+#### Backend
+Since the backend consists of three major layers with each requiring components from the other layers, integration tests play an essential role.  
+#### Database
+
 
 ### 3. Test Plan
 > This section outlines the specific testing tasks, timelines, and resources required to achieve the testing objectives.
