@@ -5,6 +5,7 @@ import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.payload.request.EmailVerificationRequest;
 import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
 import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
+import de.tinf22b6.dhbwhub.payload.request.TokenValidationRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
 import de.tinf22b6.dhbwhub.payload.response.MessageResponse;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
@@ -13,8 +14,10 @@ import de.tinf22b6.dhbwhub.security.jwt.JwtUtils;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
 import de.tinf22b6.dhbwhub.service.EmailService;
 import de.tinf22b6.dhbwhub.service.EmailVerificationTokenGenerator;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +27,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,6 +45,8 @@ public class AuthController {
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
     private final EmailService emailService;
+
+    private String token;
 
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
@@ -91,11 +99,33 @@ public class AuthController {
     @PostMapping("email-verification")
     public ResponseEntity<?> emailVerification (@Valid @RequestBody EmailVerificationRequest emailVerificationRequest) {
 
-        String token = EmailVerificationTokenGenerator.generateToken();
+        token = EmailVerificationTokenGenerator.generateToken();
 
-        emailService.sendEmail(emailVerificationRequest.getEmail(), "Email Verification", "Your token is: " + token);
+        // Erstelle ein Template-Modell für Thymeleaf
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("token", token);
 
-        return ResponseEntity.ok(new MessageResponse("Email with token send successfully!"));
+        // Sende die E-Mail unter Verwendung des Thymeleaf-Template-Engines
+        try {
+            emailService.sendMessageUsingThymeleafTemplate(
+                    emailVerificationRequest.getEmail(), "Email Verification", templateModel);
+        } catch (MessagingException | IOException e) {
+            // Fehlerbehandlung für den Fall, dass die E-Mail nicht gesendet werden kann
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MessageResponse("Failed to send email with token."));
+        }
+
+        return ResponseEntity.ok(new MessageResponse("Email with token sent successfully!"));
     }
+
+    @PostMapping("token-validation")
+    public ResponseEntity<?> tokenValidation (@Valid @RequestBody TokenValidationRequest tokenValidationRequest) {
+        if (tokenValidationRequest.getToken() == Integer.parseInt(token)) {
+            return ResponseEntity.ok("Code is correct. Email verification successful!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Code is incorrect. Email verification failed!");
+        }
+    }
+
 
 }

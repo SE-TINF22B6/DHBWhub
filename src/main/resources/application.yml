@@ -11,10 +11,20 @@ spring:
       hibernate:
         format_sql: true # Enabled for debug purposes
   mail:
-    host:
-    port:
-    username:
-    password:
+    host: smtp.strato.de
+    port: 465
+    username: info@dhbwhub.de
+    password: 4??!f_UG!H52yM@
+    protocol: smtp
+    templates:
+      path:
+        "templates/"
+  thymeleaf:
+    enabled: false
+    prefix: "templates/"
+    suffix: ".html"
+    cache: false
+    encoding: UTF-8
 #App Properties
 DHBWhub:
   app:

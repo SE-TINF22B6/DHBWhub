@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        /* Globale Stile */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: grey;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: lightgrey;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 150px;
+        }
+
+        /* Verification Code */
+        .verification-code {
+            text-align: center;
+            font-size: 24px;
+            color: #ff4444;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+<!--        <img src="dhbwhub-logo.png" alt="DHBWhub Logo">-->
+    </div>
+    <div class="verification-code">
+        Your verification code:
+        <strong><td th:text="${token}"></td></strong>
+    </div>
+    <div class="footer">
+        © 2024 DHBWhub. All rights reserved.
+        <a href="https://www.paypal.me/dhbwhub">
+            <img width="20" height="20" src="" alt="PayPal"/>
+        </a>
+        <a href="https://www.instagram.com/dhbwhub">
+            <img alt="Instagram" height="20" src="" width="20"/>
+        </a>
+    </div>
+</div>
+</body>
+</html>
