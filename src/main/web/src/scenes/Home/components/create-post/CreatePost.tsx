@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import "./CreatePost.css";
+import { PostDraft } from "./PostDraft";
 import {Link} from "react-router-dom";
 
 export const CreatePost = () => {
   const [draftOpen, setDraftOpen] = useState(false);
-  const [postText, setPostText] = useState("");
 
   const handleCreatePostClick = (): void => setDraftOpen(!draftOpen);
-
-  const createPost = (): void => {
-    console.log("Post created:", postText);
-    // TODO: Logik hinzufügen, um den Post zu erstellen
+  const handleDraftSubmit = (): void => {
+    setDraftOpen(!draftOpen);
   };
 
   return (
@@ -26,6 +24,10 @@ export const CreatePost = () => {
             + Create post
           </div>
         </button>
+        <PostDraft
+            draftOpen={draftOpen}
+            handleDraftSubmit={handleDraftSubmit}
+        ></PostDraft>
       </div>
   );
 };
