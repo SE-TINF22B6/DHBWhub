@@ -1,9 +1,6 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateEventPostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.EventThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageEventPreviewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateEventPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.service.interfaces.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +36,17 @@ public class EventController {
     public EventThreadViewProposal update(@PathVariable Long id, @RequestBody UpdateEventPostProposal proposal) {
         return service.update(id, proposal);
     }
+
+    @PostMapping("/create-comment")
+    public EventCommentThreadViewProposal create(@RequestBody CreateEventCommentProposal proposal) {
+        return service.create(proposal);
+    }
+
+    @PutMapping("/update-comment/{id}")
+    public EventCommentThreadViewProposal update(@PathVariable Long id, @RequestBody UpdateEventCommentProposal proposal) {
+        return service.update(id, proposal);
+    }
+
 
     @PutMapping("/post-increase-likes/{id}")
     public int increaseLikesPost(@PathVariable Long id) {

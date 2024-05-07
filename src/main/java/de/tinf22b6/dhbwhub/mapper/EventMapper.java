@@ -114,5 +114,27 @@ public class EventMapper {
                 comment.getPicture() != null ? comment.getPicture().getImageData() : null
         );
     }
+
+    public static EventComment mapToModel(CreateEventCommentProposal proposal, User user, Picture picture, EventPost post) {
+        return new EventComment(
+                proposal.getDescription(),
+                proposal.getTimestamp(),
+                0,
+                picture,
+                user,
+                post
+        );
+    }
+
+    public static EventComment mapToModel(UpdateEventCommentProposal proposal, EventComment initialComment, Picture picture) {
+        return new EventComment(
+                proposal.getDescription(),
+                initialComment.getTimestamp(),
+                initialComment.getLikes(),
+                picture,
+                initialComment.getUser(),
+                initialComment.getEventPost()
+        );
+    }
 }
 

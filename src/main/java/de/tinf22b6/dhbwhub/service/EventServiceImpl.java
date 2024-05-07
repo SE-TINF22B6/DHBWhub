@@ -205,6 +205,40 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public EventCommentThreadViewProposal create(CreateEventCommentProposal proposal) {
+        User user = userRepository.findByAccountId(proposal.getAccountId());
+        EventPost post = eventRepository.findEventPost(proposal.getEventId());
+        Picture picture = proposal.getPostImage().length != 0 ?
+                pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage())): null;
+
+        EventComment comment = repository.save(EventMapper.mapToModel(proposal,user,picture,post));
+        return EventMapper.mapToThreadView(comment);
+    }
+
+    @Override
+    public EventCommentThreadViewProposal update(Long id, UpdateEventCommentProposal proposal) {
+        EventComment initialComment = getEventComment(id);
+        Picture picture;
+        byte[] proposalImageData = proposal.getPostImage() != null? proposal.getPostImage() : new byte[0];
+        byte[] initialImageData = initialComment.getPicture() != null? initialComment.getPicture().getImageData() : new byte[0];
+        // Check if Picture has changed
+        if (proposalImageData.length == 0 && initialImageData.length != 0) {
+            pictureRepository.delete(initialComment.getPicture().getId());
+            picture = null;
+        } else if (!Arrays.equals(proposalImageData, initialImageData)) {
+            pictureRepository.delete(initialComment.getPicture().getId());
+            picture = pictureRepository.save(PictureMapper.mapToModelComment(proposalImageData));
+        } else {
+            picture = initialComment.getPicture();
+        }
+        EventComment updatedComment = EventMapper.mapToModel(proposal, initialComment, picture);
+        updatedComment.setId(id);
+
+        repository.save(updatedComment);
+
+        return EventMapper.mapToThreadView(getEventComment(id));    }
+
+    @Override
     public List<EventCommentThreadViewProposal> getEventComments(Long id) {
         return repository.getEventComments(id);
     }

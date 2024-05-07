@@ -45,7 +45,7 @@ public class PostController {
     }
 
     @PostMapping("/create-post")
-    public PostThreadViewProposal create(@RequestBody CreatePostProposal proposal) {
+    public HomepagePostPreviewProposal create(@RequestBody CreatePostProposal proposal) {
         return service.create(proposal);
     }
 

@@ -23,4 +23,6 @@ public interface EventService {
     int getAmountOfComments(Long id);
     int increaseLikes(Long id, int mode);
     int decreaseLikes(Long id, int mode);
+    EventCommentThreadViewProposal create(CreateEventCommentProposal proposal);
+    EventCommentThreadViewProposal update(Long id, UpdateEventCommentProposal proposal);
 }
