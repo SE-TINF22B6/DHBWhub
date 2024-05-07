@@ -13,12 +13,14 @@ Each component requires its own methodology of testing since they focus on diffe
 #### Frontend
 The focus lies on the correct (re-)rendering of objects as well as the right function calls of the buttons. Hereby, integration and unit tests are crucial when testing the frontend. For the framework React, the 'React Testing Library' is quite useful to implement these kind of tests. Manual testing is also required, because some visual aspects need to be reviewed by the actual developers.
 #### Backend
-Since the backend consists of three major layers with each requiring components from the other layers, integration tests play an essential role.  
+Since the backend consists of three major layers with each requiring components from the layer beneath, integration tests play an essential role in this section. These subcomponents need to be mocked, so that the testing of the actual component can proceed. This is possible through the library "Mockito". The focal point of the backend is the correct transformation of data, which means that we insert a datamodel into a component and either expect the correct transformation of the data into the right datamodel or if things go wrong (e.g. object doesn't exist in the database), an appropriate error message. The whole testing will be handled by the testing framework 'JUnit5' (implementation) and the build tool 'Maven' (runs all the defined tests).
 #### Database
-
+Some tables trigger functions that create external views which can be used by the backend for faster query retrievals. We have to manually check, whether the views contain the expected result by checking the respective SQL-queries on correctness.
 
 ### 3. Test Plan
-> This section outlines the specific testing tasks, timelines, and resources required to achieve the testing objectives.
+In order to achieve our testing goals, we need to setup the previously mentioned libraries such as 'JUnit5', 'Mockito' and 'React testing library'. When implementing new features, we are also writing the tests concurrently. In this way, we can be more sure of how the new feature works and reacts to different possible scenarios.
+As mentioned earlier, the focus on the frontend testing lies in the correct rerendering of the objects, the depiction of appropriate data as well as the right function calls when clicking on buttons.  
+In the backend, we are planning to check for each function, whether they are transforming or retrieving the data correctly when given the correct data input, or if they are cancelling the operation when given false input.
 
 ### 4. Test Cases
 > This section details the specific test cases that were executed, including their pass/fail status and any defects found during testing. (You may link to the repository of your use cases.)
