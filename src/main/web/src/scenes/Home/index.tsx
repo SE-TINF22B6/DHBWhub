@@ -19,21 +19,9 @@ export const Home = () => {
   const showMobileScrollUpButton = useMediaQuery('(max-width: 1024px)');
   const isTabletSize = useMediaQuery('(max-width: 1024px)');
 
-  const adBlockDetected = useDetectAdBlock();
-  usePreventScrolling(adBlockDetected);
-
   const handleSortChange = (option: string): void => {
     setSortOption(option);
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setShowMobileScrollUpButton(window.innerWidth <= 1200);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
       <div className="homepage">

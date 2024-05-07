@@ -6,7 +6,7 @@ import { Friends } from './scenes/Friends';
 import { FAQ } from './scenes/FAQ';
 import { Post } from './scenes/Post';
 import { Contact } from './scenes/Contact';
-import { CalendarPage } from './scenes/Calendar';
+import { Calendar } from './scenes/Calendar';
 import { PrivacyPolicy } from './scenes/PrivacyPolicy';
 import { Profile } from './scenes/Profile';
 // import { Search } from './scenes/Search';
@@ -23,7 +23,7 @@ class App extends Component {
             <Route path="/" element={<Home/>}/>
             <Route path="*" element={<PageNotFound/>}/>
 
-            <Route path="/calendar" element={<CalendarPage/>}/>
+            <Route path="/calendar" element={<Calendar/>}/>
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/faq" element={<FAQ/>}/>
             <Route path="/friends" element={<Friends/>}/>
