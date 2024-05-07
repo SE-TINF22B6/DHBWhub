@@ -212,6 +212,4 @@ public class PostServiceImpl implements PostService {
     public List<String> getPostTags(Long id) {
         return repository.getPostTags(id);
     }
-
-
 }

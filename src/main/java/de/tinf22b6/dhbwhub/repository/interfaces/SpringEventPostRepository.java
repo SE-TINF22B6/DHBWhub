@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface SpringEventPostRepository extends JpaRepository<EventPost, Long> {
 
     @Query(value = "SELECT v.comment_amount FROM view_event_comment_amount v WHERE v.event_post_id = ?1", nativeQuery = true)
-    Integer getCommentAmount(Long id);}
+    Integer getCommentAmount(Long id);
+}

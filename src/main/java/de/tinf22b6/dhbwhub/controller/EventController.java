@@ -47,7 +47,6 @@ public class EventController {
         return service.update(id, proposal);
     }
 
-
     @PutMapping("/post-increase-likes/{id}")
     public int increaseLikesPost(@PathVariable Long id) {
         return service.increaseLikes(id,0);
