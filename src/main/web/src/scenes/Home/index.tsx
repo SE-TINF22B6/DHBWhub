@@ -1,12 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
-import {Footer} from "../../organisms/footer/Footer";
 import {Events} from "./components/events/Events";
 import {CreatePost} from "./components/create-post/CreatePost";
 import {Posts} from "./components/post/Posts";
+import {Infos} from "./components/infos/Infos";
+import {SavedPosts} from "./components/saved-posts/SavedPosts";
 import {SortOptions} from "./components/sort-options/SortOptions";
 import {PopularTags} from "./components/popular-tags/PopularTags";
+import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
 
 export const Home = () => {
@@ -35,6 +37,7 @@ export const Home = () => {
           <div className="sidebar-left">
             <SortOptions onSortChange={handleSortChange}/>
               <PopularTags/>
+              <SavedPosts/>
           </div>
           <div className="middle-content">
             <CreatePost/>
@@ -43,6 +46,7 @@ export const Home = () => {
           </div>
           <div className="sidebar-right">
             <Events/>
+            <Infos/>
           </div>
         </div>
         {showMobileScrollUpButton && <ScrollUpButton scrollUpRef={scrollUpRef}/>}

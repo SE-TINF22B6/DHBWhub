@@ -1,0 +1,74 @@
+.infos {
+  background-color: var(--component-grey);
+  border-radius: var(--border-radius);
+  position: relative;
+  width: 290px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--component-padding);
+  gap: 20px;
+  height: auto;
+}
+
+.contact, .privacy-policy, .faq {
+  color: transparent;
+  position: relative;
+}
+
+.privacy-policy-text, .faq-text, .contact-text {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: var(--title-font-size);
+  font-weight: var(--strong-font-weight);
+  margin-left: 50px;
+  margin-top: 2px;
+  line-height: 24px;
+  outline: none;
+  white-space: nowrap;
+  text-decoration: none;
+  &&:hover {
+    color: var(--light-grey);
+  }
+}
+
+.faq-symbol, .contact-symbol, .privacy-policy-symbol {
+  object-fit: cover;
+  position: absolute;
+}
+
+.faq-symbol, .privacy-policy-symbol {
+  height: 25px;
+  width: 25px;
+  margin-left: 3px;
+}
+
+.contact-symbol {
+  height: 30px;
+  width: 30px;
+}
+
+@media (max-width: 1024px) {
+  .infos {
+    width: 600px;
+    left: 50%;
+    gap: 100px;
+    transform: translateX(-50%);
+    flex-direction: row;
+  }
+  .privacy-policy-text, .faq-text, .contact-text {
+    margin-left: 40px;
+  }
+}
+
+@media (max-width: 412px) {
+  .infos {
+    margin-top: -5px;
+    width: 350px;
+    gap: 18px;
+  }
+  .privacy-policy-text, .faq-text, .contact-text {
+    margin-left: 35px;
+    margin-top: 3px;
+  }
+}
