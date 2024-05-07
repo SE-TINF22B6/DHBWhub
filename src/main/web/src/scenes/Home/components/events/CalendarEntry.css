@@ -11,13 +11,15 @@
 .event-title {
   color: var(--white);
   font-family: var(--font-family);
-  font-size: 14px;
+  font-size: var(--headline-font-size);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
   top: 5px;
   position: absolute;
   white-space: nowrap;
   left: 4px;
+  width: 220px;
+  overflow: hidden;
   &&:hover {
     color: var(--light-grey);
   }
@@ -26,7 +28,7 @@
 .address {
   color: var(--light-grey);
   font-family: var(--font-family);
-  font-size: 14px;
+  font-size: var(--text-font-size);
   font-weight: 400;
   height: 16px;
   top: 62%;
@@ -101,4 +103,14 @@
 
 .event-tag-button {
   color: transparent;
+}
+
+@media (max-width: 412px) {
+  .event-title {
+    top: 8px;
+  }
+  .address {
+    top: 65%;
+    transform: translate(0, -65%);
+  }
 }

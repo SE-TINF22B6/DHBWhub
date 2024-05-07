@@ -17,16 +17,16 @@
     font-weight: 700;
     font-size: 18px;
     font-family: Arial, sans-serif;
-    display: inline-block; /* Ändere die Anzeige auf inline-block */
-    vertical-align: top; /* Setze die vertikale Ausrichtung auf oben */
-    width: calc(20% - 20px); /* Setze die Breite auf 20% des Containers */
+    display: inline-block;
+    vertical-align: top;
+    width: calc(20% - 20px);
 }
 
 .form-group {
     margin-left: 20px;
     margin-right: 10px;
-    display: inline-block; /* Ändere die Anzeige auf inline-block */
-    width: calc(90% - 10px); /* Setze die Breite auf 80% des Containers */
+    display: inline-block;
+    width: calc(90% - 10px);
 }
 
 .modal-content {

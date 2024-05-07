@@ -16,10 +16,36 @@
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "maskable_icon.png",
+      "type": "image/png",
+      "purpose": "maskable",
+      "sizes": "512x512"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "My profile",
+      "short_name": "Profile",
+      "description": "View and edit your profile.",
+      "url": "/profile"
+    },
+    {
+      "name": "My friends",
+      "short_name": "Friends",
+      "description": "View and manage your friends.",
+      "url": "/friends"
+    },
+    {
+      "name": "View today's events",
+      "short_name": "Events",
+      "description": "View the calendar with all events.",
+      "url": "/calendar"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#151719",
+  "background_color": "#151719"
 }

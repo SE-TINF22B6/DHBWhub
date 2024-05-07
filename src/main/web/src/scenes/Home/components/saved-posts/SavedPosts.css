@@ -36,12 +36,15 @@
 }
 
 @media (max-width: 1024px) {
-  .saved-posts {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
   .saved-posts-list {
-    max-height: 200px;
+    width: auto;
+    max-width: 400px;
+    max-height: 160px;
+    padding-right: 20px;
+    overflow: hidden;
+  }
+  .saved-post {
+    width: 160px;
   }
 }
 
@@ -54,9 +57,20 @@
 
 @media (max-width: 412px) {
   .saved-posts {
-    display: none;
+    height: auto;
+    width: 360px;
+    padding: 15px;
+    margin-top: -5px;
+  }
+  .saved-post {
+    width: 155px;
   }
   .saved-posts-list {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 350px;
+    height: auto;
+    max-height: 230px;
+    margin-top: 20px;
   }
 }

@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  width: 780px;
   padding: var(--component-padding);
 }
 
@@ -12,11 +13,12 @@
 }
 
 .post-image {
-  height: 170px;
-  width: 155px;
+  width: 150px;
+  height: auto;
   top: 50%;
   transform: translateY(-50%);
   position: relative;
+  border-radius: var(--border-radius);
   &&:hover {
     filter: brightness(75%);
     transition: var(--transition);
@@ -39,7 +41,7 @@
   flex-direction: column;
   gap: 10px;
   height: 170px;
-  position: relative;
+  position: absolute;
   width: 340px;
 }
 
@@ -71,34 +73,8 @@
   color: var(--white);
   font-size: var(--text-font-size);
   height: 50px;
-  width: 430px;
   margin-top: 0;
   margin-bottom: 0;
-}
-
-.interaction-stats, .interaction-symbols {
-  display: flex;
-  align-items: flex-start;
-  position: relative;
-}
-
-.interaction-stats {
-  gap: 30px;
-  top: 140px;
-  left: 120px;
-  padding-right: 20px;
-}
-
-.interaction-symbols {
-  gap: 85px;
-  top: 105px;
-  left: -65px;
-}
-
-.like-button {
-  background-size: cover;
-  background: none;
-  border: none;
 }
 
 .footer {
@@ -107,48 +83,63 @@
   white-space: nowrap;
   margin-top: 20px;
   padding-bottom: 20px;
+  position: relative;
+}
+
+.home-post-interaction {
+  position: relative;
+  margin-top: 110px;
+  margin-right: 20px;
 }
 
 @media (max-width: 412px) {
   .post {
     width: 350px;
     height: 200px;
-    margin-left: 20px;
     margin-right: 20px;
+  }
+  .post-infos {
+    margin-top: -10px;
+    width: 220px;
+    gap: -20px;
   }
   .short-description {
     width: 220px;
-    height: 70px;
+    height: 100px;
   }
   .post-image {
-    height: 100px;
-    width: 80px;
-    margin-top: -50px;
+    height: 120px;
+    width: auto;
+    margin-top: -45px;
+    margin-left: -10px;
   }
   .post-tags {
     flex-direction: column;
     position: absolute;
-    margin-top: 110px;
-    margin-left: -100px;
+    margin-top: 140px;
+    margin-left: -120px;
     gap: 5px;
-    margin-bottom: 0;
-  }
-  .post-infos {
-    width: 250px;
-  }
-  .interaction-stats {
-    left: -90px;
-    margin-top: 40px;
-    margin-right: 120px;
-  }
-  .interaction-symbols {
-    gap: 50px;
-    top: 150px;
-    left: -360px;
   }
   .post-menu-points {
     height: 15px;
     width: 15px;
-    right: 40px;
+    right: 30px;
+    margin-top: -10px;
+  }
+}
+
+@media (max-width: 375px) {
+  .post {
+    width: 320px;
+    height: 220px;
+  }
+  .post-infos {
+    width: 200px;
+  }
+  .short-description {
+    width: 180px;
+  }
+  .post-image {
+    margin-top: -55px;
   }
 }
