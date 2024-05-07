@@ -29,7 +29,6 @@ export default function ModalSignUpContainer() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                {/*<SignUp/>*/}
                 <EmailInput/>
             </Modal>
         </>

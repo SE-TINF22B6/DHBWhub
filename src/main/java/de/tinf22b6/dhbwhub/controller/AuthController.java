@@ -2,10 +2,7 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.User;
-import de.tinf22b6.dhbwhub.payload.request.EmailVerificationRequest;
-import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
-import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
-import de.tinf22b6.dhbwhub.payload.request.TokenValidationRequest;
+import de.tinf22b6.dhbwhub.payload.request.*;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
 import de.tinf22b6.dhbwhub.payload.response.MessageResponse;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
@@ -47,6 +44,7 @@ public class AuthController {
     private final EmailService emailService;
 
     private String token;
+    private String userMail;
 
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
@@ -70,7 +68,13 @@ public class AuthController {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<?> signup(@Valid @RequestBody UsernamePasswordRequest usernamePasswordRequest) {
+
+        SignupRequest signupRequest = new SignupRequest();
+        signupRequest.setEmail(userMail);
+        signupRequest.setUsername(usernamePasswordRequest.getUsername());
+        signupRequest.setPassword(usernamePasswordRequest.getPassword());
+
         if (accountRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -99,18 +103,17 @@ public class AuthController {
     @PostMapping("email-verification")
     public ResponseEntity<?> emailVerification (@Valid @RequestBody EmailVerificationRequest emailVerificationRequest) {
 
+        userMail = emailVerificationRequest.getEmail();
+
         token = EmailVerificationTokenGenerator.generateToken();
 
-        // Erstelle ein Template-Modell für Thymeleaf
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("token", token);
 
-        // Sende die E-Mail unter Verwendung des Thymeleaf-Template-Engines
         try {
             emailService.sendMessageUsingThymeleafTemplate(
                     emailVerificationRequest.getEmail(), "Email Verification", templateModel);
         } catch (MessagingException | IOException e) {
-            // Fehlerbehandlung für den Fall, dass die E-Mail nicht gesendet werden kann
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new MessageResponse("Failed to send email with token."));
         }

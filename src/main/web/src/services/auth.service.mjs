@@ -38,6 +38,16 @@ export const emailVerification = (email) => {
         });
 };
 
+export const tokenValidation = (token) => {
+    return axios
+        .post(API_URL + "token-validation", {
+            token
+        })
+        .then((response) => {
+            return response.data;
+        });
+}
+
 export const logout = () => {
     localStorage.removeItem("user");
 };
