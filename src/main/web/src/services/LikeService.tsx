@@ -17,7 +17,7 @@ const handleLike = async (
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': "Basic ZGhid2h1YjpQZEA1ZmtaQ3dTMjRUNFclY3ZxYkdONXZqVXVuRUAmcWRONEpLdnM0amdlSiZmKndY"
+          'Authorization': ''
         },
         body: JSON.stringify({ liked: true }),
       });
@@ -31,7 +31,7 @@ const handleLike = async (
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': "Basic ZGhid2h1YjpQZEA1ZmtaQ3dTMjRUNFclY3ZxYkdONXZqVXVuRUAmcWRONEpLdnM0amdlSiZmKndY"
+          'Authorization': ''
         },
         body: JSON.stringify({ liked: false }),
       });

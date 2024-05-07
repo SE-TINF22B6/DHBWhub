@@ -18,7 +18,7 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
       try {
         const response: Response = await fetch(process.env.API_URL + "post/homepage-preview-posts", {
           headers: {
-            'Authorization': "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pblVzZXIiLCJpYXQiOjE3MTUwMDc0MDMsImV4cCI6MTcxNTA5MzgwM30.DLdl81-Dusoq15QjqeR26EBsCddBHxNI0hH-WQzOCAs",
+            'Authorization': '',
             'Access-Control-Allow-Origin': 'http://localhost:3000'
           }
         });
@@ -41,7 +41,7 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
       try {
         const response: Response = await fetch(process.env.API_URL + "post/following-posts", {
           headers: {
-            'Authorization': "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pblVzZXIiLCJpYXQiOjE3MTUwMDg5NzMsImV4cCI6MTcxNTA5NTM3M30.MGUpsCcVfZRxfR4N0PyvJeH8pXogBm3CKmDHXE5i7mY",
+            'Authorization': '',
           }
         });
         if (response.ok) {
