@@ -8,58 +8,36 @@ import {Tag} from "../../../../atoms/Tag";
 import ReportService from '../../../../services/ReportService';
 import LikeService from '../../../../services/LikeService';
 import TimeService from "../../../../services/TimeService";
+import {PostModel} from "./models/PostModel";
+import {Interaction} from "../../../../organisms/interaction/Interaction";
+import DescriptionService from "../../../../services/DescriptionService";
+import {useMediaQuery} from "@mui/system";
 
-interface PostProps {
-  postId: number;
-  title: string;
-  description: string;
-  tags: string[];
-  authorUsername: string;
-  authorId: number;
-  postCreatedTimestamp: string;
-  initialLikes: number;
-  initialComments: number;
-  imageSrc: string;
-}
-
-export const Post: React.FC<PostProps> = (props: PostProps) => {
+export const Post: React.FC<PostModel> = (props: PostModel) => {
   const {
-    postId,
+    id,
     title,
     description,
     tags,
-    authorUsername,
-    authorId,
-    postCreatedTimestamp,
-    initialLikes,
-    initialComments,
-    imageSrc,
+    likeAmount,
+    commentAmount,
+    timestamp,
+    image,
+    accountId,
+    username
   } = props;
-  const [] = useState(false);
 
-  const shortenDescription = (text: string, maxLength: number): string => {
-    if (text.length <= maxLength) {
-      return text;
-    }
-    const shortenedText: string = text.slice(0, maxLength);
-    const lastSpace: number = shortenedText.lastIndexOf(' ');
-    if (lastSpace === -1 || (text[maxLength] !== ' ')) {
-      return shortenedText + '...';
-    } else {
-      return text.slice(0, lastSpace) + '...';
-    }
-  };
-
-  const formattedTime = TimeService.timeDifference(postCreatedTimestamp);
-  const [likes, setLikes] = useState(initialLikes);
+  const matches = useMediaQuery('(max-width: 412px)')
+  const formattedTime = TimeService.timeDifference(new Date(timestamp).toISOString());
+  const [likes, setLikes] = useState(likeAmount);
   const [userLiked, setUserLiked] = useState(false);
   const [heartClass, setHeartClass] = useState('heart-empty');
-  const [comments] = useState(initialComments);
+  const [comments] = useState(commentAmount);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL = window.location.href;
   const location = useLocation();
-  const shortDescription = shortenDescription(description, 190);
+  const shortDescription = DescriptionService.shortenDescription(description, image ? 190 : matches ? 190 : 280);
 
   const [reportOpen, setReportOpen] = useState(false);
   const [reportReason, setReportReason] = useState('');
@@ -70,19 +48,19 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, postId, authorId, 187);
+    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, 187);
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
   };
 
   useEffect((): void => {
-    const userLikedPost = localStorage.getItem(`liked_${postId}`);
+    const userLikedPost = localStorage.getItem(`liked_${id}`);
     if (userLikedPost) {
       setUserLiked(true);
       setHeartClass('heart-filled');
     }
-  }, [location, postId]);
+  }, [location, id]);
 
   const handleMenuClick = (): void => {
     setMenuOpen(!menuOpen);
@@ -94,7 +72,7 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
   };
 
   const handleSaveClick = (): void => {
-    fetch(`http://localhost:8080/savePost?postId=${postId}`, {
+    fetch(`http://193.196.38.232:8080/savePost?postId=${id}`, {
       method: 'POST',
       credentials: 'include',
     })
@@ -108,52 +86,68 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
   };
 
   const handleLike = (): void => {
-    LikeService.handleLike(postId, userLiked, likes, setLikes, setUserLiked, setHeartClass);
+    LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
+
+  function getMarginLeft() {
+    if (matches) {
+      return tags? '110px' : '0';
+    } else {
+      return image ? '180px' : '10px';
+    }
+  }
+
+  function getWidth() {
+    if (matches) {
+      return image ? '240px' : '260px';
+    } else {
+      return image ? '440px' : '600px';
+    }
+  }
+
+  function getMarginTop() {
+    if (matches) {
+      return image ? '140px' : '5px';
+    } else {
+      return '0';
+    }
+  }
 
   return (
       <div className="post-container">
         <div className="post">
-          <Link to={`/post/?id=${postId}`} className="post-button">
-            <img className="post-image" alt="Post" src={process.env.PUBLIC_URL + imageSrc}/>
+          <Link to={`/post/?id=${id}`} className="post-button">
+            {image && <img className="post-image" alt="Post" src={image}/>}
           </Link>
-          <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots" src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
-          <div className="post-infos">
-            <Link to={`/post/?id=${postId}`} className="post-button">
+          <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots"
+               src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
+          <div className="post-infos" style={{ marginLeft: getMarginLeft() }}>
+            <Link to={`/post/?id=${id}`} className="post-button">
               <p className="post-title">{title}</p>
             </Link>
-            <div className="post-tags">
-              {tags.slice(0, 3).map((tag, index) => (
+            <div className="post-tags" style={{ marginTop: getMarginTop() }}>
+              {tags && tags.slice(0, 3).map((tag, index) => (
                   <Tag name={tag} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
-            <p className="short-description">{shortDescription}</p>
+            <p className="short-description" style={{ width: getWidth() }}>{shortDescription}</p>
             <div className="footer">
-            <Link to={`/user/?name=${authorUsername.toLowerCase().replace(' ', '-')}`} className="author-link" aria-label="To the author">
-                {authorUsername}
-            </Link>
+              <Link to={`/user/?name=${username.toLowerCase().replace(' ', '-')}`} className="author-link" aria-label="To the author">
+                {username}
+              </Link>
               &nbsp;· {formattedTime}
             </div>
           </div>
-          <div className="interaction-stats">
-            <div className="likes">{likes} likes</div>
-            <Link to={`/post/?id=${postId}`} className="post-button">
-              <div className="comments">{comments} comments</div>
-            </Link>
-          </div>
-          <div className="interaction-symbols">
-            <button className={`like-button ${userLiked ? 'liked' : ''}`} onClick={handleLike} aria-label="Like-Button">
-              <div className={`heart-symbol ${heartClass}`}/>
-            </button>
-            <Link to={`/post/?id=${postId}`} className="post-button" aria-label="To the post">
-              <div className="comment-symbol"/>
-            </Link>
+          <div className="home-post-interaction">
+            <Interaction likes={likes} userLiked={userLiked} heartClass={heartClass} comments={comments} handleLike={handleLike} id={id}
+                         isHomepage={true}/>
           </div>
         </div>
+
         {menuOpen && (
             <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
         )}
-        {shareWindowOpen && (<Share postId={postId} currentPageURL={currentPageURL}></Share>)}
+        {shareWindowOpen && (<Share postId={id} currentPageURL={currentPageURL}></Share>)}
         {reportOpen && (
             <ReportPost
                 reportOpen={reportOpen}

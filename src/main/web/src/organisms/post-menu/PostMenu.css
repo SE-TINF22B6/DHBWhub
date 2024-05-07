@@ -15,7 +15,7 @@
   height: 108px;
   top: -160px;
   margin-bottom: -100px;
-  left: 685px;
+  left: 645px;
   position: relative;
   object-fit: cover;
   width: 150px;
@@ -38,18 +38,6 @@
   object-fit: cover;
   position: relative;
   width: 15px;
-}
-
-.post-share-image {
-  background-image: url(../../../public/assets/home/post/share.svg);
-}
-
-.post-save-image {
-  background-image: url(../../../public/assets/home/post/save.svg);
-}
-
-.post-report-image {
-  background-image: url(../../../public/assets/home/post/report.svg);
 }
 
 .post-share-text, .post-save-text, .post-report-text {
@@ -77,11 +65,21 @@
   left: -109px;
 }
 
+@media (max-width: 1024px) {
+  .post-menu {
+    margin-bottom: -100px;
+    left: 650px;
+    gap: 0;
+    z-index: 10;
+  }
+}
+
 @media (max-width: 412px) {
   .post-menu {
-    height: 80px;
-    margin-bottom: -100px;
-    left: 285px;
+    height: 85px;
+    margin-bottom: -85px;
+    top: -200px;
+    left: 255px;
     width: 125px;
     gap: 0;
     z-index: 10;
@@ -93,10 +91,10 @@
     left: -120px;
   }
   .post-save-text {
-    left: -124px;
+    left: -122px;
   }
   .post-report-text {
-    left: -119px;
+    left: -118px;
   }
   .post-share-text, .post-save-text, .post-report-text {
     font-size: 12px;

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {EmailIcon, EmailShareButton, LinkedinIcon, LinkedinShareButton, RedditIcon, RedditShareButton, TelegramIcon, TelegramShareButton,
   XIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton} from "react-share";
 import './Share.css';
+import {useMediaQuery} from "@mui/system";
 
 interface ShareProps {
   postId: number;
@@ -20,10 +21,11 @@ export const Share = (props: ShareProps) => {
   }
 
   const [iconSize, setIconSize] = useState<number>(32);
+  const matches = useMediaQuery('(max-width: 412px)')
 
   useEffect(() => {
     const handleResize = () => {
-      const newSize = window.innerWidth <= 800 ? 25 : 32;
+      const newSize = matches ? 25 : 32;
       setIconSize(newSize);
     };
 
@@ -32,7 +34,6 @@ export const Share = (props: ShareProps) => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
 
   const copyToClipboard = (): void => {
     navigator.clipboard.writeText(url)
