@@ -44,7 +44,7 @@
       "url": "/calendar"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#151719",
   "background_color": "#151719"
