@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import "./CreatePost.css";
-import { PostDraft } from "./PostDraft";
 import {Link} from "react-router-dom";
 
 export const CreatePost = () => {
   const [draftOpen, setDraftOpen] = useState(false);
 
   const handleCreatePostClick = (): void => setDraftOpen(!draftOpen);
-  const handleDraftSubmit = (): void => {
-    setDraftOpen(!draftOpen);
-  };
 
   return (
       <div className="create-post">
@@ -24,10 +20,6 @@ export const CreatePost = () => {
             + Create post
           </div>
         </button>
-        <PostDraft
-            draftOpen={draftOpen}
-            handleDraftSubmit={handleDraftSubmit}
-        ></PostDraft>
       </div>
   );
 };
