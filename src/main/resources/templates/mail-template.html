@@ -55,9 +55,31 @@
     <div class="header">
         <img src="dhbwhub-logo.png" alt="DHBWhub Logo">
     </div>
-    <div class="verification-code">
-        Your verification code:
-        <strong><td th:text="${token}"></td></strong>
+    <div class="text">
+        <p>
+            Dein Verifizierungscode für DHBWhub <br>
+            <p></p>
+            Wir freuen uns, dich bei DHBWhub begrüßen zu dürfen! Um dein Konto zu bestätigen und für zusätzliche
+            Sicherheit zu sorgen, haben wir dir einen Verifizierungscode erstellt.<br>
+            <p></p>
+            Dein Verifizierungscode lautet:<br>
+
+            <div class="verification-code">
+                <strong>
+                    <td th:text="${token}"></td>
+                </strong>
+            </div>
+
+            Bitte beachte, dass dieser Code nur für die nächsten 15 Minuten gültig ist. Verwende ihn während dieser Zeit, um
+            deine Anmeldung abzuschließen.<br>
+            <p></p>
+            Solltest du diese Anmeldung nicht initiiert haben oder Fragen zu deinem Konto haben, kontaktiere uns bitte über
+            unser Kontaktformular.<br>
+            <p></p>
+            Mit freundlichen Grüßen,
+            <br>
+            DHBWhub
+        </p>
     </div>
     <div class="footer">
         © 2024 DHBWhub. All rights reserved.
