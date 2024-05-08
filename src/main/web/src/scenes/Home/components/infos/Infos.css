@@ -51,9 +51,7 @@
 @media (max-width: 1024px) {
   .infos {
     width: 600px;
-    left: 50%;
     gap: 100px;
-    transform: translateX(-50%);
     flex-direction: row;
   }
   .privacy-policy-text, .faq-text, .contact-text {

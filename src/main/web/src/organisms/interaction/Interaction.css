@@ -1,0 +1,79 @@
+.interaction {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.like-container, .comment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.comment-container {
+  gap: 10px;
+}
+
+.like-button {
+  background-size: cover;
+  background: none;
+  border: none;
+}
+
+.likes, .comments {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: var(--text-font-size);
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.comments {
+  &&:hover {
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 3000px) {
+  .likes:after {
+    content: " likes";
+  }
+  .comments:after {
+    content: " comments";
+  }
+}
+
+@media (max-width: 412px) {
+  .interaction {
+    margin-top: 45px;
+    margin-left: 160px;
+    gap: 10px;
+  }
+  .like-container, .comment-container {
+    gap: 0;
+  }
+  .heart-symbol, .heart-filled {
+    margin-top: 10px;
+    margin-left: 60px;
+    background-size: 80%;
+    background-repeat: no-repeat;
+  }
+  .comment-symbol {
+    margin-left: 40px;
+    margin-top: 10px;
+    background-size: 80%;
+    background-repeat: no-repeat;
+  }
+  .likes:after {
+    content: "";
+  }
+  .comments:after {
+    content: "";
+  }
+}

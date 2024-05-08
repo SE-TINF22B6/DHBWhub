@@ -5,6 +5,7 @@ import ModalLoginContainer from '../../scenes/Home/components/login/ModalLoginCo
 import {Notifications} from "./Notifications";
 import "./Header.css";
 import ModalSignUpContainer from "../../scenes/Home/components/signup/ModalSignUpContainer";
+import {useMediaQuery} from "@mui/system";
 
 export const Header = () => {
 
@@ -12,6 +13,7 @@ export const Header = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [currentLocation, setCurrentLocation] = useState('');
     const location = useLocation();
+    const isMobile = useMediaQuery('(max-width: 412px)');
 
     useEffect((): void => {
         setCurrentLocation(location.pathname);
@@ -22,13 +24,13 @@ export const Header = () => {
     };
     return (
         <div className="header">
-            <Link to="/" aria-label="To the homepage">
-                <div className='logo'>
-                    <span>DHBW </span>
-                    <span>hub</span>
-                </div>
-            </Link>
-            <Link className={`home-background ${currentLocation === '/' ? 'active' : ''}`} to="/"
+          <Link to="/" aria-label="To the homepage">
+            <div className='logo'>
+              <span>DHBW </span>
+              <span>hub</span>
+            </div>
+          </Link>
+          <Link className={`home-background ${currentLocation === '/' ? 'active' : ''}`} to="/"
                   aria-label="To the homepage">
                 <img alt="Home" src={process.env.PUBLIC_URL + '/assets/header/home.svg'}/>
             </Link>
@@ -57,23 +59,27 @@ export const Header = () => {
                 )}
             </div>
             {showNotifications && <Notifications showNotifications={showNotifications}/>}
+            {isMobile &&
+                <div className="profile-component">
+              <Link to="/profile" aria-label="To the profile" onClick={() => setLoggedIn(false)}>
+                <img className="profile-picture-header" alt="Profile"
+                     src={process.env.PUBLIC_URL + '/assets/profile.svg'}/>
+              </Link>
+            </div>
+            }
             {loggedIn ? (
                 <div className="profile-component">
-                    <Link to="/profile" aria-label="To the profile" onClick={() => setLoggedIn(false)}>
-                        <img className="profile-picture-header" alt="Profile"
-                             src={process.env.PUBLIC_URL + '/assets/profile.svg'}/>
-                    </Link>
-                </div>
-            ) : (
-                <div className="profile-component">
-                    <button className="header-menu" onClick={() => setLoggedIn(true)} aria-label="ArrowDown-Button">
-                        <img src={process.env.PUBLIC_URL + '/assets/header/arrow-down.svg'} alt="Arrow Down"
-                             className="arrow-down"/>
-                    </button>
-                    <ModalLoginContainer/>
-                    <ModalSignUpContainer/>
-                </div>
-            )}
+                  <Link to="/profile" aria-label="To the profile" onClick={() => setLoggedIn(false)}>
+                    <img className="profile-picture-header" alt="Profile"
+                         src={process.env.PUBLIC_URL + '/assets/profile.svg'}/>
+                  </Link>
+                  </div>
+              ) : (
+                  <div className="profile-component">
+                      <ModalLoginContainer/>
+                      <ModalSignUpContainer/>
+                  </div>
+              )}
         </div>
     );
 };

@@ -10,24 +10,18 @@ import {SortOptions} from "./components/sort-options/SortOptions";
 import {PopularTags} from "./components/popular-tags/PopularTags";
 import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
+import {useMediaQuery} from "@mui/system";
+import {MobileFooter} from "../../organisms/header/MobileFooter";
 
 export const Home = () => {
   const [sortOption, setSortOption] = useState<string>('popular');
   const scrollUpRef = useRef<HTMLDivElement>(null);
+  const showMobileScrollUpButton = useMediaQuery('(max-width: 1024px)');
+  const isTabletSize = useMediaQuery('(max-width: 1024px)');
 
-  const [showMobileScrollUpButton, setShowMobileScrollUpButton] = useState(false);
   const handleSortChange = (option: string): void => {
     setSortOption(option);
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setShowMobileScrollUpButton(window.innerWidth <= 1200);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
       <div className="homepage">
@@ -35,9 +29,13 @@ export const Home = () => {
         <Header/>
         <div className="homepage-content">
           <div className="sidebar-left">
-            <SortOptions onSortChange={handleSortChange}/>
-              <PopularTags/>
-              <SavedPosts/>
+            {!isTabletSize && (
+                <>
+                  <SortOptions onSortChange={handleSortChange}/>
+                  <PopularTags/>
+                  <SavedPosts/>
+                </>
+            )}
           </div>
           <div className="middle-content">
             <CreatePost/>
@@ -51,6 +49,7 @@ export const Home = () => {
         </div>
         {showMobileScrollUpButton && <ScrollUpButton scrollUpRef={scrollUpRef}/>}
         <Footer/>
+        <MobileFooter/>
       </div>
   );
 };

@@ -4,14 +4,8 @@ import {Link} from "react-router-dom";
 
 export const CreatePost = () => {
   const [draftOpen, setDraftOpen] = useState(false);
-  const [postText, setPostText] = useState("");
 
   const handleCreatePostClick = (): void => setDraftOpen(!draftOpen);
-
-  const createPost = (): void => {
-    console.log("Post created:", postText);
-    // TODO: Logik hinzufügen, um den Post zu erstellen
-  };
 
   return (
       <div className="create-post">
