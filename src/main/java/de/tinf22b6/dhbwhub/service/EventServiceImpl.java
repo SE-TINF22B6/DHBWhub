@@ -239,6 +239,11 @@ public class EventServiceImpl implements EventService {
         return EventMapper.mapToThreadView(getEventComment(id));    }
 
     @Override
+    public EventCommentThreadViewProposal getEventCommentThreadView(Long id) {
+        return EventMapper.mapToThreadView(getEventComment(id));
+    }
+
+    @Override
     public List<EventCommentThreadViewProposal> getEventComments(Long id) {
         return repository.getEventComments(id);
     }

@@ -6,7 +6,6 @@ import lombok.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
 public class EventTag {

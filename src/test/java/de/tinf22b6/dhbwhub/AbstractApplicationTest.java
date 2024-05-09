@@ -5,7 +5,6 @@ import de.tinf22b6.dhbwhub.proposal.*;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,10 +23,6 @@ public abstract class AbstractApplicationTest {
 
 	protected Account createDefaultAccount2() {
 		return new Account("miajulia1989", "miajulia89@gmx.de", "h9zdnh9hauidaw", createDefaultPicture2(), true);
-	}
-
-	protected Account createDefaultAccount3() {
-		return new Account("vladipu", "vladipu@gmail.de", "aioli", createDefaultPicture2(), true);
 	}
 
 	protected Administrator createDefaultAdministrator() {
@@ -54,14 +49,6 @@ public abstract class AbstractApplicationTest {
 		return new Course("WBWL23B6", createDefaultFaculty2());
 	}
 
-	protected Event createDefaultEvent() {
-		return new Event("Master-Event", new Date(1701242553L));
-	}
-
-	protected Event createDefaultEvent2() {
-		return new Event("Slave-Event", new Date(1701231243L));
-	}
-
 	protected User createDefaultUser() {
 		return new User(19, "Ich studiere Informatik", createDefaultCourse(), createDefaultAccount());
 	}
@@ -76,10 +63,6 @@ public abstract class AbstractApplicationTest {
 
 	protected Friendship createDefaultFriendship2() {
 		return new Friendship(createDefaultAccount2(), createDefaultAccount(), false);
-	}
-
-	protected Friendship createDefaultFriendship3() {
-		return new Friendship(createDefaultAccount3(), createDefaultAccount(), true);
 	}
 
 	protected Post createDefaultPost() {
@@ -172,11 +155,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected PostThreadViewProposal createDefaultPostThreadViewProposal() {
-		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno", List.of(createDefaultCommentThreadViewProposal()));
+		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, List.of(createDefaultCommentThreadViewProposal()));
 	}
 
 	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
-		return new CommentThreadViewProposal(1L, 0L, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Beschreibung 1", 23, 3, new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new CommentThreadViewProposal(1L, 0L, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Beschreibung 1", 23, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 
 	protected FriendlistProposal createDefaultFriendlistProposal() {
@@ -203,15 +186,63 @@ public abstract class AbstractApplicationTest {
 		return new UpdatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
 	}
 
-	protected List<PostTag> createDefaultPostTags() {
-		return List.of(createDefaultPostTag(), createDefaultPostTag2());
+	protected EventPost createDefaultEventPost(){
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 1, createDefaultPicture(), createDefaultUser());
 	}
 
-	protected PostTag createDefaultPostTag(){
-		return new PostTag(createDefaultPost(), "Tag 1");
+	protected EventPost createUpdatedDefaultEventPost(){
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 2, createDefaultPicture(), createDefaultUser());
 	}
 
-	protected PostTag createDefaultPostTag2(){
-		return new PostTag(createDefaultPost(), "Tag 2");
+	protected EventPost createUpdatedDefaultEventPost2(){
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 0, createDefaultPicture(), createDefaultUser());
 	}
+
+	protected EventComment createDefaultEventComment(){
+		return new EventComment("Beschreibung 1", new Date(1478979207L), 1, createDefaultPicture(), createDefaultUser(), createDefaultEventPost());
+	}
+
+	protected EventComment createUpdatedDefaultEventComment(){
+		return new EventComment("Beschreibung 1", new Date(1478979207L), 2, createDefaultPicture(), createDefaultUser(), createDefaultEventPost());
+	}
+
+	protected EventComment createUpdatedDefaultEventComment2(){
+		return new EventComment("Beschreibung 1", new Date(1478979207L), 0, createDefaultPicture(), createDefaultUser(), createDefaultEventPost());
+	}
+
+	protected EventTag createDefaultEventTag(){
+		return new EventTag(createDefaultEventPost(), "Tag1");
+	}
+
+	protected LocationProposal createDefaultLocationProposal(){
+		return new LocationProposal("Location 1", 1.0, 2.0);
+	}
+	protected CreateEventPostProposal createDefaultCreateEventPostProposal(){
+		return new CreateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData(), 1L);
+	}
+
+	protected UpdateEventPostProposal createDefaultUpdateEventPostProposal(){
+		return new UpdateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
+	}
+
+	protected EventThreadViewProposal createDefaultEventThreadViewProposal(){
+		return new EventThreadViewProposal(1L, "Titel 1", "Beschreibung 1", List.of("Tag 1", "Tag 2"), createDefaultLocationProposal(), 0, 0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), createDefaultPicture().getImageData(), 1L, "Maxi", createDefaultPicture2().getImageData(), List.of(createDefaultEventCommentThreadViewProposal(),createDefaultEventCommentThreadViewProposal()));
+	}
+
+	protected HomepageEventPreviewProposal createDefaultEventPostPreviewProposal(){
+		return new HomepageEventPreviewProposal(1L, "Titel 1", "Location 1", List.of("Tag 1", "Tag 2"), new Date(1478979207L));
+	}
+
+	protected EventCommentThreadViewProposal createDefaultEventCommentThreadViewProposal(){
+		return new EventCommentThreadViewProposal(1L, 1L, 1L, "Maxim", createDefaultPicture().getImageData(), "Beschreibung 1", 0, new Date(1478979207L), createDefaultPicture2().getImageData());
+	}
+
+	protected CreateEventCommentProposal createDefaultCreateEventCommentProposal(){
+		return new CreateEventCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L), createDefaultPicture().getImageData());
+	}
+
+	protected UpdateEventCommentProposal createDefaultUpdateEventCommentProposal(){
+		return new UpdateEventCommentProposal("Beschreibung 1", createDefaultPicture().getImageData());
+	}
+
 }

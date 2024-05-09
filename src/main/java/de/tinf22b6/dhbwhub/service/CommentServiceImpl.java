@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -126,5 +125,10 @@ public class CommentServiceImpl implements CommentService {
         Comment updatedComment = CommentMapper.mapToModel(comment,likes);
         updatedComment.setId(id);
         return repository.save(updatedComment).getLikes();
+    }
+
+    @Override
+    public CommentThreadViewProposal getCommentThreadView(Long id) {
+        return CommentMapper.mapToThreadView(get(id));
     }
 }

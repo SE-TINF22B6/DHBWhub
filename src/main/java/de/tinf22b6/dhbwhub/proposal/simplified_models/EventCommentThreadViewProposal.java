@@ -24,7 +24,7 @@ public class EventCommentThreadViewProposal {
 
     private String description;
 
-    private int amountLikes;
+    private int likes;
 
     private Date timestamp;
 

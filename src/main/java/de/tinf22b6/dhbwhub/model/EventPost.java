@@ -8,7 +8,6 @@ import java.util.Date;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
 public class EventPost {

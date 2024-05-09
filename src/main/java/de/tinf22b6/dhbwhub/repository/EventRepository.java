@@ -56,10 +56,6 @@ public class EventRepository {
         return eventCommentRepository.findById(id).orElse(null);
     }
 
-    public List<EventComment> findAllEventComments() {
-        return eventCommentRepository.findAll();
-    }
-
     public void deleteEventComment(Long id) {
         eventCommentRepository.deleteById(id);
     }

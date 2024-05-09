@@ -26,6 +26,15 @@ public class EventController {
     public EventThreadViewProposal getEventThreadView(@PathVariable Long id) {
         return service.getEventThreadView(id);
     }
+    @GetMapping("/event-comments/{id}")
+    public List<EventCommentThreadViewProposal> getEventComments(@PathVariable Long id) {
+        return service.getEventComments(id);
+    }
+
+    @GetMapping("/event-comment/{id}")
+    public EventCommentThreadViewProposal getCommentThreadView(@PathVariable Long id) {
+        return service.getEventCommentThreadView(id);
+    }
 
     @PostMapping("/create-event")
     public EventThreadViewProposal create(@RequestBody CreateEventPostProposal proposal) {
@@ -69,7 +78,13 @@ public class EventController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void deleteEvent(@PathVariable Long id) {
         service.deletePost(id);
+    }
+
+    @DeleteMapping("/comment/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteComment(@PathVariable Long id) {
+        service.deleteComment(id);
     }
 }
