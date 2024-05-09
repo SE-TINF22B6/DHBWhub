@@ -126,10 +126,6 @@ public abstract class AbstractApplicationTest {
 		return new CourseProposal("TINF22B6", createDefaultFacultyProposal());
 	}
 
-	protected EventProposal createDefaultEventProposal() {
-		return new EventProposal("Master-Event", new Date(1701242553L));
-	}
-
 	protected UserProposal createDefaultUserProposal() {
 		return new UserProposal(19, "Ich studiere Informatik", createDefaultCourseProposal(), createDefaultAccountProposal());
 	}

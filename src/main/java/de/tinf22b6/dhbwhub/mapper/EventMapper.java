@@ -1,17 +1,9 @@
 package de.tinf22b6.dhbwhub.mapper;
 
 import de.tinf22b6.dhbwhub.model.*;
-import de.tinf22b6.dhbwhub.proposal.EventProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
 public class EventMapper {
-    public static Event mapToModel(EventProposal proposal) {
-        return new Event(
-                proposal.getName(),
-                proposal.getDate()
-        );
-    }
-
     public static EventPost mapToModel(CreateEventPostProposal proposal, User user, Picture picture){
         return new EventPost(
                 proposal.getTitle(),
