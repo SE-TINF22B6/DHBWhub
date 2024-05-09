@@ -15,9 +15,6 @@
 }
 
 @media (max-width: 1440px) {
-  .popular-tags {
-
-  }
   .popular-tags-list {
     display: flex;
     flex-direction: column;
@@ -47,13 +44,11 @@
 }
 
 @media (max-width: 1024px) {
-  .popular-tags {
-    height: auto;
-    width: auto;
-  }
   .popular-tags-list {
+    width: auto;
     flex-direction: column;
-    max-height: 200px;
+    max-height: 160px;
+    padding-right: 10px;
   }
 }
 
@@ -74,12 +69,11 @@
     width: 360px;
     padding: 15px;
     margin-top: -5px;
-    margin-bottom: 20px;
-    margin-left: 40px;
   }
   .popular-tags-list {
     width: 350px;
     flex-direction: row;
+    margin-top: 20px;
   }
 }
 

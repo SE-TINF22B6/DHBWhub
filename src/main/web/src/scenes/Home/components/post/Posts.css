@@ -4,3 +4,10 @@
   grid-gap: 10px;
   position: relative;
 }
+
+@media (max-width: 412px) {
+  .posts {
+    margin-left: 20px;
+    margin-top: -5px;
+  }
+}

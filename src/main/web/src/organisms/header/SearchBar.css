@@ -11,15 +11,6 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .searchbar {
-    visibility: hidden;
-    width: 0;
-    border: 0;
-    padding: 0;
-  }
-}
-
 .input-field {
   border: none;
   background: transparent;
@@ -55,4 +46,14 @@
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
+}
+
+@media (max-width: 1024px) {
+  .searchbar {
+    width: 250px;
+  }
+}
+
+@media (max-width: 820px) {
+
 }
