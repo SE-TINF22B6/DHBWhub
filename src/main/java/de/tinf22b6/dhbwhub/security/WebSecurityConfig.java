@@ -23,6 +23,16 @@ public class WebSecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
 
+    // Define all public endpoints here (regex)
+    private static final String[] PUBLIC_ENDPOINTS = {
+            "/api/auth/login",
+            "/api/auth/signup",
+            "/post/homepage-preview-posts(/\\d+)?", // All or a specific homepage preview post
+            "/event/homepage-preview-events",
+            "/event/event-thread/(\\d+)",
+            "/event/event-comments/(\\d+)"
+    };
+
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
         this.unauthorizedHandler = unauthorizedHandler;
         this.userDetailsService = userDetailsService;
@@ -55,15 +65,14 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http.csrf(AbstractHttpConfigurer::disable) // TODO: CodeQL doesn't like that
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers("/api/auth/login", "/api/auth/signup", "/post/homepage-preview-posts").permitAll()
+                        authorizeRequests.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                                 .anyRequest().authenticated()
                 ).exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
 }
 
