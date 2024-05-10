@@ -7,7 +7,13 @@ Our application is mainly divided into three major components:
 2.  Backend
 3.  Database  
 
-Each component requires its own methodology of testing since they focus on different things. These will be elaborated in further detail in the next section.
+Each component requires its own methodology of testing since they focus on different things. These will be elaborated in further detail in the next section. We are using the following testing software to accomplish our goals:
+- Frontend:
+  - React Testing Library
+- Backend:
+  - JUnit5
+  - Mockito
+  - SpringFramework Libraries
 
 ### 2. Test Strategy
 #### Frontend
