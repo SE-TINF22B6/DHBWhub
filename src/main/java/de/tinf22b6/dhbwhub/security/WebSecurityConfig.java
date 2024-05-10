@@ -23,14 +23,15 @@ public class WebSecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
 
-    // Define all public endpoints here (regex)
+    // Define all public endpoints here (ant matchers)
     private static final String[] PUBLIC_ENDPOINTS = {
             "/api/auth/login",
             "/api/auth/signup",
-            "/post/homepage-preview-posts(/\\d+)?", // All or a specific homepage preview post
+            "/post/homepage-preview-posts",
+            "/post/homepage-preview-posts/{id:\\d+}",
             "/event/homepage-preview-events",
-            "/event/event-thread/(\\d+)",
-            "/event/event-comments/(\\d+)"
+            "/event/event-thread/{id:\\d+}",
+            "/event/event-comments/{id:\\d+}"
     };
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {

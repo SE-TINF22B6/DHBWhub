@@ -65,7 +65,7 @@ class EventControllerTests extends AbstractApplicationTest {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is(eventThreadView.getTitle())))
                 .andExpect(jsonPath("$.description", is(eventThreadView.getDescription())))
-                .andExpect(jsonPath("$.likes", is(eventThreadView.getLikes())));
+                .andExpect(jsonPath("$.likeAmount", is(eventThreadView.getLikeAmount())));
     }
 
     @Test
@@ -90,7 +90,7 @@ class EventControllerTests extends AbstractApplicationTest {
 
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.description", is(commentThreadView.getDescription())))
-                .andExpect(jsonPath("$.likes", is(commentThreadView.getLikes())));
+                .andExpect(jsonPath("$.likeAmount", is(commentThreadView.getLikeAmount())));
     }
     @Test
     void CreateEvent_StatusIsOk() throws Exception {

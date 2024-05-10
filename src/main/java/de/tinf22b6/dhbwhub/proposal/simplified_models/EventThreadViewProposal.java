@@ -23,7 +23,7 @@ public class EventThreadViewProposal {
 
     private LocationProposal locationProposal;
 
-    private int likes;
+    private int likeAmount;
 
     private int commentAmount;
 
