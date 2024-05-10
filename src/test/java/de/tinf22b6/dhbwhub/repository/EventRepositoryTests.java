@@ -20,7 +20,6 @@ class EventRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private EventRepository eventRepository;
 
-    // FindAllEventposts Null size 2
     @Test
     void FindAllEventPosts_HasSize_Two() {
         EventPost event1 = createDefaultEventPost();
