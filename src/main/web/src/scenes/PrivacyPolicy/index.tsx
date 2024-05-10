@@ -2,6 +2,7 @@ import React from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
+import {MobileFooter} from "../../organisms/header/MobileFooter";
 
 export const PrivacyPolicy = () => {
   return (
@@ -11,6 +12,7 @@ export const PrivacyPolicy = () => {
           <h1 className="loading">Work in progress</h1>
         </div>
         <Footer/>
+        <MobileFooter/>
       </div>
   );
 }

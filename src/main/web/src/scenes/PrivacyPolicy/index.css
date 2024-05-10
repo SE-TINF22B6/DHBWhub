@@ -1,0 +1,18 @@
+.privacy-policy-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.privacy-policy-content {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: var(--headline-font-size);
+  padding-left: 40px;
+  padding-right: 40px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
