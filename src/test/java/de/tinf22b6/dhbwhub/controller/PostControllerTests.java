@@ -95,7 +95,7 @@ class PostControllerTests extends AbstractApplicationTest {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is(postThreadView.getTitle())))
                 .andExpect(jsonPath("$.description", is(postThreadView.getDescription())))
-                .andExpect(jsonPath("$.likes", is(postThreadView.getLikes())));
+                .andExpect(jsonPath("$.likeAmount", is(postThreadView.getLikeAmount())));
     }
 
 

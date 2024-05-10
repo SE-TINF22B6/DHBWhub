@@ -21,7 +21,7 @@ public class PostThreadViewProposal {
 
     private List<String> tags;
 
-    private int likes;
+    private int likeAmount;
 
     private int commentAmount;
 
