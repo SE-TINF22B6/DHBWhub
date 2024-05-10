@@ -2,6 +2,7 @@ import React from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
+import {MobileFooter} from "../../organisms/header/MobileFooter";
 
 export const Friends = () => {
   return (
@@ -9,6 +10,7 @@ export const Friends = () => {
         <Header/>
         <h1 className="loading">Work in progress</h1>
         <Footer/>
+        <MobileFooter/>
       </div>
   );
 };
