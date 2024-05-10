@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostThreadViewProposal {
+public class EventThreadViewProposal {
     private Long id;
 
     private String title;
@@ -21,11 +21,17 @@ public class PostThreadViewProposal {
 
     private List<String> tags;
 
+    private LocationProposal locationProposal;
+
     private int likes;
 
     private int commentAmount;
 
     private Date timestamp;
+
+    private Date startdate;
+
+    private Date enddate;
 
     private byte[] postImage;
 
@@ -35,5 +41,5 @@ public class PostThreadViewProposal {
 
     private byte[] userImage;
 
-    private List<CommentThreadViewProposal> comments;
+    private List<EventCommentThreadViewProposal> comments;
 }

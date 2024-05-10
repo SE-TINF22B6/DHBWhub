@@ -6,34 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostThreadViewProposal {
-    private Long id;
-
+public class UpdateEventPostProposal {
     private String title;
 
     private String description;
 
-    private List<String> tags;
+    private LocationProposal location;
 
-    private int likes;
+    private Date startdate;
 
-    private int commentAmount;
+    private Date enddate;
 
-    private Date timestamp;
+    private String[] tags;
 
     private byte[] postImage;
-
-    private Long accountId;
-
-    private String username;
-
-    private byte[] userImage;
-
-    private List<CommentThreadViewProposal> comments;
 }

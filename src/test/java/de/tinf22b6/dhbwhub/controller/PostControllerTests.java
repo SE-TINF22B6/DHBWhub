@@ -21,7 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
 
@@ -31,7 +30,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -97,7 +95,7 @@ class PostControllerTests extends AbstractApplicationTest {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is(postThreadView.getTitle())))
                 .andExpect(jsonPath("$.description", is(postThreadView.getDescription())))
-                .andExpect(jsonPath("$.amountLikes", is(postThreadView.getAmountLikes())));
+                .andExpect(jsonPath("$.likes", is(postThreadView.getLikes())));
     }
 
 
@@ -148,13 +146,13 @@ class PostControllerTests extends AbstractApplicationTest {
     @Test
     void CreatePost_StatusIsOk() throws Exception {
         CreatePostProposal postProposal = createDefaultCreatePostProposal();
-        PostThreadViewProposal postThreadViewProposal = createDefaultPostThreadViewProposal();
+        HomepagePostPreviewProposal postPreviewProposal = createDefaultHomepagePostPreviewProposal();
 
-        given(postService.create(any(CreatePostProposal.class))).willAnswer(i -> postThreadViewProposal);
+        given(postService.create(any(CreatePostProposal.class))).willAnswer(i -> postPreviewProposal);
 
         ResultActions response = mockMvc.perform(post("/post/create-post")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(postProposal)));
+                .content(objectMapper.writeValueAsString(postPreviewProposal)));
 
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is(postProposal.getTitle())))

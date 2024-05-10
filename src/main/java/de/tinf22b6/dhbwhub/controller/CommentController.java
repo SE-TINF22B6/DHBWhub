@@ -41,6 +41,11 @@ public class CommentController {
         return service.get(id);
     }
 
+    @GetMapping("/comment-thread/{id}")
+    public CommentThreadViewProposal getThreadView(@PathVariable Long id) {
+        return service.getCommentThreadView(id);
+    }
+
     @PutMapping("/{id}")
     public Comment update(@PathVariable Long id, @RequestBody CommentProposal proposal) {
         return service.update(id, proposal);
