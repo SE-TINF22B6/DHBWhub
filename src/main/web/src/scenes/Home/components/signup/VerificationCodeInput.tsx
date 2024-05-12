@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
-import Modal from '@mui/material/Modal';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import {emailVerification, tokenValidation} from "../../../../services/auth.service.mjs";
 
 const VerificationCodeInput = () => {
-    const [verificationCode, setVerificationCode] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState<boolean>(false);
 
     const initialValues: {
-        token: number;
+        token: string;
     } = {
-        token: 0,
+        token: "",
     };
 
     const handleOpenLogin = () => {
@@ -20,12 +18,11 @@ const VerificationCodeInput = () => {
     }
 
     const validationSchema = Yup.object().shape({
-        email: Yup.number()
-            .integer("This is not a verification token!")
+        token: Yup.string()
             .required("This field is required!"),
     });
 
-    const handleValidation = (formValue: { token: number }) => {
+    const handleValidation = (formValue: { token: string }) => {
         const {token} = formValue;
 
         setMessage("");
@@ -65,10 +62,10 @@ const VerificationCodeInput = () => {
                             </div>
                             <div>
                                 <div className="form-group">
-                                    <label htmlFor="verification-code" className="heading">Verification Code</label>
-                                    <Field name="verification-code" type="text" className="form-control"/>
+                                    <label htmlFor="token" className="heading">Verification Code</label>
+                                    <Field name="token" type="text" className="form-control"/>
                                     <ErrorMessage
-                                        name="verification-code"
+                                        name="token"
                                         component="div"
                                         className="alert-danger"
                                     />

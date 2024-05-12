@@ -8,6 +8,7 @@ import {Checkbox, FormControlLabel} from "@mui/material";
 const UsernamePasswordInput = ({ open, onClose, onSubmit }:any) => {
     const [message, setMessage] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
+    const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState(false);
 
     const initialValues: {
         username: string;
@@ -92,8 +93,8 @@ const UsernamePasswordInput = ({ open, onClose, onSubmit }:any) => {
                                 />
                             </div>
                             <div className="accept-privacy-policy">
-                                <FormControlLabel control={<Checkbox className="checkbox" checked={rememberMe}
-                                                                     onChange={(e) => setRememberMe(e.target.checked)}/>}
+                                <FormControlLabel control={<Checkbox className="checkbox" checked={acceptPrivacyPolicy}
+                                                                     onChange={(e) => setAcceptPrivacyPolicy(e.target.checked)}/>}
                                                   label="Remember me?"
                                                   className="accept-privacy-policy-checkbox"/>
                             </div>

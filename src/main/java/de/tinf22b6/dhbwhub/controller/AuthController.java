@@ -123,7 +123,7 @@ public class AuthController {
 
     @PostMapping("token-validation")
     public ResponseEntity<?> tokenValidation (@Valid @RequestBody TokenValidationRequest tokenValidationRequest) {
-        if (tokenValidationRequest.getToken() == Integer.parseInt(token)) {
+        if (Integer.parseInt(tokenValidationRequest.getToken()) == Integer.parseInt(token)) {
             return ResponseEntity.ok("Code is correct. Email verification successful!");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Code is incorrect. Email verification failed!");

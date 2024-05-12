@@ -9,7 +9,7 @@ import lombok.Setter;
 public class TokenValidationRequest {
 
     @NotBlank
-    private Integer token;
+    private String token;
 
 }
 
