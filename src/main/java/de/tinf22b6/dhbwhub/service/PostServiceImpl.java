@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostThreadViewProposal create(CreatePostProposal proposal) {
+    public HomepagePostPreviewProposal create(CreatePostProposal proposal) {
         // Creating the Post itself
         User user = userRepository.findByAccountId(proposal.getAccountId());
         Picture picture = proposal.getPostImage().length != 0 ?
@@ -55,12 +55,11 @@ public class PostServiceImpl implements PostService {
 
         // Creating Tags after the Post is created
         Arrays.stream(proposal.getTags()).forEach(t -> {
-            new Post();
             PostTag postTag = new PostTag(post, t);
             postTagRepository.save(postTag);
         } );
 
-        return getPostThreadView(post.getId());
+        return getPostHomepageView(post.getId());
     }
 
     @Override
@@ -197,6 +196,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public HomepagePostPreviewProposal getPostHomepageView(Long id) {
+        HomepagePostPreviewProposal homepagePostPreviewProposal = PostMapper.mapToHomepagePreviewProposal(get(id));
+        homepagePostPreviewProposal.setTags(getPostTags(id));
+        homepagePostPreviewProposal.setCommentAmount(getAmountOfComments(id));
+
+        return homepagePostPreviewProposal;
+    }
+    @Override
     public List<CommentThreadViewProposal> getPostComments(Long id) {
         return repository.getPostComments(id);
     }
@@ -205,6 +212,4 @@ public class PostServiceImpl implements PostService {
     public List<String> getPostTags(Long id) {
         return repository.getPostTags(id);
     }
-
-
 }

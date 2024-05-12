@@ -2,9 +2,7 @@ package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
-import de.tinf22b6.dhbwhub.mapper.EventMapper;
-import de.tinf22b6.dhbwhub.model.Event;
-import de.tinf22b6.dhbwhub.proposal.EventProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.service.EventServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +19,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -44,11 +43,11 @@ class EventControllerTests extends AbstractApplicationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void GetAll_StatusIsOk() throws Exception {
-        Event event = createDefaultEvent();
-        when(eventService.getAll()).thenReturn(List.of(event, event));
+    void GetEventPreviewsHomepage_StatusIsOk() throws Exception {
+        HomepageEventPreviewProposal homepageEvent = createDefaultEventPostPreviewProposal();
+        when(eventService.getHomepageEvents()).thenReturn(List.of(homepageEvent, homepageEvent));
 
-        ResultActions response = mockMvc.perform(get("/event")
+        ResultActions response = mockMvc.perform(get("/event/homepage-preview-events")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
@@ -56,50 +55,136 @@ class EventControllerTests extends AbstractApplicationTest {
     }
 
     @Test
-    void Get_StatusIsOk() throws Exception {
-        Event event = createDefaultEvent();
-        when(eventService.get(any(Long.class))).thenReturn(event);
+    void GetEventThreadView_StatusIsOk() throws Exception {
+        EventThreadViewProposal eventThreadView = createDefaultEventThreadViewProposal();
+        when(eventService.getEventThreadView(1L)).thenReturn(eventThreadView);
 
-        ResultActions response = mockMvc.perform(get("/event/1")
+        ResultActions response = mockMvc.perform(get("/event/event-thread/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(event.getName())));
+                .andExpect(jsonPath("$.title", is(eventThreadView.getTitle())))
+                .andExpect(jsonPath("$.description", is(eventThreadView.getDescription())))
+                .andExpect(jsonPath("$.likeAmount", is(eventThreadView.getLikeAmount())));
     }
 
     @Test
-    void Create_StatusIsOk() throws Exception {
-        EventProposal eventProposal = createDefaultEventProposal();
-        given(eventService.create(any(EventProposal.class))).willAnswer(i -> EventMapper.mapToModel(i.getArgument(0)));
+    void GetEventComments_StatusIsOk() throws Exception {
+        EventCommentThreadViewProposal eventCommentThreadView = createDefaultEventCommentThreadViewProposal();
+        when(eventService.getEventComments(1L)).thenReturn(List.of(eventCommentThreadView,eventCommentThreadView));
 
-        ResultActions response = mockMvc.perform(post("/event")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(eventProposal)));
+        ResultActions response = mockMvc.perform(get("/event/event-comments/1")
+                .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(eventProposal.getName())));
+                .andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test
-    void Update_StatusIsOk() throws Exception {
-        EventProposal eventProposal = createDefaultEventProposal();
-        when(eventService.update(any(Long.class), any(EventProposal.class))).thenReturn(EventMapper.mapToModel(eventProposal));
+    void GetCommentThreadView_StatusIsOk() throws Exception {
+        EventCommentThreadViewProposal commentThreadView = createDefaultEventCommentThreadViewProposal();
+        when(eventService.getEventCommentThreadView(1L)).thenReturn(commentThreadView);
 
-        ResultActions response = mockMvc.perform(put("/event/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(eventProposal)));
+        ResultActions response = mockMvc.perform(get("/event/event-comment/1")
+                .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(eventProposal.getName())));
+                .andExpect(jsonPath("$.description", is(commentThreadView.getDescription())))
+                .andExpect(jsonPath("$.likeAmount", is(commentThreadView.getLikeAmount())));
+    }
+    @Test
+    void CreateEvent_StatusIsOk() throws Exception {
+        CreateEventPostProposal eventPostProposal = createDefaultCreateEventPostProposal();
+        EventThreadViewProposal eventThreadViewProposal = createDefaultEventThreadViewProposal();
+
+        given(eventService.create(any(CreateEventPostProposal.class))).willAnswer(i -> eventThreadViewProposal);
+
+        ResultActions response = mockMvc.perform(post("/event/create-event")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(eventPostProposal)));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(eventPostProposal.getTitle())))
+                .andExpect(jsonPath("$.description", is(eventPostProposal.getDescription())));
     }
 
     @Test
-    void Delete_StatusIsOk() throws Exception {
-        doNothing().when(eventService).delete(any(Long.class));
+    void UpdateEvent_StatusIsOk() throws Exception {
+        UpdateEventPostProposal eventPostProposal = createDefaultUpdateEventPostProposal();
+        EventThreadViewProposal eventThreadViewProposal = createDefaultEventThreadViewProposal();
 
+        when(eventService.update(any(Long.class), any(UpdateEventPostProposal.class))).thenReturn(eventThreadViewProposal);
+
+        ResultActions response = mockMvc.perform(put("/event/update-event/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(eventPostProposal)));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(eventPostProposal.getTitle())))
+                .andExpect(jsonPath("$.description", is(eventPostProposal.getDescription())));
+    }
+
+    @Test
+    void IncreaseLikesPost_StatusIsOk() throws Exception {
+        Integer likes = 1;
+        when(eventService.increaseLikes(any(Long.class),any(Integer.class))).thenReturn(1);
+
+        ResultActions response = mockMvc.perform(put("/event/post-increase-likes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(likes)));
+
+        response.andExpect(status().isOk());
+    }
+
+    @Test
+    void DecreaseLikesPost_StatusIsOk() throws Exception {
+        Integer likes = 0;
+        when(eventService.decreaseLikes(any(Long.class),any(Integer.class))).thenReturn(0);
+
+        ResultActions response = mockMvc.perform(put("/event/post-decrease-likes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(likes)));
+
+        response.andExpect(status().isOk());
+    }
+
+    @Test
+    void IncreaseLikesComment_StatusIsOk() throws Exception {
+        Integer likes = 1;
+        when(eventService.increaseLikes(any(Long.class),any(Integer.class))).thenReturn(2);
+
+        ResultActions response = mockMvc.perform(put("/event/comment-increase-likes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(likes)));
+
+        response.andExpect(status().isOk());
+    }
+
+    @Test
+    void DecreaseLikesComment_StatusIsOk() throws Exception {
+        Integer likes = 0;
+        when(eventService.decreaseLikes(any(Long.class),any(Integer.class))).thenReturn(0);
+
+        ResultActions response = mockMvc.perform(put("/event/comment-decrease-likes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(likes)));
+
+        response.andExpect(status().isOk());
+    }
+
+    @Test
+    void DeleteEvent_StatusIsOk() throws Exception {
+        doNothing().when(eventService).deletePost(any(Long.class));
         ResultActions response = mockMvc.perform(delete("/event/1")
                 .contentType(MediaType.APPLICATION_JSON));
+        response.andExpect(status().isNoContent());
+    }
 
+    @Test
+    void DeleteComment_StatusIsOk() throws Exception {
+        doNothing().when(eventService).deleteComment(any(Long.class));
+        ResultActions response = mockMvc.perform(delete("/event/comment/1")
+                .contentType(MediaType.APPLICATION_JSON));
         response.andExpect(status().isNoContent());
     }
 }

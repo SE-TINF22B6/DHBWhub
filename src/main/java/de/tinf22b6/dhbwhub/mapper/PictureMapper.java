@@ -23,4 +23,17 @@ public class PictureMapper {
         );
     }
 
+    public static Picture mapToModelEventPost(byte[] imageData) {
+        return new Picture(
+                "event_post.png",
+                imageData
+        );
+    }
+    public static Picture mapToModelEventComment(byte[] imageData) {
+        return new Picture(
+                "event_comment.png",
+                imageData
+        );
+    }
+
 }

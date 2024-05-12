@@ -4,6 +4,7 @@ import "./index.css";
 import Lottie from "lottie-react";
 import errorAnimationData from "../../assets/error.json";
 import {Footer} from "../../organisms/footer/Footer";
+import {MobileFooter} from "../../organisms/header/MobileFooter";
 
 export const PageNotFound = () => {
   return (
@@ -13,6 +14,7 @@ export const PageNotFound = () => {
           <Lottie animationData={errorAnimationData}/>
         </div>
         <Footer/>
+        <MobileFooter/>
       </div>
   );
 }

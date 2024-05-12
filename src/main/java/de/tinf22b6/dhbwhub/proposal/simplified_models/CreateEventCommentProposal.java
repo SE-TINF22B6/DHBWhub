@@ -7,26 +7,19 @@ import lombok.Setter;
 
 import java.util.Date;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentThreadViewProposal {
-    private Long postId;
-
-    private Long commentId;
+public class CreateEventCommentProposal {
+    private Long eventId;
 
     private Long accountId;
 
-    private String username;
-
-    private byte[] userImageData;
-
     private String description;
-
-    private int likeAmount;
 
     private Date timestamp;
 
-    private byte[] commentImageData;
+    private byte[] postImage;
 }

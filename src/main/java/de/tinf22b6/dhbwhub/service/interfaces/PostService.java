@@ -9,7 +9,7 @@ import java.util.List;
 public interface PostService {
     List<Post> getAll();
     Post create(PostProposal proposal);
-    PostThreadViewProposal create(CreatePostProposal proposal);
+    HomepagePostPreviewProposal create(CreatePostProposal proposal);
     Post get(Long id);
     Post update(Long id, PostProposal proposal);
     int increaseLikes(Long id);
@@ -20,6 +20,7 @@ public interface PostService {
     List<HomepagePostPreviewProposal> getHomepagePosts();
     List<HomepagePostPreviewProposal> getFacPosts(Long id);
     PostThreadViewProposal getPostThreadView(Long id);
+    HomepagePostPreviewProposal getPostHomepageView(Long id);
     List<CommentThreadViewProposal> getPostComments(Long id);
     List<String> getPostTags(Long id);
 }

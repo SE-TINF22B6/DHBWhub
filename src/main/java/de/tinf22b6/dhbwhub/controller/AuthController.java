@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000/") // TODO: Should this be here?
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {

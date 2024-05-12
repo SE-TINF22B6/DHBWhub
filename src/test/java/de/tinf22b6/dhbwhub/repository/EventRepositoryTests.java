@@ -1,7 +1,7 @@
 package de.tinf22b6.dhbwhub.repository;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
-import de.tinf22b6.dhbwhub.model.Event;
+import de.tinf22b6.dhbwhub.model.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -21,51 +21,66 @@ class EventRepositoryTests extends AbstractApplicationTest {
     private EventRepository eventRepository;
 
     @Test
-    void FindAll_HasSize_Two() {
-        Event event1 = createDefaultEvent();
-        Event event2 = createDefaultEvent2();
+    void FindAllEventPosts_HasSize_Two() {
+        EventPost event1 = createDefaultEventPost();
+        EventPost event2 = createDefaultEventPost();
 
         eventRepository.save(event1);
         eventRepository.save(event2);
 
-        assertThat(eventRepository.findAll()).hasSize(2);
+        assertThat(eventRepository.findAllEventPosts()).hasSize(2);
     }
 
     @Test
-    void FindAll_IsEmpty_True() {
-        assertThat(eventRepository.findAll()).isEmpty();
+    void FindAllEventPosts_IsEmpty_True() {
+        assertThat(eventRepository.findAllEventPosts()).isEmpty();
     }
 
     @Test
-    void Find_IsNotNull_True() {
-        Event event = createDefaultEvent();
-
+    void FindEventPost_IsNotNull_True() {
+        EventPost event = createDefaultEventPost();
         eventRepository.save(event);
 
-        assertThat(eventRepository.find(event.getId())).isNotNull();
+        assertThat(eventRepository.findEventPost(1L)).isNotNull();
     }
 
     @Test
-    void Find_IsNull_True() {
-        assertThat(eventRepository.find(1L)).isNull();
+    void FindEventPost_IsNull_True() {
+        assertThat(eventRepository.findEventPost(1L)).isNull();
     }
 
     @Test
-    void Save_HasSize_One() {
-        Event event = createDefaultEvent();
+    void FindEventComment_IsNotNull_True() {
+        EventComment comment = createDefaultEventComment();
+        eventRepository.save(comment);
 
-        eventRepository.save(event);
-
-        assertThat(eventRepository.findAll()).hasSize(1);
+        assertThat(eventRepository.findEventComment(1L)).isNotNull();
     }
 
     @Test
-    void Delete_SizeChange() {
-        Event event = createDefaultEvent();
-        eventRepository.save(event);
+    void FindEventComment_IsNull_True() {
+        assertThat(eventRepository.findEventComment(1L)).isNull();
+    }
 
-        eventRepository.delete(event.getId());
+    @Test
+    void FindEventTag_IsNotNull_True() {
+        EventTag tag = createDefaultEventTag();
+        eventRepository.save(tag);
 
-        assertThat(eventRepository.findAll()).isEmpty();
+        assertThat(eventRepository.findEventTag(1L)).isNotNull();
+    }
+
+    @Test
+    void FindEventTag_IsNull_True() {
+        assertThat(eventRepository.findEventTag(1L)).isNull();
+    }
+
+    @Test
+    void SavePost_HasSize_One() {
+        EventPost post = createDefaultEventPost();
+
+        eventRepository.save(post);
+
+        assertThat(eventRepository.findAllEventPosts()).hasSize(1);
     }
 }
