@@ -44,8 +44,20 @@
       "url": "/calendar"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#151719",
-  "background_color": "#151719"
+  "background_color": "#151719",
+  "lang": "en",
+  "categories": [
+    "education",
+    "lifestyle",
+    "news",
+    "personalization",
+    "productivity",
+    "social"
+  ],
+  "id": "dhbwhub",
+  "description": "DHBWhub is a website and Q&amp;A-platform for students and other interested people, particularly in regards to the corporate state university DHBW and its courses.",
+  "orientation": "any"
 }

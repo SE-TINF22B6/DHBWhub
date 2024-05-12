@@ -11,8 +11,8 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentThreadViewProposal {
-    private Long postId;
+public class EventCommentThreadViewProposal {
+    private Long eventId;
 
     private Long commentId;
 

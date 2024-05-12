@@ -9,6 +9,9 @@ export default function ModalLoginContainer() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    // TODO: Farbe der beiden Buttons anpassen!
+    // TODO: ModalSignUpContainer Modal mittig auf Bildschrim setzten
+
     return (
         <>
             <button className="login" onClick={handleOpen}>

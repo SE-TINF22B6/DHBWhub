@@ -39,13 +39,18 @@ public class PostController {
         return service.getPostThreadView(id);
     }
 
+    @GetMapping("/post-comments/{id}")
+    public List<CommentThreadViewProposal> getPostComments(@PathVariable Long id) {
+        return service.getPostComments(id);
+    }
+
     @PostMapping
     public Post create(@RequestBody PostProposal proposal) {
         return service.create(proposal);
     }
 
     @PostMapping("/create-post")
-    public PostThreadViewProposal create(@RequestBody CreatePostProposal proposal) {
+    public HomepagePostPreviewProposal create(@RequestBody CreatePostProposal proposal) {
         return service.create(proposal);
     }
 

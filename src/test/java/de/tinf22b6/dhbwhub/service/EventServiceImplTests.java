@@ -1,9 +1,10 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
-import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.model.Event;
-import de.tinf22b6.dhbwhub.proposal.EventProposal;
+import de.tinf22b6.dhbwhub.model.EventComment;
+import de.tinf22b6.dhbwhub.model.EventPost;
+import de.tinf22b6.dhbwhub.model.EventTag;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.EventCommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.repository.EventRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,58 +30,142 @@ class EventServiceImplTests extends AbstractApplicationTest {
     private EventServiceImpl eventService;
 
     @Test
-    void GetAll_HasSize_Two() {
-        Event event1 = createDefaultEvent();
-        Event event2 = createDefaultEvent2();
+    void GetEventPost_IsNotNull() {
+        EventPost post = createDefaultEventPost();
+        when(eventRepository.findEventPost(1L)).thenReturn(post);
 
-        when(eventRepository.findAll()).thenReturn(List.of(event1, event2));
-
-        assertThat(eventService.getAll()).hasSize(2);
+        assertThat(eventService.getEventPost(1L)).isNotNull();
     }
 
     @Test
-    void GetAll_IsEmpty() {
-        assertThat(eventService.getAll()).isEmpty();
+    void GetEventComment_IsNotNull() {
+        EventComment comment = createDefaultEventComment();
+        when(eventRepository.findEventComment(1L)).thenReturn(comment);
+
+        assertThat(eventService.getEventComment(1L)).isNotNull();
     }
 
     @Test
-    void Get_IsNotNull() {
-        Event event = createDefaultEvent();
-        when(eventRepository.find(1L)).thenReturn(event);
+    void GetEventTag_IsNotNull() {
+        EventTag tag = createDefaultEventTag();
+        when(eventRepository.findEventTag(1L)).thenReturn(tag);
 
-        assertThat(eventService.get(1L)).isNotNull();
+        assertThat(eventService.getEventTag(1L)).isNotNull();
     }
 
     @Test
-    void Get_ThrowsNoSuchEntryException() {
-        NoSuchEntryException e = assertThrows(NoSuchEntryException.class, () -> eventService.get(1L));
-        assertTrue(e.getMessage().matches("(.*) with ID \\d does not exist"));
+    void GetHomepageEvents_IsEmpty() {
+        assertThat(eventService.getHomepageEvents()).isEmpty();
     }
 
     @Test
-    void Create_IsNotNull() {
-        Event event = createDefaultEvent();
-        when(eventRepository.save(any(Event.class))).thenReturn(event);
+    void GetHomepageEvents_HasSize_Two() {
+        EventPost post1 = createDefaultEventPost();
+        EventPost post2 = createDefaultEventPost();
+        when(eventRepository.findAllEventPosts()).thenReturn(List.of(post1, post2));
 
-        EventProposal eventProposal = createDefaultEventProposal();
-        assertThat(eventService.create(eventProposal)).isNotNull();
+        assertThat(eventService.getHomepageEvents()).hasSize(2);
     }
 
     @Test
-    void Update_IsNotNull() {
-        Event event = createDefaultEvent();
-        when(eventRepository.find(1L)).thenReturn(event);
-        when(eventRepository.save(any(Event.class))).thenReturn(event);
+    void GetEventThreadView_IsNotNull() {
+        EventPost post = createDefaultEventPost();
+        when(eventRepository.findEventPost(1L)).thenReturn(post);
 
-        EventProposal eventProposal = createDefaultEventProposal();
-        assertThat(eventService.update(1L, eventProposal)).isNotNull();
+        assertThat(eventService.getEventThreadView(1L)).isNotNull();
     }
 
     @Test
-    void Delete_DoesNotThrow() {
-        Event event = createDefaultEvent();
-        when(eventRepository.find(1L)).thenReturn(event);
+    void GetEventCommentThreadView_IsNotNull() {
+        EventComment comment = createDefaultEventComment();
+        when(eventRepository.findEventComment(1L)).thenReturn(comment);
 
-        assertDoesNotThrow(() -> eventService.delete(1L));
+        assertThat(eventService.getEventCommentThreadView(1L)).isNotNull();
+    }
+
+    @Test
+    void GetEventComments_IsEmpty() {
+        assertThat(eventService.getEventComments(1L)).isEmpty();
+    }
+
+    @Test
+    void GetEventComments_HasSize_Two() {
+        EventCommentThreadViewProposal comment1 = createDefaultEventCommentThreadViewProposal();
+        EventCommentThreadViewProposal comment2 = createDefaultEventCommentThreadViewProposal();
+        when(eventRepository.getEventComments(1L)).thenReturn(List.of(comment1,comment2));
+
+        assertThat(eventService.getEventComments(1L)).hasSize(2);
+    }
+
+    @Test
+    void GetEventTags_IsEmpty() {
+        assertThat(eventService.getEventTags(1L)).isEmpty();
+    }
+
+    @Test
+    void GetEventTags_HasSize_Two() {
+        when(eventRepository.getEventTags(1L)).thenReturn(List.of("tag 1","tag 2"));
+
+        assertThat(eventService.getEventTags(1L)).hasSize(2);
+    }
+
+    @Test
+    void IncreaseLikes_ValueIncreased() {
+        EventPost post = createDefaultEventPost();
+        EventPost updatedPost = createUpdatedDefaultEventPost();
+
+        EventComment comment = createDefaultEventComment();
+        EventComment updatedComment = createUpdatedDefaultEventComment();
+
+        when(eventRepository.findEventPost(1L)).thenReturn(post);
+        when(eventRepository.save(any(EventPost.class))).thenReturn(updatedPost);
+
+        when(eventRepository.findEventComment(1L)).thenReturn(comment);
+        when(eventRepository.save(any(EventComment.class))).thenReturn(updatedComment);
+
+        assertThat(eventService.increaseLikes(1L,0)).isEqualTo(2);
+        assertThat(eventService.increaseLikes(1L,1)).isEqualTo(2);
+    }
+
+    @Test
+    void IncreaseLikes_ValueDecreased() {
+        EventPost post = createDefaultEventPost();
+        EventPost updatedPost = createUpdatedDefaultEventPost2();
+
+        EventComment comment = createDefaultEventComment();
+        EventComment updatedComment = createUpdatedDefaultEventComment2();
+
+        when(eventRepository.findEventPost(1L)).thenReturn(post);
+        when(eventRepository.save(any(EventPost.class))).thenReturn(updatedPost);
+
+        when(eventRepository.findEventComment(1L)).thenReturn(comment);
+        when(eventRepository.save(any(EventComment.class))).thenReturn(updatedComment);
+
+        assertThat(eventService.increaseLikes(1L,0)).isEqualTo(0);
+        assertThat(eventService.increaseLikes(1L,1)).isEqualTo(0);
+    }
+
+    @Test
+    void DeletePost_DoesNotThrow() {
+        EventPost post = createDefaultEventPost();
+        when(eventRepository.findEventPost(1L)).thenReturn(post);
+
+        assertDoesNotThrow(() -> eventService.deletePost(1L));
+    }
+
+    @Test
+    void DeleteComment_DoesNotThrow() {
+        EventComment comment = createDefaultEventComment();
+        when(eventRepository.findEventComment(1L)).thenReturn(comment);
+
+        assertDoesNotThrow(() -> eventService.deleteComment(1L));
+    }
+
+    @Test
+    void DeleteTag_DoesNotThrow() {
+        EventTag tag = createDefaultEventTag();
+        when(eventRepository.findEventTag(1L)).thenReturn(tag);
+
+        assertDoesNotThrow(() -> eventService.deleteTag(1L));
     }
 }
