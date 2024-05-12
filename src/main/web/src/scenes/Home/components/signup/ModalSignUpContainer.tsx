@@ -3,16 +3,23 @@ import Modal from "@mui/material/Modal";
 import './SignUp.css';
 import EmailInput from "./EmailInput";
 import VerificationCodeInput from "./VerificationCodeInput";
+import UsernamePasswordInput from "./UsernamePasswordInput";
 
 export default function ModalSignUpContainer() {
     const [open, setOpen] = useState(false);
     const [showEmailVerification, setShowEmailVerification] = useState(false);
+    const [showUsernamePasswordInput, setShowUsernamePasswordInput] = useState(false); // Zustand für UsernamePasswordInput hinzufügen
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleVerifyEmailSuccess = () => {
         setShowEmailVerification(true);
+    };
+
+    const handleVerificationSuccess = () => {
+        setShowEmailVerification(false);
+        setShowUsernamePasswordInput(true);
     };
 
     return (
@@ -29,7 +36,9 @@ export default function ModalSignUpContainer() {
                 aria-describedby="modal-modal-description"
             >
                 {showEmailVerification ? (
-                    <VerificationCodeInput/>
+                    <VerificationCodeInput onSuccess={handleVerificationSuccess} />
+                ) : showUsernamePasswordInput ? (
+                    <UsernamePasswordInput />
                 ) : (
                     <EmailInput onSuccess={handleVerifyEmailSuccess} />
                 )}

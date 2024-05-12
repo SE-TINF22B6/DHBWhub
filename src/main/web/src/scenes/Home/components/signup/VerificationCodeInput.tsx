@@ -3,9 +3,10 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import {emailVerification, tokenValidation} from "../../../../services/auth.service.mjs";
 
-const VerificationCodeInput = () => {
+const VerificationCodeInput = ({onSuccess}: any) => {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState<boolean>(false);
+    const [attempts, setAttempts] = useState<number>(0);
 
     const initialValues: {
         token: string;
@@ -13,6 +14,7 @@ const VerificationCodeInput = () => {
         token: "",
     };
 
+    // TODO: Enable Login
     const handleOpenLogin = () => {
 
     }
@@ -31,7 +33,7 @@ const VerificationCodeInput = () => {
         tokenValidation(token)
             .then(
                 () => {
-                    window.location.reload();
+                    onSuccess();
                 },
                 (error) => {
                     const resMessage =
@@ -43,6 +45,11 @@ const VerificationCodeInput = () => {
 
                     setLoading(false);
                     setMessage(resMessage);
+
+                    // TODO: Only 3 Attemps to enter the verification code should be possible!
+                    if (attempts + 1 === 3) {
+                        window.alert('Drei Versuche sind fehlgeschlagen. Bitte versuchen Sie es erneut.');
+                    }
                 }
             );
     };

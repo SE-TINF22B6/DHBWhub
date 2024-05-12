@@ -14,6 +14,7 @@ const EmailInput = ({onSuccess}: any) => {
         email: "",
     };
 
+    // TODO: Enable Login
     const handleOpenLogin = () => {
 
     }

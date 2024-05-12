@@ -67,6 +67,7 @@ public class AuthController {
                 roles));
     }
 
+    // TODO: Make sure new user stays logged in after successful signup and gets an jwt token
     @PostMapping("signup")
     public ResponseEntity<?> signup(@Valid @RequestBody UsernamePasswordRequest usernamePasswordRequest) {
 
@@ -100,6 +101,8 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
+    // TODO: Token should only work for 15 min
+    // TODO: Make sure there are no multiple token with the same value at the same time
     @PostMapping("email-verification")
     public ResponseEntity<?> emailVerification (@Valid @RequestBody EmailVerificationRequest emailVerificationRequest) {
 
@@ -121,6 +124,7 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("Email with token sent successfully!"));
     }
 
+    // TODO: Make sure email should be delete if token validation fails after 3 attempts
     @PostMapping("token-validation")
     public ResponseEntity<?> tokenValidation (@Valid @RequestBody TokenValidationRequest tokenValidationRequest) {
         if (Integer.parseInt(tokenValidationRequest.getToken()) == Integer.parseInt(token)) {
