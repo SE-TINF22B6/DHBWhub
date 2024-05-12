@@ -1,17 +1,20 @@
-import React, {useState} from 'react';
-import './EmailInput.css';
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import React, { useState } from 'react';
+import Modal from '@mui/material/Modal';
 import * as Yup from "yup";
-import {emailVerification} from "../../../../services/auth.service.mjs";
+import {emailVerification, register} from "../../../../services/auth.service.mjs";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {Checkbox, FormControlLabel} from "@mui/material";
 
-const EmailInput = ({onSuccess}: any) => {
+const UsernamePasswordInput = ({ open, onClose, onSubmit }:any) => {
     const [message, setMessage] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
     const initialValues: {
-        email: string;
+        username: string;
+        password: string;
     } = {
-        email: "",
+        username: "",
+        password: ""
     };
 
     const handleOpenLogin = () => {
@@ -20,20 +23,19 @@ const EmailInput = ({onSuccess}: any) => {
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email("This is not a valid email.")
             .required("This field is required!"),
     });
 
-    const handleVerify = (formValue: { email: string }) => {
-        const {email} = formValue;
+    const handleSignUp = (formValue: { username: string, password: string }) => {
+        const {username, password} = formValue;
 
         setMessage("");
         setLoading(true);
 
-        emailVerification(email)
+        register(username, password)
             .then(
                 () => {
-                    onSuccess();
+
                 },
                 (error) => {
                     const resMessage =
@@ -55,22 +57,45 @@ const EmailInput = ({onSuccess}: any) => {
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
-                    onSubmit={handleVerify}
+                    onSubmit={handleSignUp}
                 >
                     <Form>
                         <div className="modal-content">
                             <div className="modalHeader">
                                 <h3 className="modalHeadline">CREATE YOUR ACCOUNT</h3>
                             </div>
-                            <p className="info-text">Please note that it is required to verify your email address by entering a verification code.</p>
                             <div className="form-group">
-                                <label htmlFor="email" className="heading">Email</label>
-                                <Field name="email" type="text" className="form-control"/>
+                                <label htmlFor="username" className="heading">Username</label>
+                                <Field name="username" type="text" className="form-control"/>
                                 <ErrorMessage
-                                    name="email"
+                                    name="username"
                                     component="div"
                                     className="alert-danger"
                                 />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password" className="heading">Password</label>
+                                <Field name="password" type="password" className="form-control"/>
+                                <ErrorMessage
+                                    name="password"
+                                    component="div"
+                                    className="alert-danger"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password" className="heading">Re-enter Password</label>
+                                <Field name="password" type="password" className="form-control"/>
+                                <ErrorMessage
+                                    name="password"
+                                    component="div"
+                                    className="alert-danger"
+                                />
+                            </div>
+                            <div className="accept-privacy-policy">
+                                <FormControlLabel control={<Checkbox className="checkbox" checked={rememberMe}
+                                                                     onChange={(e) => setRememberMe(e.target.checked)}/>}
+                                                  label="Remember me?"
+                                                  className="accept-privacy-policy-checkbox"/>
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="loading-btn">
@@ -95,4 +120,4 @@ const EmailInput = ({onSuccess}: any) => {
     );
 };
 
-export default EmailInput;
+export default UsernamePasswordInput;

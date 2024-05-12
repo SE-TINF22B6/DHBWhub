@@ -2,18 +2,17 @@ import React, {useState} from "react";
 import Modal from "@mui/material/Modal";
 import './SignUp.css';
 import EmailInput from "./EmailInput";
+import VerificationCodeInput from "./VerificationCodeInput";
 
 export default function ModalSignUpContainer() {
     const [open, setOpen] = useState(false);
-    const [email, setEmail] = useState('');
     const [showEmailVerification, setShowEmailVerification] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleContinueClick = () => {
+    const handleVerifyEmailSuccess = () => {
         setShowEmailVerification(true);
-        handleClose();
     };
 
     return (
@@ -29,7 +28,11 @@ export default function ModalSignUpContainer() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <EmailInput/>
+                {showEmailVerification ? (
+                    <VerificationCodeInput/>
+                ) : (
+                    <EmailInput onSuccess={handleVerifyEmailSuccess} />
+                )}
             </Modal>
         </>
     );
