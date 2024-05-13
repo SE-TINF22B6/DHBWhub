@@ -1,3 +1,5 @@
+import config from "../config/config";
+
 const handleLike = async (
     postId: number,
     userLiked: boolean,
@@ -13,13 +15,12 @@ const handleLike = async (
       setHeartClass('heart-filled');
       localStorage.setItem(`liked_${postId}`, 'true');
 
-      await fetch(`http://193.196.38.232:8080/post-liked/${postId}`, {
+      await fetch(config.apiUrl + 'increase-likes/${postId}', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': ''
-        },
-        body: JSON.stringify({ liked: true }),
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
       });
     } else {
       setLikes(likes - 1);
@@ -27,13 +28,12 @@ const handleLike = async (
       setHeartClass('heart-empty');
       localStorage.removeItem(`liked_${postId}`);
 
-      await fetch(`http://193.196.38.232:8080/post-liked/${postId}`, {
+      await fetch(config.apiUrl + 'decrease-likes/${postId}', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': ''
-        },
-        body: JSON.stringify({ liked: false }),
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
       });
     }
   } catch (error) {

@@ -25,13 +25,14 @@ public class WebSecurityConfig {
 
     // Define all public endpoints here (ant matchers)
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/api/auth/login",
-            "/api/auth/signup",
-            "/post/homepage-preview-posts",
-            "/post/homepage-preview-posts/{id:\\d+}",
-            "/event/homepage-preview-events",
-            "/event/event-thread/{id:\\d+}",
-            "/event/event-comments/{id:\\d+}"
+        "/api/auth/login",
+        "/api/auth/signup",
+        "/post/post-thread/**",
+        "/post/homepage-preview-posts",
+        "/post/homepage-preview-posts/{id:\\d+}",
+        "/event/homepage-preview-events",
+        "/event/event-thread/{id:\\d+}",
+        "/event/event-comments/{id:\\d+}"
     };
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
@@ -67,13 +68,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable) // TODO: CodeQL doesn't like that
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
-                                .anyRequest().authenticated()
-                ).exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
-                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+            .authorizeHttpRequests(authorizeRequests ->
+                authorizeRequests.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                    .anyRequest().authenticated()
+            ).exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
+            .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 }
-
