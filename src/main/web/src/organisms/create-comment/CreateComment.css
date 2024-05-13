@@ -1,0 +1,88 @@
+.create-comment {
+  align-items: flex-start;
+  background-color: var(--component-grey);
+  border-radius: var(--border-radius);
+  flex-direction: row;
+  height: 80px;
+  position: relative;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: -10px;
+  width: 1200px;
+}
+
+.reply-button {
+  background-color: var(--red);
+  border-radius: 15px;
+  right: 20px;
+  bottom: 12.5px;
+  border-style: hidden;
+  height: 55px;
+  position: absolute;
+  width: 130px;
+  box-shadow: 0 2px 4px var(--box-shadow);
+}
+
+.reply-button-label {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  position: absolute;
+  white-space: nowrap;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.comment-text-area {
+  background-color: var(--grey);
+  border-radius: 15px;
+  height: 55px;
+  left: 100px;
+  right: 180px;
+  top: 50%;
+  transform: translate(0, -50%);
+  position: absolute;
+  width: auto;
+  box-shadow: 0 2px 4px var(--box-shadow);
+  &&:active, &&:focus, &&:focus-within {
+    border: 1px solid black;
+  }
+}
+
+.comment-input-field {
+  border: none;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: var(--headline-font-size);
+  font-weight: var(--normal-font-weight);
+  left: 25%;
+  right: 20px;
+  line-height: 24px;
+  position: absolute;
+  top: 50%;
+  width: 920px;
+  transform: translate(-25%, -50%);
+  height: 34px;
+  color: var(--white);
+}
+
+.comment-input-field:focus,
+.comment-input-field:hover,
+.comment-input-field:active {
+  outline: none;
+}
+
+.comment-input-field::placeholder {
+  color: var(--placeholder-grey);
+  font-family: var(--font-family);
+  font-size: var(--headline-font-size);
+  font-weight: var(--normal-font-weight);
+  line-height: 24px;
+  position: absolute;
+  top: 9px;
+  white-space: nowrap;
+  width: 300px;
+}

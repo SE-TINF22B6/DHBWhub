@@ -24,6 +24,10 @@
   border: none;
 }
 
+.like-button:disabled:hover {
+  cursor: not-allowed;
+}
+
 .likes, .comments {
   color: var(--white);
   font-family: var(--font-family);
@@ -64,7 +68,7 @@
     background-size: 80%;
     background-repeat: no-repeat;
   }
-  .comment-symbol {
+  .comment-icon {
     margin-left: 40px;
     margin-top: 10px;
     background-size: 80%;

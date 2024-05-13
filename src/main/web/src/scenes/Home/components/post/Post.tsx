@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Post.css';
 import {Share} from "../../../../organisms/share/Share";
 import {Link, useLocation} from "react-router-dom";
-import {ReportPost} from "../../../../organisms/report-post/ReportPost";
+import {Report} from "../../../../organisms/report/Report";
 import {PostMenu} from "../../../../organisms/post-menu/PostMenu";
 import {Tag} from "../../../../atoms/Tag";
 import ReportService from '../../../../services/ReportService';
@@ -12,6 +12,7 @@ import {PostModel} from "./models/PostModel";
 import {Interaction} from "../../../../organisms/interaction/Interaction";
 import DescriptionService from "../../../../services/DescriptionService";
 import {useMediaQuery} from "@mui/system";
+import config from "../../../../config/config";
 
 export const Post: React.FC<PostModel> = (props: PostModel) => {
   const {
@@ -44,7 +45,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   const [reportDescription, setReportDescription] = useState('');
 
   const handleReportClick = (): void => {
-    setReportOpen(true);
+    setReportOpen(!reportOpen);
   };
 
   const handleReportSubmit = (): void => {
@@ -72,12 +73,12 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   };
 
   const handleSaveClick = (): void => {
-    fetch(`http://193.196.38.232:8080/savePost?postId=${id}`, {
+    fetch(config.apiUrl + `savePost?postId=${id}`, {
       method: 'POST',
       credentials: 'include',
     })
     .then((): void => {
-      alert('PostDetail has been saved!');
+      alert('Post has been saved!');
     })
     .catch(err => {
       console.error('Error saving the post: ', err);
@@ -145,11 +146,13 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         </div>
 
         {menuOpen && (
-            <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
+            <div className="post-menu">
+              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
+            </div>
         )}
         {shareWindowOpen && (<Share postId={id} currentPageURL={currentPageURL}></Share>)}
         {reportOpen && (
-            <ReportPost
+            <Report
                 reportOpen={reportOpen}
                 reportReason={reportReason}
                 reportDescription={reportDescription}
