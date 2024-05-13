@@ -8,8 +8,6 @@ import animationData from "../../assets/loading.json";
 import Lottie from "lottie-react";
 import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
-import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
-import {useDetectAdBlock} from "adblock-detect-react";
 import {dummyComments} from "./data/dummyComments";
 import {dummyPost} from "./data/dummyPost";
 import {PostDetailModel} from "./models/PostDetailModel";
@@ -29,7 +27,6 @@ export const Post: React.FC = () => {
   const [postThread, setPostThread] = useState<PostThreadModel[]>();
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
-
 
   const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
 

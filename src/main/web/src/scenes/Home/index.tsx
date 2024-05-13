@@ -10,7 +10,6 @@ import {SortOptions} from "./components/sort-options/SortOptions";
 import {PopularTags} from "./components/popular-tags/PopularTags";
 import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
-import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 
