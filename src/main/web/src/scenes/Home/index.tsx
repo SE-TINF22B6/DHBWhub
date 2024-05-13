@@ -10,6 +10,7 @@ import {SortOptions} from "./components/sort-options/SortOptions";
 import {PopularTags} from "./components/popular-tags/PopularTags";
 import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
+import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 
@@ -17,6 +18,7 @@ export const Home = () => {
   const [sortOption, setSortOption] = useState<string>('popular');
   const scrollUpRef = useRef<HTMLDivElement>(null);
   const showMobileScrollUpButton = useMediaQuery('(max-width: 1024px)');
+  const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
   const isTabletSize = useMediaQuery('(max-width: 1024px)');
 
   const handleSortChange = (option: string): void => {
@@ -41,6 +43,8 @@ export const Home = () => {
             <CreatePost/>
             <Posts sortOption={sortOption}/>
             {!showMobileScrollUpButton && <ScrollUpButton scrollUpRef={scrollUpRef}/>}
+            {!isSmartphoneSize && <ScrollUpButton scrollUpRef={scrollUpRef}/>}
+            {!isSmartphoneSize && <Footer/>}
           </div>
           <div className="sidebar-right">
             <Events/>
@@ -50,6 +54,9 @@ export const Home = () => {
         {showMobileScrollUpButton && <ScrollUpButton scrollUpRef={scrollUpRef}/>}
         <Footer/>
         <MobileFooter/>
+        {isSmartphoneSize && <ScrollUpButton scrollUpRef={scrollUpRef}/>}
+        {isSmartphoneSize && <Footer/>}
+        {isSmartphoneSize && <MobileFooter/>}
       </div>
   );
 };

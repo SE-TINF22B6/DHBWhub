@@ -2,8 +2,10 @@ import React from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
+import {MobileFooter} from "../../organisms/header/MobileFooter";
 
 export const Contact = () => {
+  const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
   return (
       <div className="contact-component">
         <Header/>
@@ -14,6 +16,7 @@ export const Contact = () => {
           </iframe>
         </div>
         <Footer/>
+        {isSmartphoneSize && <MobileFooter/>}
       </div>
   );
 };

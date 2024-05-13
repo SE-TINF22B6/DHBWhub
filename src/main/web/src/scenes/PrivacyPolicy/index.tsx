@@ -3,8 +3,10 @@ import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
+import {useMediaQuery} from "@mui/system";
 
 export const PrivacyPolicy = () => {
+  const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
   return (
       <div className="privacy-policy-component">
         <Header/>
@@ -12,7 +14,7 @@ export const PrivacyPolicy = () => {
           <h1 className="loading">Work in progress</h1>
         </div>
         <Footer/>
-        <MobileFooter/>
+        {isSmartphoneSize && <MobileFooter/>}
       </div>
   );
 }

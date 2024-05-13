@@ -9,7 +9,7 @@ export const Calendar = (): JSX.Element => {
       <div className="calendar">
         <Header/>
         <Footer/>
-        <MobileFooter/>
+        {isSmartphoneSize && <MobileFooter/>}
       </div>
   );
 };
