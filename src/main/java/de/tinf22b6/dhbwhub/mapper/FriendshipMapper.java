@@ -1,49 +1,20 @@
 package de.tinf22b6.dhbwhub.mapper;
 
 import de.tinf22b6.dhbwhub.model.*;
-import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
-import java.util.Objects;
-
 public class FriendshipMapper {
-
-    public static Friendship mapToModel(FriendshipProposal proposal){
-        return new Friendship(
-                AccountMapper.mapToModel(proposal.getRequester()),
-                AccountMapper.mapToModel(proposal.getReceiver()),
-                proposal.isAccepted()
-        );
-    }
-
-    public static FriendlistProposal mapToFriendlist(Friendship friendship, Long id){
-        Account account = Objects.equals(friendship.getReceiver().getId(), id) ? friendship.getRequester() : friendship.getReceiver();
-
+    public static FriendlistProposal mapToFriendlist(Friendship friendship){
         return new FriendlistProposal(
                 friendship.getId(),
-                account.getId(),
-                account.getUsername(),
-                account.getPicture() != null ? account.getPicture().getImageData() : null
+                friendship.getReceiver().getId(),
+                friendship.getReceiver().getUsername(),
+                friendship.getReceiver().getPicture() != null ? friendship.getReceiver().getPicture().getImageData() : null
                 );
     }
-
-    public static FriendrequestProposal mapToFriendrequest(Friendship friendship, Long id){
-        Account account;
-        String status;
-
-        if(Objects.equals( friendship.getReceiver().getId(), id)){
-            account = friendship.getRequester();
-            status = "Received";
-        } else {
-            account = friendship.getReceiver();
-            status = "Sent";
-        }
-        return new FriendrequestProposal(
-                friendship.getId(),
-                account.getId(),
-                account.getUsername(),
-                account.getPicture() != null ? account.getPicture().getImageData() : null,
-                status
-        );
+    public static Friendship mapToFriendship(Account requester, Account receiver){
+        return new Friendship(
+                requester,
+                receiver);
     }
 }

@@ -23,10 +23,6 @@ public class EventComment {
 
     private final int likes;
 
-    @JoinColumn(name = "picture_id")
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private final Picture picture;
-
     @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private final User user;

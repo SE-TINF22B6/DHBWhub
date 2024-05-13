@@ -5,6 +5,7 @@ import de.tinf22b6.dhbwhub.mapper.FriendshipMapper;
 import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
+import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.repository.FriendshipRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.FriendshipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,39 +16,20 @@ import java.util.*;
 public class FriendshipServiceImpl implements FriendshipService {
 
     private final FriendshipRepository repository;
+    private final AccountRepository accountRepository;
 
-    public FriendshipServiceImpl(@Autowired FriendshipRepository repository) {
+    public FriendshipServiceImpl(@Autowired FriendshipRepository repository, AccountRepository accountRepository) {
         this.repository = repository;
-    }
-
-    @Override
-    public List<Friendship> getAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public Friendship create(FriendshipProposal proposal) {
-        Friendship friendship = FriendshipMapper.mapToModel(proposal);
-        return repository.save(friendship);
+        this.accountRepository = accountRepository;
     }
 
     @Override
     public Friendship get(Long id) {
         Friendship friendship = repository.find(id);
         if (friendship == null) {
-            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Account.class.getSimpleName(), id));
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Friendship.class.getSimpleName(), id));
         }
         return friendship;
-    }
-
-    @Override
-    public Friendship update(Long id, FriendshipProposal proposal) {
-        // Check if account exists
-        get(id);
-
-        Friendship friendship = FriendshipMapper.mapToModel(proposal);
-        friendship.setId(id);
-        return repository.save(friendship);
     }
 
     @Override
@@ -64,31 +46,24 @@ public class FriendshipServiceImpl implements FriendshipService {
         if (friendlist == null) {
             return Collections.emptyList();
         }
-        return friendlist.stream().map(f -> FriendshipMapper.mapToFriendlist(f, id)).toList();
+        return friendlist.stream().map(FriendshipMapper::mapToFriendlist).toList();
     }
 
     @Override
-    public List<FriendrequestProposal> getFriendrequests(Long id) {
-        List<FriendrequestProposal> friendrequests = new ArrayList<>();
-        friendrequests.addAll(getSentFriendrequests(id));
-        friendrequests.addAll(getReceivedFriendrequests(id));
-
-        return friendrequests;
-    }
-
-    private List<FriendrequestProposal> getSentFriendrequests(Long id) {
-        List<Friendship> friendlist = repository.getSentFriendrequests(id);
-        if (friendlist == null) {
-            return Collections.emptyList();
+    public FriendlistProposal followUser(FollowUserProposal proposal) {
+        Account requester = accountRepository.find(proposal.getRequesterId());
+        if (requester == null) {
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Account.class.getSimpleName(), proposal.getRequesterId()));
         }
-        return friendlist.stream().map(f -> FriendshipMapper.mapToFriendrequest(f, id)).toList();
-    }
-
-    private List<FriendrequestProposal> getReceivedFriendrequests(Long id) {
-        List<Friendship> friendlist = repository.getReceivedFriendrequests(id);
-        if (friendlist == null) {
-            return Collections.emptyList();
+        Account receiver = accountRepository.find(proposal.getReceiverId());
+        if (receiver == null) {
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Account.class.getSimpleName(), proposal.getReceiverId()));
         }
-        return friendlist.stream().map(f -> FriendshipMapper.mapToFriendrequest(f, id)).toList();
+        if(repository.exists(proposal.getRequesterId(), proposal.getReceiverId()) != null){
+            throw new NoSuchEntryException(String.format("User already followed by User with id %s", proposal.getRequesterId()));
+        }
+
+        Friendship friendship = FriendshipMapper.mapToFriendship(requester, receiver);
+        return FriendshipMapper.mapToFriendlist(repository.save(friendship));
     }
 }

@@ -57,7 +57,6 @@ public class EventMapper {
                 comment.getDescription(),
                 comment.getTimestamp(),
                 likes,
-                comment.getPicture(),
                 comment.getUser(),
                 comment.getEventPost()
         );
@@ -97,33 +96,30 @@ public class EventMapper {
         return new EventCommentThreadViewProposal(
                 comment.getEventPost() != null? comment.getEventPost().getId() : null,
                 comment.getId(),
-                comment.getUser() != null ? comment.getUser().getAccount().getId() : null,
-                comment.getUser() != null ? comment.getUser().getAccount().getUsername() : null,
-                comment.getUser() != null && comment.getUser().getAccount().getPicture() != null ? comment.getUser().getAccount().getPicture().getImageData() : null,
                 comment.getDescription(),
-                comment.getLikes(),
+                comment.getUser() != null ? comment.getUser().getAccount().getUsername() : null,
+                comment.getUser() != null ? comment.getUser().getAccount().getId() : null,
+                comment.getUser() != null && comment.getUser().getAccount().getPicture() != null ? comment.getUser().getAccount().getPicture().getImageData() : null,
                 comment.getTimestamp(),
-                comment.getPicture() != null ? comment.getPicture().getImageData() : null
-        );
+                comment.getLikes()
+                );
     }
 
-    public static EventComment mapToModel(CreateEventCommentProposal proposal, User user, Picture picture, EventPost post) {
+    public static EventComment mapToModel(CreateEventCommentProposal proposal, User user, EventPost post) {
         return new EventComment(
                 proposal.getDescription(),
                 proposal.getTimestamp(),
                 0,
-                picture,
                 user,
                 post
         );
     }
 
-    public static EventComment mapToModel(UpdateEventCommentProposal proposal, EventComment initialComment, Picture picture) {
+    public static EventComment mapToModel(UpdateEventCommentProposal proposal, EventComment initialComment) {
         return new EventComment(
                 proposal.getDescription(),
                 initialComment.getTimestamp(),
                 initialComment.getLikes(),
-                picture,
                 initialComment.getUser(),
                 initialComment.getEventPost()
         );

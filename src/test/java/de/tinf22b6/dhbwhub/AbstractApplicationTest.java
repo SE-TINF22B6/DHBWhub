@@ -58,11 +58,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected Friendship createDefaultFriendship() {
-		return new Friendship(createDefaultAccount(), createDefaultAccount2(), true);
+		return new Friendship(createDefaultAccount(), createDefaultAccount2());
 	}
 
 	protected Friendship createDefaultFriendship2() {
-		return new Friendship(createDefaultAccount2(), createDefaultAccount(), false);
+		return new Friendship(createDefaultAccount2(), createDefaultAccount());
 	}
 
 	protected Post createDefaultPost() {
@@ -82,19 +82,19 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected Comment createDefaultComment() {
-		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 4, createDefaultPicture(), createDefaultUser(), createDefaultPost());
+		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 4, createDefaultUser(), createDefaultPost());
 	}
 
 	protected Comment createDefaultComment2() {
-		return new Comment("Du mieser Hund!", new Date(1678979183L), 5, createDefaultPicture2(), createDefaultUser2(), createDefaultPost2());
+		return new Comment("Du mieser Hund!", new Date(1678979183L), 5, createDefaultUser2(), createDefaultPost2());
 	}
 
 	protected Comment createUpdatedDefaultComment() {
-		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 5, createDefaultPicture(), createDefaultUser(), createDefaultPost());
+		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 5, createDefaultUser(), createDefaultPost());
 	}
 
 	protected Comment createUpdatedDefaultComment2() {
-		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 3, createDefaultPicture(), createDefaultUser(), createDefaultPost());
+		return new Comment("Das ist ein normaler Kommentar", new Date(1701242553L), 3, createDefaultUser(), createDefaultPost());
 	}
 
 	protected SavedPost createDefaultSavedPost() {
@@ -155,23 +155,19 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
-		return new CommentThreadViewProposal(1L, 0L, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Beschreibung 1", 23, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new CommentThreadViewProposal(1L, 0L,"Beschreibung 1", "Bruno", 1L,  new byte[]{ 12, 34, 45, 67, 78, 91 }, new Date(1478979207L), 23);
 	}
 
 	protected FriendlistProposal createDefaultFriendlistProposal() {
-		return new FriendlistProposal(1L,1L,"Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
-	}
-
-	protected FriendrequestProposal createDefaultFriendrequestProposal() {
-		return new FriendrequestProposal(1L,1L,"Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, "Sent");
+		return new FriendlistProposal(1L,2L,"Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 
 	protected CreateCommentProposal createDefaultCreateCommentProposal(){
-		return new CreateCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L), createDefaultPicture().getImageData());
+		return new CreateCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L));
 	}
 
 	protected UpdateCommentProposal createDefaultUpdateCommentProposal(){
-		return new UpdateCommentProposal("Beschreibung 1", createDefaultPicture().getImageData());
+		return new UpdateCommentProposal("Beschreibung 1");
 	}
 
 	protected CreatePostProposal createDefaultCreatePostProposal(){
@@ -195,15 +191,15 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected EventComment createDefaultEventComment(){
-		return new EventComment("Beschreibung 1", new Date(1478979207L), 1, createDefaultPicture(), createDefaultUser(), createDefaultEventPost());
+		return new EventComment("Beschreibung 1", new Date(1478979207L), 1,  createDefaultUser(), createDefaultEventPost());
 	}
 
 	protected EventComment createUpdatedDefaultEventComment(){
-		return new EventComment("Beschreibung 1", new Date(1478979207L), 2, createDefaultPicture(), createDefaultUser(), createDefaultEventPost());
+		return new EventComment("Beschreibung 1", new Date(1478979207L), 2, createDefaultUser(), createDefaultEventPost());
 	}
 
 	protected EventComment createUpdatedDefaultEventComment2(){
-		return new EventComment("Beschreibung 1", new Date(1478979207L), 0, createDefaultPicture(), createDefaultUser(), createDefaultEventPost());
+		return new EventComment("Beschreibung 1", new Date(1478979207L), 0, createDefaultUser(), createDefaultEventPost());
 	}
 
 	protected EventTag createDefaultEventTag(){
@@ -230,15 +226,18 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected EventCommentThreadViewProposal createDefaultEventCommentThreadViewProposal(){
-		return new EventCommentThreadViewProposal(1L, 1L, 1L, "Maxim", createDefaultPicture().getImageData(), "Beschreibung 1", 0, new Date(1478979207L), createDefaultPicture2().getImageData());
+		return new EventCommentThreadViewProposal(1L, 1L,  "Beschreibung 1", "Maxim", 1L, createDefaultPicture().getImageData(), new Date(1478979207L), 0);
 	}
 
 	protected CreateEventCommentProposal createDefaultCreateEventCommentProposal(){
-		return new CreateEventCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L), createDefaultPicture().getImageData());
+		return new CreateEventCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L));
 	}
 
 	protected UpdateEventCommentProposal createDefaultUpdateEventCommentProposal(){
-		return new UpdateEventCommentProposal("Beschreibung 1", createDefaultPicture().getImageData());
+		return new UpdateEventCommentProposal("Beschreibung 1");
 	}
 
+	protected  FollowUserProposal createDefaultFollowUserProposal(){
+		return new FollowUserProposal(0L, 1L);
+	}
 }
