@@ -13,9 +13,6 @@
   border-radius: var(--border-radius);
   box-shadow: 0 2px 2px var(--box-shadow);
   height: 108px;
-  top: -160px;
-  margin-bottom: -100px;
-  left: 645px;
   position: relative;
   object-fit: cover;
   width: 150px;
