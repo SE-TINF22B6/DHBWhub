@@ -10,7 +10,7 @@ import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.security.jwt.JwtUtils;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
 import de.tinf22b6.dhbwhub.service.EmailService;
-import de.tinf22b6.dhbwhub.service.EmailVerificationTokenGenerator;
+import de.tinf22b6.dhbwhub.service.EmailVerificationTokenManager;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final EmailService emailService;
 
-    private String token;
+    // TODO: Should work for if multiple Users user register at the same time
     private String userMail;
 
     @PostMapping("login")
@@ -101,33 +101,37 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    // TODO: Token should only work for 15 min
-    // TODO: Make sure there are no multiple token with the same value at the same time
     @PostMapping("email-verification")
     public ResponseEntity<?> emailVerification (@Valid @RequestBody EmailVerificationRequest emailVerificationRequest) {
 
-        userMail = emailVerificationRequest.getEmail();
+        if (accountRepository.existsByEmail(emailVerificationRequest.getEmail())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+        } else {
+            userMail = emailVerificationRequest.getEmail();
 
-        token = EmailVerificationTokenGenerator.generateToken();
+            String token = EmailVerificationTokenManager.generateToken(userMail);
 
-        Map<String, Object> templateModel = new HashMap<>();
-        templateModel.put("token", token);
+            Map<String, Object> templateModel = new HashMap<>();
+            templateModel.put("token", token);
 
-        try {
-            emailService.sendMessageUsingThymeleafTemplate(
-                    emailVerificationRequest.getEmail(), "Email Verification", templateModel);
-        } catch (MessagingException | IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new MessageResponse("Failed to send email with token."));
+            try {
+                emailService.sendMessageUsingThymeleafTemplate(
+                        emailVerificationRequest.getEmail(), "Email Verification", templateModel);
+            } catch (MessagingException | IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new MessageResponse("Failed to send email with token."));
+            }
+
+            return ResponseEntity.ok(new MessageResponse("Email with token sent successfully!"));
         }
 
-        return ResponseEntity.ok(new MessageResponse("Email with token sent successfully!"));
     }
 
     // TODO: Make sure email should be delete if token validation fails after 3 attempts
     @PostMapping("token-validation")
     public ResponseEntity<?> tokenValidation (@Valid @RequestBody TokenValidationRequest tokenValidationRequest) {
-        if (Integer.parseInt(tokenValidationRequest.getToken()) == Integer.parseInt(token)) {
+        if (EmailVerificationTokenManager.isTokenValid(tokenValidationRequest.getToken())) {
+            EmailVerificationTokenManager.deleteEntry(tokenValidationRequest.getToken());
             return ResponseEntity.ok("Code is correct. Email verification successful!");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Code is incorrect. Email verification failed!");
