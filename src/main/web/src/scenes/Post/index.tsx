@@ -32,10 +32,6 @@ export const Post: React.FC = () => {
 
   const [scrollToComments, setScrollToComments] = useState(false);
 
-export const Post = (): JSX.Element => {
-  return (
-      <div className="post-component">
-        <Header></Header>
   useEffect((): void => {
     if (scrollToComments && commentsWrapperRef.current) {
       commentsWrapperRef.current.scrollIntoView({ behavior: "smooth" });
@@ -109,7 +105,6 @@ export const Post = (): JSX.Element => {
       setLoading(false);
     }
   };
-
 
   return (
       <div className="post-detail-component">
