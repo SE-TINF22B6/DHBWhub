@@ -8,8 +8,9 @@ import {useMediaQuery} from "@mui/system";
 export const Calendar = (): JSX.Element => {
   const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
   return (
-      <div className="calendar">
+      <div className="calendar-page">
         <Header/>
+        <h1 className="loading">Work in progress</h1>
         <Footer/>
         {isSmartphoneSize && <MobileFooter/>}
       </div>
