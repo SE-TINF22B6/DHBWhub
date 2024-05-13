@@ -1,0 +1,109 @@
+.post-detail {
+  background-color: var(--component-grey);
+  border-radius: var(--border-radius);
+  height: auto;
+  width: auto;
+  max-width: 1200px;
+  padding: var(--component-padding);
+  position: relative;
+}
+
+.post-detail-content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding-right: 40px;
+}
+
+.post-detail-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.post-detail-menu {
+  margin-left: 400px;
+}
+
+.post-detail-menu-button, .post-detail-title {
+  color: var(--white);
+  font-family: var(--font-family);
+  position: relative;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.post-detail-menu-button {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: var(--strong-font-weight);
+  right: 20px;
+  top: 20px;
+  position: absolute;
+}
+
+.post-button {
+  color: transparent;
+}
+
+.post-detail-picture {
+  width: 220px;
+  position: relative;
+  border-radius: var(--border-radius);
+}
+
+.post-detail-infos {
+  margin-top: -20px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 60%;
+}
+
+.post-detail-title {
+  font-size: var(--headline-font-size);
+  font-weight: var(--strong-font-weight);
+}
+
+.post-detail-tags {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 150px;
+}
+
+.post-detail-description {
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: var(--description-font-size);
+  font-weight: var(--normal-font-weight);
+  line-height: 24px;
+  position: relative;
+}
+
+.post-detail-data, .post-detail-author-date {
+  color: var(--light-grey);
+  font-family: var(--font-family);
+  font-size: var(--text-font-size);
+  font-weight: var(--strong-font-weight);
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.post-detail-data {
+  margin-top: -2px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.post-detail-share {
+  margin-top: 20px;
+}
