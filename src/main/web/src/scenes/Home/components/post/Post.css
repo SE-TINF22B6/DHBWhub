@@ -45,6 +45,10 @@
   width: 340px;
 }
 
+.post-share-container {
+  margin-top: 10px;
+}
+
 .post-title, .short-description, .footer {
   font-family: var(--font-family);
   font-weight: var(--strong-font-weight);
@@ -92,9 +96,10 @@
   margin-right: 20px;
 }
 
-.post-menu {
-  top: -160px;
-  margin-bottom: -100px;
+.post-menu-container {
+  position: relative;
+  top: -170px;
+  margin-bottom: -108px;
   margin-left: 645px;
 }
 

@@ -122,16 +122,16 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
           </Link>
           <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots"
                src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
-          <div className="post-infos" style={{ marginLeft: getMarginLeft() }}>
+          <div className="post-infos" style={{marginLeft: getMarginLeft()}}>
             <Link to={`/post/?id=${id}`} className="post-button">
               <p className="post-title">{title}</p>
             </Link>
-            <div className="post-tags" style={{ marginTop: getMarginTop() }}>
+            <div className="post-tags" style={{marginTop: getMarginTop()}}>
               {tags && tags.slice(0, 3).map((tag, index) => (
                   <Tag name={tag} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
-            <p className="short-description" style={{ width: getWidth() }}>{shortDescription}</p>
+            <p className="short-description" style={{width: getWidth()}}>{shortDescription}</p>
             <div className="footer">
               <Link to={`/user/?name=${username.toLowerCase().replace(' ', '-')}`} className="author-link" aria-label="To the author">
                 {username}
@@ -146,19 +146,23 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         </div>
 
         {menuOpen && (
-            <div className="post-menu">
+            <div className="post-menu-container">
               <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
             </div>
         )}
-        {shareWindowOpen && (<Share postId={id} currentPageURL={currentPageURL}></Share>)}
+        {shareWindowOpen && (
+            <div className="post-share-container">
+              <Share postId={id} currentPageURL={currentPageURL}></Share>
+            </div>
+        )}
         {reportOpen && (
             <Report
-                reportOpen={reportOpen}
-                reportReason={reportReason}
-                reportDescription={reportDescription}
-                setReportReason={setReportReason}
-                setReportDescription={setReportDescription}
-                handleReportSubmit={handleReportSubmit}
+              reportOpen={reportOpen}
+              reportReason={reportReason}
+              reportDescription={reportDescription}
+              setReportReason={setReportReason}
+              setReportDescription={setReportDescription}
+              handleReportSubmit={handleReportSubmit}
             />
         )}
       </div>
