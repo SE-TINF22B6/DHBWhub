@@ -1,7 +1,6 @@
 package de.tinf22b6.dhbwhub.mapper;
 
 import de.tinf22b6.dhbwhub.model.Comment;
-import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
@@ -15,29 +14,26 @@ public class CommentMapper {
                 proposal.getDescription(),
                 proposal.getTimestamp(),
                 proposal.getLikes(),
-                proposal.getPicture() != null ? PictureMapper.mapToModel(proposal.getPicture()) : null,
                 proposal.getUser() != null ? UserMapper.mapToModel(proposal.getUser()) : null,
                 proposal.getPost() != null ? PostMapper.mapToModel(proposal.getPost()) : null
         );
     }
 
-    public static Comment mapToModel(CreateCommentProposal proposal, User user, Picture picture, Post post) {
+    public static Comment mapToModel(CreateCommentProposal proposal, User user, Post post) {
         return new Comment(
                 proposal.getDescription(),
                 proposal.getTimestamp(),
                 0,
-                picture,
                 user,
                 post
         );
     }
 
-    public static Comment mapToModel(UpdateCommentProposal proposal, Comment comment, Picture picture) {
+    public static Comment mapToModel(UpdateCommentProposal proposal, Comment comment) {
         return new Comment(
                 proposal.getDescription(),
                 comment.getTimestamp(),
                 comment.getLikes(),
-                picture,
                 comment.getUser(),
                 comment.getPost()
         );
@@ -47,13 +43,12 @@ public class CommentMapper {
         return new CommentThreadViewProposal(
                 comment.getPost() != null? comment.getPost().getId() : null,
                 comment.getId(),
-                comment.getUser() != null ? comment.getUser().getAccount().getId() : null,
-                comment.getUser() != null ? comment.getUser().getAccount().getUsername() : null,
-                comment.getUser() != null && comment.getUser().getAccount().getPicture() != null ? comment.getUser().getAccount().getPicture().getImageData() : null,
                 comment.getDescription(),
-                comment.getLikes(),
+                comment.getUser() != null ? comment.getUser().getAccount().getUsername() : null,
+                comment.getUser() != null ? comment.getUser().getAccount().getId() : null,
+                comment.getUser() != null && comment.getUser().getAccount().getPicture() != null ? comment.getUser().getAccount().getPicture().getImageData() : null,
                 comment.getTimestamp(),
-                comment.getPicture() != null ? comment.getPicture().getImageData() : null
+                comment.getLikes()
                 );
     }
 
@@ -62,7 +57,6 @@ public class CommentMapper {
                 comment.getDescription(),
                 comment.getTimestamp(),
                 likes,
-                comment.getPicture(),
                 comment.getUser(),
                 comment.getPost()
         );

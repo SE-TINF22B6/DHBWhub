@@ -20,6 +20,4 @@ public class CreateEventCommentProposal {
     private String description;
 
     private Date timestamp;
-
-    private byte[] postImage;
 }
