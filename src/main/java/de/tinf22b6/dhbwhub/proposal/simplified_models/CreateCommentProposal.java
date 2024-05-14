@@ -21,7 +21,4 @@ public class CreateCommentProposal {
     private String description;
 
     private Date timestamp;
-
-    private byte[] postImage;
-
 }

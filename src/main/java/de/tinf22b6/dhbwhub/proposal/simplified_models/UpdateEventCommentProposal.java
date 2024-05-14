@@ -12,6 +12,4 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateEventCommentProposal {
     private String description;
-
-    private byte[] postImage;
 }

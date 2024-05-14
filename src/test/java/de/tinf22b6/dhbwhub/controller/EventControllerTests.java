@@ -89,7 +89,7 @@ class EventControllerTests extends AbstractApplicationTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.description", is(commentThreadView.getDescription())))
+                .andExpect(jsonPath("$.text", is(commentThreadView.getText())))
                 .andExpect(jsonPath("$.likeAmount", is(commentThreadView.getLikeAmount())));
     }
     @Test

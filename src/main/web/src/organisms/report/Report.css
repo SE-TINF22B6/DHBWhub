@@ -1,26 +1,45 @@
 .report-popup {
+  width: 220px;
   background-color: var(--grey);
   border-radius: var(--border-radius);
   box-shadow: 0 2px 2px var(--box-shadow);
   position: relative;
   object-fit: cover;
   z-index: 10;
-  left: 50%;
-  top: 50%;
-  transform: translate(50%, 50%);
   padding: var(--component-padding);
+  display: inline-flex;
+  flex-direction: column;
+  gap: -10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.report-form {
+  position: relative;
+  object-fit: cover;
+  z-index: 10;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.report-error {
+  color: var(--red);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  line-height: 24px;
+  position: relative;
+  margin-top: 10px;
 }
 
 .report-popup-header {
   color: var(--white);
   font-family: var(--font-family);
-  font-size: var(--headline-font-size);
+  font-size: var(--title-font-size);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
   position: relative;
-  white-space: nowrap;
-  top: 15px;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 
 .report-popup-field {
@@ -30,8 +49,6 @@
   font-weight: var(--normal-font-weight);
   line-height: 24px;
   position: relative;
-  white-space: nowrap;
-  top: 15px;
 }
 
 .report-popup-input {
@@ -41,8 +58,6 @@
   position: relative;
   box-shadow: 0 2px 4px var(--box-shadow);
   height: 20px;
-  width: 210px;
-  top: 15px;
 }
 
 .report-popup-input:focus,
@@ -59,9 +74,7 @@
   position: relative;
   box-shadow: 0 2px 4px var(--box-shadow);
   border: none;
-  width: 210px;
   height: 100px;
-  top: 15px;
   overflow: hidden;
   resize: none;
 }
@@ -72,13 +85,11 @@
   border-style: hidden;
   position: relative;
   box-shadow: 0 2px 4px var(--box-shadow);
-  margin-top: 6px;
   width: 60px;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 15px;
 }
 
 .report-popup-field,
