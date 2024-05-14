@@ -16,17 +16,15 @@ public class CommentThreadViewProposal {
 
     private Long commentId;
 
+    private String text;
+
+    private String authorUsername;
+
     private Long accountId;
 
-    private String username;
-
-    private byte[] userImageData;
-
-    private String description;
-
-    private int likeAmount;
+    private byte[] authorImage;
 
     private Date timestamp;
 
-    private byte[] commentImageData;
+    private int likeAmount;
 }

@@ -14,7 +14,4 @@ import lombok.Setter;
 public class UpdateCommentProposal {
 
     private String description;
-
-    private byte[] postImage;
-
 }
