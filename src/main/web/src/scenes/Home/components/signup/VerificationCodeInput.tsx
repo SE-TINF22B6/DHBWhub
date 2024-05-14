@@ -14,7 +14,6 @@ const VerificationCodeInput = ({onSuccess}: any) => {
         token: "",
     };
 
-    // TODO: Enable Login
     const handleOpenLogin = () => {
 
     }
@@ -45,11 +44,6 @@ const VerificationCodeInput = ({onSuccess}: any) => {
 
                     setLoading(false);
                     setMessage(resMessage);
-
-                    // TODO: Only 3 Attemps to enter the verification code should be possible!
-                    if (attempts + 1 === 3) {
-                        window.alert('Drei Versuche sind fehlgeschlagen. Bitte versuchen Sie es erneut.');
-                    }
                 }
             );
     };

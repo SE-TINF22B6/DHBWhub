@@ -43,7 +43,6 @@ public class AuthController {
     private final UserRepository userRepository;
     private final EmailService emailService;
 
-    // TODO: Should work for if multiple Users user register at the same time
     private String userMail;
 
     @PostMapping("login")
@@ -67,7 +66,6 @@ public class AuthController {
                 roles));
     }
 
-    // TODO: Make sure new user stays logged in after successful signup and gets an jwt token
     @PostMapping("signup")
     public ResponseEntity<?> signup(@Valid @RequestBody UsernamePasswordRequest usernamePasswordRequest) {
 
@@ -127,7 +125,6 @@ public class AuthController {
 
     }
 
-    // TODO: Make sure email should be delete if token validation fails after 3 attempts
     @PostMapping("token-validation")
     public ResponseEntity<?> tokenValidation (@Valid @RequestBody TokenValidationRequest tokenValidationRequest) {
         if (EmailVerificationTokenManager.isTokenValid(tokenValidationRequest.getToken())) {
