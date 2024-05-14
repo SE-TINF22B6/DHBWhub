@@ -74,7 +74,6 @@ const UsernamePasswordInput = () => {
                             <div className="modalHeader">
                                 <h3 className="modalHeadline">CREATE YOUR ACCOUNT</h3>
                             </div>
-                            // TODO: Check if Username already exists
                             <div className="form-group">
                                 <label htmlFor="username" className="heading">Username</label>
                                 <Field name="username" type="text" className="form-control"/>
