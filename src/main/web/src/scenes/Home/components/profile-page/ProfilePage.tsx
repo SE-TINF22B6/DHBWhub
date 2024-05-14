@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { decodeJWT } from '../../../../services/utils'; // Annahme: Du hast eine Funktion zum Decodieren des JWT
+import { decodeJWT } from '../../../../services/utils';
+import {isUserLoggedIn} from "../../../../services/auth.service.mjs"; // Annahme: Du hast eine Funktion zum Decodieren des JWT
 
 const ProfilePage = () => {
     const [username, setUsername] = useState('');
