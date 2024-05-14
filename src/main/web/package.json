@@ -12,7 +12,7 @@
     "@lexical/link": "^0.15.0",
     "@lexical/list": "^0.15.0",
     "@lexical/markdown": "^0.14.3",
-    "@lexical/react": "^0.14.5",
+    "@lexical/react": "^0.15.0",
     "@lexical/rich-text": "^0.15.0",
     "@lexical/selection": "^0.14.5",
     "@lexical/table": "^0.15.0",
