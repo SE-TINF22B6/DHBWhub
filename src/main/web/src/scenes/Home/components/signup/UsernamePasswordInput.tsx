@@ -37,24 +37,28 @@ const UsernamePasswordInput = () => {
 
         const email = localStorage.getItem("userEmailAddress");
 
-        register(username, email, password)
-            .then(
-                () => {
-                    navigate("/profile");
-                    window.location.reload();
-                },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
+        if (!email) {
+            throw new Error("Value for user email address is not available! Registration failed! ");
+        } else {
+            register(username, email, password)
+                .then(
+                    () => {
+                        navigate("/profile");
+                        window.location.reload();
+                    },
+                    (error) => {
+                        const resMessage =
+                            (error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                            error.message ||
+                            error.toString();
 
-                    setLoading(false);
-                    setMessage(resMessage);
-                }
-            );
+                        setLoading(false);
+                        setMessage(resMessage);
+                    }
+                );
+        }
     };
 
     return (
