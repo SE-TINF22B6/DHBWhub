@@ -55,3 +55,16 @@ export const getCurrentUser = () => {
 
     return null;
 };
+
+export const isUserLoggedIn = () => {
+    const userDataString = localStorage.getItem("user");
+
+    if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        const jwtToken = userData.accessToken;
+        return !!jwtToken;
+    } else {
+        return false;
+    }
+
+};
