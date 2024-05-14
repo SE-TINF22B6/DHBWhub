@@ -29,19 +29,40 @@
       "name": "My profile",
       "short_name": "Profile",
       "description": "View and edit your profile.",
-      "url": "/profile"
+      "url": "/profile",
+      "icons": [
+        {
+          "src": "/assets/shortcuts/profile.png",
+          "type": "image/png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "My friends",
       "short_name": "Friends",
       "description": "View and manage your friends.",
-      "url": "/friends"
+      "url": "/friends",
+      "icons": [
+        {
+          "src": "/assets/shortcuts/friends.png",
+          "type": "image/png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "View today's events",
       "short_name": "Events",
       "description": "View the calendar with all events.",
-      "url": "/calendar"
+      "url": "/calendar",
+      "icons": [
+        {
+          "src": "/assets/shortcuts/calendar.png",
+          "type": "image/png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ],
   "start_url": "/",

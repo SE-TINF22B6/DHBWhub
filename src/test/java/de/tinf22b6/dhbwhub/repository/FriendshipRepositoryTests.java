@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.repository;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
+import de.tinf22b6.dhbwhub.model.Faculty;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,10 @@ class FriendshipRepositoryTests extends AbstractApplicationTest {
 
     @Test
     void FindAll_HasSize_Two() {
-        Friendship friendship1 = createDefaultFriendship();
+        Friendship friendship = createDefaultFriendship();
         Friendship friendship2 = createDefaultFriendship2();
 
-
-        friendshipRepository.save(friendship1);
+        friendshipRepository.save(friendship);
         friendshipRepository.save(friendship2);
 
         assertThat(friendshipRepository.findAll()).hasSize(2);
@@ -39,9 +39,8 @@ class FriendshipRepositoryTests extends AbstractApplicationTest {
 
     @Test
     void GetFriendlist_IsEmpty_True() {
-        assertThat(friendshipRepository.findAll()).isEmpty();
+        assertThat(friendshipRepository.getFriendlist(1L)).isEmpty();
     }
-
 
     @Test
     void Find_IsNotNull_True() {
@@ -69,7 +68,6 @@ class FriendshipRepositoryTests extends AbstractApplicationTest {
     @Test
     void Delete_SizeChange() {
         Friendship friendship = createDefaultFriendship();
-
         friendshipRepository.save(friendship);
 
         friendshipRepository.delete(friendship.getId());

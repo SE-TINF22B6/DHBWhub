@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Post.css';
 import {Share} from "../../../../organisms/share/Share";
 import {Link, useLocation} from "react-router-dom";
-import {ReportPost} from "../../../../organisms/report-post/ReportPost";
+import {Report} from "../../../../organisms/report/Report";
 import {PostMenu} from "../../../../organisms/post-menu/PostMenu";
 import {Tag} from "../../../../atoms/Tag";
 import ReportService from '../../../../services/ReportService';
@@ -12,6 +12,7 @@ import {PostModel} from "./models/PostModel";
 import {Interaction} from "../../../../organisms/interaction/Interaction";
 import DescriptionService from "../../../../services/DescriptionService";
 import {useMediaQuery} from "@mui/system";
+import config from "../../../../config/config";
 
 export const Post: React.FC<PostModel> = (props: PostModel) => {
   const {
@@ -44,7 +45,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   const [reportDescription, setReportDescription] = useState('');
 
   const handleReportClick = (): void => {
-    setReportOpen(true);
+    setReportOpen(!reportOpen);
   };
 
   const handleReportSubmit = (): void => {
@@ -72,12 +73,12 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   };
 
   const handleSaveClick = (): void => {
-    fetch(`http://193.196.38.232:8080/savePost?postId=${id}`, {
+    fetch(config.apiUrl + `savePost?postId=${id}`, {
       method: 'POST',
       credentials: 'include',
     })
     .then((): void => {
-      alert('PostDetail has been saved!');
+      alert('Post has been saved!');
     })
     .catch(err => {
       console.error('Error saving the post: ', err);
@@ -121,16 +122,16 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
           </Link>
           <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots"
                src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
-          <div className="post-infos" style={{ marginLeft: getMarginLeft() }}>
+          <div className="post-infos" style={{marginLeft: getMarginLeft()}}>
             <Link to={`/post/?id=${id}`} className="post-button">
               <p className="post-title">{title}</p>
             </Link>
-            <div className="post-tags" style={{ marginTop: getMarginTop() }}>
+            <div className="post-tags" style={{marginTop: getMarginTop()}}>
               {tags && tags.slice(0, 3).map((tag, index) => (
                   <Tag name={tag} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
-            <p className="short-description" style={{ width: getWidth() }}>{shortDescription}</p>
+            <p className="short-description" style={{width: getWidth()}}>{shortDescription}</p>
             <div className="footer">
               <Link to={`/user/?name=${username.toLowerCase().replace(' ', '-')}`} className="author-link" aria-label="To the author">
                 {username}
@@ -145,17 +146,23 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         </div>
 
         {menuOpen && (
-            <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
+            <div className="post-menu-container">
+              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
+            </div>
         )}
-        {shareWindowOpen && (<Share postId={id} currentPageURL={currentPageURL}></Share>)}
+        {shareWindowOpen && (
+            <div className="post-share-container">
+              <Share postId={id} currentPageURL={currentPageURL}></Share>
+            </div>
+        )}
         {reportOpen && (
-            <ReportPost
-                reportOpen={reportOpen}
-                reportReason={reportReason}
-                reportDescription={reportDescription}
-                setReportReason={setReportReason}
-                setReportDescription={setReportDescription}
-                handleReportSubmit={handleReportSubmit}
+            <Report
+              reportOpen={reportOpen}
+              reportReason={reportReason}
+              reportDescription={reportDescription}
+              setReportReason={setReportReason}
+              setReportDescription={setReportDescription}
+              handleReportSubmit={handleReportSubmit}
             />
         )}
       </div>

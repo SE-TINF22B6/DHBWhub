@@ -1,4 +1,6 @@
-const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number, userId: number): void => {
+import config from "../config/config";
+
+const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number | null, userId: number): void => {
   const report = {
     reportReason: reportReason,
     reportDescription: reportDescription,
@@ -7,10 +9,11 @@ const sendReportToBackend = (reportReason: string, reportDescription: string, po
     userId: userId,
   };
 
-  fetch("http://localhost:8080/report", {
+  fetch(config.apiUrl + 'report', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': ''
     },
     body: JSON.stringify(report),
     credentials: 'include',
@@ -23,9 +26,11 @@ const sendReportToBackend = (reportReason: string, reportDescription: string, po
   })
   .then(data => {
     console.log(data);
+    alert('Report has been sent!');
   })
   .catch(error => {
     console.error('Fetch error:', error);
+    alert('Error sending the report');
   });
 };
 
