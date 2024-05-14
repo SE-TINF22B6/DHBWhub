@@ -3,7 +3,6 @@ import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
-import {isUserLoggedIn} from "../../services/auth.service.mjs";
 
 export const Profile = () => {
 
