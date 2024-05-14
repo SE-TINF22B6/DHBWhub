@@ -84,7 +84,6 @@ const UsernamePasswordInput = () => {
                                     className="alert-danger"
                                 />
                             </div>
-                            // TODO: Check if the 2 Passwords are the same
                             <div className="form-group">
                                 <label htmlFor="password" className="heading">Password</label>
                                 <Field name="password" type="password" className="form-control"/>
@@ -103,13 +102,12 @@ const UsernamePasswordInput = () => {
                                     className="alert-danger"
                                 />
                             </div>
-                            // TODO: Signup should only work if privacy policy is accepted!
-                            <div className="accept-privacy-policy">
-                                <FormControlLabel control={<Checkbox className="checkbox" checked={acceptPrivacyPolicy}
-                                                                     onChange={(e) => setAcceptPrivacyPolicy(e.target.checked)}/>}
-                                                  label="I accept Terms of Service and Privacy Policy"
-                                                  className="accept-privacy-policy-checkbox"/>
-                            </div>
+                            {/*<div className="accept-privacy-policy">*/}
+                            {/*    <FormControlLabel control={<Checkbox className="checkbox" checked={acceptPrivacyPolicy}*/}
+                            {/*                                         onChange={(e) => setAcceptPrivacyPolicy(e.target.checked)}/>}*/}
+                            {/*                      label="I accept Terms of Service and Privacy Policy"*/}
+                            {/*                      className="accept-privacy-policy-checkbox"/>*/}
+                            {/*</div>*/}
                             <div className="form-group">
                                 <button type="submit" className="loading-btn">
                                     {loading && (
