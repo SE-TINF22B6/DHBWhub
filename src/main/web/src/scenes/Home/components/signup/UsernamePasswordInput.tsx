@@ -55,7 +55,7 @@ const UsernamePasswordInput = () => {
                             error.message ||
                             error.toString();
 
-                        if(error.message == "Error: Username is already taken!") {
+                        if(error.message === "Error: Username is already taken!") {
                             resMessage = "The username is already in use, please try again.";
                         }
 

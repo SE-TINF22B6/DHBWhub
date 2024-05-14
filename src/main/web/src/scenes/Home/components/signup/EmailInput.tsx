@@ -38,12 +38,16 @@ const EmailInput = ({onSuccess}: any) => {
                     onSuccess();
                 },
                 (error) => {
-                    const resMessage =
+                    let resMessage =
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
                         error.message ||
                         error.toString();
+
+                    if (error.message === "Error: Email is already in use!") {
+                        resMessage = "The Email is already in use, please try again.";
+                    }
 
                     setLoading(false);
                     setMessage(resMessage);
