@@ -20,7 +20,6 @@ const UsernamePasswordInput = () => {
         password: ""
     };
 
-    // TODO: Enable Login
     const handleOpenLogin = () => {
 
     }
@@ -36,7 +35,9 @@ const UsernamePasswordInput = () => {
         setMessage("");
         setLoading(true);
 
-        register(username, password)
+        const email = localStorage.getItem("userEmailAddress");
+
+        register(username, email, password)
             .then(
                 () => {
                     navigate("/profile");

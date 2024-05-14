@@ -30,6 +30,8 @@ const EmailInput = ({onSuccess}: any) => {
         setMessage("");
         setLoading(true);
 
+        localStorage.setItem("userEmailAddress", email);
+
         emailVerification(email)
             .then(
                 () => {

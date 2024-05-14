@@ -43,8 +43,6 @@ public class AuthController {
     private final UserRepository userRepository;
     private final EmailService emailService;
 
-    private String userMail;
-
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -67,13 +65,7 @@ public class AuthController {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody UsernamePasswordRequest usernamePasswordRequest) {
-
-        SignupRequest signupRequest = new SignupRequest();
-        signupRequest.setEmail(userMail);
-        signupRequest.setUsername(usernamePasswordRequest.getUsername());
-        signupRequest.setPassword(usernamePasswordRequest.getPassword());
-
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signupRequest) {
         if (accountRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -101,11 +93,10 @@ public class AuthController {
 
     @PostMapping("email-verification")
     public ResponseEntity<?> emailVerification (@Valid @RequestBody EmailVerificationRequest emailVerificationRequest) {
-
         if (accountRepository.existsByEmail(emailVerificationRequest.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         } else {
-            userMail = emailVerificationRequest.getEmail();
+            String userMail = emailVerificationRequest.getEmail();
 
             String token = EmailVerificationTokenManager.generateToken(userMail);
 
