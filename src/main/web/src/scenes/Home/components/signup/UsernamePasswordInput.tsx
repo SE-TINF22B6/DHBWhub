@@ -43,16 +43,21 @@ const UsernamePasswordInput = () => {
             register(username, email, password)
                 .then(
                     () => {
+                        localStorage.removeItem("userEmailAddress");
                         navigate("/profile");
                         window.location.reload();
                     },
                     (error) => {
-                        const resMessage =
+                        let resMessage =
                             (error.response &&
                                 error.response.data &&
                                 error.response.data.message) ||
                             error.message ||
                             error.toString();
+
+                        if(error.message == "Error: Username is already taken!") {
+                            resMessage = "The username is already in use, please try again.";
+                        }
 
                         setLoading(false);
                         setMessage(resMessage);
