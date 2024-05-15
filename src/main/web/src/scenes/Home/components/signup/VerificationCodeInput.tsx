@@ -1,98 +1,89 @@
 import React, {useState} from 'react';
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import * as Yup from "yup";
-import {emailVerification, tokenValidation} from "../../../../services/auth.service.mjs";
+import {tokenValidation} from "../../../../services/auth.service.mjs";
+import AuthCode from "react-auth-code-input";
+import './SignUp.css';
+import './VerificationCodeInput.css';
 
 const VerificationCodeInput = ({onSuccess}: any) => {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState<boolean>(false);
-    const [attempts, setAttempts] = useState<number>(0);
+    const [result, setResult] = useState('');
 
-    const initialValues: {
-        token: string;
-    } = {
-        token: "",
+    const handleOnChange = (res: string): void => {
+        setResult(res);
     };
 
-    const handleOpenLogin = () => {
+    const handleOpenLogin = (): void => {
 
-    }
+    };
 
-    const validationSchema = Yup.object().shape({
-        token: Yup.string()
-            .required("This field is required!"),
-    });
-
-    const handleValidation = (formValue: { token: string }) => {
-        const {token} = formValue;
+    const handleValidation = (): void => {
+        const token = result;
 
         setMessage("");
         setLoading(true);
 
         tokenValidation(token)
-            .then(
-                () => {
-                    onSuccess();
-                },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
+        .then(
+            () => {
+                onSuccess();
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
 
-                    setLoading(false);
-                    setMessage(resMessage);
-                }
-            );
+                setLoading(false);
+                setMessage(resMessage);
+            }
+        );
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleValidation();
+        }
     };
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={handleValidation}
-                >
-                    <Form>
-                        <div className="modal-content">
-                            <div className="modalHeader">
-                                <h3 className="modalHeadline">VERIFY YOUR EMAIL</h3>
-                            </div>
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="token" className="heading">Verification Code</label>
-                                    <Field name="token" type="text" className="form-control"/>
-                                    <ErrorMessage
-                                        name="token"
-                                        component="div"
-                                        className="alert-danger"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <button type="submit" className="loading-btn">
-                                        {loading && (
-                                            <span className="spinner-border spinner-border-sm"></span>
-                                        )}
-                                        <span className="btn-text">CONTINUE</span>
-                                    </button>
-                                </div>
+        <div className="verification-modal-content">
+            <div className="modalHeader">
+                <h3 className="modalHeadline verificationModalHeadline">VERIFY YOUR EMAIL</h3>
+            </div>
+            <div>
+                <div className="form-group" onKeyDown={handleKeyDown}>
+                    <label htmlFor="token" className="heading">Please enter your verification code</label>
+                    <AuthCode
+                        onChange={handleOnChange}
+                        length={6}
+                        allowedCharacters="numeric"
+                        inputClassName="auth-input"
+                    />
+                </div>
+                <div className="form-group">
+                    <button
+                        type="button"
+                        className="loading-btn"
+                        onClick={handleValidation}
+                    >
+                        {loading && (
+                            <span className="spinner-border spinner-border-sm"></span>
+                        )}
+                        <span className="btn-text">CONTINUE</span>
+                    </button>
+                </div>
 
-                                <div className="signup-option">
-                                    <label className="signup-option-text">Already have an account? </label>
-                                    <label className="signup-option-text-link" onClick={handleOpenLogin}>LOGIN</label>
-                                </div>
-
-                            </div>
-                        </div>
-                    </Form>
-                </Formik>
+                <div className="signup-option">
+                    <label className="signup-option-text">Already have an account? </label>
+                    <label className="signup-option-text-link" onClick={handleOpenLogin}>LOGIN</label>
+                </div>
             </div>
         </div>
     );
-
 };
 
 export default VerificationCodeInput;
