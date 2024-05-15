@@ -1,9 +1,8 @@
 import axios from "axios";
-
-const API_URL = "http://localhost:8080/api/auth/";
+import config from "../config/config.ts";
 
 export const register = (username, email, password) => {
-    return axios.post(API_URL + "signup", {
+    return axios.post(config.apiUrl + "api/auth/signup", {
         username,
         email,
         password,
@@ -12,7 +11,7 @@ export const register = (username, email, password) => {
 
 export const login = (username, password, rememberMe) => {
     return axios
-        .post(API_URL + "login", {
+        .post(config.apiUrl + "api/auth/login", {
             username,
             password,
             rememberMe
@@ -28,7 +27,7 @@ export const login = (username, password, rememberMe) => {
 
 export const emailVerification = (email) => {
     return axios
-        .post(API_URL + "email-verification", {
+        .post(config.apiUrl + "api/auth/email-verification", {
             email
         })
         .then((response) => {
@@ -38,7 +37,7 @@ export const emailVerification = (email) => {
 
 export const tokenValidation = (token) => {
     return axios
-        .post(API_URL + "token-validation", {
+        .post(config.apiUrl + "api/auth/token-validation", {
             token
         })
         .then((response) => {
@@ -67,5 +66,4 @@ export const isUserLoggedIn = () => {
     } else {
         return false;
     }
-
 };
