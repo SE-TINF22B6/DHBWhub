@@ -14,7 +14,6 @@ jobs:
       - name: Prepare SSH connection
         env:
           SSH_KEY: ${{ secrets.BACKEND_SERVER_SSH_KEY }}
-          SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
         run: |
           mkdir -p ~/.ssh
           echo ${SSH_KEY} > ~/.ssh/id_rsa
@@ -33,4 +32,4 @@ jobs:
         env:
           SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
         run: |
-          scp -o StrictHostKeyChecking=no -r "./artifact/server.jar" "${SERVER_IP}:~/java/dhbwhub/"
+          scp -o StrictHostKeyChecking=no "./artifact/server.jar" "ubuntu@${SERVER_IP}:~/java/dhbwhub/"
