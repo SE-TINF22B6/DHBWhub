@@ -19,7 +19,6 @@
     font-family: Arial, sans-serif;
     display: inline-block;
     vertical-align: top;
-    width: calc(20% - 20px);
 }
 
 .form-group {
@@ -54,7 +53,7 @@
     height: 40px;
     margin: 20px auto;
     display: block;
-    background-color: white;
+    background-color: var(--white);
     border: 1px solid #CCCCCC;
     border-radius: 8px;
     padding: 0 10px;
@@ -66,7 +65,7 @@
     margin-left: 20px;
     color: #AAA4A4;
     font-size: 16px;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
     display: flex;
     align-items: center;
 }
@@ -74,7 +73,7 @@
 .forgot-password-option-text {
     color: #AAA4A4;
     font-size: 16px;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
 }
 
 .remember-me-option {
@@ -82,7 +81,7 @@
     margin-left: 20px;
     color: #AAA4A4;
     font-size: 16px;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
     display: flex;
     align-items: center;
 }
@@ -92,9 +91,9 @@
     height: 40px;
     background: #E3001B;
     border-radius: 5px;
-    color: white;
+    color: var(--white);
     font-size: 16px;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,7 +108,7 @@
 .signup-option-text {
     color: #989494;
     font-size: 15px;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
     font-weight: 400;
     cursor: pointer;
 }
@@ -117,7 +116,7 @@
 .signup-option-text-link {
     color: #989494;
     font-size: 15px;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
     font-weight: 400;
     cursor: pointer;
     text-decoration: underline;
@@ -125,5 +124,12 @@
 
 .alert-danger {
     color: red;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
+}
+
+.google-oauth-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
 }

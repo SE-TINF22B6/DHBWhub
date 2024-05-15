@@ -3,10 +3,11 @@ import {NavigateFunction, useNavigate} from 'react-router-dom';
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import './Login.css';
-
-import {login} from "../../../../services/auth.service.mjs";
+import {login} from "../../services/auth.service.mjs";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import EmailInput from "../signup/EmailInput";
+import {GoogleLogin} from "@react-oauth/google";
+import Box from "@mui/material/Box";
 
 type Props = {}
 
@@ -118,6 +119,17 @@ const Login: React.FC<Props> = () => {
                             <div className="signup-option">
                                 <label className="signup-option-text">Need an account? </label>
                                 <label className="signup-option-text-link" onClick={handleOpenSignUp}>SIGN UP</label>
+                            </div>
+
+                            <div className="google-oauth-login">
+                                <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'redirect'}
+                                    onSuccess={credentialResponse => {
+                                        console.log(credentialResponse);
+                                    }}
+                                    onError={() => {
+                                        console.log('Login Failed');
+                                    }}
+                                />
                             </div>
 
                             {showSignUp && <EmailInput/>}
