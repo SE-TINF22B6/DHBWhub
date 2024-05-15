@@ -26,11 +26,9 @@ jobs:
           path: './artifact'
       - name: Rename jar file
         run: |
-          ls ./artifact
-          mv "./artifact/*.jar" "./artifact/server.jar"
+          mv ./artifact/*.jar ./artifact/server.jar
       - name: Copy jar file to server
         env:
           SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
         run: |
-          ssh -i "./id_rsa" "${SERVER_IP}"
           scp -r -i "./id_rsa" "./artifact/server.jar" "${SERVER_IP}:~/java/dhbwhub/"
