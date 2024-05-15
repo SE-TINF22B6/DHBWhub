@@ -77,7 +77,7 @@
     position: relative;
     width: 89px;
     transition: var(--transition);
-
+    background-color: var(--component-grey);
     & &:hover {
         background-color: var(--dark-red);
     }
@@ -85,7 +85,7 @@
 
 .signup-text {
     color: var(--white);
-    font-family: "Source Sans Pro-Regular", Helvetica, serif;
+    font-family: var(--font-family);
     font-size: var(--title-font-size);
     font-weight: 400;
     left: 7px;
