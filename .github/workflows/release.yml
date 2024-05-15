@@ -26,7 +26,7 @@ jobs:
           path: './artifact'
       - name: Rename jar file
         run: |
-          ls
+          ls ./artifact
           mv "./artifact/*.jar" "./artifact/server.jar"
       - name: Copy jar file to server
         env:
