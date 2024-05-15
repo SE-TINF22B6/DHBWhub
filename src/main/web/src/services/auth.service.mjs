@@ -26,6 +26,26 @@ export const login = (username, password, rememberMe) => {
         });
 };
 
+export const emailVerification = (email) => {
+    return axios
+        .post(API_URL + "email-verification", {
+            email
+        })
+        .then((response) => {
+            return response.data;
+        });
+};
+
+export const tokenValidation = (token) => {
+    return axios
+        .post(API_URL + "token-validation", {
+            token
+        })
+        .then((response) => {
+            return response.data;
+        });
+}
+
 export const logout = () => {
     localStorage.removeItem("user");
 };
@@ -35,4 +55,17 @@ export const getCurrentUser = () => {
     if (userStr) return JSON.parse(userStr);
 
     return null;
+};
+
+export const isUserLoggedIn = () => {
+    const userDataString = localStorage.getItem("user");
+
+    if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        const jwtToken = userData.accessToken;
+        return !!jwtToken;
+    } else {
+        return false;
+    }
+
 };
