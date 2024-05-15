@@ -3,14 +3,13 @@
     height: 55px;
     position: relative;
     text-align: center;
-    background-color: #2C353D;
-    border: 1px solid #2C353D;
+    background-color: var(--grey);
+    border: 1px solid var(--grey);
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 1rem;
-    text-align: center;
 }
 
 .login-image {
@@ -21,5 +20,5 @@
 
 .login-text {
     text-align: center;
-    color: #FFFFFF;
+    color: var(--white);
 }

@@ -26,13 +26,13 @@ jobs:
           DATABASE_PASSWORD: ${{ github.event_name != 'pull_request' && secrets.DATABASE_PASSWORD || 'NWDMCE5xdipIjRrp' }}
         run: mvn -B package --file pom.xml
       - name: Copy Artifact
-        run: mkdir staging && cp target/*.jar staging
+        run: mkdir staging && cp -p target/*.jar staging
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: dhbw-hub-backend
-          path: staging
+          name: 'server'
+          path: './staging'
       - name: Update dependency graph
-        uses: advanced-security/maven-dependency-submission-action@v3.0.2
+        uses: advanced-security/maven-dependency-submission-action@v3
         with:
           ignore-maven-wrapper: true

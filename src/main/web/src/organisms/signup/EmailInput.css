@@ -1,0 +1,41 @@
+.email-input-modal-content {
+    top: 50%;
+    width: 400px;
+    height: 590px;
+    background: var(--component-grey);
+    color: var(--component-grey);
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px var(--box-shadow);
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.email-input-modal-title {
+    padding: 20px;
+    height: 50px;
+    color: white;
+    background: var(--component-grey);
+    font-size: 24px;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    overflow: hidden;
+}
+
+.info-text {
+    color: white;
+    background: var(--component-grey);
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    height: 20px;
+}
+
+.form-group {
+    margin-left: 20px;
+    margin-right: 10px;
+    display: inline-block; /* Ändere die Anzeige auf inline-block */
+    width: calc(90% - 10px); /* Setze die Breite auf 80% des Containers */
+}

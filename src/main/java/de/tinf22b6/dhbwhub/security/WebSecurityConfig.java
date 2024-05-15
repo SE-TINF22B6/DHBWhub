@@ -25,14 +25,15 @@ public class WebSecurityConfig {
 
     // Define all public endpoints here (ant matchers)
     private static final String[] PUBLIC_ENDPOINTS = {
-        "/api/auth/login",
-        "/api/auth/signup",
-        "/post/post-thread/**",
-        "/post/homepage-preview-posts",
-        "/post/homepage-preview-posts/{id:\\d+}",
-        "/event/homepage-preview-events",
-        "/event/event-thread/{id:\\d+}",
-        "/event/event-comments/{id:\\d+}"
+            "/api/auth/login",
+            "/api/auth/signup",
+            "/api/auth/email-verification",
+            "/api/auth/token-validation",
+            "/post/homepage-preview-posts",
+            "/post/homepage-preview-posts/{id:\\d+}",
+            "/event/homepage-preview-events",
+            "/event/event-thread/{id:\\d+}",
+            "/event/event-comments/{id:\\d+}"
     };
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
@@ -76,4 +77,6 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
 }
+

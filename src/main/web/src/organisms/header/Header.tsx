@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {SearchBar} from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
-import ModalLoginContainer from '../../scenes/Home/components/login/ModalLoginContainer';
+import ModalLoginContainer from '../login/ModalLoginContainer';
 import {Notifications} from "./Notifications";
 import "./Header.css";
-import ModalSignUpContainer from "../../scenes/Home/components/signup/ModalSignUpContainer";
+import ModalSignUpContainer from "../signup/ModalSignUpContainer";
 import {useMediaQuery} from "@mui/system";
 
 export const Header = () => {
