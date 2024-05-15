@@ -1,4 +1,4 @@
-export default function authHeader(): { Authorization: string } {
+export default function authHeaderService(): { Authorization: string } {
     const userStr: string | null = localStorage.getItem("user");
     let user: { accessToken: string } | null = null;
     if (userStr) user = JSON.parse(userStr);
