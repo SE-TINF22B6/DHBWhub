@@ -11,12 +11,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Create id_rsa file
+      - name: Prepare SSH connection
         env:
           SSH_KEY: ${{ secrets.BACKEND_SERVER_SSH_KEY }}
+          SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
         run: |
-          touch id_rsa
-          echo ${SSH_KEY} >> id_rsa
+          mkdir -p ~/.ssh
+          echo ${SSH_KEY} > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh/id_rsa
+          ssh-keyscan -H ${SERVER_IP} >> ~/.ssh/known_hosts
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v3
         with:
@@ -31,6 +34,4 @@ jobs:
         env:
           SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
         run: |
-          cat ./id_rsa
-          ls ~/.ssh/
-          scp -r -i "./id_rsa" "./artifact/server.jar" "${SERVER_IP}:~/java/dhbwhub/"
+          scp -o StrictHostKeyChecking=no -r "./artifact/server.jar" "${SERVER_IP}:~/java/dhbwhub/"
