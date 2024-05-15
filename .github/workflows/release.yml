@@ -18,6 +18,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${SSH_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v3
         with:
@@ -32,6 +34,4 @@ jobs:
         env:
           SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
         run: |
-          eval "$(ssh-agent -s)"
-          ssh-add -l
           scp -o StrictHostKeyChecking=no "./artifact/server.jar" "ubuntu@${SERVER_IP}:~/java/dhbwhub/"
