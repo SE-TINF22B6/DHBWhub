@@ -1,0 +1,31 @@
+name: Upload server.jar
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    permissions: write-all
+    runs-on: 'ubuntu-latest'
+    if: ${{ github.ref_name == 'master' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create id_rsa file
+        env:
+          SSH_KEY: ${{ secrets.BACKEND_SERVER_SSH_KEY }}
+        run: |
+          touch id_rsa
+          echo ${SSH_KEY} >> id_rsa
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: maven.yml
+          workflow_conclusion: success
+          name: 'server'
+          path: './artifact'
+      - name: Copy jar file to server
+        env:
+          SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
+        run: |
+          scp -r -i "./id_rsa" "./artifact/server.jar" "${SERVER_IP}:~/java/dhbwhub/"
