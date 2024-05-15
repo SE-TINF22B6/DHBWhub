@@ -3,11 +3,10 @@ import {NavigateFunction, useNavigate} from 'react-router-dom';
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import './Login.css';
-import {login} from "../../services/auth.service.mjs";
+import {login} from "../../services/AuthService";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import EmailInput from "../signup/EmailInput";
 import {GoogleLogin} from "@react-oauth/google";
-import Box from "@mui/material/Box";
 
 type Props = {}
 
