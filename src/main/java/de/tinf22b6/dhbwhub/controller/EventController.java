@@ -26,6 +26,7 @@ public class EventController {
     public EventThreadViewProposal getEventThreadView(@PathVariable Long id) {
         return service.getEventThreadView(id);
     }
+
     @GetMapping("/event-comments/{id}")
     public List<EventCommentThreadViewProposal> getEventComments(@PathVariable Long id) {
         return service.getEventComments(id);
@@ -56,24 +57,24 @@ public class EventController {
         return service.update(id, proposal);
     }
 
-    @PutMapping("/post-increase-likes/{id}")
-    public int increaseLikesPost(@PathVariable Long id) {
-        return service.increaseLikes(id,0);
+    @PutMapping("/post-increase-likes")
+    public int increaseLikesPost(@RequestBody LikeEventPostProposal likeEventPostProposal) {
+        return service.adjustPostLikes(likeEventPostProposal,0);
     }
 
-    @PutMapping("/post-decrease-likes/{id}")
-    public int decreaseLikesPost(@PathVariable Long id) {
-        return service.decreaseLikes(id,0);
+    @PutMapping("/post-decrease-likes")
+    public int decreaseLikesPost(@RequestBody LikeEventPostProposal likeEventPostProposal) {
+        return service.adjustPostLikes(likeEventPostProposal,1);
     }
 
-    @PutMapping("/comment-increase-likes/{id}")
-    public int increaseLikesComment(@PathVariable Long id) {
-        return service.increaseLikes(id,1);
+    @PutMapping("/comment-increase-likes")
+    public int increaseLikesComment(@PathVariable LikeEventCommentProposal likeEventCommentProposal) {
+        return service.adjustCommentLikes(likeEventCommentProposal,0);
     }
 
-    @PutMapping("/comment-decrease-likes/{id}")
-    public int decreaseLikesComment(@PathVariable Long id) {
-        return service.decreaseLikes(id,1);
+    @PutMapping("/comment-decrease-likes")
+    public int decreaseLikesComment(@PathVariable LikeEventCommentProposal likeEventCommentProposal) {
+        return service.adjustCommentLikes(likeEventCommentProposal,1);
     }
 
     @DeleteMapping("/{id}")

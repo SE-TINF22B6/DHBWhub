@@ -21,9 +21,9 @@ public interface EventService {
     List<EventCommentThreadViewProposal> getEventComments(Long id);
     List<String> getEventTags(Long id);
     int getAmountOfComments(Long id);
-    int increaseLikes(Long id, int mode);
-    int decreaseLikes(Long id, int mode);
     EventCommentThreadViewProposal create(CreateEventCommentProposal proposal);
     EventCommentThreadViewProposal update(Long id, UpdateEventCommentProposal proposal);
     EventCommentThreadViewProposal getEventCommentThreadView(Long id);
+    int adjustPostLikes(LikeEventPostProposal likeEventPostProposal, int i);
+    int adjustCommentLikes(LikeEventCommentProposal likeEventCommentProposal, int i);
 }

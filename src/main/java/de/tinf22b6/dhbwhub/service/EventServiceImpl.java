@@ -1,10 +1,15 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.mapper.*;
+import de.tinf22b6.dhbwhub.mapper.EventMapper;
+import de.tinf22b6.dhbwhub.mapper.EventTagMapper;
+import de.tinf22b6.dhbwhub.mapper.PictureMapper;
 import de.tinf22b6.dhbwhub.model.*;
+import de.tinf22b6.dhbwhub.model.logtables.LikeLogtableEventComment;
+import de.tinf22b6.dhbwhub.model.logtables.LikeLogtableEventPost;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.EventRepository;
+import de.tinf22b6.dhbwhub.repository.LogtableRepository;
 import de.tinf22b6.dhbwhub.repository.PictureRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.EventService;
@@ -20,15 +25,16 @@ public class EventServiceImpl implements EventService {
     private final EventRepository repository;
     private final UserRepository userRepository;
     private final PictureRepository pictureRepository;
-    private final EventRepository eventRepository;
+    private final LogtableRepository logtableRepository;
 
     public EventServiceImpl(@Autowired EventRepository repository,
                             @Autowired UserRepository userRepository,
-                            @Autowired PictureRepository pictureRepository, EventRepository eventRepository) {
+                            @Autowired PictureRepository pictureRepository,
+                            @Autowired LogtableRepository logtableRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.pictureRepository = pictureRepository;
-        this.eventRepository = eventRepository;
+        this.logtableRepository = logtableRepository;
     }
 
     @Override
@@ -128,14 +134,14 @@ public class EventServiceImpl implements EventService {
             formerTags = Tags in the database
             proposedTags = Tags proposed
         * */
-        List<EventTag> formerTags = eventRepository.findTagsByPostId(id);
+        List<EventTag> formerTags = repository.findTagsByPostId(id);
         List<String> proposedTags = new ArrayList<>(Arrays.stream(proposal.getTags()).toList());
 
         for (EventTag eventTag : formerTags) {
             if (proposedTags.contains(eventTag.getTag())) {
                 proposedTags.remove(eventTag.getTag());
             } else {
-                eventRepository.deleteEventTag(eventTag.getId());
+                repository.deleteEventTag(eventTag.getId());
             }
         }
         proposedTags.forEach(t -> {
@@ -163,51 +169,10 @@ public class EventServiceImpl implements EventService {
         repository.deleteEventTag(id);
     }
 
-
-    @Override
-    public int increaseLikes(Long id, int mode) {
-        int likes;
-        // mode 0 - Post; mode 1 - Comment
-        if (mode == 0){
-            EventPost eventPost = getEventPost(id);
-            likes = eventPost.getLikes() + 1;
-            EventPost updatedPost = EventMapper.mapToModel(eventPost,likes);
-            updatedPost.setId(id);
-            likes = repository.save(updatedPost).getLikes();
-        } else {
-            EventComment eventComment = getEventComment(id);
-            likes = eventComment.getLikes() + 1;
-            EventComment updatedComment = EventMapper.mapToModel(eventComment, likes);
-            updatedComment.setId(id);
-            likes = repository.save(updatedComment).getLikes();
-        }
-        return likes;
-    }
-
-    @Override
-    public int decreaseLikes(Long id, int mode) {
-        int likes;
-        // mode 0 - Post; mode 1 - Comment
-        if (mode == 0){
-            EventPost eventPost = getEventPost(id);
-            likes = eventPost.getLikes() - 1;
-            EventPost updatedPost = EventMapper.mapToModel(eventPost,likes);
-            updatedPost.setId(id);
-            likes = repository.save(updatedPost).getLikes();
-        } else {
-            EventComment eventComment = getEventComment(id);
-            likes = eventComment.getLikes() - 1;
-            EventComment updatedComment = EventMapper.mapToModel(eventComment, likes);
-            updatedComment.setId(id);
-            likes = repository.save(updatedComment).getLikes();
-        }
-        return likes;
-    }
-
     @Override
     public EventCommentThreadViewProposal create(CreateEventCommentProposal proposal) {
         User user = userRepository.findByAccountId(proposal.getAccountId());
-        EventPost post = eventRepository.findEventPost(proposal.getEventId());
+        EventPost post = repository.findEventPost(proposal.getEventId());
         EventComment comment = repository.save(EventMapper.mapToModel(proposal,user,post));
         return EventMapper.mapToThreadView(comment);
     }
@@ -225,6 +190,46 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventCommentThreadViewProposal getEventCommentThreadView(Long id) {
         return EventMapper.mapToThreadView(getEventComment(id));
+    }
+
+    @Override
+    public int adjustPostLikes(LikeEventPostProposal likeEventPostProposal, int i) {
+        EventPost eventPost = getEventPost(likeEventPostProposal.getEventId());
+        int likes;
+        if(i == 0){
+            likes = eventPost.getLikes() + 1;
+
+            User user = userRepository.find(likeEventPostProposal.getUserId());
+            LikeLogtableEventPost likeLogtableEventPost = new LikeLogtableEventPost(user, eventPost);
+            logtableRepository.saveEvent(likeLogtableEventPost);
+        } else {
+            likes = eventPost.getLikes() == 0 ? 0 : eventPost.getLikes() - 1;
+            LikeLogtableEventPost likeLogtableEventPost = logtableRepository.findEventPost(likeEventPostProposal.getEventId(), likeEventPostProposal.getUserId());
+            logtableRepository.deleteEventPost(likeLogtableEventPost.getId());
+        }
+        EventPost updatedPost = EventMapper.mapToModel(eventPost,likes);
+        updatedPost.setId(eventPost.getId());
+        return repository.save(updatedPost).getLikes();
+    }
+
+    @Override
+    public int adjustCommentLikes(LikeEventCommentProposal likeEventCommentProposal, int i) {
+        EventComment eventComment = getEventComment(likeEventCommentProposal.getEventCommentId());
+        int likes;
+        if(i == 0){
+            likes = eventComment.getLikes() + 1;
+
+            User user = userRepository.find(likeEventCommentProposal.getUserId());
+            LikeLogtableEventComment likeLogtableEventComment = new LikeLogtableEventComment(user, eventComment);
+            logtableRepository.saveEventComment(likeLogtableEventComment);
+        } else {
+            likes = eventComment.getLikes() == 0 ? 0 : eventComment.getLikes() - 1;
+            LikeLogtableEventComment likeLogtableEventComment = logtableRepository.findEventComment(likeEventCommentProposal.getEventCommentId(),likeEventCommentProposal.getUserId());
+            logtableRepository.deleteEventComment(likeLogtableEventComment.getId());
+        }
+        EventComment updatedComment = EventMapper.mapToModel(eventComment,likes);
+        updatedComment.setId(eventComment.getId());
+        return repository.save(updatedComment).getLikes();
     }
 
     @Override

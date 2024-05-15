@@ -4,7 +4,11 @@ import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.PictureMapper;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.mapper.PostTagMapper;
-import de.tinf22b6.dhbwhub.model.*;
+import de.tinf22b6.dhbwhub.model.Picture;
+import de.tinf22b6.dhbwhub.model.Post;
+import de.tinf22b6.dhbwhub.model.PostTag;
+import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.model.logtables.LikeLogtablePost;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.*;
@@ -22,15 +26,18 @@ public class PostServiceImpl implements PostService {
     private final UserRepository userRepository;
     private final PictureRepository pictureRepository;
     private final PostTagRepository postTagRepository;
+    private final LogtableRepository logtableRepository;
 
     public PostServiceImpl(@Autowired PostRepository repository,
                            @Autowired UserRepository userRepository,
                            @Autowired PictureRepository pictureRepository,
-                           @Autowired PostTagRepository postTagRepository) {
+                           @Autowired PostTagRepository postTagRepository,
+                           @Autowired LogtableRepository logtableRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.pictureRepository = pictureRepository;
         this.postTagRepository = postTagRepository;
+        this.logtableRepository = logtableRepository;
     }
 
     @Override
@@ -82,20 +89,31 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public int increaseLikes(Long id) {
-        Post post = get(id);
+    public int increaseLikes(LikePostProposal likePostProposal) {
+        Post post = get(likePostProposal.getPostId());
         int likes = post.getLikes() + 1;
         Post updatedPost = PostMapper.mapToModel(post,likes);
-        updatedPost.setId(id);
+        updatedPost.setId(likePostProposal.getPostId());
+
+        // Log into Liketable
+        User user = userRepository.find(likePostProposal.getUserId());
+        LikeLogtablePost likeLogtablePost = new LikeLogtablePost(user, post);
+        logtableRepository.savePost(likeLogtablePost);
+
         return repository.save(updatedPost).getLikes();
     }
 
     @Override
-    public int decreaseLikes(Long id) {
-        Post post = get(id);
-        int likes = post.getLikes() != 0? post.getLikes() - 1 : 0;
+    public int decreaseLikes(LikePostProposal likePostProposal) {
+        Post post = get(likePostProposal.getPostId());
+        int likes = post.getLikes() - 1;
         Post updatedPost = PostMapper.mapToModel(post,likes);
-        updatedPost.setId(id);
+        updatedPost.setId(likePostProposal.getPostId());
+
+        // Log into Liketable
+        LikeLogtablePost likeLogtablePost = logtableRepository.findPost(likePostProposal.getPostId(), likePostProposal.getUserId());
+        logtableRepository.deletePost(likeLogtablePost.getId());
+
         return repository.save(updatedPost).getLikes();
     }
 
