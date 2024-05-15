@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './EmailInput.css';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {emailVerification} from "../../services/auth.service.mjs";
+import {emailVerification} from "../../services/AuthService";
 
 const EmailInput = ({onSuccess}: any) => {
     const [message, setMessage] = useState<string>("");

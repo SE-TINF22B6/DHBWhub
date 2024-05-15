@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as Yup from "yup";
-import {emailVerification, register} from "../../services/auth.service.mjs";
+import {register} from "../../services/AuthService";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import {NavigateFunction, useNavigate} from "react-router-dom";
