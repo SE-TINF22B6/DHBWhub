@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {tokenValidation} from "../../services/auth.service.mjs";
+import {tokenValidation} from "../../services/AuthService";
 import AuthCode from "react-auth-code-input";
 import './SignUp.css';
 import './VerificationCodeInput.css';
