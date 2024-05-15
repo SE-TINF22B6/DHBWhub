@@ -31,4 +31,6 @@ jobs:
         env:
           SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
         run: |
+          cat ./id_rsa
+          ls ~/.ssh/
           scp -r -i "./id_rsa" "./artifact/server.jar" "${SERVER_IP}:~/java/dhbwhub/"
