@@ -44,7 +44,7 @@
     "lexical": "^0.15.0",
     "lottie-react": "^2.4.0",
     "nth-check": "^2.0.1",
-    "quill": "^2.0.1",
+    "quill": "^2.0.2",
     "react": "^18.3.0",
     "react-animated-heart": "^0.0.8",
     "react-auth-code-input": "^3.2.1",
