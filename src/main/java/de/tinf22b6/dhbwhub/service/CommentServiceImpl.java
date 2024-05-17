@@ -16,6 +16,7 @@ import de.tinf22b6.dhbwhub.repository.LogtableRepository;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.CommentService;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -111,6 +112,9 @@ public class CommentServiceImpl implements CommentService {
         // Log into Liketable
         User user = userRepository.find(likeCommentProposal.getUserId());
         LikeLogtablePostComment likeLogtableComment = new LikeLogtablePostComment(user, comment);
+        if(logtableRepository.checkIfCommentExists(comment.getId(), user.getId())) {
+            throw new EntityExistsException("Entity already exists!");
+        }
         logtableRepository.saveComment(likeLogtableComment);
 
         return repository.save(updatedComment).getLikes();
@@ -125,6 +129,9 @@ public class CommentServiceImpl implements CommentService {
 
         // Log into Liketable
         LikeLogtablePostComment likeLogtableComment = logtableRepository.findComment(likeCommentProposal.getCommentId(), likeCommentProposal.getUserId());
+        if(likeLogtableComment == null){
+            throw new NoSuchEntryException("Entity does not exist!");
+        }
         logtableRepository.deleteComment(likeLogtableComment.getId());
 
         return repository.save(updatedComment).getLikes();

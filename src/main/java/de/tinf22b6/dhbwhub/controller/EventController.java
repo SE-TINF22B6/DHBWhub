@@ -68,12 +68,12 @@ public class EventController {
     }
 
     @PutMapping("/comment-increase-likes")
-    public int increaseLikesComment(@PathVariable LikeEventCommentProposal likeEventCommentProposal) {
+    public int increaseLikesComment(@RequestBody LikeEventCommentProposal likeEventCommentProposal) {
         return service.adjustCommentLikes(likeEventCommentProposal,0);
     }
 
     @PutMapping("/comment-decrease-likes")
-    public int decreaseLikesComment(@PathVariable LikeEventCommentProposal likeEventCommentProposal) {
+    public int decreaseLikesComment(@RequestBody LikeEventCommentProposal likeEventCommentProposal) {
         return service.adjustCommentLikes(likeEventCommentProposal,1);
     }
 

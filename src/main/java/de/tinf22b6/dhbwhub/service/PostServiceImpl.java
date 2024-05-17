@@ -13,6 +13,7 @@ import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.*;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -98,6 +99,9 @@ public class PostServiceImpl implements PostService {
         // Log into Liketable
         User user = userRepository.find(likePostProposal.getUserId());
         LikeLogtablePost likeLogtablePost = new LikeLogtablePost(user, post);
+        if(logtableRepository.checkIfPostExists(post.getId(), user.getId())){
+            throw new EntityExistsException("Entity already exists!");
+        }
         logtableRepository.savePost(likeLogtablePost);
 
         return repository.save(updatedPost).getLikes();
@@ -112,6 +116,9 @@ public class PostServiceImpl implements PostService {
 
         // Log into Liketable
         LikeLogtablePost likeLogtablePost = logtableRepository.findPost(likePostProposal.getPostId(), likePostProposal.getUserId());
+        if (likeLogtablePost == null) {
+            throw new NoSuchEntryException("Entity not logged!");
+        }
         logtableRepository.deletePost(likeLogtablePost.getId());
 
         return repository.save(updatedPost).getLikes();

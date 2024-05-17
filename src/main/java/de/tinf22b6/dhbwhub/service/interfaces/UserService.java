@@ -2,6 +2,7 @@ package de.tinf22b6.dhbwhub.service.interfaces;
 
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UserLikes;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface UserService {
     User get(Long id);
     User update(Long id, UserProposal proposal);
     void delete(Long id);
+    UserLikes getUserLikes(Long userId);
 }

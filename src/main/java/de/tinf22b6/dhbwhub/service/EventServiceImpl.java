@@ -13,6 +13,7 @@ import de.tinf22b6.dhbwhub.repository.LogtableRepository;
 import de.tinf22b6.dhbwhub.repository.PictureRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.EventService;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -201,10 +202,16 @@ public class EventServiceImpl implements EventService {
 
             User user = userRepository.find(likeEventPostProposal.getUserId());
             LikeLogtableEventPost likeLogtableEventPost = new LikeLogtableEventPost(user, eventPost);
+            if(logtableRepository.checkIfEventPostExists(eventPost.getId(), user.getId())){
+                throw new EntityExistsException("Entity already exists!");
+            }
             logtableRepository.saveEvent(likeLogtableEventPost);
         } else {
             likes = eventPost.getLikes() == 0 ? 0 : eventPost.getLikes() - 1;
             LikeLogtableEventPost likeLogtableEventPost = logtableRepository.findEventPost(likeEventPostProposal.getEventId(), likeEventPostProposal.getUserId());
+            if(likeLogtableEventPost == null){
+                throw new NoSuchEntryException("Entity does not exist");
+            }
             logtableRepository.deleteEventPost(likeLogtableEventPost.getId());
         }
         EventPost updatedPost = EventMapper.mapToModel(eventPost,likes);
@@ -221,10 +228,16 @@ public class EventServiceImpl implements EventService {
 
             User user = userRepository.find(likeEventCommentProposal.getUserId());
             LikeLogtableEventComment likeLogtableEventComment = new LikeLogtableEventComment(user, eventComment);
+            if(logtableRepository.checkIfEventCommentExists(eventComment.getId(), user.getId())){
+                throw new EntityExistsException("Entity already exists!");
+            }
             logtableRepository.saveEventComment(likeLogtableEventComment);
         } else {
             likes = eventComment.getLikes() == 0 ? 0 : eventComment.getLikes() - 1;
             LikeLogtableEventComment likeLogtableEventComment = logtableRepository.findEventComment(likeEventCommentProposal.getEventCommentId(),likeEventCommentProposal.getUserId());
+            if(likeLogtableEventComment == null){
+                throw new NoSuchEntryException("Entity does not exist");
+            }
             logtableRepository.deleteEventComment(likeLogtableEventComment.getId());
         }
         EventComment updatedComment = EventMapper.mapToModel(eventComment,likes);
@@ -241,4 +254,5 @@ public class EventServiceImpl implements EventService {
     public List<String> getEventTags(Long id) {
         return repository.getEventTags(id);
     }
+
 }
