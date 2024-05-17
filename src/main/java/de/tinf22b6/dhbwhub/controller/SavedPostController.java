@@ -2,6 +2,8 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.SavedPost;
 import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageSavedPostProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.SavedPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,19 +20,14 @@ public class SavedPostController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<SavedPost> getAll() {
-        return service.getAll();
+    @GetMapping("/homepage-saved-posts/{id}")
+    List<HomepageSavedPostProposal> getSavedPosts(@PathVariable Long id) {
+        return service.getSavedPostsByUserId(id);
     }
 
-    @PostMapping
-    public SavedPost create(@RequestBody SavedPostProposal proposal) {
-        return service.create(proposal);
-    }
-
-    @GetMapping("/{id}")
-    public SavedPost get(@PathVariable Long id) {
-        return service.get(id);
+    @PostMapping("/saved-post")
+    HomepageSavedPostProposal createSavedPost(@RequestBody CreateSavedPostProposal proposal) {
+        return service.createSavedPost(proposal);
     }
 
     @DeleteMapping("/{id}")

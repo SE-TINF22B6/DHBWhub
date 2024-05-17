@@ -23,6 +23,10 @@ public class SavedPostRepository {
         return repository.findById(id).orElse(null);
     }
 
+    public List<SavedPost> findByUserId(Long id){
+        return repository.findByUserId(id);
+    }
+
     public SavedPost save(SavedPost post) {
         return repository.save(post);
     }
