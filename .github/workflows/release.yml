@@ -1,0 +1,37 @@
+name: Upload server.jar
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    permissions: write-all
+    runs-on: 'ubuntu-latest'
+    if: ${{ github.ref_name == 'master' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Prepare SSH connection
+        env:
+          SSH_KEY: ${{ secrets.BACKEND_SERVER_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "${SSH_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: maven.yml
+          workflow_conclusion: success
+          name: 'server'
+          path: './artifact'
+      - name: Rename jar file
+        run: |
+          mv ./artifact/*.jar ./artifact/server.jar
+      - name: Copy jar file to server
+        env:
+          SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
+        run: |
+          scp -o StrictHostKeyChecking=no "./artifact/server.jar" "ubuntu@${SERVER_IP}:~/java/dhbwhub/"

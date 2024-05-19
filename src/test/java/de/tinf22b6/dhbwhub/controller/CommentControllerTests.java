@@ -110,7 +110,7 @@ class CommentControllerTests extends AbstractApplicationTest {
                 .content(objectMapper.writeValueAsString(commentProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.description", is(commentProposal.getDescription())));
+                .andExpect(jsonPath("$.text", is(commentProposal.getDescription())));
     }
 
     @Test
@@ -125,7 +125,7 @@ class CommentControllerTests extends AbstractApplicationTest {
                 .content(objectMapper.writeValueAsString(commentProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.description", is(commentProposal.getDescription())));
+                .andExpect(jsonPath("$.text", is(commentProposal.getDescription())));
     }
 
     @Test

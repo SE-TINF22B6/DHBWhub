@@ -1,0 +1,8 @@
+.calendar-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  font-size: var(--headline-font-size);
+}

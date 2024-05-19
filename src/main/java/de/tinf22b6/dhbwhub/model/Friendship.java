@@ -25,6 +25,4 @@ public class Friendship {
     @JoinColumn(name = "receiver_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private final Account receiver;
-
-    private final boolean accepted;
 }

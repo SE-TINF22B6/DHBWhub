@@ -15,15 +15,8 @@ public class FriendshipRepository {
         this.repository = repository;
     }
 
-    public List<Friendship> findAll() {
-        return repository.findAll();
-    }
 
-    public Friendship find(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    public Friendship save(Friendship friendship) {
+    public Friendship save(Friendship friendship){
         return repository.save(friendship);
     }
 
@@ -32,15 +25,18 @@ public class FriendshipRepository {
     }
 
     public List<Friendship> getFriendlist(Long accountId) {
-        return repository.findFriendlist(accountId);
+        return repository.findByRequesterId(accountId);
     }
 
-    public List<Friendship> getSentFriendrequests(Long accountId) {
-        return repository.findSentRequests(accountId);
+    public Friendship find(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
-    public List<Friendship> getReceivedFriendrequests(Long accountId) {
-        return repository.findReceivedRequests(accountId);
+    public List<Friendship> findAll() {
+        return repository.findAll();
     }
 
+    public Friendship exists(Long requesterId, Long receiverId) {
+        return repository.findByRequesterIdAndReceiverId(requesterId, receiverId).orElse(null);
+    }
 }
