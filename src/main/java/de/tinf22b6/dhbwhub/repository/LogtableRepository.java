@@ -44,7 +44,7 @@ public class LogtableRepository {
 
     public List<LikeLogtableEventPost> findAllEvents() { return eventPostRepository.findAll(); }
 
-    public List<LikeLogtableEventComment> findAll() {
+    public List<LikeLogtableEventComment> findAllEventComments() {
         return eventCommentRepository.findAll();
     }
 
