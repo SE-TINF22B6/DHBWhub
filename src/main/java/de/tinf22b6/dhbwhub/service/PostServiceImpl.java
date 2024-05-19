@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.mapper.NotificationMapper;
 import de.tinf22b6.dhbwhub.mapper.PictureMapper;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.mapper.PostTagMapper;
@@ -9,6 +10,7 @@ import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.PostTag;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.model.logtables.LikeLogtablePost;
+import de.tinf22b6.dhbwhub.model.notification_tables.PostLikeNotification;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.*;
@@ -28,17 +30,20 @@ public class PostServiceImpl implements PostService {
     private final PictureRepository pictureRepository;
     private final PostTagRepository postTagRepository;
     private final LogtableRepository logtableRepository;
+    private final NotificationRepository notificationRepository;
 
     public PostServiceImpl(@Autowired PostRepository repository,
                            @Autowired UserRepository userRepository,
                            @Autowired PictureRepository pictureRepository,
                            @Autowired PostTagRepository postTagRepository,
-                           @Autowired LogtableRepository logtableRepository) {
+                           @Autowired LogtableRepository logtableRepository,
+                           @Autowired NotificationRepository notificationRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.pictureRepository = pictureRepository;
         this.postTagRepository = postTagRepository;
         this.logtableRepository = logtableRepository;
+        this.notificationRepository = notificationRepository;
     }
 
     @Override
@@ -103,6 +108,12 @@ public class PostServiceImpl implements PostService {
             throw new EntityExistsException("Entity already exists!");
         }
         logtableRepository.savePost(likeLogtablePost);
+
+        // Create Notification for Post-author
+        PostLikeNotification notification = NotificationMapper.mapToPostLikeNotification(post, user);
+        notification.setAccumulatedId(null);
+
+        notificationRepository.savePostLikeNotification(notification);
 
         return repository.save(updatedPost).getLikes();
     }

@@ -2,19 +2,19 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.CommentMapper;
+import de.tinf22b6.dhbwhub.mapper.NotificationMapper;
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.model.logtables.LikeLogtablePostComment;
+import de.tinf22b6.dhbwhub.model.notification_tables.CommentLikeNotification;
+import de.tinf22b6.dhbwhub.model.notification_tables.PostCommentNotification;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateCommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.LikeCommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateCommentProposal;
-import de.tinf22b6.dhbwhub.repository.CommentRepository;
-import de.tinf22b6.dhbwhub.repository.LogtableRepository;
-import de.tinf22b6.dhbwhub.repository.PostRepository;
-import de.tinf22b6.dhbwhub.repository.UserRepository;
+import de.tinf22b6.dhbwhub.repository.*;
 import de.tinf22b6.dhbwhub.service.interfaces.CommentService;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +28,18 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final LogtableRepository logtableRepository;
+    private final NotificationRepository notificationRepository;
 
     public CommentServiceImpl(@Autowired CommentRepository repository,
                               @Autowired UserRepository userRepository,
                               @Autowired PostRepository postRepository,
-                              @Autowired LogtableRepository logtableRepository) {
+                              @Autowired LogtableRepository logtableRepository,
+                              @Autowired NotificationRepository notificationRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.logtableRepository = logtableRepository;
+        this.notificationRepository = notificationRepository;
     }
 
     @Override
@@ -56,6 +59,12 @@ public class CommentServiceImpl implements CommentService {
         Post post = postRepository.find(proposal.getPostId());
 
         Comment comment = repository.save(CommentMapper.mapToModel(proposal,user,post));
+
+        // Notify Post-Author
+        PostCommentNotification notification = NotificationMapper.mapToPostCommentNotification(comment, user);
+        notification.setAccumulatedId(null);
+        notificationRepository.savePostCommentNotification(notification);
+
         return CommentMapper.mapToThreadView(comment);
     }
 
@@ -116,6 +125,11 @@ public class CommentServiceImpl implements CommentService {
             throw new EntityExistsException("Entity already exists!");
         }
         logtableRepository.saveComment(likeLogtableComment);
+
+        // Notify User
+        CommentLikeNotification notification = NotificationMapper.mapToCommentLikeNotification(comment, user);
+        notification.setAccumulatedId(null);
+        notificationRepository.saveCommentLikeNotification(notification);
 
         return repository.save(updatedComment).getLikes();
     }

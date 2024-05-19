@@ -2,25 +2,40 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.FriendshipMapper;
-import de.tinf22b6.dhbwhub.model.*;
-import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
+import de.tinf22b6.dhbwhub.mapper.NotificationMapper;
+import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.Friendship;
+import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.model.notification_tables.FollowNotification;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.FollowUserProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.FriendlistProposal;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.repository.FriendshipRepository;
+import de.tinf22b6.dhbwhub.repository.NotificationRepository;
+import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.FriendshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class FriendshipServiceImpl implements FriendshipService {
 
     private final FriendshipRepository repository;
     private final AccountRepository accountRepository;
+    private final NotificationRepository notificationRepository;
+    private final UserRepository userRepository;
 
-    public FriendshipServiceImpl(@Autowired FriendshipRepository repository, AccountRepository accountRepository) {
+    public FriendshipServiceImpl(@Autowired FriendshipRepository repository,
+                                 @Autowired AccountRepository accountRepository,
+                                 @Autowired NotificationRepository notificationRepository,
+                                 @Autowired UserRepository userRepository) {
         this.repository = repository;
         this.accountRepository = accountRepository;
+        this.notificationRepository = notificationRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -64,6 +79,14 @@ public class FriendshipServiceImpl implements FriendshipService {
         }
 
         Friendship friendship = FriendshipMapper.mapToFriendship(requester, receiver);
+
+        // notify receiver
+        User friendRequester = userRepository.findByAccountId(requester.getId());
+        User friendReceiver = userRepository.findByAccountId(receiver.getId());
+        FollowNotification followNotification = NotificationMapper.mapToFollowNotification(friendRequester,friendReceiver);
+        followNotification.setAccumulatedId(null);
+        notificationRepository.saveFollowNotification(followNotification);
+
         return FriendshipMapper.mapToFriendlist(repository.save(friendship));
     }
 }
