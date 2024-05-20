@@ -5,7 +5,7 @@ import EmailInput from "./EmailInput";
 import VerificationCodeInput from "./VerificationCodeInput";
 import UsernamePasswordInput from "./UsernamePasswordInput";
 
-export default function ModalSignUpContainer() {
+export default function SignUp() {
     const [open, setOpen] = useState(false);
     const [showEmailVerification, setShowEmailVerification] = useState(false);
     const [showUsernamePasswordInput, setShowUsernamePasswordInput] = useState(false); // Zustand für UsernamePasswordInput hinzufügen

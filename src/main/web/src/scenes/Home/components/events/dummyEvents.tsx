@@ -1,47 +1,52 @@
 export const dummyEvents = [
   {
-    title: "Feierabend-Treff",
-    address: "DHBW Mensa",
-    day: 4,
-    month: "OKT",
-    year: 2024,
-    tags: ["Party", "Freizeit"],
-    id: 1
+    id: 3,
+    title: "Semester-Opening-Party HKA",
+    location: "Moltkestraße 30, 76133 Karlsruhe",
+    tags: [
+      "Party",
+      "Freizeit"
+    ],
+    "startDate": 1715352225
   },
   {
-    title: "Semester-Opening-Party mit HKA",
-    address: "Moltkestraße 30, 76133 Karlsruhe",
-    day: 6,
-    month: "OKT",
-    year: 2024,
-    tags: ["Party", "Freizeit", "Beerpong"],
-    id: 2
-  },
-  {
+    id: 4,
     title: "StuV Karlsruhe Kneipentour",
-    address: "DHBW Haupteingang",
-    day: 12,
-    month: "OKT",
-    year: 2024,
-    tags: ["Party", "Freizeit"],
-    id: 3
+    location: "DHBW Haupteingang",
+    tags: [
+      "Party",
+      "Freizeit"
+    ],
+    startDate: 1716352225
   },
   {
+    id: 5,
     title: "StuV Karlsruhe Stadtrallye",
-    address: "Schlosspark",
-    day: 14,
-    month: "OKT",
-    year: 2024,
-    tags: ["Party", "Freizeit"],
-    id: 4
+    location: "Schlosspark",
+    tags: [
+      "Party",
+      "Freizeit"
+    ],
+    startDate: 1717352225
   },
   {
+    id: 6,
     title: "Feierabendgrillen",
-    address: "DHBW Mensa",
-    day: 26,
-    month: "OKT",
-    year: 2024,
-    tags: ["Beerpong", "Freizeit"],
-    id: 5
+    location: "DHBW Mensa",
+    tags: [
+      "Beerpong",
+      "Freizeit"
+    ],
+    startDate: 1718352225
+  },
+  {
+    id: 2,
+    title: "Feierabend-Treff",
+    location: "DHBW-MENSA",
+    tags: [
+      "Beerpong",
+      "Freizeit"
+    ],
+    startDate: 1719352225
   }
 ];
