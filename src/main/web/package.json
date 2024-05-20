@@ -34,7 +34,7 @@
     "axios": "^1.6.8",
     "canvas": "^2.11.2",
     "cors": "^2.8.5",
-    "emoji-picker-react": "^4.9.2",
+    "emoji-picker-react": "^4.9.3",
     "fetch-mock": "^9.11.0",
     "flexsearch": "^0.7.43",
     "formik": "^2.4.6",
