@@ -37,7 +37,6 @@
 
 .footer-text {
   color: var(--light-grey);
-  font-family: var(--font-family);
   font-size: 0.875rem;
   margin-right: 4px;
 }

@@ -85,7 +85,6 @@
 
 .signup-text {
     color: var(--white);
-    font-family: var(--font-family);
     font-size: var(--title-font-size);
     font-weight: 400;
     left: 7px;
