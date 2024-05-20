@@ -6,8 +6,8 @@ import de.tinf22b6.dhbwhub.mapper.EventTagMapper;
 import de.tinf22b6.dhbwhub.mapper.NotificationMapper;
 import de.tinf22b6.dhbwhub.mapper.PictureMapper;
 import de.tinf22b6.dhbwhub.model.*;
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtableEventComment;
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtableEventPost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventPost;
 import de.tinf22b6.dhbwhub.model.notification_tables.EventCommentLikeNotification;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.*;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -235,9 +236,11 @@ public class EventServiceImpl implements EventService {
             }
             logtableRepository.saveEventComment(likeLogtableEventComment);
 
-            EventCommentLikeNotification notification = NotificationMapper.mapToEventCommentLikeNotification(eventComment, user);
-            notification.setAccumulatedId(null);
-            notificationRepository.saveEventCommentLikeNotification(notification);
+            if (!Objects.equals(eventComment.getUser().getId(), user.getId())) {
+                EventCommentLikeNotification notification = NotificationMapper.mapToEventCommentLikeNotification(eventComment, user);
+                notification.setAccumulatedId(null);
+                notificationRepository.saveEventCommentLikeNotification(notification);
+            }
         } else {
             likes = eventComment.getLikes() == 0 ? 0 : eventComment.getLikes() - 1;
             LikeLogtableEventComment likeLogtableEventComment = logtableRepository.findEventComment(likeEventCommentProposal.getEventCommentId(),likeEventCommentProposal.getUserId());

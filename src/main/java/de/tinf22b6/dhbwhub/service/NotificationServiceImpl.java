@@ -37,20 +37,22 @@ public class NotificationServiceImpl implements NotificationService {
 
     private List<HomepageNotificationProposal> parsePostLikeNotifications(Long id) {
         List<PostLikeNotification> postLikeNotifications = repository.findPostLikeNotificationsByUser(id);
+        if(postLikeNotifications.isEmpty()) return new ArrayList<>();
+
         List<HomepageNotificationProposal> notificationList = new ArrayList<>();
         Map<Long, List<PostLikeNotification>> groupedList = postLikeNotifications.stream().collect(Collectors.groupingBy(PostLikeNotification::getPostId));
 
         for(Map.Entry<Long, List<PostLikeNotification>> entry : groupedList.entrySet()) {
             List<PostLikeNotification> postLikeNotificationList = entry.getValue();
-            Long accumulatedId = postLikeNotificationList.getFirst() != null ? postLikeNotificationList.getFirst().getPostId() : null;
+            Long accumulatedId = postLikeNotificationList.get(0) != null ? postLikeNotificationList.get(0).getPostId() : null;
             if(postLikeNotificationList.size() > 1) {
                 postLikeNotificationList.stream().filter(n -> n.getAccumulatedId() == null).forEach(n-> {
                     n.setAccumulatedId(accumulatedId);
                     repository.savePostLikeNotification(n);
                 });
-                notificationList.add(NotificationMapper.mapToGroupNotification(postLikeNotificationList.getFirst(), postLikeNotificationList.size()));
+                notificationList.add(NotificationMapper.mapToGroupNotification(postLikeNotificationList.get(0), postLikeNotificationList.size()));
             } else if (postLikeNotificationList.size() == 1) {
-                notificationList.add(NotificationMapper.mapToSingleNotification(postLikeNotificationList.getFirst()));
+                notificationList.add(NotificationMapper.mapToSingleNotification(postLikeNotificationList.get(0)));
             }
         }
 
@@ -59,20 +61,22 @@ public class NotificationServiceImpl implements NotificationService {
 
     private List<HomepageNotificationProposal> parsePostCommentNotifications(Long id) {
         List<PostCommentNotification> postCommentNotifications = repository.findPostCommentNotificationsByUser(id);
+        if(postCommentNotifications.isEmpty()) return new ArrayList<>();
+
         List<HomepageNotificationProposal> notificationList = new ArrayList<>();
         Map<Long, List<PostCommentNotification>> groupedList = postCommentNotifications.stream().collect(Collectors.groupingBy(PostCommentNotification::getPostId));
 
         for(Map.Entry<Long, List<PostCommentNotification>> entry : groupedList.entrySet()) {
             List<PostCommentNotification> postCommentNotificationList = entry.getValue();
-            Long accumulatedId = postCommentNotificationList.getFirst() != null ? postCommentNotificationList.getFirst().getId() : null;
+            Long accumulatedId = postCommentNotificationList.get(0) != null ? postCommentNotificationList.get(0).getId() : null;
             if(postCommentNotificationList.size() > 1) {
                 postCommentNotificationList.stream().filter(n -> n.getAccumulatedId() == null).forEach(n-> {
                     n.setAccumulatedId(accumulatedId);
                     repository.savePostCommentNotification(n);
                 });
-                notificationList.add(NotificationMapper.mapToGroupNotification(postCommentNotificationList.getFirst(), postCommentNotificationList.size()));
+                notificationList.add(NotificationMapper.mapToGroupNotification(postCommentNotificationList.get(0), postCommentNotificationList.size()));
             } else if (postCommentNotificationList.size() == 1) {
-                notificationList.add(NotificationMapper.mapToSingleNotification(postCommentNotificationList.getFirst()));
+                notificationList.add(NotificationMapper.mapToSingleNotification(postCommentNotificationList.get(0)));
             }
         }
 
@@ -81,36 +85,40 @@ public class NotificationServiceImpl implements NotificationService {
 
     private List<HomepageNotificationProposal> parseFollowNotifications(Long id) {
         List<FollowNotification> followNotifications = repository.findFollowNotificationsByUser(id);
+        if(followNotifications.isEmpty()) return new ArrayList<>();
+
         List<HomepageNotificationProposal> notificationList = new ArrayList<>();
-        Long accumulatedId = followNotifications.getFirst() != null ? followNotifications.getFirst().getId() : null;
+        Long accumulatedId = followNotifications.get(0) != null ? followNotifications.get(0).getId() : null;
         if(followNotifications.size() > 1) {
                 followNotifications.stream().filter(n -> n.getAccumulatedId() == null).forEach(n->{
                         n.setAccumulatedId(accumulatedId);
                         repository.saveFollowNotification(n);
                 });
-                notificationList.add(NotificationMapper.mapToGroupNotification(followNotifications.getFirst(), followNotifications.size()));
+                notificationList.add(NotificationMapper.mapToGroupNotification(followNotifications.get(0), followNotifications.size()));
         } else if (followNotifications.size() == 1) {
-                notificationList.add(NotificationMapper.mapToSingleNotification(followNotifications.getFirst()));
+                notificationList.add(NotificationMapper.mapToSingleNotification(followNotifications.get(0)));
         }
         return notificationList;
     }
 
     private List<HomepageNotificationProposal> parseEventCommentLikeNotifications(Long id) {
         List<EventCommentLikeNotification> eventCommentLikeNotifications = repository.findEventCommentLikeNotificationsByUser(id);
+        if(eventCommentLikeNotifications.isEmpty()) return new ArrayList<>();
+
         List<HomepageNotificationProposal> notificationList = new ArrayList<>();
         Map<Long, List<EventCommentLikeNotification>> groupedList = eventCommentLikeNotifications.stream().collect(Collectors.groupingBy(EventCommentLikeNotification::getEventPostId));
 
         for(Map.Entry<Long, List<EventCommentLikeNotification>> entry : groupedList.entrySet()) {
             List<EventCommentLikeNotification> eventCommentLikeNotificationList = entry.getValue();
-            Long accumulatedId = eventCommentLikeNotificationList.getFirst() != null ? eventCommentLikeNotificationList.getFirst().getId() : null;
+            Long accumulatedId = eventCommentLikeNotificationList.get(0) != null ? eventCommentLikeNotificationList.get(0).getId() : null;
             if(eventCommentLikeNotificationList.size() > 1) {
                 eventCommentLikeNotificationList.stream().filter(n -> n.getAccumulatedId() == null).forEach(n-> {
                     n.setAccumulatedId(accumulatedId);
                     repository.saveEventCommentLikeNotification(n);
                 });
-                notificationList.add(NotificationMapper.mapToGroupNotification(eventCommentLikeNotificationList.getFirst(), eventCommentLikeNotificationList.size()));
+                notificationList.add(NotificationMapper.mapToGroupNotification(eventCommentLikeNotificationList.get(0), eventCommentLikeNotificationList.size()));
             } else if (eventCommentLikeNotificationList.size() == 1) {
-                notificationList.add(NotificationMapper.mapToSingleNotification(eventCommentLikeNotificationList.getFirst()));
+                notificationList.add(NotificationMapper.mapToSingleNotification(eventCommentLikeNotificationList.get(0)));
             }
         }
 
@@ -119,20 +127,22 @@ public class NotificationServiceImpl implements NotificationService {
 
     private List<HomepageNotificationProposal> parseCommentLikeNotifications(Long id) {
         List<CommentLikeNotification> commentLikeNotifications = repository.findCommentLikeNotificationsByUser(id);
+        if(commentLikeNotifications.isEmpty()) return new ArrayList<>();
+
         List<HomepageNotificationProposal> notificationList = new ArrayList<>();
         Map<Long, List<CommentLikeNotification>> groupedList = commentLikeNotifications.stream().collect(Collectors.groupingBy(CommentLikeNotification::getPostId));
 
         for(Map.Entry<Long, List<CommentLikeNotification>> entry : groupedList.entrySet()) {
             List<CommentLikeNotification> commentLikeNotificationList = entry.getValue();
-            Long accumulatedId = commentLikeNotificationList.getFirst() != null ? commentLikeNotificationList.getFirst().getId() : null;
+            Long accumulatedId = commentLikeNotificationList.get(0) != null ? commentLikeNotificationList.get(0).getId() : null;
             if(commentLikeNotificationList.size() > 1) {
                 commentLikeNotificationList.stream().filter(n -> n.getAccumulatedId() == null).forEach(n-> {
                     n.setAccumulatedId(accumulatedId);
                     repository.saveCommentLikeNotification(n);
                 });
-                notificationList.add(NotificationMapper.mapToGroupNotification(commentLikeNotificationList.getFirst(), commentLikeNotificationList.size()));
+                notificationList.add(NotificationMapper.mapToGroupNotification(commentLikeNotificationList.get(0), commentLikeNotificationList.size()));
             } else if (commentLikeNotificationList.size() == 1) {
-                notificationList.add(NotificationMapper.mapToSingleNotification(commentLikeNotificationList.getFirst()));
+                notificationList.add(NotificationMapper.mapToSingleNotification(commentLikeNotificationList.get(0)));
             }
         }
         return notificationList;

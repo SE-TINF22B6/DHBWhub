@@ -6,7 +6,7 @@ import de.tinf22b6.dhbwhub.mapper.NotificationMapper;
 import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.User;
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtablePostComment;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePostComment;
 import de.tinf22b6.dhbwhub.model.notification_tables.CommentLikeNotification;
 import de.tinf22b6.dhbwhub.model.notification_tables.PostCommentNotification;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -60,11 +61,13 @@ public class CommentServiceImpl implements CommentService {
 
         Comment comment = repository.save(CommentMapper.mapToModel(proposal,user,post));
 
-        // Notify Post-Author
-        PostCommentNotification notification = NotificationMapper.mapToPostCommentNotification(comment, user);
-        notification.setAccumulatedId(null);
-        notificationRepository.savePostCommentNotification(notification);
 
+        // Notify Post-Author
+        if(!Objects.equals(post.getUser().getId(), user.getId())){
+            PostCommentNotification notification = NotificationMapper.mapToPostCommentNotification(comment, user);
+            notification.setAccumulatedId(null);
+            notificationRepository.savePostCommentNotification(notification);
+        }
         return CommentMapper.mapToThreadView(comment);
     }
 
@@ -127,9 +130,11 @@ public class CommentServiceImpl implements CommentService {
         logtableRepository.saveComment(likeLogtableComment);
 
         // Notify User
-        CommentLikeNotification notification = NotificationMapper.mapToCommentLikeNotification(comment, user);
-        notification.setAccumulatedId(null);
-        notificationRepository.saveCommentLikeNotification(notification);
+        if(!Objects.equals(comment.getUser().getId(), user.getId())){
+            CommentLikeNotification notification = NotificationMapper.mapToCommentLikeNotification(comment, user);
+            notification.setAccumulatedId(null);
+            notificationRepository.saveCommentLikeNotification(notification);
+        }
 
         return repository.save(updatedComment).getLikes();
     }

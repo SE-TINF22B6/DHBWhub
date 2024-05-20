@@ -1,7 +1,6 @@
-package de.tinf22b6.dhbwhub.model.logtables;
+package de.tinf22b6.dhbwhub.model.log_tables;
 
 import de.tinf22b6.dhbwhub.model.EventPost;
-import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.User;
 import jakarta.persistence.*;
 import lombok.Getter;

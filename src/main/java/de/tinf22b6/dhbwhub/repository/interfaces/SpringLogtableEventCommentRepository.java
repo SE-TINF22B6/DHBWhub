@@ -1,6 +1,6 @@
 package de.tinf22b6.dhbwhub.repository.interfaces;
 
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtableEventComment;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

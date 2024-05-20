@@ -1,7 +1,6 @@
-package de.tinf22b6.dhbwhub.model.logtables;
+package de.tinf22b6.dhbwhub.model.log_tables;
 
-import de.tinf22b6.dhbwhub.model.Account;
-import de.tinf22b6.dhbwhub.model.Post;
+import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.model.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,11 +13,11 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
-@Table(name = "like_logtable_post")
-public class LikeLogtablePost {
+@Table(name = "like_logtable_post_comment")
+public class LikeLogtablePostComment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "log_post_generator")
-    @SequenceGenerator(name = "log_post_generator", sequenceName = "log_post_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "log_comment_generator")
+    @SequenceGenerator(name = "log_comment_generator", sequenceName = "log_comment_seq", allocationSize = 1)
     @Column(name = "log_id")
     private Long id;
 
@@ -26,7 +25,7 @@ public class LikeLogtablePost {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private final User user;
 
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "comment_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private final Post post;
+    private final Comment comment;
 }

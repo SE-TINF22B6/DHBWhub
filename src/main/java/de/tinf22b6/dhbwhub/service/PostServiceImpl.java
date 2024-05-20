@@ -9,7 +9,7 @@ import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.PostTag;
 import de.tinf22b6.dhbwhub.model.User;
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtablePost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
 import de.tinf22b6.dhbwhub.model.notification_tables.PostLikeNotification;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -110,10 +111,11 @@ public class PostServiceImpl implements PostService {
         logtableRepository.savePost(likeLogtablePost);
 
         // Create Notification for Post-author
-        PostLikeNotification notification = NotificationMapper.mapToPostLikeNotification(post, user);
-        notification.setAccumulatedId(null);
-
-        notificationRepository.savePostLikeNotification(notification);
+        if(!Objects.equals(post.getUser().getId(), user.getId())){
+            PostLikeNotification notification = NotificationMapper.mapToPostLikeNotification(post, user);
+            notification.setAccumulatedId(null);
+            notificationRepository.savePostLikeNotification(notification);
+        }
 
         return repository.save(updatedPost).getLikes();
     }

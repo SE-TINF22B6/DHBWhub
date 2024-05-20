@@ -1,9 +1,9 @@
 package de.tinf22b6.dhbwhub.repository;
 
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtableEventComment;
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtableEventPost;
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtablePost;
-import de.tinf22b6.dhbwhub.model.logtables.LikeLogtablePostComment;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventPost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePostComment;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringLogtableCommentRepository;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringLogtableEventCommentRepository;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringLogtableEventPostRepository;
