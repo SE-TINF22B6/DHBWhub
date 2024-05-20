@@ -43,6 +43,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final EmailService emailService;
 
+    // TODO: Save JWT in Database
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -64,6 +65,7 @@ public class AuthController {
                 roles));
     }
 
+    // TODO: Generate JWT Token for user after successful signup
     @PostMapping("signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signupRequest) {
         if (accountRepository.existsByUsername(signupRequest.getUsername())) {

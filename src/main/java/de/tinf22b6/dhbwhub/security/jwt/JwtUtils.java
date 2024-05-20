@@ -26,6 +26,8 @@ public class JwtUtils {
     @Value("${DHBWhub.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+
+    //TODO: No duplicated JWT
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
