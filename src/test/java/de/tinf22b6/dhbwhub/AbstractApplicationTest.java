@@ -1,6 +1,11 @@
 package de.tinf22b6.dhbwhub;
 
 import de.tinf22b6.dhbwhub.model.*;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventPost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePostComment;
+import de.tinf22b6.dhbwhub.model.notification_tables.*;
 import de.tinf22b6.dhbwhub.proposal.*;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
@@ -242,19 +247,19 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected LikePostProposal createDefaultLikePostProposal(){
-		return new LikePostProposal(0L, 1L);
+		return new LikePostProposal(1L, 1L);
 	}
 
 	protected LikeCommentProposal createDefaultLikeCommentProposal(){
-		return new LikeCommentProposal(0L, 1L);
+		return new LikeCommentProposal(1L, 1L);
 	}
 
 	protected LikeEventPostProposal createDefaultLikeEventPostProposal(){
-		return new LikeEventPostProposal(0L, 1L);
+		return new LikeEventPostProposal(1L, 1L);
 	}
 
 	protected LikeEventCommentProposal createDefaultLikeEventCommentProposal(){
-		return new LikeEventCommentProposal(0L, 1L);
+		return new LikeEventCommentProposal(1L, 1L);
 	}
 
 	protected HomepageNotificationProposal createHomepageNotificationProposal(){
@@ -305,4 +310,39 @@ public abstract class AbstractApplicationTest {
 		return new UserLikes(1L, List.of(1L, 2L), List.of(2L, 4L), List.of(1L, 3L), List.of(2L));
 	}
 
+	protected LikeLogtablePost createLikeLogtablePost(){
+		return new LikeLogtablePost(createDefaultUser(),createDefaultPost());
+	}
+
+	protected LikeLogtablePostComment createLikeLogtablePostComment(){
+		return new LikeLogtablePostComment(createDefaultUser(),createDefaultComment());
+	}
+
+	protected LikeLogtableEventPost createLikeLogtableEventPost(){
+		return new LikeLogtableEventPost(createDefaultUser(),createDefaultEventPost());
+	}
+
+	protected LikeLogtableEventComment createLikeLogtableEventComment(){
+		return new LikeLogtableEventComment(createDefaultUser(),createDefaultEventComment());
+	}
+
+	protected PostLikeNotification createPostLikeNotification(){
+		return new PostLikeNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
+	}
+
+	protected PostCommentNotification createPostCommentNotification(){
+		return new PostCommentNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
+	}
+
+	protected CommentLikeNotification createCommentLikeNotification(){
+		return new CommentLikeNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
+	}
+
+	protected EventCommentLikeNotification createEventCommentLikeNotification(){
+		return new EventCommentLikeNotification(1L, createDefaultUser(), createDefaultEventPost(), createDefaultUser2(), false, null);
+	}
+
+	protected FollowNotification createFollowNotification(){
+		return new FollowNotification(1L, createDefaultUser(), createDefaultUser2(),false,null);
+	}
 }
