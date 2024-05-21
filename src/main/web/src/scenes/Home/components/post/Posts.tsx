@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import "./Posts.css";
 import { Post } from "./Post";
 import {PostModel} from "./models/PostModel";
-// @ts-ignore
 import {dummyPosts} from "./dummyPosts";
+import config from "../../../../config/config";
 
 interface PostsProps {
   sortOption: string;
@@ -16,18 +16,12 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   useEffect((): void => {
     const fetchPosts = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(process.env.API_URL + "post/homepage-preview-posts", {
-          headers: {
-            'Authorization': '',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
-          }
-        });
+        const response: Response = await fetch(config.apiUrl + "post/homepage-preview-posts");
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setPosts(data);
         } else {
-          throw new Error("Failed to fetch posts");
+          console.log(new Error("Failed to fetch posts"));
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -39,17 +33,16 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   useEffect((): void => {
     const fetchFollowingPosts = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(process.env.API_URL + "post/following-posts", {
+        const response: Response = await fetch(config.apiUrl + "post/following-posts", {
           headers: {
-            'Authorization': '',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
           }
         });
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setFollowingPosts(data);
         } else {
-          throw new Error("Failed to fetch following posts");
+          console.log(new Error("Failed to fetch following posts"));
         }
       } catch (error) {
         console.error("Error fetching following posts:", error);
