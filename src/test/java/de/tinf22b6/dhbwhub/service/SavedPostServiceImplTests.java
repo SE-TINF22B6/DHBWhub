@@ -2,9 +2,14 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.SavedPost;
+import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
+import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.repository.SavedPostRepository;
+import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +29,12 @@ import static org.mockito.Mockito.when;
 class SavedPostServiceImplTests extends AbstractApplicationTest {
     @Mock
     private SavedPostRepository savedPostRepository;
+
+    @Mock
+    private PostRepository postRepository;
+
+    @Mock
+    private UserRepository userRepository;
 
     @InjectMocks
     private SavedPostServiceImpl savedPostService;
@@ -56,6 +67,21 @@ class SavedPostServiceImplTests extends AbstractApplicationTest {
         assertTrue(e.getMessage().matches("(.*) with ID \\d does not exist"));
     }
 
+
+    @Test
+    void GetSavedPostsByUserId_HasSize_Two(){
+        SavedPost savedPost1 = createDefaultSavedPost();
+        SavedPost savedPost2 = createDefaultSavedPost2();
+        when(savedPostRepository.findByUserId(1L)).thenReturn(List.of(savedPost1, savedPost2));
+
+        assertThat(savedPostService.getSavedPostsByUserId(1L)).hasSize(2);
+    }
+
+    @Test
+    void GetSavedPostsByUserId_IsEmpty(){
+        assertThat(savedPostService.getSavedPostsByUserId(1L)).isEmpty();
+    }
+
     @Test
     void Create_IsNotNull() {
         SavedPost savedPost = createDefaultSavedPost();
@@ -63,6 +89,24 @@ class SavedPostServiceImplTests extends AbstractApplicationTest {
 
         SavedPostProposal savedPostProposal = createDefaultSavedPostProposal();
         assertThat(savedPostService.create(savedPostProposal)).isNotNull();
+    }
+
+    @Test
+    void CreateSavedPost_IsNotNull(){
+        SavedPost savedPost = createDefaultSavedPost();
+        savedPost.setId(1L);
+        savedPost.getPost().setId(1L);
+        savedPost.getUser().setId(1L);
+
+        CreateSavedPostProposal createSavedPostProposal = createCreateSavedPostProposal();
+        User user = createDefaultUser();
+        Post post = createDefaultPost();
+
+        when(userRepository.find(1L)).thenReturn(user);
+        when(postRepository.find(1L)).thenReturn(post);
+        when(savedPostRepository.save(any(SavedPost.class))).thenReturn(savedPost);
+
+        assertThat(savedPostService.createSavedPost(createSavedPostProposal)).isNotNull();
     }
 
     @Test

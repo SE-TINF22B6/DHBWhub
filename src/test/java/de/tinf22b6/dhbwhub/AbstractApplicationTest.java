@@ -242,7 +242,7 @@ public abstract class AbstractApplicationTest {
 		return new UpdateEventCommentProposal("Beschreibung 1");
 	}
 
-	protected  FollowUserProposal createDefaultFollowUserProposal(){
+	protected FollowUserProposal createDefaultFollowUserProposal(){
 		return new FollowUserProposal(0L, 1L);
 	}
 
@@ -344,5 +344,13 @@ public abstract class AbstractApplicationTest {
 
 	protected FollowNotification createFollowNotification(){
 		return new FollowNotification(1L, createDefaultUser(), createDefaultUser2(),false,null);
+	}
+
+	protected HomepageSavedPostProposal createHomepageSavedPostProposal(){
+		return new HomepageSavedPostProposal(1L, 1L, "Beschreibung 1");
+	}
+
+	protected CreateSavedPostProposal createCreateSavedPostProposal(){
+		return new CreateSavedPostProposal(1L, 1L);
 	}
 }
