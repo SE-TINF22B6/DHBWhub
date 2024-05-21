@@ -1,6 +1,11 @@
 package de.tinf22b6.dhbwhub;
 
 import de.tinf22b6.dhbwhub.model.*;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventPost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePostComment;
+import de.tinf22b6.dhbwhub.model.notification_tables.*;
 import de.tinf22b6.dhbwhub.proposal.*;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
@@ -239,5 +244,105 @@ public abstract class AbstractApplicationTest {
 
 	protected  FollowUserProposal createDefaultFollowUserProposal(){
 		return new FollowUserProposal(0L, 1L);
+	}
+
+	protected LikePostProposal createDefaultLikePostProposal(){
+		return new LikePostProposal(1L, 1L);
+	}
+
+	protected LikeCommentProposal createDefaultLikeCommentProposal(){
+		return new LikeCommentProposal(1L, 1L);
+	}
+
+	protected LikeEventPostProposal createDefaultLikeEventPostProposal(){
+		return new LikeEventPostProposal(1L, 1L);
+	}
+
+	protected LikeEventCommentProposal createDefaultLikeEventCommentProposal(){
+		return new LikeEventCommentProposal(1L, 1L);
+	}
+
+	protected HomepageNotificationProposal createHomepageNotificationProposal(){
+		return new HomepageNotificationProposal(0L, null, "Notification1", "Link1", "Type-Post-Like");
+	}
+
+	protected HomepageNotificationProposal createHomepageNotificationProposal2(){
+		return new HomepageNotificationProposal(1L, null, "Notification2", "Link2", "Type-Post-Comment");
+	}
+
+	protected HomepageNotificationProposal createHomepageNotificationProposal3(){
+		return new HomepageNotificationProposal(2L, null, "Notification3", "Link3", "Type-Comment-Like");
+	}
+
+	protected HomepageNotificationProposal createHomepageNotificationProposal4(){
+		return new HomepageNotificationProposal(3L, null, "Notification4", "Link4", "Type-Event-Comment-Like");
+	}
+
+	protected HomepageNotificationProposal createHomepageNotificationProposal5(){
+		return new HomepageNotificationProposal(4L, null, "Notification5", "Link5", "Type-Follow");
+	}
+
+	protected List<HomepageNotificationProposal> createHomepageNotificationProposals(){
+		return List.of(createHomepageNotificationProposal(),createHomepageNotificationProposal2(),createHomepageNotificationProposal3(),createHomepageNotificationProposal4(), createHomepageNotificationProposal5());
+	}
+
+	protected DeleteNotificationProposal createDeleteNotificationProposal(){
+		return new DeleteNotificationProposal(1L, null, "Type-Post-Like");
+	}
+
+	protected DeleteNotificationProposal createDeleteNotificationProposal2(){
+		return new DeleteNotificationProposal(1L, null, "Type-Post-Comment");
+	}
+
+	protected DeleteNotificationProposal createDeleteNotificationProposal3(){
+		return new DeleteNotificationProposal(1L, null, "Type-Comment-Like");
+	}
+
+	protected DeleteNotificationProposal createDeleteNotificationProposal4(){
+		return new DeleteNotificationProposal(1L, null, "Type-Event-Comment-Like");
+	}
+
+	protected DeleteNotificationProposal createDeleteNotificationProposal5(){
+		return new DeleteNotificationProposal(1L, null, "Type-Follow");
+	}
+
+	protected UserLikes createDefaultUserLikes(){
+		return new UserLikes(1L, List.of(1L, 2L), List.of(2L, 4L), List.of(1L, 3L), List.of(2L));
+	}
+
+	protected LikeLogtablePost createLikeLogtablePost(){
+		return new LikeLogtablePost(createDefaultUser(),createDefaultPost());
+	}
+
+	protected LikeLogtablePostComment createLikeLogtablePostComment(){
+		return new LikeLogtablePostComment(createDefaultUser(),createDefaultComment());
+	}
+
+	protected LikeLogtableEventPost createLikeLogtableEventPost(){
+		return new LikeLogtableEventPost(createDefaultUser(),createDefaultEventPost());
+	}
+
+	protected LikeLogtableEventComment createLikeLogtableEventComment(){
+		return new LikeLogtableEventComment(createDefaultUser(),createDefaultEventComment());
+	}
+
+	protected PostLikeNotification createPostLikeNotification(){
+		return new PostLikeNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
+	}
+
+	protected PostCommentNotification createPostCommentNotification(){
+		return new PostCommentNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
+	}
+
+	protected CommentLikeNotification createCommentLikeNotification(){
+		return new CommentLikeNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
+	}
+
+	protected EventCommentLikeNotification createEventCommentLikeNotification(){
+		return new EventCommentLikeNotification(1L, createDefaultUser(), createDefaultEventPost(), createDefaultUser2(), false, null);
+	}
+
+	protected FollowNotification createFollowNotification(){
+		return new FollowNotification(1L, createDefaultUser(), createDefaultUser2(),false,null);
 	}
 }

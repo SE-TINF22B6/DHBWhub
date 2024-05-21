@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -127,11 +126,13 @@ class EventControllerTests extends AbstractApplicationTest {
     @Test
     void IncreaseLikesPost_StatusIsOk() throws Exception {
         Integer likes = 1;
-        when(eventService.increaseLikes(any(Long.class),any(Integer.class))).thenReturn(1);
+        LikeEventPostProposal likeEventPostProposal = createDefaultLikeEventPostProposal();
 
-        ResultActions response = mockMvc.perform(put("/event/post-increase-likes/1")
+        when(eventService.adjustPostLikes(any(LikeEventPostProposal.class),any(Integer.class))).thenReturn(2);
+
+        ResultActions response = mockMvc.perform(put("/event/post-increase-likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(likes)));
+                .content(objectMapper.writeValueAsString(likeEventPostProposal)));
 
         response.andExpect(status().isOk());
     }
@@ -139,11 +140,12 @@ class EventControllerTests extends AbstractApplicationTest {
     @Test
     void DecreaseLikesPost_StatusIsOk() throws Exception {
         Integer likes = 0;
-        when(eventService.decreaseLikes(any(Long.class),any(Integer.class))).thenReturn(0);
+        LikeEventPostProposal likeEventPostProposal = createDefaultLikeEventPostProposal();
+        when(eventService.adjustPostLikes(any(LikeEventPostProposal.class),any(Integer.class))).thenReturn(0);
 
-        ResultActions response = mockMvc.perform(put("/event/post-decrease-likes/1")
+        ResultActions response = mockMvc.perform(put("/event/post-decrease-likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(likes)));
+                .content(objectMapper.writeValueAsString(likeEventPostProposal)));
 
         response.andExpect(status().isOk());
     }
@@ -151,11 +153,13 @@ class EventControllerTests extends AbstractApplicationTest {
     @Test
     void IncreaseLikesComment_StatusIsOk() throws Exception {
         Integer likes = 1;
-        when(eventService.increaseLikes(any(Long.class),any(Integer.class))).thenReturn(2);
+        LikeEventCommentProposal likeEventCommentProposal = createDefaultLikeEventCommentProposal();
 
-        ResultActions response = mockMvc.perform(put("/event/comment-increase-likes/1")
+        when(eventService.adjustCommentLikes(any(LikeEventCommentProposal.class),any(Integer.class))).thenReturn(2);
+
+        ResultActions response = mockMvc.perform(put("/event/comment-increase-likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(likes)));
+                .content(objectMapper.writeValueAsString(likeEventCommentProposal)));
 
         response.andExpect(status().isOk());
     }
@@ -163,11 +167,13 @@ class EventControllerTests extends AbstractApplicationTest {
     @Test
     void DecreaseLikesComment_StatusIsOk() throws Exception {
         Integer likes = 0;
-        when(eventService.decreaseLikes(any(Long.class),any(Integer.class))).thenReturn(0);
+        LikeEventCommentProposal likeEventCommentProposal = createDefaultLikeEventCommentProposal();
 
-        ResultActions response = mockMvc.perform(put("/event/comment-decrease-likes/1")
+        when(eventService.adjustCommentLikes(any(LikeEventCommentProposal.class),any(Integer.class))).thenReturn(0);
+
+        ResultActions response = mockMvc.perform(put("/event/comment-decrease-likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(likes)));
+                .content(objectMapper.writeValueAsString(likeEventCommentProposal)));
 
         response.andExpect(status().isOk());
     }
