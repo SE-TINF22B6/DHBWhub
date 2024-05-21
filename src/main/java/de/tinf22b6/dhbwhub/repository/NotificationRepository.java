@@ -14,8 +14,6 @@ public class NotificationRepository {
     private final SpringFollowNotificationRepository followNotificationRepository;
     private final SpringPostCommentNotificationRepository postCommentNotificationRepository;
     private final SpringPostLikeNotificationRepository postLikeNotificationRepository;
-    private static final String ENTRY_DOESNT_EXIST = "Entry does not exist!";
-    private static final String ENTRY_EXISTS = "Entry already exists!";
 
     public NotificationRepository(@Autowired SpringCommentLikeNotificationRepository commentLikeNotificationRepository,
                                   @Autowired SpringEventCommentLikeNotificationRepository eventCommentLikeNotificationRepository,
