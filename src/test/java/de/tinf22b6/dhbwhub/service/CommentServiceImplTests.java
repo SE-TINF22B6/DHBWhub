@@ -91,7 +91,7 @@ class CommentServiceImplTests extends AbstractApplicationTest {
         when(commentRepository.find(1L)).thenReturn(comment);
         when(commentRepository.save(any(Comment.class))).thenReturn(updatedComment);
 
-        assertThat(commentService.increaseLikes(1L)).isEqualTo(5);
+        assertThat(commentService.increaseLikes(createDefaultLikeCommentProposal())).isEqualTo(5);
     }
 
     @Test
@@ -102,6 +102,6 @@ class CommentServiceImplTests extends AbstractApplicationTest {
         when(commentRepository.find(1L)).thenReturn(comment);
         when(commentRepository.save(any(Comment.class))).thenReturn(updatedComment);
 
-        assertThat(commentService.increaseLikes(1L)).isEqualTo(3);
+        assertThat(commentService.increaseLikes(createDefaultLikeCommentProposal())).isEqualTo(3);
     }
 }

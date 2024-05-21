@@ -2,15 +2,10 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.model.Post;
-import de.tinf22b6.dhbwhub.model.PostTag;
-import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.CreatePostProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
-import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -167,7 +162,7 @@ class PostServiceImplTests extends AbstractApplicationTest {
         when(postRepository.find(1L)).thenReturn(post);
         when(postRepository.save(any(Post.class))).thenReturn(updatedPost);
 
-        assertThat(postService.increaseLikes(1L)).isEqualTo(445);
+        assertThat(postService.increaseLikes(createDefaultLikePostProposal())).isEqualTo(445);
     }
 
     @Test
@@ -178,7 +173,7 @@ class PostServiceImplTests extends AbstractApplicationTest {
         when(postRepository.find(1L)).thenReturn(post);
         when(postRepository.save(any(Post.class))).thenReturn(updatedPost);
 
-        assertThat(postService.increaseLikes(1L)).isEqualTo(443);
+        assertThat(postService.increaseLikes(createDefaultLikePostProposal())).isEqualTo(443);
     }
 
     @Test

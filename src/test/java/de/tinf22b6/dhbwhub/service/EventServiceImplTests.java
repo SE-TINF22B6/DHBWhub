@@ -123,8 +123,8 @@ class EventServiceImplTests extends AbstractApplicationTest {
         when(eventRepository.findEventComment(1L)).thenReturn(comment);
         when(eventRepository.save(any(EventComment.class))).thenReturn(updatedComment);
 
-        assertThat(eventService.increaseLikes(1L,0)).isEqualTo(2);
-        assertThat(eventService.increaseLikes(1L,1)).isEqualTo(2);
+        assertThat(eventService.adjustPostLikes(createDefaultLikeEventPostProposal(), 0)).isEqualTo(2);
+        assertThat(eventService.adjustCommentLikes(createDefaultLikeEventCommentProposal(),0)).isEqualTo(2);
     }
 
     @Test
@@ -141,8 +141,8 @@ class EventServiceImplTests extends AbstractApplicationTest {
         when(eventRepository.findEventComment(1L)).thenReturn(comment);
         when(eventRepository.save(any(EventComment.class))).thenReturn(updatedComment);
 
-        assertThat(eventService.increaseLikes(1L,0)).isEqualTo(0);
-        assertThat(eventService.increaseLikes(1L,1)).isEqualTo(0);
+        assertThat(eventService.adjustPostLikes(createDefaultLikeEventPostProposal(),1)).isEqualTo(0);
+        assertThat(eventService.adjustCommentLikes(createDefaultLikeEventCommentProposal(),1)).isEqualTo(0);
     }
 
     @Test
