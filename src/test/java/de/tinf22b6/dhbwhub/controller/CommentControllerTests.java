@@ -141,11 +141,13 @@ class CommentControllerTests extends AbstractApplicationTest {
     @Test
     void IncreaseLikes_StatusIsOk() throws Exception {
         Integer likes = 1;
-        when(commentService.increaseLikes(any(Long.class))).thenReturn(1);
+        LikeCommentProposal likeCommentProposal = createDefaultLikeCommentProposal();
 
-        ResultActions response = mockMvc.perform(put("/comment/increase-likes/1")
+        when(commentService.increaseLikes(any(LikeCommentProposal.class))).thenReturn(2);
+
+        ResultActions response = mockMvc.perform(put("/comment/increase-likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(likes)));
+                .content(objectMapper.writeValueAsString(likeCommentProposal)));
 
         response.andExpect(status().isOk());
     }
@@ -153,11 +155,13 @@ class CommentControllerTests extends AbstractApplicationTest {
     @Test
     void DecreaseLikes_StatusIsOk() throws Exception {
         Integer likes = 0;
-        when(commentService.decreaseLikes(any(Long.class))).thenReturn(0);
+        LikeCommentProposal likeCommentProposal = createDefaultLikeCommentProposal();
 
-        ResultActions response = mockMvc.perform(put("/comment/decrease-likes/1")
+        when(commentService.decreaseLikes(any(LikeCommentProposal.class))).thenReturn(0);
+
+        ResultActions response = mockMvc.perform(put("/comment/decrease-likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(likes)));
+                .content(objectMapper.writeValueAsString(likeCommentProposal)));
 
         response.andExpect(status().isOk());
     }

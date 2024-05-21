@@ -12,8 +12,8 @@ public interface PostService {
     HomepagePostPreviewProposal create(CreatePostProposal proposal);
     Post get(Long id);
     Post update(Long id, PostProposal proposal);
-    int increaseLikes(Long id);
-    int decreaseLikes(Long id);
+    int increaseLikes(LikePostProposal likePostProposal);
+    int decreaseLikes(LikePostProposal likePostProposal);
     PostThreadViewProposal update(Long id, UpdatePostProposal proposal);
     void delete(Long id);
     int getAmountOfComments(Long id);

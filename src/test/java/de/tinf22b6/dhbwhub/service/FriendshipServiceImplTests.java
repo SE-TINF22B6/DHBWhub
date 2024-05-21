@@ -3,15 +3,13 @@ package de.tinf22b6.dhbwhub.service;
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.Account;
-import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.model.Friendship;
-import de.tinf22b6.dhbwhub.model.Post;
-import de.tinf22b6.dhbwhub.proposal.CommentProposal;
-import de.tinf22b6.dhbwhub.proposal.FriendshipProposal;
-import de.tinf22b6.dhbwhub.proposal.PostProposal;
+import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.FollowUserProposal;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.repository.FriendshipRepository;
+import de.tinf22b6.dhbwhub.repository.NotificationRepository;
+import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,8 +29,15 @@ import static org.mockito.Mockito.when;
 class FriendshipServiceImplTests extends AbstractApplicationTest {
     @Mock
     private FriendshipRepository friendshipRepository;
+
     @Mock
     private AccountRepository accountRepository;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private NotificationRepository notificationRepository;
 
     @InjectMocks
     private FriendshipServiceImpl friendshipService;
@@ -70,10 +75,17 @@ class FriendshipServiceImplTests extends AbstractApplicationTest {
         Account receiver = createDefaultAccount2();
         receiver.setId(1L);
 
+        User requestingUser = createDefaultUser();
+        requestingUser.setId(0L);
+        User receiveingUser = createDefaultUser2();
+        receiveingUser.setId(1L);
+
         when(accountRepository.find(0L)).thenReturn(requester);
         when(accountRepository.find(1L)).thenReturn(receiver);
         when(friendshipRepository.exists(any(Long.class), any(Long.class))).thenReturn(null);
         when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
+        when(userRepository.findByAccountId(0L)).thenReturn(requestingUser);
+        when(userRepository.findByAccountId(1L)).thenReturn(receiveingUser);
 
         assertThat(friendshipService.followUser(followUserProposal)).isNotNull();
     }

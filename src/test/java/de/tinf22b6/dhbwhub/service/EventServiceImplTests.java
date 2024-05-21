@@ -4,8 +4,12 @@ import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.EventComment;
 import de.tinf22b6.dhbwhub.model.EventPost;
 import de.tinf22b6.dhbwhub.model.EventTag;
+import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.EventCommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.repository.EventRepository;
+import de.tinf22b6.dhbwhub.repository.LogtableRepository;
+import de.tinf22b6.dhbwhub.repository.NotificationRepository;
+import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +29,15 @@ import static org.mockito.Mockito.when;
 class EventServiceImplTests extends AbstractApplicationTest {
     @Mock
     private EventRepository eventRepository;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private LogtableRepository logtableRepository;
+
+    @Mock
+    private NotificationRepository notificationRepository;
 
     @InjectMocks
     private EventServiceImpl eventService;
@@ -108,43 +121,65 @@ class EventServiceImplTests extends AbstractApplicationTest {
 
         assertThat(eventService.getEventTags(1L)).hasSize(2);
     }
-
     @Test
-    void IncreaseLikes_ValueIncreased() {
+    void IncreasePostLikes_ValueIncreased() {
         EventPost post = createDefaultEventPost();
+        post.getUser().setId(0L);
         EventPost updatedPost = createUpdatedDefaultEventPost();
-
-        EventComment comment = createDefaultEventComment();
-        EventComment updatedComment = createUpdatedDefaultEventComment();
+        User user = createDefaultUser();
+        user.setId(1L);
 
         when(eventRepository.findEventPost(1L)).thenReturn(post);
         when(eventRepository.save(any(EventPost.class))).thenReturn(updatedPost);
+        when(userRepository.find(1L)).thenReturn(user);
 
-        when(eventRepository.findEventComment(1L)).thenReturn(comment);
-        when(eventRepository.save(any(EventComment.class))).thenReturn(updatedComment);
-
-        assertThat(eventService.increaseLikes(1L,0)).isEqualTo(2);
-        assertThat(eventService.increaseLikes(1L,1)).isEqualTo(2);
+        assertThat(eventService.adjustPostLikes(createDefaultLikeEventPostProposal(), 0)).isEqualTo(2);
     }
 
     @Test
-    void IncreaseLikes_ValueDecreased() {
-        EventPost post = createDefaultEventPost();
-        EventPost updatedPost = createUpdatedDefaultEventPost2();
-
+    void IncreaseCommentLikes_ValueIncreased() {
         EventComment comment = createDefaultEventComment();
-        EventComment updatedComment = createUpdatedDefaultEventComment2();
-
-        when(eventRepository.findEventPost(1L)).thenReturn(post);
-        when(eventRepository.save(any(EventPost.class))).thenReturn(updatedPost);
+        comment.getUser().setId(0L);
+        EventComment updatedComment = createUpdatedDefaultEventComment();
+        User user = createDefaultUser();
+        user.setId(1L);
 
         when(eventRepository.findEventComment(1L)).thenReturn(comment);
         when(eventRepository.save(any(EventComment.class))).thenReturn(updatedComment);
+        when(userRepository.find(1L)).thenReturn(user);
 
-        assertThat(eventService.increaseLikes(1L,0)).isEqualTo(0);
-        assertThat(eventService.increaseLikes(1L,1)).isEqualTo(0);
+        assertThat(eventService.adjustCommentLikes(createDefaultLikeEventCommentProposal(),0)).isEqualTo(2);
     }
 
+    @Test
+    void DecreasePostLikes_ValueDecreased() {
+        EventPost post = createDefaultEventPost();
+        post.getUser().setId(0L);
+        EventPost updatedPost = createUpdatedDefaultEventPost2();
+        User user = createDefaultUser();
+        user.setId(1L);
+
+        when(eventRepository.findEventPost(1L)).thenReturn(post);
+        when(eventRepository.save(any(EventPost.class))).thenReturn(updatedPost);
+        when(logtableRepository.findEventPost(1L, 1L)).thenReturn(createLikeLogtableEventPost());
+
+        assertThat(eventService.adjustPostLikes(createDefaultLikeEventPostProposal(),1)).isEqualTo(0);
+    }
+
+    @Test
+    void DecreaseCommentLikes_ValueDecreased() {
+        EventComment comment = createDefaultEventComment();
+        comment.getUser().setId(0L);
+        EventComment updatedComment = createUpdatedDefaultEventComment2();
+        User user = createDefaultUser();
+        user.setId(1L);
+
+        when(eventRepository.findEventComment(1L)).thenReturn(comment);
+        when(eventRepository.save(any(EventComment.class))).thenReturn(updatedComment);
+        when(logtableRepository.findEventComment(1L,1L)).thenReturn(createLikeLogtableEventComment());
+
+        assertThat(eventService.adjustCommentLikes(createDefaultLikeEventCommentProposal(),1)).isEqualTo(0);
+    }
     @Test
     void DeletePost_DoesNotThrow() {
         EventPost post = createDefaultEventPost();

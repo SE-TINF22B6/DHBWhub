@@ -4,6 +4,7 @@ import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateCommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.LikeCommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateCommentProposal;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface CommentService {
     CommentThreadViewProposal update(Long id, UpdateCommentProposal proposal);
     void delete(Long id);
     List<Comment> findByPostId(Long postId);
-    int increaseLikes(Long id);
-    int decreaseLikes(Long id);
+    int increaseLikes(LikeCommentProposal likeCommentProposal);
+    int decreaseLikes(LikeCommentProposal likeCommentProposal);
     CommentThreadViewProposal getCommentThreadView(Long id);
 }
