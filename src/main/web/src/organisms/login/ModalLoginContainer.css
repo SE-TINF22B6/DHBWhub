@@ -39,7 +39,6 @@
 
 .log-in-text {
     color: var(--white);
-    font-family: "Source Sans Pro-Regular", Helvetica, serif;
     font-size: var(--title-font-size);
     font-weight: 400;
     left: 16px;

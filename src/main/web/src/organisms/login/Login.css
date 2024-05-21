@@ -5,7 +5,6 @@
     background: var(--component-grey);
     font-size: 24px;
     font-weight: 700;
-    font-family: Arial, sans-serif;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     overflow: hidden;
@@ -16,7 +15,6 @@
     color: white;
     font-weight: 700;
     font-size: 18px;
-    font-family: Arial, sans-serif;
     display: inline-block;
     vertical-align: top;
 }
@@ -65,7 +63,6 @@
     margin-left: 20px;
     color: #AAA4A4;
     font-size: 16px;
-    font-family: var(--font-family);
     display: flex;
     align-items: center;
 }
@@ -73,7 +70,6 @@
 .forgot-password-option-text {
     color: #AAA4A4;
     font-size: 16px;
-    font-family: var(--font-family);
 }
 
 .remember-me-option {
@@ -81,7 +77,6 @@
     margin-left: 20px;
     color: #AAA4A4;
     font-size: 16px;
-    font-family: var(--font-family);
     display: flex;
     align-items: center;
 }
@@ -93,7 +88,6 @@
     border-radius: 5px;
     color: var(--white);
     font-size: 16px;
-    font-family: var(--font-family);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,7 +102,6 @@
 .signup-option-text {
     color: #989494;
     font-size: 15px;
-    font-family: var(--font-family);
     font-weight: 400;
     cursor: pointer;
 }
@@ -116,7 +109,6 @@
 .signup-option-text-link {
     color: #989494;
     font-size: 15px;
-    font-family: var(--font-family);
     font-weight: 400;
     cursor: pointer;
     text-decoration: underline;
@@ -124,7 +116,6 @@
 
 .alert-danger {
     color: red;
-    font-family: var(--font-family);
 }
 
 .google-oauth-login {

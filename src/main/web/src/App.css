@@ -1,5 +1,6 @@
 :root {
   background-color: #151719;
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
 
   --grey: #32363b;
   --component-grey: #25282c;
@@ -12,7 +13,6 @@
   --box-shadow: #000000;
   --black: #000000;
 
-  --font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
   --text-font-size: 0.75rem;
   --description-font-size: 0.875rem;
   --headline-font-size: 1rem;
@@ -29,7 +29,6 @@
 
 .error, .loading {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: 24px;
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -40,7 +39,6 @@
 .author-link {
   text-decoration: none;
   color: var(--light-grey);
-  font-family: var(--font-family);
   font-size: var(--text-font-size);
   font-weight: var(--strong-font-weight);
   &&:hover {
@@ -50,7 +48,6 @@
 
 .component-headline {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--headline-font-size);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
