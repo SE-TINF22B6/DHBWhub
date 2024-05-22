@@ -27,6 +27,10 @@ public class SavedPostRepository {
         return repository.findByUserId(id);
     }
 
+    public List<SavedPost> findByUserIdAndPostId(Long userId, Long postId){
+        return repository.findByUserIdAndPostId(userId, postId);
+    }
+
     public SavedPost save(SavedPost post) {
         return repository.save(post);
     }

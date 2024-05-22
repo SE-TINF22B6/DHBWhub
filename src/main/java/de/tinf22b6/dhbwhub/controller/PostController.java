@@ -44,6 +44,36 @@ public class PostController {
         return service.getPostComments(id);
     }
 
+    @GetMapping("/user-posts/{id}")
+    public List<HomepagePostPreviewProposal> getUserPosts(@PathVariable Long id) {
+        return service.getPostsFromUser(id);
+    }
+
+    @GetMapping("/friend-posts/{id}")
+    public List<HomepagePostPreviewProposal> getFriendPosts(@PathVariable Long id) {
+        return service.getPostsFromFriends(id);
+    }
+
+    @GetMapping("/posts-by-tag/{tag}")
+    public List<HomepagePostPreviewProposal> getPostsByTag(@PathVariable String tag) {
+        return service.getPostsByTag(tag);
+    }
+
+    @GetMapping("/posts-by-keyword/{keyword}")
+    public List<HomepagePostPreviewProposal> getPostsByKeyword(@PathVariable String keyword) {
+        return service.getPostsByKeyword(keyword);
+    }
+
+    @GetMapping("/post-by-tag-keyword/{keyword}")
+    public List<HomepagePostPreviewProposal> getPostsByTagKeyword(@PathVariable String keyword) {
+        return service.getPostTagsByKeyword(keyword);
+    }
+
+    @GetMapping("/friend-posts-by-tag")
+    public List<HomepagePostPreviewProposal> getFriendPostsByTag(@RequestBody FriendPostsByTagProposal friendPostsByTagProposal) {
+        return service.getPostsFromFriendsByTag(friendPostsByTagProposal.getUserId(), friendPostsByTagProposal.getTag());
+    }
+
     @PostMapping
     public Post create(@RequestBody PostProposal proposal) {
         return service.create(proposal);

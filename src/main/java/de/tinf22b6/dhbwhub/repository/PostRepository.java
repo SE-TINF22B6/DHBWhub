@@ -58,6 +58,26 @@ public class PostRepository {
         return postRepository.getFacWirtschaftPosts();
     }
 
+    public List<Post> findPostsFromFriends(Long id){
+        return postRepository.getPostsFromFriends(id);
+    }
+
+    public List<Post> findPostsFromUser(Long id){
+        return postRepository.findByUserId(id);
+    }
+
+    public List<Post> findPostsFromFriendsByTag(Long id, String tag){
+        return postRepository.getPostsFromFriendsByTag(id,tag);
+    }
+
+    public List<Post> findPostsByKeyword(String keyword){
+        return postRepository.findByTitleContaining(keyword);
+    }
+
+    public List<Post> findPostsByTag(String tag){
+        return postTagRepository.findByTag(tag).stream().map(t-> postRepository.findById(t.getPost().getId()).orElse(null)).toList();
+    }
+
     public int getAmountOfComments(Long id){
         Integer commentAmount = postRepository.getCommentAmount(id);
         return commentAmount != null ? commentAmount : 0;
@@ -78,6 +98,8 @@ public class PostRepository {
        }
         return postTags.stream().map(PostTag::getTag).toList();
     }
+
+
 
 
 }

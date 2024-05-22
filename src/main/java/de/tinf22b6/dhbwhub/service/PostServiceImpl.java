@@ -253,31 +253,66 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<String> getPopularPostTags() {
-        return new ArrayList<>();
+        return postTagRepository.findPopularTags();
     }
 
     @Override
     public List<HomepagePostPreviewProposal> getPostsFromUser(Long id) {
-        return List.of();
+        List<HomepagePostPreviewProposal> userPosts = repository.findPostsFromUser(id).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        userPosts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return userPosts;
     }
 
     @Override
     public List<HomepagePostPreviewProposal> getPostsFromFriends(Long id) {
-        return List.of();
+        List<HomepagePostPreviewProposal> friendPosts = repository.findPostsFromFriends(id).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        friendPosts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return friendPosts;
     }
 
     @Override
     public List<HomepagePostPreviewProposal> getPostsByTag(String tag) {
-        return List.of();
+        List<HomepagePostPreviewProposal> posts = repository.findPostsByTag(tag).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        posts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return posts;
     }
 
     @Override
     public List<HomepagePostPreviewProposal> getPostsByKeyword(String keyword) {
-        return List.of();
+        List<HomepagePostPreviewProposal> posts = repository.findPostsByKeyword(keyword).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        posts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return posts;
     }
 
     @Override
     public List<HomepagePostPreviewProposal> getPostTagsByKeyword(String keyword) {
-        return List.of();
+        List<HomepagePostPreviewProposal> posts = postTagRepository.findTagByKeyword(keyword).stream().map(t-> PostMapper.mapToHomepagePreviewProposal(get(t.getPost().getId()))).toList();
+        posts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return posts;
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsFromFriendsByTag(Long id, String tag) {
+        List<HomepagePostPreviewProposal> posts = repository.findPostsFromFriendsByTag(id, tag).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        posts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return posts;
     }
 }

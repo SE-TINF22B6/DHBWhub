@@ -29,4 +29,5 @@ public interface PostService {
     List<HomepagePostPreviewProposal> getPostsByTag(String tag);
     List<HomepagePostPreviewProposal> getPostsByKeyword(String keyword);
     List<HomepagePostPreviewProposal> getPostTagsByKeyword(String keyword);
+    List<HomepagePostPreviewProposal> getPostsFromFriendsByTag(Long id, String tag);
 }
