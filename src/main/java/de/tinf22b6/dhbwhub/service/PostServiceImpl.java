@@ -250,4 +250,34 @@ public class PostServiceImpl implements PostService {
     public List<String> getPostTags(Long id) {
         return repository.getPostTags(id);
     }
+
+    @Override
+    public List<String> getPopularPostTags() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsFromUser(Long id) {
+        return List.of();
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsFromFriends(Long id) {
+        return List.of();
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsByTag(String tag) {
+        return List.of();
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsByKeyword(String keyword) {
+        return List.of();
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostTagsByKeyword(String keyword) {
+        return List.of();
+    }
 }

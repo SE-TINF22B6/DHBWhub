@@ -23,5 +23,12 @@ public interface SpringPostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT v.comment_amount FROM view_comment_amount v WHERE v.post_id = ?1", nativeQuery = true)
     Integer getCommentAmount(Long id);
 
+    @Query(value = "SELECT * FROM post WHERE user_id IN (SELECT receiver_id FROM friendship WHERE requester_id = ?1) ORDER BY post.timestamp DESC", nativeQuery = true)
+    List<Post> getPostsFromFriends(Long id);
+
+    List<Post> findByUserId(Long userId);
+
+    @Query(value = "SELECT * FROM post WHERE title LIKE '%?1%'",nativeQuery = true)
+    List<Post> findPostsWithKeyword(String keyword);
 
 }

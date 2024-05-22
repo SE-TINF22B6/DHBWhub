@@ -12,4 +12,12 @@ public interface SpringPostTagRepository extends JpaRepository<PostTag, Long> {
 
     @Query(value = "SELECT * FROM post_tag WHERE post_id = ?1 AND tag = ?2", nativeQuery = true)
     PostTag findByPostIdAndTag(Long postId, String tag);
+
+    List<PostTag> findByTag(String tag);
+
+    @Query(value = "SELECT * FROM view_popular_tags ", nativeQuery = true)
+    List<PostTag> findPopularTags();
+
+    @Query(value = "SELECT * FROM post_tag WHERE tag LIKE '%?1%'", nativeQuery = true)
+    List<PostTag> findTagsWithKeyword(String keyword);
 }
