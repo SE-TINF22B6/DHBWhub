@@ -66,11 +66,11 @@ public class FriendshipServiceImpl implements FriendshipService {
 
     @Override
     public FriendlistProposal followUser(FollowUserProposal proposal) {
-        Account requester = accountRepository.find(proposal.getRequesterId());
+        User requester = userRepository.find(proposal.getRequesterId());
         if (requester == null) {
             throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Account.class.getSimpleName(), proposal.getRequesterId()));
         }
-        Account receiver = accountRepository.find(proposal.getReceiverId());
+        User receiver = userRepository.find(proposal.getReceiverId());
         if (receiver == null) {
             throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Account.class.getSimpleName(), proposal.getReceiverId()));
         }
@@ -81,9 +81,7 @@ public class FriendshipServiceImpl implements FriendshipService {
         Friendship friendship = FriendshipMapper.mapToFriendship(requester, receiver);
 
         // notify receiver
-        User friendRequester = userRepository.findByAccountId(requester.getId());
-        User friendReceiver = userRepository.findByAccountId(receiver.getId());
-        FollowNotification followNotification = NotificationMapper.mapToFollowNotification(friendRequester,friendReceiver);
+        FollowNotification followNotification = NotificationMapper.mapToFollowNotification(requester,receiver);
         followNotification.setAccumulatedId(null);
         notificationRepository.saveFollowNotification(followNotification);
 

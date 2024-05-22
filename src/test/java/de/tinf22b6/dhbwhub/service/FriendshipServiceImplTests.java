@@ -2,7 +2,6 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.FollowUserProposal;
@@ -70,22 +69,15 @@ class FriendshipServiceImplTests extends AbstractApplicationTest {
         Friendship friendship = createDefaultFriendship();
         FollowUserProposal followUserProposal = createDefaultFollowUserProposal();
 
-        Account requester = createDefaultAccount();
-        requester.setId(0L);
-        Account receiver = createDefaultAccount2();
-        receiver.setId(1L);
-
         User requestingUser = createDefaultUser();
         requestingUser.setId(0L);
         User receiveingUser = createDefaultUser2();
         receiveingUser.setId(1L);
 
-        when(accountRepository.find(0L)).thenReturn(requester);
-        when(accountRepository.find(1L)).thenReturn(receiver);
+        when(userRepository.find(0L)).thenReturn(requestingUser);
+        when(userRepository.find(1L)).thenReturn(receiveingUser);
         when(friendshipRepository.exists(any(Long.class), any(Long.class))).thenReturn(null);
         when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
-        when(userRepository.findByAccountId(0L)).thenReturn(requestingUser);
-        when(userRepository.findByAccountId(1L)).thenReturn(receiveingUser);
 
         assertThat(friendshipService.followUser(followUserProposal)).isNotNull();
     }

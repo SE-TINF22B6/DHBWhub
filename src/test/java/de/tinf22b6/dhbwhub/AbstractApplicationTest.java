@@ -63,11 +63,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected Friendship createDefaultFriendship() {
-		return new Friendship(createDefaultAccount(), createDefaultAccount2());
+		return new Friendship(createDefaultUser(), createDefaultUser2());
 	}
 
 	protected Friendship createDefaultFriendship2() {
-		return new Friendship(createDefaultAccount2(), createDefaultAccount());
+		return new Friendship(createDefaultUser2(), createDefaultUser());
 	}
 
 	protected Post createDefaultPost() {
