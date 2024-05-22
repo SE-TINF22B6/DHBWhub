@@ -9,6 +9,16 @@ export const register = (username: string, email: string, password: string) => {
     });
 };
 
+const saveUserDataToLocalStorage = (data: {
+    id: number;
+    username: string;
+    accessToken: string;
+}) => {
+    localStorage.setItem('id', data.id.toString());
+    localStorage.setItem('username', data.username);
+    localStorage.setItem('token', data.accessToken);
+};
+
 export const login = async (username: string, password: string, rememberMe: boolean) => {
     const response = await axios
     .post(config.apiUrl + "api/auth/login", {
@@ -18,6 +28,7 @@ export const login = async (username: string, password: string, rememberMe: bool
     });
     if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
+        saveUserDataToLocalStorage(response.data);
     }
     return response.data;
 };
