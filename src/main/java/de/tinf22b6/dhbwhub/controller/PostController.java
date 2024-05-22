@@ -74,6 +74,10 @@ public class PostController {
         return service.getPostsFromFriendsByTag(friendPostsByTagProposal.getUserId(), friendPostsByTagProposal.getTag());
     }
 
+    @GetMapping("/popular-tags")
+    public List<String> getPopularTags(){
+        return service.getPopularPostTags();
+    }
     @PostMapping
     public Post create(@RequestBody PostProposal proposal) {
         return service.create(proposal);

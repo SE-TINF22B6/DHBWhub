@@ -44,7 +44,7 @@ public class PostTagRepository {
     }
 
     public List<String> findPopularTags(){
-        return repository.findPopularTags().stream().map(PostTag::getTag).toList();
+        return repository.findPopularTags().stream().limit(10).toList();
     }
     public List<PostTag> findTagByKeyword(String keyword) {
         return repository.findByTagContaining(keyword);
