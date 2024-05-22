@@ -1,7 +1,5 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.model.SavedPost;
-import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageSavedPostProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.SavedPostService;
@@ -21,12 +19,12 @@ public class SavedPostController {
     }
 
     @GetMapping("/homepage-saved-posts/{id}")
-    List<HomepageSavedPostProposal> getSavedPosts(@PathVariable Long id) {
+    public List<HomepageSavedPostProposal> getSavedPosts(@PathVariable Long id) {
         return service.getSavedPostsByUserId(id);
     }
 
     @PostMapping("/saved-post")
-    HomepageSavedPostProposal createSavedPost(@RequestBody CreateSavedPostProposal proposal) {
+    public HomepageSavedPostProposal createSavedPost(@RequestBody CreateSavedPostProposal proposal) {
         return service.createSavedPost(proposal);
     }
 
