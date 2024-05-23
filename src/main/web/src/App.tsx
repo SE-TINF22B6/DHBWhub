@@ -38,9 +38,9 @@ class App extends Component {
               <Route path="/imprint" element={<Imprint/>}/>
               <Route path="/profile" element={<Profile/>}/>
               {/*<Route path="/search" element={<Search/>}/>*/}
-              <Route path="/tag" element={<TagOverview/>}/>
+              {/*<Route path="/tag" element={<TagOverview/>}/>*/}
               <Route path="/terms-of-service" element={<TermsOfService/>}/>
-              <Route path="/user" element={<User/>}/>
+              {/*<Route path="/user" element={<User/>}/>*/}
             </Routes>
           </Router>
         </GoogleOAuthProvider>
