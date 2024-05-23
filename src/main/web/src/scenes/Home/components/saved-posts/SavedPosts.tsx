@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { dummyPosts } from "./dummyPosts";
 import { SavedPostModel } from "./model/SavedPostModel";
 import config from "../../../../config/config";
-import {DSLAd} from "../../../../atoms/ads/DSLAd";
 import {getJWT, getUserId, isUserLoggedIn} from "../../../../services/AuthService";
 
 export const SavedPosts = () => {
@@ -36,10 +35,6 @@ export const SavedPosts = () => {
     };
     fetchSavedPosts();
   }, []);
-
-  if (!isUserLoggedIn() || savedPosts === null || savedPosts.length === 0) {
-    return <DSLAd/>;
-  }
 
   const uniqueSavedPosts: SavedPostModel[] = savedPosts.filter(
       (post: SavedPostModel, index: number, self: SavedPostModel[]): boolean => self.findIndex(p => p.postId === post.postId) === index
