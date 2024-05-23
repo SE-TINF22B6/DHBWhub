@@ -25,6 +25,10 @@ public class UserRepository {
 
     public User findByAccountId(Long accountId) { return repository.findByAccoundId(accountId); }
 
+    public List<User> findUsersByKeyword(String keyword){
+        return repository.findUsersWithKeyword(keyword);
+    }
+
     public User save(User user) {
         return repository.save(user);
     }

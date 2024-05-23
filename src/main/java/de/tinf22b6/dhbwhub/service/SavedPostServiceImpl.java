@@ -13,6 +13,7 @@ import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.repository.SavedPostRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.SavedPostService;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ public class SavedPostServiceImpl implements SavedPostService {
     private final PostRepository postRepository;
 
     public SavedPostServiceImpl(@Autowired SavedPostRepository repository,
-        @Autowired UserRepository userRepository,
-        @Autowired PostRepository postRepository) {
+                                @Autowired UserRepository userRepository,
+                                @Autowired PostRepository postRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.postRepository = postRepository;
@@ -62,6 +63,9 @@ public class SavedPostServiceImpl implements SavedPostService {
         if(proposal == null || proposal.getPostId() == null || proposal.getUserId() == null) {
             throw new IllegalArgumentException("Empty proposal or missing Arguments!");
         }
+        if(!repository.findByUserIdAndPostId(proposal.getUserId(), proposal.getPostId()).isEmpty()){
+            throw new EntityExistsException("Entry already exists!");
+        }
         User user = userRepository.find(proposal.getUserId());
         Post post = postRepository.find(proposal.getPostId());
         SavedPost savedPost = new SavedPost(user, post);
@@ -71,7 +75,6 @@ public class SavedPostServiceImpl implements SavedPostService {
 
     @Override
     public void delete(DeleteSavedPostProposal proposal) {
-        // Check if post exists
         repository.delete(repository.findByUserIdAndPostId(proposal.getUserId(), proposal.getPostId()).get(0).getId());
     }
 }
