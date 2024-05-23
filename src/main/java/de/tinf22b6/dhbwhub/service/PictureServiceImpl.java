@@ -40,6 +40,15 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
+    public Picture findByUserId(Long id) {
+        Picture picture = repository.findByUserId(id);
+        if (picture == null) {
+            throw new NoSuchEntryException(String.format("%s for user with ID %d does not exist", Picture.class.getSimpleName(), id));
+        }
+        return picture;
+    }
+
+    @Override
     public Picture update(Long id, PictureProposal proposal) {
         // Check if picture exists
         get(id);
