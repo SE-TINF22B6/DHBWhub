@@ -39,6 +39,7 @@ public class EventRepository {
     public EventComment save(EventComment eventComment) {
         return eventCommentRepository.save(eventComment);
     }
+
     public List<EventPost> findAllEventPosts() {
         return eventPostRepository.findAll();
     }
@@ -46,7 +47,6 @@ public class EventRepository {
     public EventPost findEventPost(Long id) {
         return eventPostRepository.findById(id).orElse(null);
     }
-
 
     public void deleteEventPost(Long id) {
         eventPostRepository.deleteById(id);
