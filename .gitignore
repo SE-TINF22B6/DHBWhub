@@ -21,3 +21,4 @@ out/
 
 # Secrets
 .env
+keystore.p12
