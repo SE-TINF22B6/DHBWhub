@@ -1,13 +1,3 @@
-.post-menu-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  background: none;
-  border: none;
-  z-index: 10;
-}
-
 .post-menu {
   background-color: var(--grey);
   border-radius: var(--border-radius);
@@ -20,6 +10,17 @@
   flex-direction: row;
   gap: 5px;
   z-index: 10;
+}
+
+.post-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  z-index: 10;
+  width: 250px;
 }
 
 .post-menu-text {
@@ -37,9 +38,8 @@
   width: 15px;
 }
 
-.post-share-text, .post-save-text, .post-report-text {
+.post-share-text, .post-save-text, .post-report-text, .post-unsave-text {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--headline-font-size);
   font-weight: 400;
   height: 25px;
@@ -51,21 +51,25 @@
 }
 
 .post-share-text {
-  left: -110px;
+  left: -47px;
 }
 
 .post-save-text {
-  left: -114px;
+  top: 12px;
+  left: -50px;
+}
+
+.post-unsave-text {
+  top: 12px;
+  left: -42px;
 }
 
 .post-report-text {
-  left: -109px;
+  left: -45px;
 }
 
 @media (max-width: 1024px) {
   .post-menu {
-    margin-bottom: -100px;
-    left: 650px;
     gap: 0;
     z-index: 10;
   }
@@ -74,8 +78,6 @@
 @media (max-width: 412px) {
   .post-menu {
     height: 85px;
-    margin-bottom: -85px;
-    top: -200px;
     left: 255px;
     width: 125px;
     gap: 0;
