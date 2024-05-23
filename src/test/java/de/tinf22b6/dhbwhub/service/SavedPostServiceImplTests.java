@@ -7,6 +7,7 @@ import de.tinf22b6.dhbwhub.model.SavedPost;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.DeleteSavedPostProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.repository.SavedPostRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
@@ -112,8 +113,9 @@ class SavedPostServiceImplTests extends AbstractApplicationTest {
     @Test
     void Delete_DoesNotThrow() {
         SavedPost savedPost = createDefaultSavedPost();
-        when(savedPostRepository.find(1L)).thenReturn(savedPost);
+        when(savedPostRepository.findByUserIdAndPostId(any(Long.class), any(Long.class))).thenReturn(List.of(savedPost));
 
-        assertDoesNotThrow(() -> savedPostService.delete(1L));
+        DeleteSavedPostProposal deleteSavedPostProposal = createDeleteSavedPostProposal();
+        assertDoesNotThrow(() -> savedPostService.delete(deleteSavedPostProposal));
     }
 }

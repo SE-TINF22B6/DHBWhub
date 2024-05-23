@@ -3,6 +3,7 @@ package de.tinf22b6.dhbwhub.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.DeleteSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageSavedPostProposal;
 import de.tinf22b6.dhbwhub.service.SavedPostServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ class SavedPostControllerTests extends AbstractApplicationTest {
 
         when(savedPostService.getSavedPostsByUserId(1L)).thenReturn(List.of(savedPost, savedPost));
 
-        ResultActions response = mockMvc.perform(get("/savedPost/homepage-saved-posts/1")
+        ResultActions response = mockMvc.perform(get("/saved-post/homepage-saved-posts/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
@@ -58,10 +59,9 @@ class SavedPostControllerTests extends AbstractApplicationTest {
     @Test
     void CreateSavedPost_StatusIsOk() throws Exception {
         CreateSavedPostProposal createSavedPostProposal = createCreateSavedPostProposal();
-        HomepageSavedPostProposal homepageSavedPostProposal = createHomepageSavedPostProposal();
         given(savedPostService.createSavedPost(any(CreateSavedPostProposal.class))).willAnswer(i -> createHomepageSavedPostProposal());
 
-        ResultActions response = mockMvc.perform(post("/savedPost/saved-post")
+        ResultActions response = mockMvc.perform(post("/saved-post")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(createSavedPostProposal)));
 
@@ -70,10 +70,12 @@ class SavedPostControllerTests extends AbstractApplicationTest {
 
     @Test
     void Delete_StatusIsOk() throws Exception {
-        doNothing().when(savedPostService).delete(any(Long.class));
+        DeleteSavedPostProposal deleteSavedPostProposal = createDeleteSavedPostProposal();
+        doNothing().when(savedPostService).delete(any(DeleteSavedPostProposal.class));
 
-        ResultActions response = mockMvc.perform(delete("/savedPost/1")
-                .contentType(MediaType.APPLICATION_JSON));
+        ResultActions response = mockMvc.perform(delete("/saved-post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(deleteSavedPostProposal)));
 
         response.andExpect(status().isNoContent());
     }

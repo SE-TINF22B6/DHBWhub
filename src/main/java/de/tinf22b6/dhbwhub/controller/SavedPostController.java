@@ -25,12 +25,12 @@ public class SavedPostController {
         return service.getSavedPostsByUserId(id);
     }
 
-    @PostMapping()
+    @PostMapping
     public HomepageSavedPostProposal createSavedPost(@RequestBody CreateSavedPostProposal proposal) {
         return service.createSavedPost(proposal);
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestBody DeleteSavedPostProposal proposal) {
         service.delete(proposal);

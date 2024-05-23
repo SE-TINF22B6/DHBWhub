@@ -6,7 +6,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: false # Enabled for debug purposes
+    show-sql: true # Enabled for debug purposes
     properties:
       hibernate:
         format_sql: true # Enabled for debug purposes
