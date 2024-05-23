@@ -1,11 +1,16 @@
 import config from "../config/config";
+import {getJWT} from "./AuthService";
 
 const fetchUserImage = async (setUserImage: (data: any) => void): Promise<void> => {
+  const jwt: string | null = getJWT();
+  const headersWithJwt = {
+    ...config.headers,
+    'Authorization': jwt ? `Bearer ${jwt}` : ''
+  };
+
   try {
     const response: Response = await fetch(config.apiUrl + "user-image", {
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-      }
+      headers: headersWithJwt
     });
     if (response.ok) {
       const data = await response.json();

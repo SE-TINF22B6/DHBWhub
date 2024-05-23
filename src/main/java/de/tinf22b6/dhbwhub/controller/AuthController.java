@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/") // TODO: Should this be here?
+@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
@@ -58,7 +58,8 @@ public class AuthController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
+                userDetails.getAccountId(),
+                userDetails.getUserId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles));

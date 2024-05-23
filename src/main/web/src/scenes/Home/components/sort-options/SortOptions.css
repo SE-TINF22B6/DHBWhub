@@ -23,9 +23,12 @@
   }
 }
 
+.following:disabled:hover {
+  cursor: not-allowed;
+}
+
 .following-label, .following-text, .popular-label, .popular-text, .newest-label, .newest-text {
   color: var(--white);
-  font-family: var(--font-family);
   position: absolute;
   line-height: 24px;
   margin-left: 40px;

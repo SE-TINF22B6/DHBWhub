@@ -16,7 +16,6 @@
 
 .saved-post {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--text-font-size);
   font-weight: var(--strong-font-weight);
   background-color: var(--grey);

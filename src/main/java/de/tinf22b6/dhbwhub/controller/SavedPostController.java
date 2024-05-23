@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping(value = "/saved-post")
 public class SavedPostController {
     private final SavedPostService service;
@@ -24,12 +25,12 @@ public class SavedPostController {
         return service.getSavedPostsByUserId(id);
     }
 
-    @PostMapping()
+    @PostMapping
     public HomepageSavedPostProposal createSavedPost(@RequestBody CreateSavedPostProposal proposal) {
         return service.createSavedPost(proposal);
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestBody DeleteSavedPostProposal proposal) {
         service.delete(proposal);
