@@ -40,32 +40,33 @@ export const Header = () => {
           </Link>
           <Link className={`home-background ${currentLocation === '/' ? 'active' : ''}`} to="/"
                 aria-label="To the homepage">
-            <img alt="Home" src={process.env.PUBLIC_URL + '/assets/header/home.svg'}/>
+            <img alt="Home" src={process.env.PUBLIC_URL + '/assets/header/home.svg'} style={{height: "26px", width: "26px"}}/>
           </Link>
           <Link className={`friends-background ${currentLocation === '/friends' ? 'active' : ''}`} to="/friends"
                 aria-label="To the friends page" data-tooltip-id="like" data-tooltip-content={config.tooltipMessage}>
-            <img alt="Friends" src={process.env.PUBLIC_URL + '/assets/header/friends.svg'}/>
+            <img alt="Friends" src={process.env.PUBLIC_URL + '/assets/header/friends.svg'} style={{height: "26px", width: "26px"}}/>
           </Link>
           {!isUserLoggedIn() && (
               <Tooltip variant={"light"} id="friends" place="bottom"/>
           )}
           <Link className={`calendar-background ${currentLocation === '/calendar' ? 'active' : ''}`} to="/calendar"
                 aria-label="To the calendar page">
-            <img alt="Calendar" src={process.env.PUBLIC_URL + '/assets/header/calendar.svg'}/>
+            <img alt="Calendar" src={process.env.PUBLIC_URL + '/assets/header/calendar.svg'} style={{height: "26px", width: "24px"}}/>
           </Link>
           <SearchBar/>
           <div className="notifications-button-container" data-tooltip-id="notifications" data-tooltip-content={config.tooltipMessage}>
             {showNotifications ? (
                 <button className="notifications-button-new" onClick={handleNotificationsButtonClick} disabled={!isUserLoggedIn()}>
                   <img alt="New notifications"
-                       src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}/>
+                       src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'} style={{height: "25px", width: "26px"}}/>
                   <img className="notifications-dot" alt="New notifications"
-                       src={process.env.PUBLIC_URL + '/assets/header/notifications-dot.svg'}/>
+                       src={process.env.PUBLIC_URL + '/assets/header/notifications-dot.svg'} style={{height: "7px", width: "8px"}}/>
                 </button>
             ) : (
                 <button className="notifications-button" onClick={handleNotificationsButtonClick}
                         aria-label="Notifications-Button" disabled={!isUserLoggedIn()}>
-                  <img alt="New notifications" src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}/>
+                  <img alt="New notifications" src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}
+                       style={{height: "25px", width: "26px"}}/>
                 </button>
             )}
           </div>
