@@ -14,7 +14,7 @@ public class FriendlistProposal {
 
     private Long friendlistId;
 
-    private Long accountId;
+    private Long userId;
 
     private String username;
 

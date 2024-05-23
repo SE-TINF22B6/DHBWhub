@@ -69,14 +69,14 @@ public class PostController {
         return service.update(id, proposal);
     }
 
-    @PutMapping("/increase-likes/{id}")
-    public int increaseLikes(@PathVariable Long id) {
-         return service.increaseLikes(id);
+    @PutMapping("/increase-likes")
+    public int increaseLikes(@RequestBody LikePostProposal likePostProposal) {
+         return service.increaseLikes(likePostProposal);
     }
 
-    @PutMapping("/decrease-likes/{id}")
-    public int decreaseLikes(@PathVariable Long id) {
-        return service.decreaseLikes(id);
+    @PutMapping("/decrease-likes")
+    public int decreaseLikes(@RequestBody LikePostProposal likePostProposal) {
+        return service.decreaseLikes(likePostProposal);
     }
 
     @DeleteMapping("/{id}")

@@ -4,6 +4,7 @@ import de.tinf22b6.dhbwhub.model.Comment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateCommentProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.LikeCommentProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdateCommentProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,14 +57,14 @@ public class CommentController {
         return service.update(id, proposal);
     }
 
-    @PutMapping("/increase-likes/{id}")
-    public int increaseLikes(@PathVariable Long id) {
-        return service.increaseLikes(id);
+    @PutMapping("/increase-likes")
+    public int increaseLikes(@RequestBody LikeCommentProposal likeCommentProposal) {
+        return service.increaseLikes(likeCommentProposal);
     }
 
-    @PutMapping("/decrease-likes/{id}")
-    public int decreaseLikes(@PathVariable Long id) {
-        return service.decreaseLikes(id);
+    @PutMapping("/decrease-likes")
+    public int decreaseLikes(@RequestBody LikeCommentProposal likeCommentProposal) {
+        return service.decreaseLikes(likeCommentProposal);
     }
 
     @DeleteMapping("/{id}")

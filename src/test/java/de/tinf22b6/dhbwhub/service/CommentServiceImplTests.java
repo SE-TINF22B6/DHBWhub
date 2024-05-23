@@ -3,8 +3,13 @@ package de.tinf22b6.dhbwhub.service;
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.Comment;
+import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePostComment;
 import de.tinf22b6.dhbwhub.proposal.CommentProposal;
 import de.tinf22b6.dhbwhub.repository.CommentRepository;
+import de.tinf22b6.dhbwhub.repository.LogtableRepository;
+import de.tinf22b6.dhbwhub.repository.NotificationRepository;
+import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +29,15 @@ import static org.mockito.Mockito.when;
 class CommentServiceImplTests extends AbstractApplicationTest {
     @Mock
     private CommentRepository commentRepository;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private LogtableRepository logtableRepository;
+
+    @Mock
+    private NotificationRepository notificationRepository;
 
     @InjectMocks
     private CommentServiceImpl commentService;
@@ -86,22 +100,31 @@ class CommentServiceImplTests extends AbstractApplicationTest {
     @Test
     void IncreaseLikes_ValueIncreased() {
         Comment comment = createDefaultComment();
+        comment.getUser().setId(0L);
         Comment updatedComment = createUpdatedDefaultComment();
+        User user = createDefaultUser();
+        user.setId(1L);
 
         when(commentRepository.find(1L)).thenReturn(comment);
         when(commentRepository.save(any(Comment.class))).thenReturn(updatedComment);
+        when(userRepository.find(1L)).thenReturn(user);
+        when(logtableRepository.checkIfCommentExists(comment.getId(),user.getId())).thenReturn(false);
 
-        assertThat(commentService.increaseLikes(1L)).isEqualTo(5);
+        assertThat(commentService.increaseLikes(createDefaultLikeCommentProposal())).isEqualTo(5);
+
     }
 
     @Test
-    void IncreaseLikes_ValueDecreased() {
+    void DecreaseLikes_ValueDecreased() {
         Comment comment = createDefaultComment();
         Comment updatedComment = createUpdatedDefaultComment2();
+        LikeLogtablePostComment likeLogtablePostComment = createLikeLogtablePostComment();
+        likeLogtablePostComment.setId(1L);
 
         when(commentRepository.find(1L)).thenReturn(comment);
         when(commentRepository.save(any(Comment.class))).thenReturn(updatedComment);
+        when(logtableRepository.findComment(1L, 1L)).thenReturn(createLikeLogtablePostComment());
 
-        assertThat(commentService.increaseLikes(1L)).isEqualTo(3);
+        assertThat(commentService.decreaseLikes(createDefaultLikeCommentProposal())).isEqualTo(3);
     }
 }

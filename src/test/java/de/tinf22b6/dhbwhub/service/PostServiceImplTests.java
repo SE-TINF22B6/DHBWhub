@@ -2,13 +2,13 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
-import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.model.Post;
-import de.tinf22b6.dhbwhub.model.PostTag;
 import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.CreatePostProposal;
+import de.tinf22b6.dhbwhub.repository.LogtableRepository;
+import de.tinf22b6.dhbwhub.repository.NotificationRepository;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -30,6 +30,15 @@ import static org.mockito.Mockito.when;
 class PostServiceImplTests extends AbstractApplicationTest {
     @Mock
     private PostRepository postRepository;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private LogtableRepository logtableRepository;
+
+    @Mock
+    private NotificationRepository notificationRepository;
 
     @InjectMocks
     private PostServiceImpl postService;
@@ -162,23 +171,30 @@ class PostServiceImplTests extends AbstractApplicationTest {
     @Test
     void IncreaseLikes_ValueIncreased() {
         Post post = createDefaultPost();
+        post.getUser().setId(0L);
         Post updatedPost = createUpdatedDefaultPost();
+        User user = createDefaultUser();
+        user.setId(1L);
 
         when(postRepository.find(1L)).thenReturn(post);
         when(postRepository.save(any(Post.class))).thenReturn(updatedPost);
-
-        assertThat(postService.increaseLikes(1L)).isEqualTo(445);
+        when(userRepository.find(1L)).thenReturn(user);
+        when(logtableRepository.checkIfPostExists(post.getId(),user.getId())).thenReturn(false);
+        assertThat(postService.increaseLikes(createDefaultLikePostProposal())).isEqualTo(445);
     }
 
     @Test
-    void IncreaseLikes_ValueDecreased() {
+    void DecreaseLikes_ValueDecreased() {
         Post post = createDefaultPost();
         Post updatedPost = createUpdatedDefaultPost2();
+        LikeLogtablePost likeLogtablePost = createLikeLogtablePost();
+        likeLogtablePost.setId(1L);
 
         when(postRepository.find(1L)).thenReturn(post);
         when(postRepository.save(any(Post.class))).thenReturn(updatedPost);
+        when(logtableRepository.findPost(1L,1L)).thenReturn(createLikeLogtablePost());
 
-        assertThat(postService.increaseLikes(1L)).isEqualTo(443);
+        assertThat(postService.decreaseLikes(createDefaultLikePostProposal())).isEqualTo(443);
     }
 
     @Test

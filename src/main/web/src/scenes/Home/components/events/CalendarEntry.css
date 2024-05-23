@@ -10,7 +10,6 @@
 
 .event-title {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--headline-font-size);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -27,7 +26,6 @@
 
 .address {
   color: var(--light-grey);
-  font-family: var(--font-family);
   font-size: var(--text-font-size);
   font-weight: 400;
   height: 16px;
@@ -54,7 +52,6 @@
 
 .month {
   color: var(--white);
-  font-family: "Source Sans Pro-Bold", Helvetica, serif;
   font-size: 13px;
   font-weight: 700;
   left: 50%;
@@ -69,7 +66,6 @@
 
 .day {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--title-font-size);
   font-weight: var(--strong-font-weight);
   left: 50%;
