@@ -11,6 +11,7 @@ import ReportService from "../../services/ReportService";
 import {PostDetailModel} from "./models/PostDetailModel";
 import {Interaction} from "../../organisms/interaction/Interaction";
 import config from "../../config/config";
+import {getAccountId, getJWT, getUserId} from "../../services/AuthService";
 
 export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) => {
   const {
@@ -37,6 +38,12 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL = window.location.href;
   const location = useLocation();
+  const userId = getUserId();
+  const jwt: string | null = getJWT();
+  const headersWithJwt = {
+    ...config.headers,
+    'Authorization': jwt ? `Bearer ${jwt}` : ''
+  };
 
   const [reportOpen, setReportOpen] = useState(false);
   const [reportReason, setReportReason] = useState('');
@@ -70,22 +77,59 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     setShareWindowOpen(!shareWindowOpen);
   };
 
-  const handleSaveClick = (): void => {
-    fetch(config.apiUrl + 'savePost?postId=${id}', {
-      method: 'POST',
-      credentials: 'include',
-    })
-    .then((): void => {
-      alert('PostDetail has been saved!');
-    })
-    .catch(err => {
+  const handleSaveClick = async (): Promise<void> => {
+    try {
+      const response: Response = await fetch(config.apiUrl + "saved-post", {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({
+          postId: id,
+          userId: userId,
+        }),
+        headers: headersWithJwt
+      });
+      if (response.ok) {
+        console.log('Post has been saved!');
+        alert('Post has been saved!');
+      } else {
+        console.error('Error saving the post: ', response.statusText);
+        alert('Error saving the post');
+      }
+    } catch (err) {
       console.error('Error saving the post: ', err);
       alert('Error saving the post');
-    });
+    }
+  };
+
+  const handleUnsaveClick = async (): Promise<void> => {
+    try {
+      const response: Response = await fetch(config.apiUrl + `saved-post`, {
+        method: 'DELETE',
+        credentials: 'include',
+        body: JSON.stringify({
+          postId: id,
+          userId: userId,
+        }),
+        headers: {
+          'Authorization': 'Bearer ' + jwt,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': "*",
+          'Accept': 'application/json'
+        }
+      });
+      if (response.ok) {
+        alert('Post has been unsaved!');
+      } else {
+        console.error('Error unsaving the post: ', response.statusText);
+        alert('Error unsaving the post');
+      }
+    } catch (err) {
+      console.error('Error unsaving the post: ', err);
+    }
   };
 
   const handleLike = (): void => {
-    LikeService.handleLike(props.id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
+    LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
 
   const handleCommentClick = () => {
@@ -130,7 +174,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
 
         {menuOpen && (
             <div className="post-detail-menu">
-              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
+              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleUnsaveClick={handleUnsaveClick} handleReportClick={handleReportClick}/>
             </div>
         )}
         {shareWindowOpen && (

@@ -29,7 +29,6 @@
 
 .post-detail-menu-button, .post-detail-title {
   color: var(--white);
-  font-family: var(--font-family);
   position: relative;
   line-height: 24px;
   white-space: nowrap;
@@ -79,7 +78,6 @@
 
 .post-detail-description {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--description-font-size);
   font-weight: var(--normal-font-weight);
   line-height: 24px;
@@ -88,7 +86,6 @@
 
 .post-detail-data, .post-detail-author-date {
   color: var(--light-grey);
-  font-family: var(--font-family);
   font-size: var(--text-font-size);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -106,4 +103,26 @@
 
 .post-detail-share {
   margin-top: 20px;
+}
+
+@media (max-width: 412px) {
+  .post-detail {
+    max-width: 350px;
+    height: 500px;
+  }
+  .post-detail-infos {
+    margin-top: 160px;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+  }
+  .post-detail-picture {
+    width: 140px;
+    margin-left: 170px;
+    position: absolute;
+  }
+  .post-detail-menu-button {
+    right: 10px;
+    top: 10px;
+  }
 }

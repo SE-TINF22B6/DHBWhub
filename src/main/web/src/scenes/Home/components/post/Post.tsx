@@ -13,6 +13,7 @@ import {Interaction} from "../../../../organisms/interaction/Interaction";
 import DescriptionService from "../../../../services/DescriptionService";
 import {useMediaQuery} from "@mui/system";
 import config from "../../../../config/config";
+import {getJWT, getUserId} from "../../../../services/AuthService";
 
 export const Post: React.FC<PostModel> = (props: PostModel) => {
   const {
@@ -28,17 +29,23 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     username
   } = props;
 
-  const matches = useMediaQuery('(max-width: 412px)')
-  const formattedTime = TimeService.timeDifference(new Date(timestamp).toISOString());
+  const matches: boolean = useMediaQuery('(max-width: 412px)')
+  const formattedTime: string = TimeService.timeDifference(new Date(timestamp).toISOString());
   const [likes, setLikes] = useState(likeAmount);
   const [userLiked, setUserLiked] = useState(false);
   const [heartClass, setHeartClass] = useState('heart-empty');
   const [comments] = useState(commentAmount);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
-  const currentPageURL = window.location.href;
+  const currentPageURL: string = window.location.href;
   const location = useLocation();
-  const shortDescription = DescriptionService.shortenDescription(description, image ? 190 : matches ? 190 : 280);
+  const [shortDescription, setShortDescription] = useState('');
+  const userId: number | null =  getUserId();
+  const jwt: string | null = getJWT();
+  const headersWithJwt = {
+    ...config.headers,
+    'Authorization': jwt ? `Bearer ${jwt}` : ''
+  };
 
   const [reportOpen, setReportOpen] = useState(false);
   const [reportReason, setReportReason] = useState('');
@@ -56,12 +63,16 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   };
 
   useEffect((): void => {
-    const userLikedPost = localStorage.getItem(`liked_${id}`);
+    const userLikedPost: string | null = localStorage.getItem(`liked_${id}`);
     if (userLikedPost) {
       setUserLiked(true);
       setHeartClass('heart-filled');
     }
   }, [location, id]);
+
+  useEffect(() => {
+    setShortDescription(DescriptionService.shortenDescription(description, image ? 190 : matches ? 190 : 280));
+  }, [description, image, matches]);
 
   const handleMenuClick = (): void => {
     setMenuOpen(!menuOpen);
@@ -72,18 +83,50 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     setShareWindowOpen(!shareWindowOpen);
   };
 
-  const handleSaveClick = (): void => {
-    fetch(config.apiUrl + `savePost?postId=${id}`, {
-      method: 'POST',
-      credentials: 'include',
-    })
-    .then((): void => {
-      alert('Post has been saved!');
-    })
-    .catch(err => {
+  const handleSaveClick = async (): Promise<void> => {
+    try {
+      const response: Response = await fetch(config.apiUrl + "saved-post", {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({
+          postId: id,
+          userId: userId,
+        }),
+        headers: headersWithJwt
+      });
+      if (response.ok) {
+        console.log('Post has been saved!');
+        alert('Post has been saved!');
+      } else {
+        console.error('Error saving the post: ', response.statusText);
+        alert('Error saving the post');
+      }
+    } catch (err) {
       console.error('Error saving the post: ', err);
       alert('Error saving the post');
-    });
+    }
+  };
+
+  const handleUnsaveClick = async (): Promise<void> => {
+    try {
+      const response: Response = await fetch(config.apiUrl + `saved-post`, {
+        method: 'DELETE',
+        credentials: 'include',
+        body: JSON.stringify({
+          postId: id,
+          userId: userId,
+        }),
+        headers: headersWithJwt
+      });
+      if (response.ok) {
+        alert('Post has been unsaved!');
+      } else {
+        console.error('Error unsaving the post: ', response.statusText);
+        alert('Error unsaving the post');
+      }
+    } catch (err) {
+      console.error('Error unsaving the post: ', err);
+    }
   };
 
   const handleLike = (): void => {
@@ -92,7 +135,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
 
   function getMarginLeft() {
     if (matches) {
-      return tags? '110px' : '0';
+      return tags ? '110px' : '0';
     } else {
       return image ? '180px' : '10px';
     }
@@ -117,8 +160,8 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   return (
       <div className="post-container">
         <div className="post">
-          <Link to={`/post/?id=${id}`} className="post-button">
-            {image && <img className="post-image" alt="Post" src={image}/>}
+          <Link to={`/post/?id=${id}`} aria-label="To the post" className="post-button">
+            {image && <img className="post-image" alt="Post" src={image} loading="lazy" />}
           </Link>
           <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots"
                src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
@@ -127,13 +170,13 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
               <p className="post-title">{title}</p>
             </Link>
             <div className="post-tags" style={{marginTop: getMarginTop()}}>
-              {tags && tags.slice(0, 3).map((tag, index) => (
+              {tags && tags.slice(0, 3).map((tag: string, index: number) => (
                   <Tag name={tag} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
             <p className="short-description" style={{width: getWidth()}}>{shortDescription}</p>
             <div className="footer">
-              <Link to={`/user/?name=${username.toLowerCase().replace(' ', '-')}`} className="author-link" aria-label="To the author">
+              <Link to={`/user/?id=${accountId}`} className="author-link" aria-label="To the author">
                 {username}
               </Link>
               &nbsp;· {formattedTime}
@@ -147,7 +190,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
 
         {menuOpen && (
             <div className="post-menu-container">
-              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
+              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleUnsaveClick={handleUnsaveClick} handleReportClick={handleReportClick}/>
             </div>
         )}
         {shareWindowOpen && (
@@ -157,12 +200,12 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         )}
         {reportOpen && (
             <Report
-              reportOpen={reportOpen}
-              reportReason={reportReason}
-              reportDescription={reportDescription}
-              setReportReason={setReportReason}
-              setReportDescription={setReportDescription}
-              handleReportSubmit={handleReportSubmit}
+                reportOpen={reportOpen}
+                reportReason={reportReason}
+                reportDescription={reportDescription}
+                setReportReason={setReportReason}
+                setReportDescription={setReportDescription}
+                handleReportSubmit={handleReportSubmit}
             />
         )}
       </div>
