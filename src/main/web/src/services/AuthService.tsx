@@ -9,6 +9,13 @@ export const register = (username: string, email: string, password: string) => {
     });
 };
 
+const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; username: string; accessToken: string; }): void => {
+    localStorage.setItem('accountId', data.accountId.toString());
+    localStorage.setItem('userId', data.userId.toString());
+    localStorage.setItem('username', data.username);
+    localStorage.setItem('token', data.accessToken);
+};
+
 export const login = async (username: string, password: string, rememberMe: boolean) => {
     const response = await axios
     .post(config.apiUrl + "api/auth/login", {
@@ -16,9 +23,7 @@ export const login = async (username: string, password: string, rememberMe: bool
         password,
         rememberMe
     });
-    if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-    }
+    saveUserDataToLocalStorage(response.data);
     return response.data;
 };
 
@@ -38,23 +43,52 @@ export const tokenValidation = async (token: string) => {
     return response.data;
 }
 
-export const logout = () => {
-    localStorage.removeItem("user");
+export const logout = (): void => {
+    localStorage.removeItem("accountId");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
 };
 
-export const getCurrentUser = () => {
-    const userStr = localStorage.getItem("user");
-    if (userStr) return JSON.parse(userStr);
+export const getAccountId = (): number | null => {
+    const accountIdString: string | null = localStorage.getItem("accountId");
+    if (accountIdString === null) {
+        return null;
+    }
+    const accountId: number = parseInt(accountIdString, 10);
+    return isNaN(accountId) ? null : accountId;
+};
+
+export const getUserId = (): number | null => {
+    const userIdString: string | null = localStorage.getItem("userId");
+    if (userIdString === null) {
+        return null;
+    }
+    const userId: number = parseInt(userIdString, 10);
+    return isNaN(userId) ? null : userId;
+};
+
+export const getUsername = (): string | null => {
+    const username: string | null = localStorage.getItem("username");
+    if (username) return username;
 
     return null;
 };
 
-export const isUserLoggedIn = () => {
-    const userDataString = localStorage.getItem("user");
+export const getJWT = (): string | null => {
+    const jwtToken: string | null = localStorage.getItem("token");
 
-    if (userDataString) {
-        const userData = JSON.parse(userDataString);
-        const jwtToken = userData.accessToken;
+    if (jwtToken) {
+        return jwtToken;
+    } else {
+        return null;
+    }
+};
+
+export const isUserLoggedIn = (): boolean => {
+    const jwtToken: string | null = localStorage.getItem("token");
+
+    if (jwtToken) {
         return !!jwtToken;
     } else {
         return false;

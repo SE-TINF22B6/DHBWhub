@@ -1,4 +1,11 @@
 import config from "../config/config";
+import {getJWT} from "./AuthService";
+
+const jwt: string | null = getJWT();
+const headersWithJwt = {
+  ...config.headers,
+  'Authorization': jwt ? `Bearer ${jwt}` : ''
+};
 
 const handleLike = async (
     postId: number,
@@ -9,18 +16,16 @@ const handleLike = async (
     setHeartClass: (heartClass: string) => void
 ): Promise<void> => {
   try {
+    const jwt: string | null = getJWT();
     if (!userLiked) {
       setLikes(likes + 1);
       setUserLiked(true);
       setHeartClass('heart-filled');
       localStorage.setItem(`liked_${postId}`, 'true');
 
-      await fetch(config.apiUrl + 'increase-likes/${postId}', {
+      await fetch(config.apiUrl + `increase-likes/${postId}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
+        headers: headersWithJwt
       });
     } else {
       setLikes(likes - 1);
@@ -28,12 +33,9 @@ const handleLike = async (
       setHeartClass('heart-empty');
       localStorage.removeItem(`liked_${postId}`);
 
-      await fetch(config.apiUrl + 'decrease-likes/${postId}', {
+      await fetch(config.apiUrl + `decrease-likes/${postId}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
+        headers: headersWithJwt
       });
     }
   } catch (error) {

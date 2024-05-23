@@ -7,6 +7,7 @@ import de.tinf22b6.dhbwhub.model.SavedPost;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.DeleteSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageSavedPostProposal;
 import de.tinf22b6.dhbwhub.repository.PostRepository;
 import de.tinf22b6.dhbwhub.repository.SavedPostRepository;
@@ -24,8 +25,8 @@ public class SavedPostServiceImpl implements SavedPostService {
     private final PostRepository postRepository;
 
     public SavedPostServiceImpl(@Autowired SavedPostRepository repository,
-                                @Autowired UserRepository userRepository,
-                                @Autowired PostRepository postRepository) {
+        @Autowired UserRepository userRepository,
+        @Autowired PostRepository postRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.postRepository = postRepository;
@@ -69,10 +70,8 @@ public class SavedPostServiceImpl implements SavedPostService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(DeleteSavedPostProposal proposal) {
         // Check if post exists
-        get(id);
-
-        repository.delete(id);
+        repository.delete(repository.findByUserIdAndPostId(proposal.getUserId(), proposal.getPostId()).get(0).getId());
     }
 }
