@@ -57,6 +57,20 @@ class PictureServiceImplTests extends AbstractApplicationTest {
     }
 
     @Test
+    void FindByUserId_IsNotNull() {
+        Picture picture = createDefaultPicture();
+        when(pictureRepository.findByUserId(1L)).thenReturn(picture);
+
+        assertThat(pictureService.findByUserId(1L)).isNotNull();
+    }
+
+    @Test
+    void FindByUserId_ThrowsNoSuchEntryException() {
+        NoSuchEntryException e = assertThrows(NoSuchEntryException.class, () -> pictureService.findByUserId(1L));
+        assertTrue(e.getMessage().matches("(.*) for user with ID \\d does not exist"));
+    }
+
+    @Test
     void Create_IsNotNull() {
         Picture picture = createDefaultPicture();
         when(pictureRepository.save(any(Picture.class))).thenReturn(picture);

@@ -34,6 +34,11 @@ public class PictureController {
         return service.get(id);
     }
 
+    @GetMapping("/find/{id}")
+    public Picture findByUserId(@PathVariable Long id) {
+        return service.findByUserId(id);
+    }
+
     @PutMapping("/{id}")
     public Picture update(@PathVariable Long id, @RequestBody PictureProposal proposal) {
         return service.update(id, proposal);
