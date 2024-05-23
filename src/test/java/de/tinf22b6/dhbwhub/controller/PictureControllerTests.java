@@ -70,6 +70,19 @@ class PictureControllerTests extends AbstractApplicationTest {
     }
 
     @Test
+    void FindByUserId_StatusIsOk() throws Exception {
+        Picture picture = createDefaultPicture();
+        when(pictureService.findByUserId(any(Long.class))).thenReturn(picture);
+
+        ResultActions response = mockMvc.perform(get("/picture/find/1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(picture.getName())))
+                .andExpect(jsonPath("$.imageData").isString());
+    }
+
+    @Test
     void Create_StatusIsOk() throws Exception {
         PictureProposal pictureProposal = createDefaultPictureProposal();
         given(pictureService.create(any(PictureProposal.class))).willAnswer(i -> PictureMapper.mapToModel(i.getArgument(0)));

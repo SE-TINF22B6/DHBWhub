@@ -2,6 +2,7 @@ package de.tinf22b6.dhbwhub.repository;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.model.Picture;
+import de.tinf22b6.dhbwhub.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -19,6 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PictureRepositoryTests extends AbstractApplicationTest {
     @Autowired
     private PictureRepository pictureRepository;
+
+    @Autowired UserRepository userRepository;
 
     @Test
     void FindAll_HasSize_Two() {
@@ -48,6 +51,20 @@ class PictureRepositoryTests extends AbstractApplicationTest {
     @Test
     void Find_IsNull_True() {
         assertThat(pictureRepository.find(1L)).isNull();
+    }
+
+    @Test
+    void FindByUserId_IsNotNull_True() {
+        User user = createDefaultUser();
+
+        userRepository.save(user);
+
+        assertThat(pictureRepository.findByUserId(user.getId())).isNotNull();
+    }
+
+    @Test
+    void FindByUserId_IsNull_True() {
+        assertThat(pictureRepository.findByUserId(1L)).isNull();
     }
 
     @Test
