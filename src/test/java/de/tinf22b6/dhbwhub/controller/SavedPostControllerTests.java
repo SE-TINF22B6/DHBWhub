@@ -71,7 +71,7 @@ class SavedPostControllerTests extends AbstractApplicationTest {
     @Test
     void Delete_StatusIsOk() throws Exception {
         DeleteSavedPostProposal deleteSavedPostProposal = createDeleteSavedPostProposal();
-        doNothing().when(savedPostService).delete(any(DeleteSavedPostProposal.class));
+         doNothing().when(savedPostService).delete(any(DeleteSavedPostProposal.class));
 
         ResultActions response = mockMvc.perform(delete("/saved-post")
                 .contentType(MediaType.APPLICATION_JSON)
