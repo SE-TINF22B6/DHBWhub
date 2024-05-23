@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { decodeJWT } from '../../../../services/utils';
+import { decodeJWT } from '../../../../services/DecodeJWTService';
 
 const ProfilePage = () => {
     const [username, setUsername] = useState('');
