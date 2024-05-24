@@ -34,8 +34,7 @@ export const Post: React.FC = () => {
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
   };
-
-  const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
+  
   const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   const [scrollToComments, setScrollToComments] = useState(false);
