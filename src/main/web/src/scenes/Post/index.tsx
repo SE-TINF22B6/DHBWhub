@@ -14,6 +14,7 @@ import {PostDetailModel} from "./models/PostDetailModel";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import {PostThreadModel} from "./models/PostThreadModel";
+import {CommentModel} from "../../organisms/comment/CommentModel";
 import {dummyPostThread} from "./data/dummyPostThread";
 import config from "../../config/config";
 import {CommentModel} from "./models/CommentModel";

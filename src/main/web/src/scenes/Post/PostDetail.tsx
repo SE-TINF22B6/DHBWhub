@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import './PostDetail.css';
 import {Share} from "../../organisms/share/Share";
 import {Link, useLocation} from "react-router-dom";
 import {Report} from "../../organisms/report/Report";
@@ -10,8 +9,9 @@ import TimeService from "../../services/TimeService";
 import ReportService from "../../services/ReportService";
 import {PostDetailModel} from "./models/PostDetailModel";
 import {Interaction} from "../../organisms/interaction/Interaction";
+import {getJWT, getUserId} from "../../services/AuthService";
 import config from "../../config/config";
-import {getAccountId, getJWT, getUserId} from "../../services/AuthService";
+import './PostDetail.css';
 
 export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) => {
   const {
@@ -22,11 +22,10 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     likeAmount,
     commentAmount,
     timestamp,
-    image,
+    postImage,
     accountId,
     username,
     userImage,
-    setScrollToComments
   } = props;
 
   const formattedTime = TimeService.timeDifference(new Date(timestamp).toISOString());
@@ -36,9 +35,9 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   const [comments] = useState(commentAmount);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
-  const currentPageURL = window.location.href;
+  const currentPageURL: string = window.location.href;
   const location = useLocation();
-  const userId = getUserId();
+  const userId: number | null = getUserId();
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
@@ -61,7 +60,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   };
 
   useEffect((): void => {
-    const userLikedPost = localStorage.getItem(`liked_${id}`);
+    const userLikedPost: string | null = localStorage.getItem(`liked_${id}`);
     if (userLikedPost) {
       setUserLiked(true);
       setHeartClass('heart-filled');
@@ -132,10 +131,6 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
 
-  const handleCommentClick = () => {
-    setScrollToComments(true);
-  };
-
   return (
       <div className="post-detail">
         <div className="post-detail-content">
@@ -157,15 +152,26 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
                   <Tag name={tags[index]} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
-            <Interaction likes={likes} userLiked={userLiked} heartClass={heartClass} comments={comments} handleLike={handleLike} id={id} isHomepage={false}/>
+            <Interaction
+                likes={likes}
+                userLiked={userLiked}
+                heartClass={heartClass}
+                comments={comments}
+                handleLike={handleLike}
+                id={id}
+                isHomepage={false}
+            />
           </div>
 
           <div className="post-detail-infos">
             <p className="post-detail-title">{title}</p>
             <p className="post-detail-description">{description}</p>
           </div>
-
-          {image && <img className="post-detail-picture" alt="Post" src={image}></img>}
+          {postImage ? (
+              <img className="post-detail-picture" alt="Post" src={postImage} />
+          ) : (
+              <div className="post-detail-placeholder"></div>
+          )}
         </div>
 
         <button className="post-detail-menu-button" onClick={handleMenuClick}>
@@ -174,7 +180,12 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
 
         {menuOpen && (
             <div className="post-detail-menu">
-              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleUnsaveClick={handleUnsaveClick} handleReportClick={handleReportClick}/>
+              <PostMenu
+                  handleShareClick={handleShareClick}
+                  handleSaveClick={handleSaveClick}
+                  handleUnsaveClick={handleUnsaveClick}
+                  handleReportClick={handleReportClick}
+              />
             </div>
         )}
         {shareWindowOpen && (
