@@ -39,6 +39,18 @@ public class PostTagRepository {
         return repository.findByPostIdAndTag(id, tag);
     }
 
+    public List<PostTag> findByTag(String tag) {
+        return repository.findByTag(tag);
+    }
+
+    public List<String> findPopularTags(){
+        return repository.findPopularTags().stream().limit(10).toList();
+    }
+
+    public List<PostTag> findTagByKeyword(String keyword) {
+        return repository.findByTagContainingIgnoreCase(keyword);
+    }
+
     public void delete(Long id) {
         repository.deleteById(id);
     }
