@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import './SavedPosts.css';
 import { Link } from "react-router-dom";
-import { dummyPosts } from "./dummyPosts";
 import { SavedPostModel } from "./model/SavedPostModel";
 import config from "../../../../config/config";
-import {getJWT, getUserId, isUserLoggedIn} from "../../../../services/AuthService";
+import {getJWT, getUserId} from "../../../../services/AuthService";
 
 export const SavedPosts = () => {
-  const [savedPosts, setSavedPosts] = useState<SavedPostModel[]>(dummyPosts);
+  const [savedPosts, setSavedPosts] = useState<SavedPostModel[]>();
   const userId: number | null = getUserId();
   const jwt: string | null = getJWT();
   const headersWithJwt = {
@@ -36,22 +35,28 @@ export const SavedPosts = () => {
     fetchSavedPosts();
   }, []);
 
-  const uniqueSavedPosts: SavedPostModel[] = savedPosts.filter(
-      (post: SavedPostModel, index: number, self: SavedPostModel[]): boolean => self.findIndex(p => p.postId === post.postId) === index
+  const uniqueSavedPosts: SavedPostModel[] = (savedPosts ?? []).filter(
+      (post: SavedPostModel, index: number, self: SavedPostModel[]): boolean =>
+          self.findIndex(p => p.postId === post.postId) === index
   );
 
-  return (
-      <div className="saved-posts">
-        <div className="component-headline">Saved posts</div>
-        <div className="saved-posts-list">
-          {uniqueSavedPosts.slice(0, 10).map((post: SavedPostModel) => (
-              <Link key={post.postId} to={`/post/?id=${post.postId}`} className="saved-posts-link">
-                <div className="saved-post">
-                  {post.title}
-                </div>
-              </Link>
-          ))}
+  if (savedPosts) {
+    return (
+        <div className="saved-posts">
+          <div className="component-headline">Saved posts</div>
+          <div className="saved-posts-list">
+            {uniqueSavedPosts.slice(0, 10).map((post: SavedPostModel) => (
+                <Link key={post.postId} to={`/post/?id=${post.postId}`} className="saved-posts-link">
+                  <div className="saved-post">
+                    {post.title}
+                  </div>
+                </Link>
+            ))}
+          </div>
         </div>
-      </div>
-  );
+    );
+  }
+
+  return null;
+
 };

@@ -1,0 +1,58 @@
+.image-upload {
+  background-color: var(--component-grey);
+  border: none;
+  height: 60px;
+  width: 50px;
+  position: relative;
+}
+
+.image-upload-button {
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
+  border-radius: 10px;
+  border: none;
+  bottom: 20px;
+  &&:hover {
+    cursor: pointer;
+    background: var(--grey);
+  }
+}
+
+.image-upload-picture {
+  background-color: transparent;
+  border: none;
+  height: 20px;
+  width: 20px;
+}
+
+.update-button, .remove-button {
+  background-color: var(--red);
+  border-radius: 4px;
+  border-style: hidden;
+  position: relative;
+  box-shadow: 0 2px 4px var(--box-shadow);
+  width: 60px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.update-button-label, .remove-button-label {
+  color: var(--white);
+  font-weight: var(--strong-font-weight);
+  font-size: var(--text-font-size);
+  line-height: 24px;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.image-item__btn-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 140px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
