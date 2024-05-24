@@ -32,7 +32,7 @@ class App extends Component {
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/faq" element={<FAQ/>}/>
               <Route path="/friends" element={<Friends/>}/>
-              <Route path="/event" element={<Event/>} />
+              {/*<Route path="/event" element={<Event/>} />*/}
               <Route path="/post" element={<Post/>}/>
               <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
               <Route path="/imprint" element={<Imprint/>}/>
