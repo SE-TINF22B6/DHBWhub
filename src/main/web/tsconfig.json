@@ -28,9 +28,6 @@
     "node_modules",
     "**/*.test.ts",
     "**/*.spec.ts",
-    "src/services/**/*.test.ts",
-    "services/**/*.test.ts",
-    "/src/services/**/*.test.ts",
-    "/services/**/*.test.ts"
+    "src/services/tests"
   ]
 }

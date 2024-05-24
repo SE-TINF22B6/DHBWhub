@@ -1,4 +1,4 @@
-import DescriptionService from './services/DescriptionService';
+import DescriptionService from '../DescriptionService';
 
 describe('DescriptionService', (): void => {
   describe('shortenDescription', (): void => {
