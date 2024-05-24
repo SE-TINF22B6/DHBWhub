@@ -19,7 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "types": ["jest"]
+    "types": ["jest", "node"]
   },
   "include": [
     "src"
