@@ -1,41 +1,86 @@
-<mxfile host="app.diagrams.net" modified="2024-05-24T18:00:57.119Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0" version="24.3.1" etag="HTMju9N7Wf-VLFL2GsHx" type="github">
+<mxfile host="app.diagrams.net" modified="2024-05-24T19:00:10.745Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0" etag="Q1o0oQXkVZLlZF2imvDO" version="24.3.1" type="github">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="Page-1">
-    <mxGraphModel dx="1223" dy="871" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1562" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="dNxyNK7c78bLwvsdeMH5-11" value="Orgchart" style="swimlane;html=1;startSize=20;horizontal=1;containerType=tree;glass=0;" parent="1" vertex="1">
-          <mxGeometry x="40" y="80" width="710" height="290" as="geometry" />
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-1" value="deployment DHBWhub" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="20" y="30" width="1540" height="740" as="geometry" />
         </mxCell>
-        <UserObject label="%name%&lt;br&gt;&lt;i style=&quot;color: gray&quot;&gt;%position%&lt;/i&gt;&lt;br&gt;&lt;a href=&quot;mailto:%email%&quot;&gt;Email&lt;/a&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" link="https://www.draw.io" id="dNxyNK7c78bLwvsdeMH5-12">
-          <mxCell style="label;image=https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-3-128.png;whiteSpace=wrap;html=1;rounded=0;glass=0;treeMoving=1;treeFolding=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="260" y="50" width="180" height="70" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="dNxyNK7c78bLwvsdeMH5-13" value="" style="endArrow=blockThin;endFill=1;fontSize=11;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="dNxyNK7c78bLwvsdeMH5-12" target="dNxyNK7c78bLwvsdeMH5-14" edge="1">
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-2" value="&amp;lt;&amp;lt;device&amp;gt;&amp;gt; Ubuntu 22.04.4 Server (BWCloud)" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=0;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-1">
+          <mxGeometry x="30" y="60" width="890" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-3" value="&amp;lt;&amp;lt;JSP server&amp;gt;&amp;gt; Tomcat" style="verticalAlign=top;align=center;shape=cube;size=10;direction=south;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-2">
+          <mxGeometry width="720" height="280" relative="1" as="geometry">
+            <mxPoint x="30" y="50" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-36" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="fOF60SAeEQ_hKwc9woEM-2" source="fOF60SAeEQ_hKwc9woEM-10" target="fOF60SAeEQ_hKwc9woEM-35">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <UserObject label="%name%&lt;br&gt;&lt;i style=&quot;color: gray&quot;&gt;%position%&lt;/i&gt;&lt;br&gt;&lt;a href=&quot;mailto:%email%&quot;&gt;Email&lt;/a&gt;" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" link="https://www.draw.io" id="dNxyNK7c78bLwvsdeMH5-14">
-          <mxCell style="label;image=https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png;whiteSpace=wrap;html=1;rounded=0;glass=0;treeFolding=1;treeMoving=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="40" y="180" width="180" height="80" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="dNxyNK7c78bLwvsdeMH5-15" value="" style="endArrow=blockThin;endFill=1;fontSize=11;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="dNxyNK7c78bLwvsdeMH5-12" target="dNxyNK7c78bLwvsdeMH5-16" edge="1">
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-10" value="&lt;div&gt;&amp;lt;&amp;lt;deployment spec&amp;gt;&amp;gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;pom.xml&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-2">
+          <mxGeometry x="80" y="220.00057471264364" width="175.2530864197531" height="79.99632183908047" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-39" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.881;entryY=1.03;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" edge="1" parent="fOF60SAeEQ_hKwc9woEM-2" source="fOF60SAeEQ_hKwc9woEM-32" target="fOF60SAeEQ_hKwc9woEM-35">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <UserObject label="%name%&lt;br&gt;&lt;i style=&quot;color: gray&quot;&gt;%position%&lt;/i&gt;&lt;br&gt;&lt;a href=&quot;mailto:%email%&quot;&gt;Email&lt;/a&gt;" name="Evan Valet" position="HR Director" location="Office 4" email="me@example.com" placeholders="1" link="https://www.draw.io" id="dNxyNK7c78bLwvsdeMH5-16">
-          <mxCell style="label;image=https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-9-2-128.png;whiteSpace=wrap;html=1;rounded=0;glass=0;treeFolding=1;treeMoving=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="260" y="180" width="180" height="80" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="dNxyNK7c78bLwvsdeMH5-17" value="" style="endArrow=blockThin;endFill=1;fontSize=11;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="dNxyNK7c78bLwvsdeMH5-12" target="dNxyNK7c78bLwvsdeMH5-18" edge="1">
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-32" value="&lt;div&gt;&amp;lt;&amp;lt;deployment spec&amp;gt;&amp;gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;maven-wrapper.properties&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-2">
+          <mxGeometry x="510.0000000000001" y="220.00057471264364" width="172.8358024691358" height="79.99632183908047" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="fOF60SAeEQ_hKwc9woEM-2" source="fOF60SAeEQ_hKwc9woEM-31" target="fOF60SAeEQ_hKwc9woEM-35">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <UserObject label="%name%&lt;br&gt;&lt;i style=&quot;color: gray&quot;&gt;%position%&lt;/i&gt;&lt;br&gt;&lt;a href=&quot;mailto:%email%&quot;&gt;Email&lt;/a&gt;" name="Alison Donovan" position="System Admin" location="Office 3" email="me@example.com" placeholders="1" link="https://www.draw.io" id="dNxyNK7c78bLwvsdeMH5-18">
-          <mxCell style="label;image=https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-2-128.png;whiteSpace=wrap;html=1;rounded=0;glass=0;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="490" y="180" width="180" height="80" as="geometry" />
-          </mxCell>
-        </UserObject>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-31" value="&lt;div&gt;&amp;lt;&amp;lt;deployment spec&amp;gt;&amp;gt; application.yml&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-2">
+          <mxGeometry x="300.00000000000006" y="220.00057471264364" width="174.04444444444445" height="83.69103448275862" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-35" value="&lt;div&gt;&amp;lt;&amp;lt;artifact&amp;gt;&amp;gt; &lt;br&gt;&lt;/div&gt;&lt;div&gt;DHBWhub.jar&lt;br&gt;&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-2">
+          <mxGeometry x="300.0032098765432" y="131.95402298850576" width="176.01123456790123" height="60.68597701149425" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-42" value="" style="shape=note;size=13;whiteSpace=wrap;html=1;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-2">
+          <mxGeometry x="460" y="115.86206896551724" width="30" height="38.62068965517241" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="fOF60SAeEQ_hKwc9woEM-2" source="fOF60SAeEQ_hKwc9woEM-44" target="fOF60SAeEQ_hKwc9woEM-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-49" value="JDBC conection" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="fOF60SAeEQ_hKwc9woEM-48">
+          <mxGeometry x="0.2377" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-44" value="&lt;div&gt;&amp;lt;&amp;lt;database system&amp;gt;&amp;gt; PostgreSQL Server&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=0;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-2">
+          <mxGeometry x="204.01" y="420" width="371.99" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-46" value="&amp;lt;&amp;lt;database&amp;gt;&amp;gt; dhbwhub" style="html=1;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-2">
+          <mxGeometry x="332.02" y="470" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="fOF60SAeEQ_hKwc9woEM-1" source="fOF60SAeEQ_hKwc9woEM-4" target="fOF60SAeEQ_hKwc9woEM-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-52" value="&amp;lt;&amp;lt;protocoll&amp;gt;TCP/IP" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="fOF60SAeEQ_hKwc9woEM-51">
+          <mxGeometry x="-0.4373" y="-3" relative="1" as="geometry">
+            <mxPoint x="17" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-4" value="&amp;lt;&amp;lt;device&amp;gt;&amp;gt; DigitalOcean Server" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=0;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-1">
+          <mxGeometry x="1100" y="220" width="350" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-5" value="&lt;div&gt;&amp;lt;&amp;lt;execution environment&amp;gt;&amp;gt; Node.js&lt;/div&gt;" style="verticalAlign=top;align=center;shape=cube;size=10;direction=south;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-4">
+          <mxGeometry width="290" height="200" relative="1" as="geometry">
+            <mxPoint x="20" y="50" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-6" value="&lt;div&gt;&amp;lt;&amp;lt;artifact&amp;gt;&amp;gt; &lt;br&gt;&lt;/div&gt;&lt;div&gt;App.tsx&lt;br&gt;&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-4">
+          <mxGeometry x="40" y="115" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;jumpStyle=none;strokeColor=default;flowAnimation=0;dashed=1;" edge="1" parent="fOF60SAeEQ_hKwc9woEM-4" source="fOF60SAeEQ_hKwc9woEM-11" target="fOF60SAeEQ_hKwc9woEM-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-11" value="&lt;div&gt;&amp;lt;&amp;lt;deployment spec&amp;gt;&amp;gt; &lt;br&gt;&lt;/div&gt;&lt;div&gt;package.json&lt;br&gt;&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-4">
+          <mxGeometry x="120" y="195" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="fOF60SAeEQ_hKwc9woEM-43" value="" style="shape=note;size=13;whiteSpace=wrap;html=1;" vertex="1" parent="fOF60SAeEQ_hKwc9woEM-4">
+          <mxGeometry x="194" y="100" width="30" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
