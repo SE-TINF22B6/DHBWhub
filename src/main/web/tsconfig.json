@@ -27,6 +27,10 @@
   "exclude": [
     "node_modules",
     "**/*.test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "src/services/**/*.test.ts",
+    "services/**/*.test.ts",
+    "/src/services/**/*.test.ts",
+    "/services/**/*.test.ts"
   ]
 }
