@@ -88,6 +88,8 @@ delivered to the frontend with the 'ThreadComment' in the HTTP-Body. The website
 This process visualizes best, how each layer has their own responsibility as well as works with only the data, that is relevant to them.
 
 #### 3.3 Deployment view
+In the next graph, you can see the deployment view of our application:  
+  
+![DeploymentView](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/DeploymentDiagram.drawio.png?raw=true)
 
-#### 3.4 ... ...
-
+The SpringBootApplication as well as the PostgreSQL-Server run on an Ubuntu-Server hosted by BWCloud. The Backend has access to the database via JDBC-connection. The Frontend on the other hand is hosted by an DigitalOcean-Server. The communication between backend and frontend is established through TCP-connections.
