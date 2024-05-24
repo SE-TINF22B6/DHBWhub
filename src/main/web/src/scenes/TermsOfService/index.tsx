@@ -6,7 +6,7 @@ import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 
 export const TermsOfService = () => {
-  const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
+  const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   return (
       <div className="tos-component">

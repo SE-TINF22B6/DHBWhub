@@ -16,7 +16,7 @@ const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; u
     localStorage.setItem('token', data.accessToken);
 };
 
-export const login = async (username: string, password: string, rememberMe: boolean) => {
+export const login = async (username: string, password: string, rememberMe: boolean): Promise<any> => {
     const response = await axios
     .post(config.apiUrl + "api/auth/login", {
         username,
@@ -27,7 +27,7 @@ export const login = async (username: string, password: string, rememberMe: bool
     return response.data;
 };
 
-export const emailVerification = async (email: string) => {
+export const emailVerification = async (email: string): Promise<any> => {
     const response = await axios
     .post(config.apiUrl + "api/auth/email-verification", {
         email

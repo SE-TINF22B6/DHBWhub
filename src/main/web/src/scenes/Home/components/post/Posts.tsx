@@ -4,6 +4,7 @@ import { Post } from "./Post";
 import {PostModel} from "./models/PostModel";
 import {dummyPosts} from "./dummyPosts";
 import config from "../../../../config/config";
+import {getJWT, getUserId} from "../../../../services/AuthService";
 
 interface PostsProps {
   sortOption: string;
@@ -11,12 +12,20 @@ interface PostsProps {
 
 export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   const [posts, setPosts] = useState<PostModel[]>(dummyPosts);
-  const [followingPosts, setFollowingPosts] = useState<PostModel[]>(dummyPosts);
+  const [followingPosts, setFollowingPosts] = useState<PostModel[]>([]);
+  const jwt: string | null = getJWT();
+  const headersWithJwt = {
+    ...config.headers,
+    'Authorization': jwt ? `Bearer ${jwt}` : ''
+  };
+  const userId: number | null = getUserId();
 
   useEffect((): void => {
     const fetchPosts = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(config.apiUrl + "post/homepage-preview-posts");
+        const response: Response = await fetch(config.apiUrl + "post/homepage-preview-posts", {
+          headers: config.headers
+        });
         if (response.ok) {
           const data = await response.json();
           setPosts(data);
@@ -33,14 +42,12 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   useEffect((): void => {
     const fetchFollowingPosts = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(config.apiUrl + "post/following-posts", {
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
-          }
+        const response: Response = await fetch(config.apiUrl + `post/friend-posts/${userId}`, {
+          headers: headersWithJwt
         });
         if (response.ok) {
-          const data = await response.json();
-          setFollowingPosts(data);
+          const followingPosts = await response.json();
+          setFollowingPosts(followingPosts);
         } else {
           console.log(new Error("Failed to fetch following posts"));
         }
@@ -54,12 +61,12 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   const sortedPosts = (): PostModel[] => {
     switch (sortOption) {
       case "newest":
-        return posts.sort((a, b) => Date.parse(new Date(b.timestamp).toISOString()) -
+        return posts.sort((a: PostModel, b: PostModel) => Date.parse(new Date(b.timestamp).toISOString()) -
             Date.parse(new Date(a.timestamp).toISOString()));
       case "following":
         return followingPosts;
       case "popular":
-        return posts.sort((a, b) => b.likeAmount - a.likeAmount);
+        return posts.sort((a: PostModel, b: PostModel) => b.likeAmount - a.likeAmount);
       default:
         return posts;
     }
