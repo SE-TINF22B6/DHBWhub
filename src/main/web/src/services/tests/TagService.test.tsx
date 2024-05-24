@@ -1,6 +1,6 @@
 import React from "react";
 import '@testing-library/jest-dom';
-import { handleTagInput } from "./services/TagService";
+import { handleTagInput } from "../TagService";
 
 describe("handleTagInput", (): void => {
   let setTags: jest.Mock;

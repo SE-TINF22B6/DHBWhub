@@ -1,6 +1,6 @@
-import ReportService from './services/ReportService';
+import ReportService from '../ReportService';
 import fetchMock from 'fetch-mock';
-import config from "./config/config";
+import config from "../../config/config";
 
 describe('ReportService', (): void => {
   describe('sendReportToBackend', (): void => {

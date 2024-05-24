@@ -1,8 +1,8 @@
-import ProfilePictureService from './services/ProfilePictureService';
-import { getJWT, getUserId } from './services/AuthService';
-import config from './config/config';
+import ProfilePictureService from '../ProfilePictureService';
+import { getJWT, getUserId } from '../AuthService';
+import config from '../../config/config';
 
-jest.mock('./services/AuthService', () => ({
+jest.mock('../AuthService', () => ({
   getJWT: jest.fn(),
   getUserId: jest.fn(),
 }));

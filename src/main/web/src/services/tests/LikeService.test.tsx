@@ -1,7 +1,7 @@
-import LikeService from './services/LikeService';
+import LikeService from '../LikeService';
 import fetchMock from 'fetch-mock';
-import config from "./config/config";
-import {getJWT} from "./services/AuthService";
+import config from "../../config/config";
+import {getJWT} from "../AuthService";
 
 describe('LikeService', (): void => {
   const jwt: string | null = getJWT();
