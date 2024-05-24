@@ -48,7 +48,7 @@ public class PostTagRepository {
     }
 
     public List<PostTag> findTagByKeyword(String keyword) {
-        return repository.findByTagContaining(keyword);
+        return repository.findByTagContainingIgnoreCase(keyword);
     }
 
     public void delete(Long id) {

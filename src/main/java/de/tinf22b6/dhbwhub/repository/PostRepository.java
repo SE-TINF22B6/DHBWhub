@@ -71,11 +71,15 @@ public class PostRepository {
     }
 
     public List<Post> findPostsByKeyword(String keyword){
-        return postRepository.findByTitleContaining(keyword);
+        return postRepository.findByTitleContainingIgnoreCase(keyword);
     }
 
     public List<Post> findPostsByTag(String tag){
-        return postTagRepository.findByTag(tag).stream().map(t-> postRepository.findById(t.getPost().getId()).orElse(null)).toList();
+        return postTagRepository.findByTag(tag).stream().map(PostTag::getPost).toList();
+    }
+
+    public List<Post> findPostsByTagKeyword(String keyword){
+        return postTagRepository.findTagByKeyword(keyword).stream().map(PostTag::getPost).toList();
     }
 
     public int getAmountOfComments(Long id){
@@ -98,8 +102,4 @@ public class PostRepository {
        }
         return postTags.stream().map(PostTag::getTag).toList();
     }
-
-
-
-
 }

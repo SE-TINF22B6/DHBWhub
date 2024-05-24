@@ -23,7 +23,7 @@ public class UserRepository {
         return repository.findById(id).orElse(null);
     }
 
-    public User findByAccountId(Long accountId) { return repository.findByAccoundId(accountId); }
+    public User findByAccountId(Long accountId) { return repository.findByAccountId(accountId); }
 
     public List<User> findUsersByKeyword(String keyword){
         return repository.findUsersWithKeyword(keyword);

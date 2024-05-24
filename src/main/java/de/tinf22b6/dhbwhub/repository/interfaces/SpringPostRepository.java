@@ -32,6 +32,6 @@ public interface SpringPostRepository extends JpaRepository<Post, Long> {
             " AND post_id IN (SELECT post_id FROM post_tag WHERE tag = ?2)", nativeQuery = true)
     List<Post> getPostsFromFriendsByTag(Long id, String tag);
 
-    List<Post> findByTitleContaining(String keyword);
+    List<Post> findByTitleContainingIgnoreCase(String keyword);
 
 }

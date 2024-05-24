@@ -18,5 +18,5 @@ public interface SpringPostTagRepository extends JpaRepository<PostTag, Long> {
     @Query(value = "SELECT tag FROM view_popular_tags ", nativeQuery = true)
     List<String> findPopularTags();
 
-    List<PostTag> findByTagContaining(String keyword);
+    List<PostTag> findByTagContainingIgnoreCase(String keyword);
 }
