@@ -57,14 +57,9 @@ export const Search = () => {
     setFindByOption(option);
   };
 
-export const Search = (): JSX.Element => {
-  return (
-      <div className="search">
-        <Header/>
   if (loading) {
     return (
         <div className="search">
-          {adBlockDetected && <AdBlockOverlay/>}
           <Header/>
           <div className="loading-animation">
             <Lottie animationData={animationData}/>
@@ -77,7 +72,6 @@ export const Search = (): JSX.Element => {
   if (notFound || !searchTerm) {
     return (
         <div className="search">
-          {adBlockDetected && <AdBlockOverlay/>}
           <Header/>
           <div className="search-content">
             <div className="search-sidebar">
@@ -95,7 +89,6 @@ export const Search = (): JSX.Element => {
 
   return (
       <div className="search">
-        {adBlockDetected && <AdBlockOverlay/>}
         <Header/>
         <div className="search-sidebar">
           <SearchSortOptions onSortChange={handleSortChange}/>
