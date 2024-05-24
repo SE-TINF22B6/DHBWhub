@@ -9,7 +9,6 @@ import errorAnimationData from "../../assets/error.json";
 import Lottie from "lottie-react";
 import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
-import {dummyComments} from "./data/dummyComments";
 import {dummyPost} from "./data/dummyPost";
 import {PostDetailModel} from "./models/PostDetailModel";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
@@ -35,8 +34,7 @@ export const Post: React.FC = () => {
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
   };
-
-  const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
+  
   const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   const [scrollToComments, setScrollToComments] = useState(false);
