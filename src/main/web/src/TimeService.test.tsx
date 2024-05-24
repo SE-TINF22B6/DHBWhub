@@ -1,4 +1,4 @@
-import TimeService from './TimeService';
+import TimeService from './services/TimeService';
 
 describe('TimeService', (): void => {
   describe('timeDifference', (): void  => {
