@@ -14,6 +14,7 @@ import { Profile } from './scenes/Profile';
 // import { Event } from './scenes/Event';
 // import { TagOverview } from './scenes/Tag';
 // import { User } from './scenes/User';
+import { Search } from './scenes/Search';
 import { PageNotFound } from './scenes/PageNotFound';
 import config from "./config/config";
 import {GoogleOAuthProvider} from "@react-oauth/google";
@@ -32,13 +33,14 @@ class App extends Component {
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/faq" element={<FAQ/>}/>
               <Route path="/friends" element={<Friends/>}/>
-              {/*<Route path="/event" element={<Event/>} />*/}
+              <Route path="/event" element={<Event/>} />
               <Route path="/post" element={<Post/>}/>
               <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
               <Route path="/imprint" element={<Imprint/>}/>
               <Route path="/profile" element={<Profile/>}/>
               {/*<Route path="/search" element={<Search/>}/>*/}
               {/*<Route path="/tag" element={<TagOverview/>}/>*/}
+              <Route path="/search" element={<Search/>}/>
               <Route path="/terms-of-service" element={<TermsOfService/>}/>
               {/*<Route path="/user" element={<User/>}/>*/}
             </Routes>
