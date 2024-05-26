@@ -16,6 +16,13 @@ public class PictureMapper {
                 imageData
         );
     }
+
+    public static Picture mapToPicture(String image){
+        return new Picture(
+                "picture.png",
+                image.getBytes()
+        );
+    }
     public static Picture mapToModelComment(byte[] imageData) {
         return new Picture(
                 "comment.png",
