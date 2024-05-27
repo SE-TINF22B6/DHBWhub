@@ -62,7 +62,6 @@
     "react-test-renderer": "^18.3.1",
     "react-tooltip": "^5.26.4",
     "styled-components": "^6.1.11",
-    "typescript": "^4.9.5",
     "web-vitals": "^3.5.2",
     "webpack-dev-server": "^5.0.4",
     "yup": "^1.4.0"
@@ -71,7 +70,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build --project tsconfig.json",
     "deploy": "npm run build",
-    "test": "jest --config ./src/config/jest.config.ts",
+    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
     "test-all": "jest --watchAll=false",
     "eject": "react-scripts eject"
   },
@@ -114,6 +113,7 @@
     "or": "^0.2.0",
     "jest-mock-axios": "^4.7.3",
     "ts-jest": "^29.1.3",
+    "typescript": "^5.4.5",
     "webpack-dev-server": "^5.0.4"
   }
 }
