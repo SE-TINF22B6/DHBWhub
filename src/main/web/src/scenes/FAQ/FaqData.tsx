@@ -6,7 +6,7 @@ export interface FaqData {
 export const faqData: FaqData[] = [
     {
         question: "How can I Post?",
-        answer: "You Click on the Red Button \"Create Post\" on the homepage and enter the Title, Tags, optionally a Picture and the content of your Post and Click the \"Submit\" Button."
+        answer: "You Click on the Red Button \"Create Post\" on the homepage and enter the Title, Tags, optionally a Picture, the content of your Post and Click the \"Submit\" Button."
     },
     {
         question: "How do I add a Friend?",
