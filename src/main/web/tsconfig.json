@@ -18,9 +18,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": "./src",
+    "paths": {
+      "@services/*": ["services/*"],
+      "@config/*": ["config/*"]
+    }
   },
   "include": [
-    "src"
+    "src",
+    "tests"
   ]
 }
