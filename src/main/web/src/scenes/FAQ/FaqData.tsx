@@ -6,15 +6,19 @@ export interface FaqData {
 export const faqData: FaqData[] = [
     {
         question: "How can I Post?",
-        answer: "To post a message, go to the 'New Post' section, write your message, and click the 'Submit' button."
+        answer: "You Click on the Red Button \"Create Post\" on the homepage and enter the Title, Tags, optionally a Picture and the content of your Post and Click the \"Submit\" Button."
     },
     {
         question: "How do I add a Friend?",
-        answer: "To add a friend, go to the user's profile and click the 'Add Friend' button."
+        answer: "To add a friend, go to the user's profile and click the \"Follow\" button."
     },
     {
         question: "How do I remove a Friend?",
-        answer: "To remove a friend, go to your friend list, find the friend you want to remove, and click the 'Remove' button."
+        answer: "To remove a friend, go to your friend list, find the friend you want to remove, and click the \"Remove\" button."
+    },
+    {
+        question: "Where Can I Contact the Owners or Admins of DHBWhub? ",
+        answer: "You can find the Contact Form in the Bottom right of the homepage right underneath where you got to this page :)"
     }
 
 ];
