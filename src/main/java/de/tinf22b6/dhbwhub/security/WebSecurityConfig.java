@@ -1,6 +1,6 @@
 package de.tinf22b6.dhbwhub.security;
 
-import de.tinf22b6.dhbwhub.security.OAuth.CustomOAuthUserService;
+import de.tinf22b6.dhbwhub.security.OAuth.CustomOAuth2UserService;
 import de.tinf22b6.dhbwhub.security.OAuth.OAuth2LoginSuccessHandler;
 import de.tinf22b6.dhbwhub.security.jwt.AuthEntryPointJwt;
 import de.tinf22b6.dhbwhub.security.jwt.AuthTokenFilter;
@@ -37,7 +37,7 @@ public class WebSecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
     private DataSource dataSource;
-    private final CustomOAuthUserService oauthUserService;
+    private final CustomOAuth2UserService oauthUserService;
     private final AccountService accountService;
 
     // Define all public endpoints here (ant matchers)
@@ -57,7 +57,7 @@ public class WebSecurityConfig {
             "/post/popular-tags"
     };
 
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler, @Autowired AccountService accountService, @Autowired CustomOAuthUserService oauthUserService) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler, @Autowired AccountService accountService, @Autowired CustomOAuth2UserService oauthUserService) {
         this.unauthorizedHandler = unauthorizedHandler;
         this.userDetailsService = userDetailsService;
         this.accountService =  accountService;
