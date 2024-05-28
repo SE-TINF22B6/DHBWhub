@@ -54,6 +54,18 @@ class EventControllerTests extends AbstractApplicationTest {
     }
 
     @Test
+    void GetCalendarEvents_StatusIsOk() throws Exception {
+        CalendarEventProposal calendarEventProposal = createDefaultCalendarEventProposal();
+        when(eventService.getCalendarEvents()).thenReturn(List.of(calendarEventProposal, calendarEventProposal));
+
+        ResultActions response = mockMvc.perform(get("/event/calendar-events")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
     void GetEventThreadView_StatusIsOk() throws Exception {
         EventThreadViewProposal eventThreadView = createDefaultEventThreadViewProposal();
         when(eventService.getEventThreadView(1L)).thenReturn(eventThreadView);
