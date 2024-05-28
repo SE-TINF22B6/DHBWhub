@@ -22,11 +22,10 @@
     "types": ["jest", "node"]
   },
   "include": [
-    "src"
+    "src/**/*",
+    "src/**/*.test.tsx"
   ],
   "exclude": [
     "node_modules",
-    "**/*.test.ts",
-    "**/*.spec.ts"
   ]
 }
