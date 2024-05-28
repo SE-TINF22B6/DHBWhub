@@ -28,7 +28,7 @@ export const FAQ = () => {
                             <Typography>{item.question}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>{item.answer}</Typography>
+                            <Typography>{item.answer.content}</Typography>
                         </AccordionDetails>
                     </Accordion>
                 ))}
