@@ -7,6 +7,7 @@ import de.tinf22b6.dhbwhub.security.jwt.AuthTokenFilter;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsServiceImpl;
 import de.tinf22b6.dhbwhub.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,8 +28,6 @@ import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.sql.DataSource;
-
 
 @Configuration
 @EnableMethodSecurity
@@ -36,9 +35,17 @@ import javax.sql.DataSource;
 public class WebSecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
-    private DataSource dataSource;
     private final CustomOAuth2UserService oauthUserService;
     private final AccountService accountService;
+
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String clientId;
+
+    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
+    private String clientSecret;
+
+    @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
+    private String redirectUri;
 
     // Define all public endpoints here (ant matchers)
     private static final String[] PUBLIC_ENDPOINTS = {
@@ -98,7 +105,7 @@ public class WebSecurityConfig {
             ).exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
             .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
             .oauth2Login(oath2 -> oath2
-                .loginPage("/api/auth/login")
+                .loginPage("/api/oauth/login")
                     .clientRegistrationRepository(clientRegistrationRepository())
                 .userInfoEndpoint(userInfo -> userInfo
                         .userService(oauthUserService)
@@ -114,11 +121,11 @@ public class WebSecurityConfig {
 
     private ClientRegistration googleClientRegistration() {
         return ClientRegistration.withRegistrationId("google")
-                .clientId("YOUR_GOOGLE_CLIENT_ID")
-                .clientSecret("YOUR_GOOGLE_CLIENT_SECRET")
+                .clientId(clientId)
+                .clientSecret(clientSecret)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
+                .redirectUri(redirectUri)
                 .scope("profile", "email")
                 .authorizationUri("https://accounts.google.com/o/oauth2/auth")
                 .tokenUri("https://oauth2.googleapis.com/token")
