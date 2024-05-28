@@ -1,4 +1,5 @@
-export default {
+module.exports = {
+    roots: ['<rootDir>'],
     preset: 'ts-jest',
     verbose: true,
     moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
@@ -7,10 +8,10 @@ export default {
         "\\.(css|less|scss)$": "identity-obj-proxy"
     },
     transform: {
-        '^.+\\.(ts|tsx)?$': 'ts-jest',
-        "^.+\\.(js|jsx)$": "babel-jest",
+        '^.+\\.ts?$': 'ts-jest',
+        "^.+\\.(js|jsx)$": "babel-jest"
     },
-    transformIgnorePatterns: ["/node_modules/(?!formidable)"],
+    transformIgnorePatterns: ["node_modules/(?!axios)"],
     globals: {
         "ts-jest": {
             isolatedModules: true,
