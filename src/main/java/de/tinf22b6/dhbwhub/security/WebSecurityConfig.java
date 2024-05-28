@@ -33,7 +33,10 @@ public class WebSecurityConfig {
             "/post/homepage-preview-posts/{id:\\d+}",
             "/event/homepage-preview-events",
             "/event/event-thread/{id:\\d+}",
-            "/event/event-comments/{id:\\d+}"
+            "/event/event-comments/{id:\\d+}",
+            "/user-image",
+            "/post/post-thread/{id:\\d+}",
+            "/post/popular-tags"
     };
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {

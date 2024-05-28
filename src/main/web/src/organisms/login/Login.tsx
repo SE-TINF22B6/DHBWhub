@@ -33,11 +33,11 @@ const Login: React.FC<Props> = () => {
         password: Yup.string().required("This field is required!"),
     });
 
-    const handleOpenSignUp = () => {
+    const handleOpenSignUp = (): void => {
         setShowSignUp(true);
     };
 
-    const handleLogin = (formValue: { username: string; password: string; rememberMe: boolean }) => {
+    const handleLogin = (formValue: { username: string; password: string; rememberMe: boolean }): void => {
         const {username, password, rememberMe} = formValue;
 
         setMessage("");
@@ -122,7 +122,8 @@ const Login: React.FC<Props> = () => {
 
                             <div className="google-oauth-login">
                                 <GoogleOAuthProvider clientId="">
-                                    <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'redirect'}
+                                    <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'redirect'} useOneTap={true}
+                                                 text={"continue_with"}
                                                  onSuccess={credentialResponse => {
                                                      console.log(credentialResponse);
                                                  }}

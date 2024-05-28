@@ -11,28 +11,26 @@ interface ShareProps {
 }
 
 export const Share = (props: ShareProps) => {
-  const {currentPageURL} = props;
+  const {postId, commentId, currentPageURL} = props;
   let url = currentPageURL;
-  if (!url.includes("post/?id=")) {
-    url += "post/?id=" + props.postId;
+  const title= "Check out this post at DHBWhub";
+
+  if (!currentPageURL.includes("post/?id=")) {
+    url += "post/?id=" + postId;
   }
-  if (props.commentId) {
-    url += "&comment=" + props.commentId;
+  if (commentId) {
+    url += "&comment=" + commentId;
   }
 
   const [iconSize, setIconSize] = useState<number>(32);
   const matches = useMediaQuery('(max-width: 412px)')
 
-  useEffect(() => {
+  useEffect((): void => {
     const handleResize = () => {
       const newSize = matches ? 25 : 32;
       setIconSize(newSize);
     };
-
-    window.addEventListener('resize', handleResize);
     handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const copyToClipboard = (): void => {
@@ -50,7 +48,7 @@ export const Share = (props: ShareProps) => {
     try {
       await navigator.share({
         title: 'DHBWhub',
-        text: 'Check out this post at DHBWhub:',
+        text: title,
         url: url,
       });
     } catch (error) {
@@ -67,22 +65,22 @@ export const Share = (props: ShareProps) => {
       <div className="share">
         <img src={process.env.PUBLIC_URL + '/assets/home/post/copy.svg'} onClick={copyToClipboard} className="copy-link-button"
              alt="Copy"></img>
-        <EmailShareButton subject="Check out this post at DHBWhub" url={url}>
+        <EmailShareButton subject={title} url={url}>
           <EmailIcon size={iconSize} round={true}/>
         </EmailShareButton>
-        <WhatsappShareButton title="Check out this post at DHBWhub:" url={url}>
+        <WhatsappShareButton title={title} url={url}>
           <WhatsappIcon size={iconSize} round={true}/>
         </WhatsappShareButton>
-        <LinkedinShareButton title="Check out this post at DHBWhub:" url={url}>
+        <LinkedinShareButton title={title} url={url}>
           <LinkedinIcon size={iconSize} round={true}/>
         </LinkedinShareButton>
-        <TelegramShareButton title="Check out this post at DHBWhub!" url={url}>
+        <TelegramShareButton title={title} url={url}>
           <TelegramIcon size={iconSize} round={true}/>
         </TelegramShareButton>
-        <TwitterShareButton title="Check out this post at DHBWhub:" url={url}>
+        <TwitterShareButton title={title} url={url}>
           <XIcon size={iconSize} round={true}/>
         </TwitterShareButton>
-        <RedditShareButton title="Check out this post at DHBWhub:" url={url}>
+        <RedditShareButton title={title} url={url}>
           <RedditIcon size={iconSize} round={true}/>
         </RedditShareButton>
         <img src={process.env.PUBLIC_URL + '/assets/home/post/more.svg'} onClick={openWindowsShareOptions} className="windows-share-button"

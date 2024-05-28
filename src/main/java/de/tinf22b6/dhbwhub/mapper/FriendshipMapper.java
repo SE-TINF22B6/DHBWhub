@@ -8,11 +8,11 @@ public class FriendshipMapper {
         return new FriendlistProposal(
                 friendship.getId(),
                 friendship.getReceiver().getId(),
-                friendship.getReceiver().getUsername(),
-                friendship.getReceiver().getPicture() != null ? friendship.getReceiver().getPicture().getImageData() : null
+                friendship.getReceiver().getAccount().getUsername(),
+                friendship.getReceiver().getAccount().getPicture() != null ? friendship.getReceiver().getAccount().getPicture().getImageData() : null
                 );
     }
-    public static Friendship mapToFriendship(Account requester, Account receiver){
+    public static Friendship mapToFriendship(User requester, User receiver){
         return new Friendship(
                 requester,
                 receiver);

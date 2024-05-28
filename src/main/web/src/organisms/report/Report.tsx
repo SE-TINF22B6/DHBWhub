@@ -16,8 +16,6 @@ interface ReportPostProps {
 export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
   const {
     reportOpen,
-    reportReason,
-    reportDescription,
     setReportReason,
     setReportDescription,
     handleReportSubmit,

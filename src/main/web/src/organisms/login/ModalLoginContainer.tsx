@@ -10,7 +10,7 @@ export default function ModalLoginContainer() {
     const handleClose = () => setOpen(false);
 
     // TODO: Farbe der beiden Buttons anpassen!
-    // TODO: ModalSignUpContainer Modal mittig auf Bildschrim setzten
+    // TODO: SignUp Modal mittig auf Bildschrim setzten
 
     return (
         <>
@@ -36,7 +36,9 @@ export default function ModalLoginContainer() {
                     boxSizing: 'border-box',
                 }}
             >
+              <div>
                 <Login/>
+              </div>
             </Modal>
         </>
     );

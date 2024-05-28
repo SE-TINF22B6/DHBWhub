@@ -32,14 +32,6 @@ public class JwtUtils {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        System.out.println("Jwt");
-        System.out.println(Jwts.builder()
-                .subject((userPrincipal.getUsername()))
-                .issuedAt(new Date())
-                .expiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(key())
-                .compact());
-
         return Jwts.builder()
                 .subject((userPrincipal.getUsername()))
                 .issuedAt(new Date())

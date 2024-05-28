@@ -1,7 +1,8 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.model.SavedPost;
-import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.DeleteSavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageSavedPostProposal;
 import de.tinf22b6.dhbwhub.service.interfaces.SavedPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/savedPost")
+@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
+@RequestMapping(value = "/saved-post")
 public class SavedPostController {
     private final SavedPostService service;
 
@@ -18,24 +20,19 @@ public class SavedPostController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<SavedPost> getAll() {
-        return service.getAll();
+    @GetMapping("/homepage-saved-posts/{id}")
+    public List<HomepageSavedPostProposal> getSavedPosts(@PathVariable Long id) {
+        return service.getSavedPostsByUserId(id);
     }
 
     @PostMapping
-    public SavedPost create(@RequestBody SavedPostProposal proposal) {
-        return service.create(proposal);
+    public HomepageSavedPostProposal createSavedPost(@RequestBody CreateSavedPostProposal proposal) {
+        return service.createSavedPost(proposal);
     }
 
-    @GetMapping("/{id}")
-    public SavedPost get(@PathVariable Long id) {
-        return service.get(id);
-    }
-
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public void delete(@RequestBody DeleteSavedPostProposal proposal) {
+        service.delete(proposal);
     }
 }

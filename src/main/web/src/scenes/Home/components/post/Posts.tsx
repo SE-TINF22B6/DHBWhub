@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import "./Posts.css";
 import { Post } from "./Post";
 import {PostModel} from "./models/PostModel";
-// @ts-ignore
 import {dummyPosts} from "./dummyPosts";
+import config from "../../../../config/config";
+import {getJWT, getUserId} from "../../../../services/AuthService";
 
 interface PostsProps {
   sortOption: string;
@@ -11,23 +12,25 @@ interface PostsProps {
 
 export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   const [posts, setPosts] = useState<PostModel[]>(dummyPosts);
-  const [followingPosts, setFollowingPosts] = useState<PostModel[]>(dummyPosts);
+  const [followingPosts, setFollowingPosts] = useState<PostModel[]>([]);
+  const jwt: string | null = getJWT();
+  const headersWithJwt = {
+    ...config.headers,
+    'Authorization': jwt ? `Bearer ${jwt}` : ''
+  };
+  const userId: number | null = getUserId();
 
   useEffect((): void => {
     const fetchPosts = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(process.env.API_URL + "post/homepage-preview-posts", {
-          headers: {
-            'Authorization': '',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
-          }
+        const response: Response = await fetch(config.apiUrl + "post/homepage-preview-posts", {
+          headers: config.headers
         });
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setPosts(data);
         } else {
-          throw new Error("Failed to fetch posts");
+          console.log(new Error("Failed to fetch posts"));
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -39,17 +42,14 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   useEffect((): void => {
     const fetchFollowingPosts = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(process.env.API_URL + "post/following-posts", {
-          headers: {
-            'Authorization': '',
-          }
+        const response: Response = await fetch(config.apiUrl + `post/friend-posts/${userId}`, {
+          headers: headersWithJwt
         });
         if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setFollowingPosts(data);
+          const followingPosts = await response.json();
+          setFollowingPosts(followingPosts);
         } else {
-          throw new Error("Failed to fetch following posts");
+          console.log(new Error("Failed to fetch following posts"));
         }
       } catch (error) {
         console.error("Error fetching following posts:", error);
@@ -61,12 +61,12 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   const sortedPosts = (): PostModel[] => {
     switch (sortOption) {
       case "newest":
-        return posts.sort((a, b) => Date.parse(new Date(b.timestamp).toISOString()) -
+        return posts.sort((a: PostModel, b: PostModel) => Date.parse(new Date(b.timestamp).toISOString()) -
             Date.parse(new Date(a.timestamp).toISOString()));
       case "following":
         return followingPosts;
       case "popular":
-        return posts.sort((a, b) => b.likeAmount - a.likeAmount);
+        return posts.sort((a: PostModel, b: PostModel) => b.likeAmount - a.likeAmount);
       default:
         return posts;
     }

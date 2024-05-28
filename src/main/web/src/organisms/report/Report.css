@@ -25,7 +25,6 @@
 
 .report-error {
   color: var(--red);
-  font-family: var(--font-family);
   font-size: 1rem;
   line-height: 24px;
   position: relative;
@@ -34,7 +33,6 @@
 
 .report-popup-header {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--title-font-size);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -44,7 +42,6 @@
 
 .report-popup-field {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: 14px;
   font-weight: var(--normal-font-weight);
   line-height: 24px;
@@ -95,7 +92,6 @@
 .report-popup-field,
 .report-popup-input,
 .report-popup-textarea {
-  font-family: var(--font-family);
   font-weight: var(--normal-font-weight);
 }
 

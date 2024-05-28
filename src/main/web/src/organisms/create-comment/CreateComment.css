@@ -25,7 +25,6 @@
 
 .reply-button-label {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: 20px;
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -55,7 +54,6 @@
 .comment-input-field {
   border: none;
   background: transparent;
-  font-family: var(--font-family);
   font-size: var(--headline-font-size);
   font-weight: var(--normal-font-weight);
   left: 25%;
@@ -77,7 +75,6 @@
 
 .comment-input-field::placeholder {
   color: var(--placeholder-grey);
-  font-family: var(--font-family);
   font-size: var(--headline-font-size);
   font-weight: var(--normal-font-weight);
   line-height: 24px;
@@ -85,4 +82,21 @@
   top: 9px;
   white-space: nowrap;
   width: 300px;
+}
+
+@media (max-width: 412px) {
+  .create-comment {
+    width: 350px;
+  }
+  .reply-button {
+    width: 70px;
+  }
+  .comment-text-area {
+    width: 190px;
+    left: 90px;
+  }
+  .comment-input-field {
+    width: 170px;
+    margin-left: 10px;
+  }
 }

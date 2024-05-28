@@ -3,7 +3,12 @@ package de.tinf22b6.dhbwhub.service;
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventPost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePostComment;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
+import de.tinf22b6.dhbwhub.repository.LogtableRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +29,9 @@ import static org.mockito.Mockito.when;
 class UserServiceImplTests extends AbstractApplicationTest {
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private LogtableRepository logtableRepository;
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -54,6 +62,26 @@ class UserServiceImplTests extends AbstractApplicationTest {
     void Get_ThrowsNoSuchEntryException() {
         NoSuchEntryException e = assertThrows(NoSuchEntryException.class, () -> userService.get(1L));
         assertTrue(e.getMessage().matches("(.*) with ID \\d does not exist"));
+    }
+
+    @Test
+    void GetUserLikes_IsNotNull() {
+        Long userId = 1L;
+        List<LikeLogtablePost> likedPosts = List.of(createLikeLogtablePost());
+        List<LikeLogtablePostComment> likedComments = List.of(createLikeLogtablePostComment());
+        List<LikeLogtableEventComment> likedEventComments = List.of(createLikeLogtableEventComment());
+        List<LikeLogtableEventPost> likedEvents = List.of(createLikeLogtableEventPost());
+
+        when(logtableRepository.findPostsByUser(1L)).thenReturn(likedPosts);
+        when(logtableRepository.findCommentsByUser(1L)).thenReturn(likedComments);
+        when(logtableRepository.findEventPostsByUser(1L)).thenReturn(likedEvents);
+        when(logtableRepository.findEventCommentsByUser(1L)).thenReturn(likedEventComments);
+
+        assertThat(userService.getUserLikes(1L)).isNotNull();
+        assertThat(userService.getUserLikes(1L).getLikedPosts()).hasSize(1);
+        assertThat(userService.getUserLikes(1L).getLikedComments()).hasSize(1);
+        assertThat(userService.getUserLikes(1L).getLikedEvents()).hasSize(1);
+        assertThat(userService.getUserLikes(1L).getLikedEventComments()).hasSize(1);
     }
 
     @Test

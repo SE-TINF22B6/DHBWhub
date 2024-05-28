@@ -12,8 +12,8 @@ public interface PostService {
     HomepagePostPreviewProposal create(CreatePostProposal proposal);
     Post get(Long id);
     Post update(Long id, PostProposal proposal);
-    int increaseLikes(Long id);
-    int decreaseLikes(Long id);
+    int increaseLikes(LikePostProposal likePostProposal);
+    int decreaseLikes(LikePostProposal likePostProposal);
     PostThreadViewProposal update(Long id, UpdatePostProposal proposal);
     void delete(Long id);
     int getAmountOfComments(Long id);
@@ -23,4 +23,11 @@ public interface PostService {
     HomepagePostPreviewProposal getPostHomepageView(Long id);
     List<CommentThreadViewProposal> getPostComments(Long id);
     List<String> getPostTags(Long id);
+    List<String> getPopularPostTags();
+    List<HomepagePostPreviewProposal> getPostsFromUser(Long id);
+    List<HomepagePostPreviewProposal> getPostsFromFriends(Long id);
+    List<HomepagePostPreviewProposal> getPostsByTag(String tag);
+    List<HomepagePostPreviewProposal> getPostsByKeyword(String keyword);
+    List<HomepagePostPreviewProposal> getPostTagsByKeyword(String keyword);
+    List<HomepagePostPreviewProposal> getPostsFromFriendsByTag(Long id, String tag);
 }

@@ -5,10 +5,7 @@ import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.CreatePostProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepagePostPreviewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.PostThreadViewProposal;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdatePostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.service.PostServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -178,11 +175,13 @@ class PostControllerTests extends AbstractApplicationTest {
     @Test
     void IncreaseLikes_StatusIsOk() throws Exception {
         Integer likes = 1;
-        when(postService.increaseLikes(any(Long.class))).thenReturn(1);
+        LikePostProposal likePostProposal = createDefaultLikePostProposal();
 
-        ResultActions response = mockMvc.perform(put("/post/increase-likes/1")
+        when(postService.increaseLikes(any(LikePostProposal.class))).thenReturn(2);
+
+        ResultActions response = mockMvc.perform(put("/post/increase-likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(likes)));
+                .content(objectMapper.writeValueAsString(likePostProposal)));
 
         response.andExpect(status().isOk());
     }
@@ -190,11 +189,13 @@ class PostControllerTests extends AbstractApplicationTest {
     @Test
     void DecreaseLikes_StatusIsOk() throws Exception {
         Integer likes = 0;
-        when(postService.decreaseLikes(any(Long.class))).thenReturn(0);
+        LikePostProposal likePostProposal = createDefaultLikePostProposal();
 
-        ResultActions response = mockMvc.perform(put("/post/decrease-likes/1")
+        when(postService.decreaseLikes(any(LikePostProposal.class))).thenReturn(0);
+
+        ResultActions response = mockMvc.perform(put("/post/decrease-likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(likes)));
+                .content(objectMapper.writeValueAsString(likePostProposal)));
 
         response.andExpect(status().isOk());
     }

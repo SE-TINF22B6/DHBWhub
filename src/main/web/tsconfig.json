@@ -19,14 +19,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "baseUrl": "./src",
-    "paths": {
-      "@services/*": ["services/*"],
-      "@config/*": ["config/*"]
-    }
+    "types": ["jest", "node"]
   },
   "include": [
-    "src",
-    "tests"
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }

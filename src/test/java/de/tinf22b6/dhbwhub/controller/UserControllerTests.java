@@ -5,6 +5,7 @@ import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.mapper.UserMapper;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UserLikes;
 import de.tinf22b6.dhbwhub.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -95,6 +96,18 @@ class UserControllerTests extends AbstractApplicationTest {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.age", is(userProposal.getAge())))
                 .andExpect(jsonPath("$.description", is(userProposal.getDescription())));
+    }
+
+    @Test
+    void GetLikedComponents_StatusIsOk() throws Exception {
+        UserLikes userLikes = createDefaultUserLikes();
+        when(userService.getUserLikes(1L)).thenReturn(userLikes);
+
+        ResultActions response = mockMvc.perform(get("/user/liked-components/1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId", is(1)));
     }
 
     @Test

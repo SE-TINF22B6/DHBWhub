@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping(value = "/post")
 public class PostController {
     private final PostService service;
@@ -44,6 +45,40 @@ public class PostController {
         return service.getPostComments(id);
     }
 
+    @GetMapping("/user-posts/{id}")
+    public List<HomepagePostPreviewProposal> getUserPosts(@PathVariable Long id) {
+        return service.getPostsFromUser(id);
+    }
+
+    @GetMapping("/friend-posts/{id}")
+    public List<HomepagePostPreviewProposal> getFriendPosts(@PathVariable Long id) {
+        return service.getPostsFromFriends(id);
+    }
+
+    @GetMapping("/posts-by-tag/{tag}")
+    public List<HomepagePostPreviewProposal> getPostsByTag(@PathVariable String tag) {
+        return service.getPostsByTag(tag);
+    }
+
+    @GetMapping("/posts-by-keyword/{keyword}")
+    public List<HomepagePostPreviewProposal> getPostsByKeyword(@PathVariable String keyword) {
+        return service.getPostsByKeyword(keyword);
+    }
+
+    @GetMapping("/post-by-tag-keyword/{keyword}")
+    public List<HomepagePostPreviewProposal> getPostsByTagKeyword(@PathVariable String keyword) {
+        return service.getPostTagsByKeyword(keyword);
+    }
+
+    @GetMapping("/friend-posts-by-tag")
+    public List<HomepagePostPreviewProposal> getFriendPostsByTag(@RequestBody FriendPostsByTagProposal friendPostsByTagProposal) {
+        return service.getPostsFromFriendsByTag(friendPostsByTagProposal.getUserId(), friendPostsByTagProposal.getTag());
+    }
+
+    @GetMapping("/popular-tags")
+    public List<String> getPopularTags(){
+        return service.getPopularPostTags();
+    }
     @PostMapping
     public Post create(@RequestBody PostProposal proposal) {
         return service.create(proposal);
@@ -69,14 +104,14 @@ public class PostController {
         return service.update(id, proposal);
     }
 
-    @PutMapping("/increase-likes/{id}")
-    public int increaseLikes(@PathVariable Long id) {
-         return service.increaseLikes(id);
+    @PutMapping("/increase-likes")
+    public int increaseLikes(@RequestBody LikePostProposal likePostProposal) {
+         return service.increaseLikes(likePostProposal);
     }
 
-    @PutMapping("/decrease-likes/{id}")
-    public int decreaseLikes(@PathVariable Long id) {
-        return service.decreaseLikes(id);
+    @PutMapping("/decrease-likes")
+    public int decreaseLikes(@RequestBody LikePostProposal likePostProposal) {
+        return service.decreaseLikes(likePostProposal);
     }
 
     @DeleteMapping("/{id}")

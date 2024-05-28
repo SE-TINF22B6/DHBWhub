@@ -20,9 +20,9 @@ public class Friendship {
 
     @JoinColumn(name = "requester_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private final Account requester;
+    private final User requester;
 
     @JoinColumn(name = "receiver_id")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private final Account receiver;
+    private final User receiver;
 }

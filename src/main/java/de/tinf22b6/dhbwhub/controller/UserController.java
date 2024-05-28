@@ -2,6 +2,7 @@ package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.UserLikes;
 import de.tinf22b6.dhbwhub.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping(value = "/user")
 public class UserController {
     private final UserService service;
@@ -31,6 +33,11 @@ public class UserController {
     @GetMapping("/{id}")
     public User get(@PathVariable Long id) {
         return service.get(id);
+    }
+
+    @GetMapping("/liked-components/{id}")
+    public UserLikes getLikedComponents(@PathVariable Long id){
+        return service.getUserLikes(id);
     }
 
     @PutMapping("/{id}")

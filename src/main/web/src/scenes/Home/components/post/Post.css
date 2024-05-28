@@ -13,8 +13,8 @@
 }
 
 .post-image {
-  width: 150px;
-  height: auto;
+  width: 152px;
+  height: 170px;
   top: 50%;
   transform: translateY(-50%);
   position: relative;
@@ -50,7 +50,6 @@
 }
 
 .post-title, .short-description, .footer {
-  font-family: var(--font-family);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
   position: relative;
@@ -108,6 +107,11 @@
     width: 350px;
     height: 200px;
     margin-right: 20px;
+  }
+  .post-menu-container {
+    top: -190px;
+    margin-bottom: -85px;
+    margin-left: 0;
   }
   .post-infos {
     margin-top: -10px;

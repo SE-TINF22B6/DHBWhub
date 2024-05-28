@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import './PostDetail.css';
 import {Share} from "../../organisms/share/Share";
 import {Link, useLocation} from "react-router-dom";
 import {Report} from "../../organisms/report/Report";
@@ -10,7 +9,9 @@ import TimeService from "../../services/TimeService";
 import ReportService from "../../services/ReportService";
 import {PostDetailModel} from "./models/PostDetailModel";
 import {Interaction} from "../../organisms/interaction/Interaction";
+import {getJWT, getUserId} from "../../services/AuthService";
 import config from "../../config/config";
+import './PostDetail.css';
 
 export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) => {
   const {
@@ -21,11 +22,10 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     likeAmount,
     commentAmount,
     timestamp,
-    image,
+    postImage,
     accountId,
     username,
     userImage,
-    setScrollToComments
   } = props;
 
   const formattedTime = TimeService.timeDifference(new Date(timestamp).toISOString());
@@ -35,8 +35,14 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   const [comments] = useState(commentAmount);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
-  const currentPageURL = window.location.href;
+  const currentPageURL: string = window.location.href;
   const location = useLocation();
+  const userId: number | null = getUserId();
+  const jwt: string | null = getJWT();
+  const headersWithJwt = {
+    ...config.headers,
+    'Authorization': jwt ? `Bearer ${jwt}` : ''
+  };
 
   const [reportOpen, setReportOpen] = useState(false);
   const [reportReason, setReportReason] = useState('');
@@ -54,7 +60,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   };
 
   useEffect((): void => {
-    const userLikedPost = localStorage.getItem(`liked_${id}`);
+    const userLikedPost: string | null = localStorage.getItem(`liked_${id}`);
     if (userLikedPost) {
       setUserLiked(true);
       setHeartClass('heart-filled');
@@ -70,26 +76,59 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     setShareWindowOpen(!shareWindowOpen);
   };
 
-  const handleSaveClick = (): void => {
-    fetch(config.apiUrl + 'savePost?postId=${id}', {
-      method: 'POST',
-      credentials: 'include',
-    })
-    .then((): void => {
-      alert('PostDetail has been saved!');
-    })
-    .catch(err => {
+  const handleSaveClick = async (): Promise<void> => {
+    try {
+      const response: Response = await fetch(config.apiUrl + "saved-post", {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({
+          postId: id,
+          userId: userId,
+        }),
+        headers: headersWithJwt
+      });
+      if (response.ok) {
+        console.log('Post has been saved!');
+        alert('Post has been saved!');
+      } else {
+        console.error('Error saving the post: ', response.statusText);
+        alert('Error saving the post');
+      }
+    } catch (err) {
       console.error('Error saving the post: ', err);
       alert('Error saving the post');
-    });
+    }
+  };
+
+  const handleUnsaveClick = async (): Promise<void> => {
+    try {
+      const response: Response = await fetch(config.apiUrl + `saved-post`, {
+        method: 'DELETE',
+        credentials: 'include',
+        body: JSON.stringify({
+          postId: id,
+          userId: userId,
+        }),
+        headers: {
+          'Authorization': 'Bearer ' + jwt,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': "*",
+          'Accept': 'application/json'
+        }
+      });
+      if (response.ok) {
+        alert('Post has been unsaved!');
+      } else {
+        console.error('Error unsaving the post: ', response.statusText);
+        alert('Error unsaving the post');
+      }
+    } catch (err) {
+      console.error('Error unsaving the post: ', err);
+    }
   };
 
   const handleLike = (): void => {
-    LikeService.handleLike(props.id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
-  };
-
-  const handleCommentClick = () => {
-    setScrollToComments(true);
+    LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
 
   return (
@@ -113,15 +152,26 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
                   <Tag name={tags[index]} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
-            <Interaction likes={likes} userLiked={userLiked} heartClass={heartClass} comments={comments} handleLike={handleLike} id={id} isHomepage={false}/>
+            <Interaction
+                likes={likes}
+                userLiked={userLiked}
+                heartClass={heartClass}
+                comments={comments}
+                handleLike={handleLike}
+                id={id}
+                isHomepage={false}
+            />
           </div>
 
           <div className="post-detail-infos">
             <p className="post-detail-title">{title}</p>
             <p className="post-detail-description">{description}</p>
           </div>
-
-          {image && <img className="post-detail-picture" alt="Post" src={image}></img>}
+          {postImage ? (
+              <img className="post-detail-picture" alt="Post" src={postImage} />
+          ) : (
+              <div className="post-detail-placeholder"></div>
+          )}
         </div>
 
         <button className="post-detail-menu-button" onClick={handleMenuClick}>
@@ -130,7 +180,12 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
 
         {menuOpen && (
             <div className="post-detail-menu">
-              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleReportClick={handleReportClick}/>
+              <PostMenu
+                  handleShareClick={handleShareClick}
+                  handleSaveClick={handleSaveClick}
+                  handleUnsaveClick={handleUnsaveClick}
+                  handleReportClick={handleReportClick}
+              />
             </div>
         )}
         {shareWindowOpen && (

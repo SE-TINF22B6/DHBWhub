@@ -1,20 +1,28 @@
 package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.mapper.NotificationMapper;
 import de.tinf22b6.dhbwhub.mapper.PictureMapper;
 import de.tinf22b6.dhbwhub.mapper.PostMapper;
 import de.tinf22b6.dhbwhub.mapper.PostTagMapper;
-import de.tinf22b6.dhbwhub.model.*;
+import de.tinf22b6.dhbwhub.model.Picture;
+import de.tinf22b6.dhbwhub.model.Post;
+import de.tinf22b6.dhbwhub.model.PostTag;
+import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
+import de.tinf22b6.dhbwhub.model.notification_tables.PostLikeNotification;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.*;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -22,15 +30,21 @@ public class PostServiceImpl implements PostService {
     private final UserRepository userRepository;
     private final PictureRepository pictureRepository;
     private final PostTagRepository postTagRepository;
+    private final LogtableRepository logtableRepository;
+    private final NotificationRepository notificationRepository;
 
     public PostServiceImpl(@Autowired PostRepository repository,
                            @Autowired UserRepository userRepository,
                            @Autowired PictureRepository pictureRepository,
-                           @Autowired PostTagRepository postTagRepository) {
+                           @Autowired PostTagRepository postTagRepository,
+                           @Autowired LogtableRepository logtableRepository,
+                           @Autowired NotificationRepository notificationRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.pictureRepository = pictureRepository;
         this.postTagRepository = postTagRepository;
+        this.logtableRepository = logtableRepository;
+        this.notificationRepository = notificationRepository;
     }
 
     @Override
@@ -82,20 +96,44 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public int increaseLikes(Long id) {
-        Post post = get(id);
+    public int increaseLikes(LikePostProposal likePostProposal) {
+        Post post = get(likePostProposal.getPostId());
         int likes = post.getLikes() + 1;
         Post updatedPost = PostMapper.mapToModel(post,likes);
-        updatedPost.setId(id);
+        updatedPost.setId(likePostProposal.getPostId());
+
+        // Log into Liketable
+        User user = userRepository.find(likePostProposal.getUserId());
+        LikeLogtablePost likeLogtablePost = new LikeLogtablePost(user, post);
+        if(logtableRepository.checkIfPostExists(post.getId(), user.getId())){
+            throw new EntityExistsException("Entity already exists!");
+        }
+        logtableRepository.savePost(likeLogtablePost);
+
+        // Create Notification for Post-author
+        if(!Objects.equals(post.getUser().getId(), user.getId())){
+            PostLikeNotification notification = NotificationMapper.mapToPostLikeNotification(post, user);
+            notification.setAccumulatedId(null);
+            notificationRepository.savePostLikeNotification(notification);
+        }
+
         return repository.save(updatedPost).getLikes();
     }
 
     @Override
-    public int decreaseLikes(Long id) {
-        Post post = get(id);
-        int likes = post.getLikes() != 0? post.getLikes() - 1 : 0;
+    public int decreaseLikes(LikePostProposal likePostProposal) {
+        Post post = get(likePostProposal.getPostId());
+        int likes = post.getLikes() - 1;
         Post updatedPost = PostMapper.mapToModel(post,likes);
-        updatedPost.setId(id);
+        updatedPost.setId(likePostProposal.getPostId());
+
+        // Log into Liketable
+        LikeLogtablePost likeLogtablePost = logtableRepository.findPost(likePostProposal.getPostId(), likePostProposal.getUserId());
+        if (likeLogtablePost == null) {
+            throw new NoSuchEntryException("Entity not logged!");
+        }
+        logtableRepository.deletePost(likeLogtablePost.getId());
+
         return repository.save(updatedPost).getLikes();
     }
 
@@ -211,5 +249,70 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<String> getPostTags(Long id) {
         return repository.getPostTags(id);
+    }
+
+    @Override
+    public List<String> getPopularPostTags() {
+        return postTagRepository.findPopularTags();
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsFromUser(Long id) {
+        List<HomepagePostPreviewProposal> userPosts = repository.findPostsFromUser(id).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        userPosts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return userPosts;
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsFromFriends(Long id) {
+        List<HomepagePostPreviewProposal> friendPosts = repository.findPostsFromFriends(id).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        friendPosts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return friendPosts;
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsByTag(String tag) {
+        List<HomepagePostPreviewProposal> posts = repository.findPostsByTag(tag).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        posts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return posts;
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsByKeyword(String keyword) {
+        List<HomepagePostPreviewProposal> posts = repository.findPostsByKeyword(keyword).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        posts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return posts;
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostTagsByKeyword(String keyword) {
+        List<HomepagePostPreviewProposal> posts = postTagRepository.findTagByKeyword(keyword).stream().map(t-> PostMapper.mapToHomepagePreviewProposal(t.getPost())).toList();
+        posts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return posts;
+    }
+
+    @Override
+    public List<HomepagePostPreviewProposal> getPostsFromFriendsByTag(Long id, String tag) {
+        List<HomepagePostPreviewProposal> posts = repository.findPostsFromFriendsByTag(id, tag).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
+        posts.forEach(p -> {
+            p.setCommentAmount(getAmountOfComments(p.getId()));
+            p.setTags(getPostTags(p.getId()));
+        });
+        return posts;
     }
 }

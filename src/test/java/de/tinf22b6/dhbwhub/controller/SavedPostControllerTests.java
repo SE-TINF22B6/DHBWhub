@@ -2,9 +2,9 @@ package de.tinf22b6.dhbwhub.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
-import de.tinf22b6.dhbwhub.mapper.SavedPostMapper;
-import de.tinf22b6.dhbwhub.model.SavedPost;
-import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.DeleteSavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageSavedPostProposal;
 import de.tinf22b6.dhbwhub.service.SavedPostServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,12 +44,12 @@ class SavedPostControllerTests extends AbstractApplicationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void GetAll_StatusIsOk() throws Exception {
-        SavedPost savedPost = createDefaultSavedPost();
+    void GetSavedPosts_StatusIsOk() throws Exception {
+        HomepageSavedPostProposal savedPost = createHomepageSavedPostProposal();
 
-        when(savedPostService.getAll()).thenReturn(List.of(savedPost, savedPost));
+        when(savedPostService.getSavedPostsByUserId(1L)).thenReturn(List.of(savedPost, savedPost));
 
-        ResultActions response = mockMvc.perform(get("/savedPost")
+        ResultActions response = mockMvc.perform(get("/saved-post/homepage-saved-posts/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
@@ -57,36 +57,25 @@ class SavedPostControllerTests extends AbstractApplicationTest {
     }
 
     @Test
-    void Get_StatusIsOk() throws Exception {
-        SavedPost savedPost = createDefaultSavedPost();
+    void CreateSavedPost_StatusIsOk() throws Exception {
+        CreateSavedPostProposal createSavedPostProposal = createCreateSavedPostProposal();
+        given(savedPostService.createSavedPost(any(CreateSavedPostProposal.class))).willAnswer(i -> createHomepageSavedPostProposal());
 
-        when(savedPostService.get(any(Long.class))).thenReturn(savedPost);
-
-        ResultActions response = mockMvc.perform(get("/savedPost/1")
-                .contentType(MediaType.APPLICATION_JSON));
-
-        response.andExpect(status().isOk());
-    }
-
-    @Test
-    void Create_StatusIsOk() throws Exception {
-        SavedPostProposal savedPostProposal = createDefaultSavedPostProposal();
-
-        given(savedPostService.create(any(SavedPostProposal.class))).willAnswer(i -> SavedPostMapper.mapToModel(i.getArgument(0)));
-
-        ResultActions response = mockMvc.perform(post("/savedPost")
+        ResultActions response = mockMvc.perform(post("/saved-post")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(savedPostProposal)));
+                .content(objectMapper.writeValueAsString(createSavedPostProposal)));
 
         response.andExpect(status().isOk());
     }
 
     @Test
     void Delete_StatusIsOk() throws Exception {
-        doNothing().when(savedPostService).delete(any(Long.class));
+        DeleteSavedPostProposal deleteSavedPostProposal = createDeleteSavedPostProposal();
+         doNothing().when(savedPostService).delete(any(DeleteSavedPostProposal.class));
 
-        ResultActions response = mockMvc.perform(delete("/savedPost/1")
-                .contentType(MediaType.APPLICATION_JSON));
+        ResultActions response = mockMvc.perform(delete("/saved-post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(deleteSavedPostProposal)));
 
         response.andExpect(status().isNoContent());
     }

@@ -9,6 +9,7 @@ public interface PictureService {
     List<Picture> getAll();
     Picture create(PictureProposal proposal);
     Picture get(Long id);
+    Picture findByUserId(Long id);
     Picture update(Long id, PictureProposal proposal);
     void delete(Long id);
 }

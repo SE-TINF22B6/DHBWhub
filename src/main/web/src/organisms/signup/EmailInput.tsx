@@ -3,6 +3,7 @@ import './EmailInput.css';
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import {emailVerification} from "../../services/AuthService";
+import {GoogleLogin} from "@react-oauth/google";
 import ErrorModal from "./ErrorModal";
 
 const EmailInput = ({onSuccess}: any) => {
@@ -51,8 +52,6 @@ const EmailInput = ({onSuccess}: any) => {
                             error.response.data.message) ||
                         error.message ||
                         error.toString();
-
-                    console.log("Errormessgae: " + error.message)
 
                     if (error.message === "Request failed with status code 400") {
                         setShowError(true);
@@ -106,14 +105,26 @@ const EmailInput = ({onSuccess}: any) => {
                         <label className="signup-option-text">Already have an account? </label>
                         <label className="signup-option-text-link" onClick={handleOpenLogin}>LOGIN</label>
                     </div>
-
-                    <div className="error-message-dialog">
-                        {showError && !isInputFocused && (
-                            <ErrorModal message={message} onClose={() => setShowError(false)}/>
-                        )}
-                    </div>
                 </Form>
             </Formik>
+
+            <div className="google-oauth-signup">
+                <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'redirect'} useOneTap={true}
+                             text={"signup_with"}
+                             onSuccess={credentialResponse => {
+                                 console.log(credentialResponse);
+                             }}
+                             onError={() => {
+                                 console.log('Login Failed');
+                             }}
+                />
+            </div>
+
+            <div className="error-message-dialog">
+                {showError && !isInputFocused && (
+                    <ErrorModal message={message} onClose={() => setShowError(false)}/>
+                )}
+            </div>
         </div>
     );
 };
