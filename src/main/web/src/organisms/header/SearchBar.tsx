@@ -13,9 +13,9 @@ export const SearchBar = () => {
   const submitSearch = (): void => {
     if (query.trim() !== "") {
       // eslint-disable-next-line no-restricted-globals
-      const currentSearch = new URLSearchParams(location.search);
+      const currentSearch: URLSearchParams = new URLSearchParams(location.search);
       currentSearch.set("query", query);
-      const queryString = currentSearch.toString();
+      const queryString: string = currentSearch.toString();
       // eslint-disable-next-line no-restricted-globals
       window.location.href = queryString ? `${window.location.origin}/search/?${queryString}` : window.location.origin;
       setQuery("");
@@ -30,8 +30,10 @@ export const SearchBar = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
+            name="searchbar"
         />
-        <img src={process.env.PUBLIC_URL + "/assets/header/search-icon.svg"} className="search-icon" onClick={submitSearch}  alt="Search"/>
+        <img src={process.env.PUBLIC_URL + "/assets/header/search-icon.svg"} className="search-icon" onClick={submitSearch}  alt="Search"
+             style={{height: "22px", width: "20px"}}/>
       </div>
   );
 };

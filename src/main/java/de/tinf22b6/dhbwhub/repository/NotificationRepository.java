@@ -121,6 +121,7 @@ public class NotificationRepository {
     public void savePostCommentNotification(PostCommentNotification notification) {
         postCommentNotificationRepository.save(notification);
     }
+
     public void savePostLikeNotification(PostLikeNotification notification) {
         postLikeNotificationRepository.save(notification);
     }
@@ -139,6 +140,7 @@ public class NotificationRepository {
     public void deletePostCommentNotification(PostCommentNotification notification) {
         postCommentNotificationRepository.delete(notification);
     }
+
     public void deletePostLikeNotification(PostLikeNotification notification) {
         postLikeNotificationRepository.delete(notification);
     }

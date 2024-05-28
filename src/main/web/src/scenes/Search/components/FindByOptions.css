@@ -1,0 +1,75 @@
+.find-by-options {
+  background-color: var(--component-grey);
+  border-radius: var(--border-radius);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--component-padding);
+  color: var(--white);
+}
+
+.title, .user, .tags {
+  background-color: var(--grey);
+  border-radius: 15px;
+  border-style: none;
+  width: 235px;
+  height: 45px;
+  transition: var(--transition);
+  &&:focus, &&:active {
+    background-color: var(--red);
+  }
+  &&:hover {
+    background-color: var(--dark-red);
+  }
+}
+
+.title-label, .user-label, .tags-label {
+  color: var(--white);
+  font-size: var(--headline-font-size);
+  font-weight: var(--strong-font-weight);
+  margin-top: -25px;
+  position: absolute;
+  line-height: 24px;
+  margin-left: 50px;
+}
+
+.title-picture, .user-picture, .tags-picture {
+  object-fit: cover;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  left: -90px;
+}
+
+@media (max-width: 1024px) {
+  .find-by-options {
+    flex-direction: row;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 820px) {
+  .find-by-options {
+    flex-direction: row;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 412px) {
+  .title, .user, .tags {
+    width: 116px;
+    height: 45px;
+  }
+  .title-label, .user-label, .tags-label {
+    margin-top: -26px;
+    margin-left: 35px;
+  }
+  .title-picture, .user-picture, .tags-picture {
+    left: -40px;
+  }
+}

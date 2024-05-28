@@ -1,13 +1,14 @@
-
 export interface Imprint {
-    informationAccordingTo: string;
-    address: string;
-    representedBy: string;
-    contact: Contact;
-    disclaimerOfLiability: DisclaimerOfLiability;
-    liabilityForLinks: LiabilityForLinks;
-    copyright: string;
-    dataProtection: string;
+    informationAccordingTo: string,
+    addressLine1: string,
+    addressLine2: string,
+    addressLine3: string,
+    representedBy: string,
+    contact: Contact,
+    disclaimerOfLiability: DisclaimerOfLiability,
+    liabilityForLinks: LiabilityForLinks,
+    copyright: string,
+    dataProtection: string
 }
 
 export interface Contact {
@@ -24,10 +25,12 @@ export interface LiabilityForLinks {
 
 export const imprint: Imprint = {
     informationAccordingTo: "Information according to § 5 TMG",
-    address: "DHBWhub Erzbergerstraße 121 76133 Karlsruhe",
+    addressLine1: "DHBWhub",
+    addressLine2: "Erzbergerstraße 121",
+    addressLine3: "76133 Karlsruhe",
     representedBy: "Josha Schmitt",
     contact: {
-        email: "josha.schmitt2@gmail.com"
+        email: "info@dhbwhub.de"
     },
     disclaimerOfLiability: {
         content: `Liability for content The content of our website has been created with the utmost care. However, we cannot accept any liability for the accuracy, completeness and topicality of the content. As a service provider, we are responsible for our own content on these pages in accordance with § 7 (1) TMG (German Telemedia Act) and general laws. According to §§ 8 to 10 TMG, however, we as a service provider are not obliged to monitor transmitted or third-party information or to investigate circumstances that indicate illegal activity. Obligations to remove or block the use of information in accordance with general legislation remain unaffected by this. However, liability in this respect is only possible from the time of knowledge of a specific infringement. As soon as we become aware of such infringements, we will remove this content immediately.`

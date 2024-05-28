@@ -33,11 +33,11 @@ const Login: React.FC<Props> = () => {
         password: Yup.string().required("This field is required!"),
     });
 
-    const handleOpenSignUp = () => {
+    const handleOpenSignUp = (): void => {
         setShowSignUp(true);
     };
 
-    const handleLogin = (formValue: { username: string; password: string; rememberMe: boolean }) => {
+    const handleLogin = (formValue: { username: string; password: string; rememberMe: boolean }): void => {
         const {username, password, rememberMe} = formValue;
 
         setMessage("");

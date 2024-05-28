@@ -11,14 +11,13 @@
   height: auto;
 }
 
-.contact, .privacy-policy, .faq {
+.contact, .privacy-policy, .faq, .terms-of-service, .imprint {
   color: transparent;
   position: relative;
 }
 
-.privacy-policy-text, .faq-text, .contact-text {
+.privacy-policy-text, .faq-text, .contact-text, .terms-of-service-text, .imprint-text {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--title-font-size);
   font-weight: var(--strong-font-weight);
   margin-left: 50px;
@@ -32,7 +31,7 @@
   }
 }
 
-.faq-symbol, .contact-symbol, .privacy-policy-symbol {
+.faq-symbol, .contact-symbol, .privacy-policy-symbol, .terms-of-service-symbol, .imprint-symbol {
   object-fit: cover;
   position: absolute;
 }
@@ -48,13 +47,25 @@
   width: 30px;
 }
 
+.terms-of-service-symbol {
+  height: 26px;
+  width: 22px;
+  margin-left: 7px;
+}
+
+.imprint-symbol {
+  height: 26px;
+  width: 24px;
+  margin-left: 4px;
+}
+
 @media (max-width: 1024px) {
   .infos {
     width: 600px;
     gap: 100px;
     flex-direction: row;
   }
-  .privacy-policy-text, .faq-text, .contact-text {
+  .privacy-policy-text, .faq-text, .contact-text, .terms-of-service-symbol {
     margin-left: 40px;
   }
 }
@@ -65,7 +76,7 @@
     width: 350px;
     gap: 18px;
   }
-  .privacy-policy-text, .faq-text, .contact-text {
+  .privacy-policy-text, .faq-text, .contact-text, .terms-of-service-symbol {
     margin-left: 35px;
     margin-top: 3px;
   }

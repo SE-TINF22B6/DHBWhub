@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
-import "./Events.css";
 import { CalendarEntry } from "./CalendarEntry";
 import { Link } from "react-router-dom";
 import { dummyEvents } from "./dummyEvents";
 import config from "../../../../config/config";
 import { EventModel } from "./models/EventModel";
+import {getJWT} from "../../../../services/AuthService";
+import "./Events.css";
 
 export const Events = () => {
   const [events, setEvents] = useState<EventModel[]>(dummyEvents);
-  const sortedEvents = [...events].sort((a, b) => a.startDate - b.startDate);
+  const sortedEvents = [...events].sort((a: EventModel, b: EventModel) => a.startDate - b.startDate);
+  const jwt: string | null = getJWT();
+  const headersWithJwt = {
+    ...config.headers,
+    'Authorization': jwt ? `Bearer ${jwt}` : ''
+  };
 
-  useEffect(() => {
+  useEffect((): void => {
     const fetchEvents = async (): Promise<void> => {
       try {
         const response: Response = await fetch(config.apiUrl + "event/homepage-preview-events", {
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
-          }
+          headers: headersWithJwt
         });
         if (response.ok) {
           const data = await response.json();
@@ -31,10 +35,7 @@ export const Events = () => {
     fetchEvents();
   }, []);
 
-  const months = [
-    "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-    "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
-  ];
+  const months: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
   return (
       <div className="events">
@@ -43,11 +44,11 @@ export const Events = () => {
         </Link>
         <div className="events-layout">
           {sortedEvents.map(event => {
-            const date = new Date(event.startDate * 1000);
-            const day = date.getDate();
-            const monthIndex = date.getMonth();
-            const month = months[monthIndex];
-            const year = date.getFullYear();
+            const date: Date = new Date(event.startDate * 1000);
+            const day: number = date.getDate();
+            const monthIndex: number = date.getMonth();
+            const month: string = months[monthIndex];
+            const year: number = date.getFullYear();
 
             return (
                 <div className="event" key={event.id}>

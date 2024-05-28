@@ -1,7 +1,9 @@
 name: Upload server.jar
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   release:

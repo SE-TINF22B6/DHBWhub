@@ -1,6 +1,13 @@
 import config from "../config/config";
+import {getJWT} from "./AuthService";
 
 const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number | null, userId: number): void => {
+  const jwt: string | null = getJWT();
+  const headersWithJwt = {
+    ...config.headers,
+    'Authorization': jwt ? `Bearer ${jwt}` : ''
+  };
+
   const report = {
     reportReason: reportReason,
     reportDescription: reportDescription,
@@ -11,10 +18,7 @@ const sendReportToBackend = (reportReason: string, reportDescription: string, po
 
   fetch(config.apiUrl + 'report', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': ''
-    },
+    headers: headersWithJwt,
     body: JSON.stringify(report),
     credentials: 'include',
   })

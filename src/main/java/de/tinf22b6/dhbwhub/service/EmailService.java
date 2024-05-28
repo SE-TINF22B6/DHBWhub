@@ -46,7 +46,7 @@ public class EmailService {
     public void sendHtmlMessage(String to, String subject, String text) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        helper.setFrom(senderEmail);
+        helper.setFrom(String.format("DHBWhub <%s>", senderEmail));
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text, true); // Setze HTML als true, um HTML-Formatierung zu aktivieren

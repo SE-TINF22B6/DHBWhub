@@ -167,190 +167,194 @@ public abstract class AbstractApplicationTest {
 		return new FriendlistProposal(1L,2L,"Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
 
-	protected CreateCommentProposal createDefaultCreateCommentProposal(){
+	protected CreateCommentProposal createDefaultCreateCommentProposal() {
 		return new CreateCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L));
 	}
 
-	protected UpdateCommentProposal createDefaultUpdateCommentProposal(){
+	protected UpdateCommentProposal createDefaultUpdateCommentProposal() {
 		return new UpdateCommentProposal("Beschreibung 1");
 	}
 
-	protected CreatePostProposal createDefaultCreatePostProposal(){
+	protected CreatePostProposal createDefaultCreatePostProposal() {
 		return new CreatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L);
 	}
 
-	protected UpdatePostProposal createDefaultUpdatePostProposal(){
+	protected UpdatePostProposal createDefaultUpdatePostProposal() {
 		return new UpdatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
 	}
 
-	protected EventPost createDefaultEventPost(){
+	protected EventPost createDefaultEventPost() {
 		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 1, createDefaultPicture(), createDefaultUser());
 	}
 
-	protected EventPost createUpdatedDefaultEventPost(){
+	protected EventPost createUpdatedDefaultEventPost() {
 		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 2, createDefaultPicture(), createDefaultUser());
 	}
 
-	protected EventPost createUpdatedDefaultEventPost2(){
+	protected EventPost createUpdatedDefaultEventPost2() {
 		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 0, createDefaultPicture(), createDefaultUser());
 	}
 
-	protected EventComment createDefaultEventComment(){
+	protected EventComment createDefaultEventComment() {
 		return new EventComment("Beschreibung 1", new Date(1478979207L), 1,  createDefaultUser(), createDefaultEventPost());
 	}
 
-	protected EventComment createUpdatedDefaultEventComment(){
+	protected EventComment createUpdatedDefaultEventComment() {
 		return new EventComment("Beschreibung 1", new Date(1478979207L), 2, createDefaultUser(), createDefaultEventPost());
 	}
 
-	protected EventComment createUpdatedDefaultEventComment2(){
+	protected EventComment createUpdatedDefaultEventComment2() {
 		return new EventComment("Beschreibung 1", new Date(1478979207L), 0, createDefaultUser(), createDefaultEventPost());
 	}
 
-	protected EventTag createDefaultEventTag(){
+	protected EventTag createDefaultEventTag() {
 		return new EventTag(createDefaultEventPost(), "Tag1");
 	}
 
-	protected LocationProposal createDefaultLocationProposal(){
+	protected LocationProposal createDefaultLocationProposal() {
 		return new LocationProposal("Location 1", 1.0, 2.0);
 	}
-	protected CreateEventPostProposal createDefaultCreateEventPostProposal(){
+	protected CreateEventPostProposal createDefaultCreateEventPostProposal() {
 		return new CreateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData(), 1L);
 	}
 
-	protected UpdateEventPostProposal createDefaultUpdateEventPostProposal(){
+	protected UpdateEventPostProposal createDefaultUpdateEventPostProposal() {
 		return new UpdateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
 	}
 
-	protected EventThreadViewProposal createDefaultEventThreadViewProposal(){
+	protected EventThreadViewProposal createDefaultEventThreadViewProposal() {
 		return new EventThreadViewProposal(1L, "Titel 1", "Beschreibung 1", List.of("Tag 1", "Tag 2"), createDefaultLocationProposal(), 0, 0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), createDefaultPicture().getImageData(), 1L, "Maxi", createDefaultPicture2().getImageData(), List.of(createDefaultEventCommentThreadViewProposal(),createDefaultEventCommentThreadViewProposal()));
 	}
 
-	protected HomepageEventPreviewProposal createDefaultEventPostPreviewProposal(){
+	protected HomepageEventPreviewProposal createDefaultEventPostPreviewProposal() {
 		return new HomepageEventPreviewProposal(1L, "Titel 1", "Location 1", List.of("Tag 1", "Tag 2"), new Date(1478979207L));
 	}
 
-	protected EventCommentThreadViewProposal createDefaultEventCommentThreadViewProposal(){
+	protected EventCommentThreadViewProposal createDefaultEventCommentThreadViewProposal() {
 		return new EventCommentThreadViewProposal(1L, 1L,  "Beschreibung 1", "Maxim", 1L, createDefaultPicture().getImageData(), new Date(1478979207L), 0);
 	}
 
-	protected CreateEventCommentProposal createDefaultCreateEventCommentProposal(){
+	protected CreateEventCommentProposal createDefaultCreateEventCommentProposal() {
 		return new CreateEventCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L));
 	}
 
-	protected UpdateEventCommentProposal createDefaultUpdateEventCommentProposal(){
+	protected UpdateEventCommentProposal createDefaultUpdateEventCommentProposal() {
 		return new UpdateEventCommentProposal("Beschreibung 1");
 	}
 
-	protected FollowUserProposal createDefaultFollowUserProposal(){
+	protected FollowUserProposal createDefaultFollowUserProposal() {
 		return new FollowUserProposal(0L, 1L);
 	}
 
-	protected LikePostProposal createDefaultLikePostProposal(){
+	protected LikePostProposal createDefaultLikePostProposal() {
 		return new LikePostProposal(1L, 1L);
 	}
 
-	protected LikeCommentProposal createDefaultLikeCommentProposal(){
+	protected LikeCommentProposal createDefaultLikeCommentProposal() {
 		return new LikeCommentProposal(1L, 1L);
 	}
 
-	protected LikeEventPostProposal createDefaultLikeEventPostProposal(){
+	protected LikeEventPostProposal createDefaultLikeEventPostProposal() {
 		return new LikeEventPostProposal(1L, 1L);
 	}
 
-	protected LikeEventCommentProposal createDefaultLikeEventCommentProposal(){
+	protected LikeEventCommentProposal createDefaultLikeEventCommentProposal() {
 		return new LikeEventCommentProposal(1L, 1L);
 	}
 
-	protected HomepageNotificationProposal createHomepageNotificationProposal(){
+	protected HomepageNotificationProposal createHomepageNotificationProposal() {
 		return new HomepageNotificationProposal(0L, null, "Notification1", "Link1", "Type-Post-Like");
 	}
 
-	protected HomepageNotificationProposal createHomepageNotificationProposal2(){
+	protected HomepageNotificationProposal createHomepageNotificationProposal2() {
 		return new HomepageNotificationProposal(1L, null, "Notification2", "Link2", "Type-Post-Comment");
 	}
 
-	protected HomepageNotificationProposal createHomepageNotificationProposal3(){
+	protected HomepageNotificationProposal createHomepageNotificationProposal3() {
 		return new HomepageNotificationProposal(2L, null, "Notification3", "Link3", "Type-Comment-Like");
 	}
 
-	protected HomepageNotificationProposal createHomepageNotificationProposal4(){
+	protected HomepageNotificationProposal createHomepageNotificationProposal4() {
 		return new HomepageNotificationProposal(3L, null, "Notification4", "Link4", "Type-Event-Comment-Like");
 	}
 
-	protected HomepageNotificationProposal createHomepageNotificationProposal5(){
+	protected HomepageNotificationProposal createHomepageNotificationProposal5() {
 		return new HomepageNotificationProposal(4L, null, "Notification5", "Link5", "Type-Follow");
 	}
 
-	protected List<HomepageNotificationProposal> createHomepageNotificationProposals(){
-		return List.of(createHomepageNotificationProposal(),createHomepageNotificationProposal2(),createHomepageNotificationProposal3(),createHomepageNotificationProposal4(), createHomepageNotificationProposal5());
+	protected List<HomepageNotificationProposal> createHomepageNotificationProposals() {
+		return List.of(createHomepageNotificationProposal(), createHomepageNotificationProposal2(), createHomepageNotificationProposal3(), createHomepageNotificationProposal4(), createHomepageNotificationProposal5());
 	}
 
-	protected DeleteNotificationProposal createDeleteNotificationProposal(){
+	protected DeleteNotificationProposal createDeleteNotificationProposal() {
 		return new DeleteNotificationProposal(1L, null, "Type-Post-Like");
 	}
 
-	protected DeleteNotificationProposal createDeleteNotificationProposal2(){
+	protected DeleteNotificationProposal createDeleteNotificationProposal2() {
 		return new DeleteNotificationProposal(1L, null, "Type-Post-Comment");
 	}
 
-	protected DeleteNotificationProposal createDeleteNotificationProposal3(){
+	protected DeleteNotificationProposal createDeleteNotificationProposal3() {
 		return new DeleteNotificationProposal(1L, null, "Type-Comment-Like");
 	}
 
-	protected DeleteNotificationProposal createDeleteNotificationProposal4(){
+	protected DeleteNotificationProposal createDeleteNotificationProposal4() {
 		return new DeleteNotificationProposal(1L, null, "Type-Event-Comment-Like");
 	}
 
-	protected DeleteNotificationProposal createDeleteNotificationProposal5(){
+	protected DeleteNotificationProposal createDeleteNotificationProposal5() {
 		return new DeleteNotificationProposal(1L, null, "Type-Follow");
 	}
 
-	protected UserLikes createDefaultUserLikes(){
+	protected UserLikes createDefaultUserLikes() {
 		return new UserLikes(1L, List.of(1L, 2L), List.of(2L, 4L), List.of(1L, 3L), List.of(2L));
 	}
 
-	protected LikeLogtablePost createLikeLogtablePost(){
-		return new LikeLogtablePost(createDefaultUser(),createDefaultPost());
+	protected LikeLogtablePost createLikeLogtablePost() {
+		return new LikeLogtablePost(createDefaultUser(), createDefaultPost());
 	}
 
-	protected LikeLogtablePostComment createLikeLogtablePostComment(){
-		return new LikeLogtablePostComment(createDefaultUser(),createDefaultComment());
+	protected LikeLogtablePostComment createLikeLogtablePostComment() {
+		return new LikeLogtablePostComment(createDefaultUser(), createDefaultComment());
 	}
 
-	protected LikeLogtableEventPost createLikeLogtableEventPost(){
-		return new LikeLogtableEventPost(createDefaultUser(),createDefaultEventPost());
+	protected LikeLogtableEventPost createLikeLogtableEventPost() {
+		return new LikeLogtableEventPost(createDefaultUser(), createDefaultEventPost());
 	}
 
-	protected LikeLogtableEventComment createLikeLogtableEventComment(){
-		return new LikeLogtableEventComment(createDefaultUser(),createDefaultEventComment());
+	protected LikeLogtableEventComment createLikeLogtableEventComment() {
+		return new LikeLogtableEventComment(createDefaultUser(), createDefaultEventComment());
 	}
 
-	protected PostLikeNotification createPostLikeNotification(){
+	protected PostLikeNotification createPostLikeNotification() {
 		return new PostLikeNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
 	}
 
-	protected PostCommentNotification createPostCommentNotification(){
+	protected PostCommentNotification createPostCommentNotification() {
 		return new PostCommentNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
 	}
 
-	protected CommentLikeNotification createCommentLikeNotification(){
+	protected CommentLikeNotification createCommentLikeNotification() {
 		return new CommentLikeNotification(1L, createDefaultUser(), createDefaultPost(), createDefaultUser2(), false, null);
 	}
 
-	protected EventCommentLikeNotification createEventCommentLikeNotification(){
+	protected EventCommentLikeNotification createEventCommentLikeNotification() {
 		return new EventCommentLikeNotification(1L, createDefaultUser(), createDefaultEventPost(), createDefaultUser2(), false, null);
 	}
 
-	protected FollowNotification createFollowNotification(){
-		return new FollowNotification(1L, createDefaultUser(), createDefaultUser2(),false,null);
+	protected FollowNotification createFollowNotification() {
+		return new FollowNotification(1L, createDefaultUser(), createDefaultUser2(), false, null);
 	}
 
-	protected HomepageSavedPostProposal createHomepageSavedPostProposal(){
+	protected HomepageSavedPostProposal createHomepageSavedPostProposal() {
 		return new HomepageSavedPostProposal(1L, 1L, "Beschreibung 1");
 	}
 
-	protected CreateSavedPostProposal createCreateSavedPostProposal(){
+	protected CreateSavedPostProposal createCreateSavedPostProposal() {
 		return new CreateSavedPostProposal(1L, 1L);
+	}
+
+	protected DeleteSavedPostProposal createDeleteSavedPostProposal() {
+		return new DeleteSavedPostProposal(1L, 1L);
 	}
 }

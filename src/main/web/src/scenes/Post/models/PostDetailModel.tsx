@@ -6,7 +6,7 @@ export interface PostDetailModel {
   likeAmount: number;
   commentAmount: number;
   timestamp: number;
-  image: null | string;
+  postImage: null | string;
   accountId: number;
   username: string;
   userImage: null | string;

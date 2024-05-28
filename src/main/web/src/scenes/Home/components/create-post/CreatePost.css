@@ -8,6 +8,10 @@
   padding: var(--component-padding);
 }
 
+.create-post.not-allowed {
+  cursor: not-allowed;
+}
+
 .profile-picture-create-post {
   border-radius: var(--border-radius);
   height: 45px;
@@ -47,9 +51,13 @@
   right: 20px;
 }
 
+.create-post-button:disabled:hover, .post-text-area:disabled:hover, .post-text-area.not-allowed, .post-input-field.not-allowed,
+.profile-picture-create-post.not-allowed {
+  cursor: not-allowed;
+}
+
 .button-label {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: 20px;
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -63,7 +71,6 @@
 .post-input-field {
   border: none;
   background: transparent;
-  font-family: var(--font-family);
   font-size: var(--headline-font-size);
   font-weight: var(--normal-font-weight);
   left: 20px;
@@ -76,7 +83,6 @@
   color: var(--white);
   &&::placeholder {
     color: var(--placeholder-grey);
-    font-family: var(--font-family);
     line-height: 24px;
     position: absolute;
     white-space: nowrap;

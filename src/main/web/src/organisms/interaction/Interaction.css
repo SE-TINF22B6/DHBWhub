@@ -30,7 +30,6 @@
 
 .likes, .comments {
   color: var(--white);
-  font-family: var(--font-family);
   font-size: var(--text-font-size);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -55,22 +54,16 @@
 
 @media (max-width: 412px) {
   .interaction {
-    margin-top: 45px;
-    margin-left: 160px;
+    margin-top: 50px;
+    margin-left: 165px;
     gap: 10px;
   }
-  .like-container, .comment-container {
-    gap: 0;
-  }
   .heart-symbol, .heart-filled {
-    margin-top: 10px;
     margin-left: 60px;
     background-size: 80%;
     background-repeat: no-repeat;
   }
   .comment-icon {
-    margin-left: 40px;
-    margin-top: 10px;
     background-size: 80%;
     background-repeat: no-repeat;
   }
@@ -79,5 +72,8 @@
   }
   .comments:after {
     content: "";
+  }
+  .likes, .comments {
+    margin-top: -10px;
   }
 }

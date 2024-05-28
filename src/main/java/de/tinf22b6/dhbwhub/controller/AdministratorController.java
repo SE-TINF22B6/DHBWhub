@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping(value = "/administrator")
 public class AdministratorController {
     private final AdministratorService service;

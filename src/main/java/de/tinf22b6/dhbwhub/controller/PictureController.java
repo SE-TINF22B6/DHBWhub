@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping(value = "/picture")
 public class PictureController {
     private final PictureService service;
@@ -31,6 +32,11 @@ public class PictureController {
     @GetMapping("/{id}")
     public Picture get(@PathVariable Long id) {
         return service.get(id);
+    }
+
+    @GetMapping("/find/{id}")
+    public Picture findByUserId(@PathVariable Long id) {
+        return service.findByUserId(id);
     }
 
     @PutMapping("/{id}")
