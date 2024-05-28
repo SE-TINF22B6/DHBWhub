@@ -83,7 +83,7 @@ export const PrivacyPolicy = () => {
                       <p>{privacyPolicyInterface.collectingAndUsingYourPersonalData.changesToThisPrivacyPolicy}</p>
                       <h4>Contact Us</h4>
                       <p>{privacyPolicyInterface.contactUs.content}</p>
-                      <p><Link style={{color: "var(--white)"}} to="/contact">contact form</Link></p>
+                      <Link style={{color: "var(--white)"}} to="/contact">contact form</Link>
 
                   </div>
               </div>

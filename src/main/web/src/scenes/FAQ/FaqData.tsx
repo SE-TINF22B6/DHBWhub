@@ -13,8 +13,8 @@ export const faqData: FaqData[] = [
         answer: "To add a friend, go to the user's profile and click the \"Follow\" button."
     },
     {
-        question: "How do I remove a Friend?",
-        answer: "To remove a friend, go to your friend list, find the friend you want to remove, and click the \"Remove\" button."
+        question: "How do I unfollow a Friend?",
+        answer: "To remove a friend, go to your friend list, find the friend you want to unfollow, and click the \"Unfollow\" button."
     },
     {
         question: "Where Can I Contact the Owners or Admins of DHBWhub? ",
