@@ -18,6 +18,7 @@ export const User = () => {
   const location = useLocation();
   const searchParams: URLSearchParams = new URLSearchParams(location.search);
   const username: string | null = searchParams.get('name');
+  const [userData, setUserData] = useState();
 
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -39,7 +40,8 @@ export const User = () => {
           headers: headersWithJwt
         });
         if (response.ok) {
-          // const userData = await response.json();
+          const userData = await response.json();
+          setUserData(userData);
         } else {
           setNotFound(true);
         }
@@ -52,7 +54,7 @@ export const User = () => {
     };
 
     fetchUser();
-  }, [username]);
+  });
 
   if (loading) {
     return (
@@ -86,6 +88,7 @@ export const User = () => {
       <div className="page">
         {adBlockDetected && <AdBlockOverlay/>}
         <Header/>
+        {userData}
         <Footer/>
         {isSmartphoneSize && <MobileFooter/>}
       </div>
