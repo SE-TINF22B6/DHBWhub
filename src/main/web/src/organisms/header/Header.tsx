@@ -42,7 +42,7 @@ export const Header = () => {
                 aria-label="To the homepage">
             <img alt="Home" src={process.env.PUBLIC_URL + '/assets/header/home.svg'} style={{height: "26px", width: "26px"}}/>
           </Link>
-          <Link className={`friends-background ${currentLocation === '/friends' ? 'active' : ''}`} to="/friends"
+          <Link className={`friends-background ${currentLocation === '/friends' ? 'active' : ''}`} to={isUserLoggedIn() ? '/friends' : '#'}
                 aria-label="To the friends page" data-tooltip-id="like" data-tooltip-content={config.tooltipMessage}>
             <img alt="Friends" src={process.env.PUBLIC_URL + '/assets/header/friends.svg'} style={{height: "26px", width: "26px"}}/>
           </Link>
@@ -74,13 +74,6 @@ export const Header = () => {
               <Tooltip variant={"light"} id="notifications" place="bottom" style={{ zIndex: 999 }}/>
           )}
           {showNotifications && <Notifications showNotifications={showNotifications}/>}
-          {isMobile &&
-              <div className="profile-component">
-                <Link to="/profile" aria-label="To the profile">
-                  <img className="profile-picture-header" alt="Profile" src={userImage}/>
-                </Link>
-              </div>
-          }
           {isUserLoggedIn() ? (
               <div className="profile-component">
                 <Link to="/profile" aria-label="To the profile">

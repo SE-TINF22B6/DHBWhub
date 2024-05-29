@@ -155,7 +155,7 @@ export const privacyPolicyInterface: PrivacyPolicyInterface = {
     You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.`
     },
     ContactUs: {
-        Content: `If you have any questions about this Privacy Policy, You can contact us:`,
+        Content: `If you have any questions about this Privacy Policy, you contact us:`,
         Website: "https://dhbwhub.de/Contact"
     }
 };
