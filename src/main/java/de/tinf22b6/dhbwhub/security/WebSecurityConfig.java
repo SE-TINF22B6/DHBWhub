@@ -105,7 +105,7 @@ public class WebSecurityConfig {
             ).exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
             .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
             .oauth2Login(oath2 -> oath2
-                .loginPage("/api/oauth/login")
+                .loginPage("/login")
                     .clientRegistrationRepository(clientRegistrationRepository())
                 .userInfoEndpoint(userInfo -> userInfo
                         .userService(oauthUserService)
