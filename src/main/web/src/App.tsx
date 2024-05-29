@@ -9,7 +9,7 @@ import { Contact } from './scenes/Contact';
 import { CalendarPage } from './scenes/Calendar';
 import { PrivacyPolicy } from './scenes/PrivacyPolicy';
 import { Imprint } from './scenes/Imprint';
-import { Profile } from './scenes/Profile';
+import { ProfilePage } from './scenes/Profile/ProfilePage';
 import { Search } from './scenes/Search';
 import { Event } from './scenes/Event';
 // import { TagOverview } from './scenes/Tag';
@@ -36,7 +36,7 @@ class App extends Component {
               <Route path="/post" element={<Post/>}/>
               <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
               <Route path="/imprint" element={<Imprint/>}/>
-              <Route path="/profile" element={<Profile/>}/>
+              <Route path="/profile" element={<ProfilePage/>}/>
               <Route path="/search" element={<Search/>}/>
               {/*<Route path="/tag" element={<TagOverview/>}/>*/}
               <Route path="/terms-of-service" element={<TermsOfService/>}/>
