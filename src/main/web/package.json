@@ -73,12 +73,6 @@
     "test-all": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    }
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
