@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./ProfilePage.css";
-import {Header} from "../../organisms/header/Header";
-import {Footer} from "../../organisms/footer/Footer";
+import { Header } from "../../organisms/header/Header";
+import { Footer } from "../../organisms/footer/Footer";
 
 interface ProfileData {
     username: string;
@@ -18,16 +18,20 @@ export const ProfilePage: React.FC = () => {
         profilePicture: "path/to/profile-picture.jpg" // Verwende den tatsächlichen Pfad
     });
 
-    const [isEditing, setIsEditing] = useState<{ username: boolean, email: boolean }>({username: false, email: false});
+    const [isEditing, setIsEditing] = useState<{ username: boolean, email: boolean }>({ username: false, email: false });
     const [password, setPassword] = useState<string>("");
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = event.target;
-        setProfileData({...profileData, [name]: value});
+        const { name, value } = event.target;
+
+        // Sanitize input
+        const sanitizedValue = value.replace(/<script.*?>.*?<\/script>/gi, "");
+
+        setProfileData({ ...profileData, [name]: sanitizedValue });
     };
 
     const handleEdit = (field: 'username' | 'email') => {
-        setIsEditing({...isEditing, [field]: !isEditing[field]});
+        setIsEditing({ ...isEditing, [field]: !isEditing[field] });
     };
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
