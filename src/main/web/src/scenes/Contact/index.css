@@ -1,11 +1,3 @@
-.contact-component {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: none;
-}
-
 .google-form {
     width: 750px;
     height: 830px;
