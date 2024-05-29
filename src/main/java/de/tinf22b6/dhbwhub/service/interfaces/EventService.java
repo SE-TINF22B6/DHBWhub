@@ -26,4 +26,5 @@ public interface EventService {
     EventCommentThreadViewProposal getEventCommentThreadView(Long id);
     int adjustPostLikes(LikeEventPostProposal likeEventPostProposal, int i);
     int adjustCommentLikes(LikeEventCommentProposal likeEventCommentProposal, int i);
+    List<CalendarEventProposal> getCalendarEvents();
 }

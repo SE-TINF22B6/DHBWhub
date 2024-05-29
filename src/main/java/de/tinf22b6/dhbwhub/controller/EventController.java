@@ -38,6 +38,11 @@ public class EventController {
         return service.getEventCommentThreadView(id);
     }
 
+    @GetMapping("/calendar-events")
+    public List<CalendarEventProposal> getCalendarEvents() {
+        return service.getCalendarEvents();
+    }
+
     @PostMapping("/create-event")
     public EventThreadViewProposal create(@RequestBody CreateEventPostProposal proposal) {
         return service.create(proposal);
