@@ -47,7 +47,7 @@ export const ProfilePage: React.FC = () => {
                         <button className="followers-btn">{profileData.followers} Followers</button>
                     </div>
                     <div className="profile-field">
-                        <label className="">Username</label>
+                        <label className="label-profile-page-text">Username</label>
                         {isEditing.username ? (
                             <input type="text" name="username" value={profileData.username} onChange={handleChange}/>
                         ) : (
@@ -56,7 +56,7 @@ export const ProfilePage: React.FC = () => {
                         <button onClick={() => handleEdit('username')}>{isEditing.username ? 'Save' : 'Edit'}</button>
                     </div>
                     <div className="profile-field">
-                        <label className="">Email Address</label>
+                        <label className="label-profile-page-text">Email Address</label>
                         {isEditing.email ? (
                             <input type="email" name="email" value={profileData.email} onChange={handleChange}/>
                         ) : (
@@ -65,7 +65,7 @@ export const ProfilePage: React.FC = () => {
                         <button onClick={() => handleEdit('email')}>{isEditing.email ? 'Save' : 'Edit'}</button>
                     </div>
                     <div className="profile-field">
-                        <label className="">Password</label>
+                        <label className="label-profile-page-text">Password</label>
                         <input type="password" value={password} onChange={handlePasswordChange}/>
                         <button>Change Password</button>
                     </div>
