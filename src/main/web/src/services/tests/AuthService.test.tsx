@@ -192,4 +192,13 @@
 //         });
 //     });
 // });
+describe('test', () => {
+    it('test', () => {
+        const test = 'user';
+        localStorage.setItem('test', test);
+        localStorage.removeItem('test');
+        expect(localStorage.getItem('test')).toBeNull();
+    });
+});
+
 export {};
