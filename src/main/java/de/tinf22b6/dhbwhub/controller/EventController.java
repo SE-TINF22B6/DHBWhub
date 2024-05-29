@@ -48,11 +48,6 @@ public class EventController {
         return service.create(proposal);
     }
 
-    @PutMapping("/update-event/{id}")
-    public EventThreadViewProposal update(@PathVariable Long id, @RequestBody UpdateEventPostProposal proposal) {
-        return service.update(id, proposal);
-    }
-
     @PostMapping("/create-comment")
     public EventCommentThreadViewProposal create(@RequestBody CreateEventCommentProposal proposal) {
         return service.create(proposal);
