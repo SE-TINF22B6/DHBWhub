@@ -26,7 +26,6 @@
   top: 20px;
   left: 18%;
   width: 60%;
-  color: var(--white);
   font-size: var(--headline-font-size);
   font-weight: var(--normal-font-weight);
 }
@@ -46,9 +45,11 @@
 }
 
 .comment-menu-button {
-  right: 20px;
-  top: 20px;
+  right: 15px;
+  top: 10px;
   position: absolute;
+  background: none;
+  border: none;
 }
 
 .comment-interaction {

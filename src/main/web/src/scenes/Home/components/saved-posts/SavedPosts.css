@@ -15,7 +15,6 @@
 }
 
 .saved-post {
-  color: var(--white);
   font-size: var(--text-font-size);
   font-weight: var(--strong-font-weight);
   background-color: var(--grey);

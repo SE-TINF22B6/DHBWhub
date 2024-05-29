@@ -8,11 +8,13 @@ import ReportService from "../../services/ReportService";
 import TimeService from "../../services/TimeService";
 import LikeService from "../../services/LikeService";
 import {Interaction} from "../interaction/Interaction";
-import {CommentModel} from "./CommentModel";
+import {PostCommentModel} from "../../scenes/Home/components/post/models/PostCommentModel";
+import {EventCommentModel} from "../../scenes/Event/model/EventCommentModel";
 
-export const Comment: React.FC<CommentModel> = (props: CommentModel) => {
+type CommentProps = PostCommentModel | EventCommentModel;
+
+export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   const {
-    postId,
     commentId,
     text,
     authorUsername,
@@ -29,13 +31,14 @@ export const Comment: React.FC<CommentModel> = (props: CommentModel) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL = window.location.href;
+  const id: number = 'postId' in props ? props.postId : props.eventId;
 
   const handleReportClick = (): void => {
     setReportOpen(true);
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, postId, accountId, 187);
+    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, 187);
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
@@ -46,25 +49,21 @@ export const Comment: React.FC<CommentModel> = (props: CommentModel) => {
     setShareWindowOpen(false);
   };
 
-  const handleShareClick = (): void => {
-    setShareWindowOpen(!shareWindowOpen);
-  };
-
   const [likes, setLikes] = useState(likeAmount);
   const [userLiked, setUserLiked] = useState(false);
   const [heartClass, setHeartClass] = useState('heart-empty');
   const location = useLocation();
 
   useEffect((): void => {
-    const userLikedPost = localStorage.getItem(`liked_${postId}`);
+    const userLikedPost = localStorage.getItem(`liked_${id}`);
     if (userLikedPost) {
       setUserLiked(true);
       setHeartClass('heart-filled');
     }
-  }, [location, postId]);
+  }, [location, id]);
 
   const handleLike = (): void => {
-    LikeService.handleLike(postId, userLiked, likes, setLikes, setUserLiked, setHeartClass);
+    LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
 
   return (
@@ -100,11 +99,11 @@ export const Comment: React.FC<CommentModel> = (props: CommentModel) => {
 
         {shareWindowOpen && (
             <div className="comment-share-window">
-              <Share postId={postId} commentId={commentId} currentPageURL={currentPageURL}></Share>
+              <Share postId={id} commentId={commentId} currentPageURL={currentPageURL}></Share>
             </div>
         )}
         {menuOpen && (
-            <CommentMenu handleShareClick={handleShareClick} handleReportClick={handleReportClick}/>
+            <CommentMenu handleReportClick={handleReportClick}/>
         )}
         {reportOpen && (
             <div className="comment-report-window">

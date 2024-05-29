@@ -4,8 +4,8 @@ import { decodeJWT } from '../../../../services/DecodeJWTService';
 const ProfilePage = () => {
     const [username, setUsername] = useState('');
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
+    useEffect((): void => {
+        const storedUser: string | null = localStorage.getItem('user');
         if (storedUser) {
             const user = JSON.parse(storedUser);
             if (user && user.accessToken) {
