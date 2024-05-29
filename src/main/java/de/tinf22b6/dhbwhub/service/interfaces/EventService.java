@@ -14,7 +14,6 @@ public interface EventService {
     List<HomepageEventPreviewProposal> getHomepageEvents();
     EventThreadViewProposal create(CreateEventPostProposal proposal);
     EventThreadViewProposal getEventThreadView(Long id);
-    EventThreadViewProposal update(Long id, UpdateEventPostProposal proposal);
     void deletePost(Long id);
     void deleteComment(Long id);
     void deleteTag(Long id);

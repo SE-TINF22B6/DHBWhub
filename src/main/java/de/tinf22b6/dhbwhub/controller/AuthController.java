@@ -79,7 +79,7 @@ public class AuthController {
                 signupRequest.getEmail(),
                 passwordEncoder.encode(signupRequest.getPassword()), null,true);
 
-        User newUser = new User(null, "new User", null, newAccount);
+        User newUser = new User("new User", null, newAccount);
 
         accountRepository.save(newAccount);
 
@@ -122,6 +122,5 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Code is incorrect. Email verification failed!");
         }
     }
-
 
 }
