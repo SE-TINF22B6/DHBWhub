@@ -22,6 +22,11 @@
   margin-bottom: 10px;
 }
 
+.profile-picture {
+  margin-bottom: 20px; /* increase space between profile picture and other elements */
+  text-align: center;
+}
+
 .profile-picture input {
   display: none;
 }
@@ -40,7 +45,7 @@
 }
 
 .profile-field {
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 .profile-field label {
