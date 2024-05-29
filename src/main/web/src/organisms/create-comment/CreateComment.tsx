@@ -2,6 +2,9 @@ import React, {useEffect, useState} from "react";
 import "./CreateComment.css";
 import { Link } from "react-router-dom";
 import ProfilePictureService from "../../services/ProfilePictureService";
+import config from "../../config/config";
+import {isUserLoggedIn} from "../../services/AuthService";
+import {Tooltip} from "react-tooltip";
 
 interface CreateCommentProps {
   onReplyClick: (newCommentText: string) => void;
@@ -33,22 +36,28 @@ export const CreateComment: React.FC<CreateCommentProps> = ({ onReplyClick }) =>
   }, []);
 
   return (
-      <div className="create-comment">
+      <div data-tooltip-id="create-comment" data-tooltip-content={config.tooltipMessage}
+           className={`create-comment ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`}>
         <Link to="/profile" aria-label="To the profile">
-          <img style={{top: '13px'}} className="profile-picture" alt="Profile" src={userImage}/>
+          <img style={{top: '13px'}} className={`profile-picture ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`} alt="Profile"
+               src={userImage}/>
         </Link>
-        <div className="comment-text-area">
+        <div className={`comment-text-area ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`}>
           <input
-              className="comment-input-field"
+              className={`comment-input-field ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`}
               placeholder="Post your answer"
               value={commentText}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
+              readOnly={!isUserLoggedIn()}
           />
         </div>
-        <button className="reply-button" onClick={handleReplyClick}>
+        <button onClick={handleReplyClick} className={`reply-button ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`}>
           <div className="reply-button-label">Reply</div>
         </button>
+        {!isUserLoggedIn() && (
+            <Tooltip opacity={"100%"} variant={"light"} id="create-comment" place="top" style={{ marginTop: "25px", zIndex: 999999 }}/>
+        )}
       </div>
   );
 };

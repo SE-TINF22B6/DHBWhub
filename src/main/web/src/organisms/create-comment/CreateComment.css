@@ -64,7 +64,7 @@
   width: 920px;
   transform: translate(-25%, -50%);
   height: 34px;
-  color: var(--white);
+
 }
 
 .comment-input-field:focus,
@@ -82,6 +82,11 @@
   top: 9px;
   white-space: nowrap;
   width: 300px;
+}
+
+.create-comment.not-allowed, .comment-input-field.not-allowed, .comment-text-area.not-allowed, .reply-button.not-allowed,
+.profile-picture.not-allowed {
+  cursor: not-allowed;
 }
 
 @media (max-width: 412px) {

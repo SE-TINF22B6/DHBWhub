@@ -223,7 +223,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected EventThreadViewProposal createDefaultEventThreadViewProposal() {
-		return new EventThreadViewProposal(1L, "Titel 1", "Beschreibung 1", List.of("Tag 1", "Tag 2"), createDefaultLocationProposal(), 0, 0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), createDefaultPicture().getImageData(), 1L, "Maxi", createDefaultPicture2().getImageData(), List.of(createDefaultEventCommentThreadViewProposal(),createDefaultEventCommentThreadViewProposal()));
+		return new EventThreadViewProposal(1L, "Titel 1", "Beschreibung 1", List.of("Tag 1", "Tag 2"), createDefaultLocationProposal(), 0, 0, new Date(1478979208L), new Date(1478979209L), List.of(createDefaultEventCommentThreadViewProposal(),createDefaultEventCommentThreadViewProposal()));
+	}
+
+	protected CalendarEventProposal createDefaultCalendarEventProposal() {
+		return new CalendarEventProposal(1L, "Titel 1", new Date(1478979208L), new Date(1478979209L));
 	}
 
 	protected HomepageEventPreviewProposal createDefaultEventPostPreviewProposal() {

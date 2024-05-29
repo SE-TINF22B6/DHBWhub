@@ -6,12 +6,13 @@ import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import {imprint} from "./ImprintInterface";
 import {Link} from "react-router-dom";
+import {DigitalOceanAd} from "../../atoms/ads/DigitalOceanAd";
 
 export const Imprint = () => {
   const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   return (
-      <div className="imprint-component">
+      <div className="page">
         <Header/>
         <div className="imprint-content">
           <div>
@@ -34,6 +35,8 @@ export const Imprint = () => {
             <h3>Data protection</h3>
             <p>{imprint.dataProtection}</p>
           </div>
+          <br/>
+          <DigitalOceanAd/>
         </div>
         <Footer/>
         {isSmartphoneSize && <MobileFooter/>}

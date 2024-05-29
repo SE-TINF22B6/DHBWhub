@@ -81,6 +81,20 @@ class EventServiceImplTests extends AbstractApplicationTest {
     }
 
     @Test
+    void GetCalendarEvents_IsEmpty() {
+        assertThat(eventService.getCalendarEvents()).isEmpty();
+    }
+
+    @Test
+    void GetCalendarEvents_HasSize_Two() {
+        EventPost post1 = createDefaultEventPost();
+        EventPost post2 = createDefaultEventPost();
+        when(eventRepository.findAllEventPosts()).thenReturn(List.of(post1, post2));
+
+        assertThat(eventService.getCalendarEvents()).hasSize(2);
+    }
+
+    @Test
     void GetEventThreadView_IsNotNull() {
         EventPost post = createDefaultEventPost();
         when(eventRepository.findEventPost(1L)).thenReturn(post);

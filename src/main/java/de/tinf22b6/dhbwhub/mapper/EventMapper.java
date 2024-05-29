@@ -81,14 +81,18 @@ public class EventMapper {
                 new LocationProposal(post.getLocation(), post.getLatitude(), post.getLongitude()),
                 post.getLikes(),
                 0,
-                post.getTimestamp(),
                 post.getStartdate(),
                 post.getEnddate(),
-                post.getPicture() != null ? post.getPicture().getImageData() : null,
-                post.getUser() != null ? post.getUser().getAccount().getId() : null,
-                post.getUser() != null ? post.getUser().getAccount().getUsername(): null,
-                post.getUser().getAccount().getPicture() != null ? post.getUser().getAccount().getPicture().getImageData() : null,
                 null
+        );
+    }
+
+    public static CalendarEventProposal mapToCalendarEventProposal(EventPost post) {
+        return new CalendarEventProposal(
+                post.getId(),
+                post.getTitle(),
+                post.getStartdate(),
+                post.getEnddate()
         );
     }
 

@@ -7,6 +7,10 @@ import animationData from "../../assets/loading.json";
 import {Footer} from "../../organisms/footer/Footer";
 import {SearchSortOptions} from "./components/SearchSortOptions";
 import {FindByOptions} from "./components/FindByOptions";
+import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
+import {useDetectAdBlock} from "adblock-detect-react";
+import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
+import {C24Ad} from "../../atoms/ads/C24Ad";
 import {getJWT} from "../../services/AuthService";
 import config from "../../config/config";
 
@@ -23,6 +27,8 @@ export const Search = () => {
 
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
+  const adBlockDetected = useDetectAdBlock();
+  usePreventScrolling(adBlockDetected);
 
   useEffect((): void => {
     const fetchResults = async (): Promise<void> => {
@@ -59,7 +65,8 @@ export const Search = () => {
 
   if (loading) {
     return (
-        <div className="search">
+        <div className="page">
+          {adBlockDetected && <AdBlockOverlay/>}
           <Header/>
           <div className="loading-animation">
             <Lottie animationData={animationData}/>
@@ -71,7 +78,8 @@ export const Search = () => {
 
   if (notFound || !searchTerm) {
     return (
-        <div className="search">
+        <div className="page">
+          {adBlockDetected && <AdBlockOverlay/>}
           <Header/>
           <div className="search-content">
             <div className="search-sidebar">
@@ -81,6 +89,7 @@ export const Search = () => {
             <div className="search-results">
               <h1 className="error">No results for search term: {searchTerm}</h1>
             </div>
+            <C24Ad/>
           </div>
           <Footer/>
         </div>
@@ -88,7 +97,8 @@ export const Search = () => {
   }
 
   return (
-      <div className="search">
+      <div className="page">
+        {adBlockDetected && <AdBlockOverlay/>}
         <Header/>
         <div className="search-sidebar">
           <SearchSortOptions onSortChange={handleSortChange}/>

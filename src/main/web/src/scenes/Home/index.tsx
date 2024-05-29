@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Events} from "./components/events/Events";
@@ -10,21 +10,32 @@ import {SortOptions} from "./components/sort-options/SortOptions";
 import {PopularTags} from "./components/popular-tags/PopularTags";
 import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
-import {useMediaQuery} from "@mui/system";
+// @ts-ignore
+import {useDetectAdBlock} from "adblock-detect-react";
+import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
+import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
+import {SmallC24Ad} from "../../atoms/ads/SmallC24Ad";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
+import {TravelAd} from "../../atoms/ads/TravelAd";
+import {useMediaQuery} from "@mui/system";
 
 export const Home = () => {
   const [sortOption, setSortOption] = useState<string>('popular');
   const scrollUpRef = useRef<HTMLDivElement>(null);
-  const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
-  const isTabletSize = useMediaQuery('(max-width: 1024px)');
+
+  const adBlockDetected: boolean = useDetectAdBlock();
+  usePreventScrolling(adBlockDetected);
+
+  const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
+  const isTabletSize: boolean = useMediaQuery('(max-width: 1024px)');
 
   const handleSortChange = (option: string): void => {
     setSortOption(option);
   };
 
   return (
-      <div className="homepage">
+      <div className="page">
+        {adBlockDetected && <AdBlockOverlay/>}
         <div ref={scrollUpRef}/>
         <Header/>
         <div className="homepage-content">
@@ -38,14 +49,25 @@ export const Home = () => {
             )}
           </div>
           <div className="middle-content">
+            {isTabletSize && (
+                <SortOptions onSortChange={handleSortChange}/>
+            )}
             <CreatePost/>
             <Posts sortOption={sortOption}/>
+            {isTabletSize && (
+                <div className="mobile-bar">
+                  <PopularTags/>
+                  <SavedPosts/>
+                </div>
+            )}
+            <TravelAd/>
             {!isSmartphoneSize && <ScrollUpButton scrollUpRef={scrollUpRef}/>}
             {!isSmartphoneSize && <Footer/>}
           </div>
           <div className="sidebar-right">
             <Events/>
             <Infos/>
+            <SmallC24Ad/>
           </div>
         </div>
         {isSmartphoneSize && <ScrollUpButton scrollUpRef={scrollUpRef}/>}

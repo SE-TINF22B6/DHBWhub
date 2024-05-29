@@ -95,7 +95,7 @@ const EmailInput = ({onSuccess}: any) => {
           </Formik>
 
           <div className="google-oauth-signup">
-            <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'redirect'} useOneTap={true} text={"signup_with"}
+            <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true} text={"signup_with"}
                          onSuccess={credentialResponse => {
                            console.log(credentialResponse);
                          }}

@@ -121,7 +121,7 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="google-oauth-login">
-                                <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'redirect'} useOneTap={true}
+                                <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
                                              text={"continue_with"}
                                     onSuccess={credentialResponse => {
                                         console.log(credentialResponse);

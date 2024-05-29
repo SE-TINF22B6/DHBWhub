@@ -3,7 +3,9 @@ import './SavedPosts.css';
 import { Link } from "react-router-dom";
 import { SavedPostModel } from "./model/SavedPostModel";
 import config from "../../../../config/config";
-import {getJWT, getUserId} from "../../../../services/AuthService";
+import {getJWT, getUserId, isUserLoggedIn} from "../../../../services/AuthService";
+import {RentalCarAd} from "../../../../atoms/ads/RentalCarAd";
+import {useMediaQuery} from "@mui/system";
 
 export const SavedPosts = () => {
   const [savedPosts, setSavedPosts] = useState<SavedPostModel[]>();
@@ -13,23 +15,28 @@ export const SavedPosts = () => {
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
   };
+  const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   useEffect((): void => {
     const fetchSavedPosts = async (): Promise<void> => {
-      try {
-        const response: Response = await fetch(config.apiUrl + `saved-post/homepage-saved-posts/${userId}`, {
-          method: 'GET',
-          headers: headersWithJwt
-        });
-        if (response.ok) {
-          const data = await response.json();
-          console.log('Saved posts:' + data);
-          setSavedPosts(data);
-        } else {
-          console.log(new Error("Failed to fetch saved posts"));
+      if (isUserLoggedIn()) {
+        try {
+          const response: Response = await fetch(config.apiUrl + `saved-post/homepage-saved-posts/${userId}`, {
+            method: 'GET',
+            headers: headersWithJwt
+          });
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Saved posts:' + data);
+            setSavedPosts(data);
+          } else {
+            console.log(new Error("Failed to fetch saved posts"));
+          }
+        } catch (error) {
+          console.error("Error fetching saved posts:", error);
         }
-      } catch (error) {
-        console.error("Error fetching saved posts:", error);
+      } else {
+        console.log("User is not logged in: cannot fetch saved posts.");
       }
     };
     fetchSavedPosts();
@@ -55,8 +62,12 @@ export const SavedPosts = () => {
           </div>
         </div>
     );
+  } else {
+    return (
+        <div>
+          {!isSmartphoneSize && <RentalCarAd/>}
+        </div>
+    );
   }
-
-  return null;
 
 };

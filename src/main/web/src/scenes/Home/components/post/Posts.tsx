@@ -4,7 +4,7 @@ import { Post } from "./Post";
 import {PostModel} from "./models/PostModel";
 import {dummyPosts} from "./dummyPosts";
 import config from "../../../../config/config";
-import {getJWT, getUserId} from "../../../../services/AuthService";
+import {getJWT, getUserId, isUserLoggedIn} from "../../../../services/AuthService";
 
 interface PostsProps {
   sortOption: string;
@@ -41,18 +41,22 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
 
   useEffect((): void => {
     const fetchFollowingPosts = async (): Promise<void> => {
-      try {
-        const response: Response = await fetch(config.apiUrl + `post/friend-posts/${userId}`, {
-          headers: headersWithJwt
-        });
-        if (response.ok) {
-          const followingPosts = await response.json();
-          setFollowingPosts(followingPosts);
-        } else {
-          console.log(new Error("Failed to fetch following posts"));
+      if (isUserLoggedIn()) {
+        try {
+          const response: Response = await fetch(config.apiUrl + `post/friend-posts/${userId}`, {
+            headers: headersWithJwt
+          });
+          if (response.ok) {
+            const followingPosts = await response.json();
+            setFollowingPosts(followingPosts);
+          } else {
+            console.log(new Error("Failed to fetch following posts"));
+          }
+        } catch (error) {
+          console.error("Error fetching following posts:", error);
         }
-      } catch (error) {
-        console.error("Error fetching following posts:", error);
+      } else {
+        console.log("User is not logged in: cannot fetch following posts.");
       }
     };
     fetchFollowingPosts();

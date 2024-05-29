@@ -1,12 +1,4 @@
-.tos-component {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .tos-content {
-  color: var(--white);
   font-size: var(--headline-font-size);
   padding-left: 40px;
   padding-right: 40px;

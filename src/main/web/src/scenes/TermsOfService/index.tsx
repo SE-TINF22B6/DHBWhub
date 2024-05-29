@@ -8,7 +8,7 @@ import TermsOfServiceInterface from "./TermsOfServiceInterface";
 
 export const TermsOfService = () => {
     const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
-
+legal_documents_pages
     return (
         <div className="tos-component">
             <Header/>
