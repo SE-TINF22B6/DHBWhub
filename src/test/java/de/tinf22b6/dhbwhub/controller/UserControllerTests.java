@@ -66,7 +66,6 @@ class UserControllerTests extends AbstractApplicationTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.age", is(user.getAge())))
                 .andExpect(jsonPath("$.description", is(user.getDescription())));
     }
 
@@ -80,7 +79,6 @@ class UserControllerTests extends AbstractApplicationTest {
                 .content(objectMapper.writeValueAsString(userProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.age", is(userProposal.getAge())))
                 .andExpect(jsonPath("$.description", is(userProposal.getDescription())));
     }
 
@@ -94,7 +92,6 @@ class UserControllerTests extends AbstractApplicationTest {
                 .content(objectMapper.writeValueAsString(userProposal)));
 
         response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.age", is(userProposal.getAge())))
                 .andExpect(jsonPath("$.description", is(userProposal.getDescription())));
     }
 

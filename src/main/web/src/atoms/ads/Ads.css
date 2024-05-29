@@ -1,0 +1,57 @@
+.ad-info {
+  color: var(--light-grey);
+  font-size: var(--text-font-size);
+  margin-top: -10px;
+  margin-bottom: -15px;
+  position: relative;
+}
+
+.ad-wrapper {
+  align-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  gap: 20px;
+}
+
+.ad {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+.ad-banner-pauschalreisen, .ad-banner-c24 {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+.calendar-ad {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+@media (max-width: 412px) {
+  .ad-banner-pauschalreisen {
+    width: 392px;
+  }
+  .ad-banner-c24 {
+    width: 392px;
+  }
+  .calendar-ad, .ad-info {
+    display: none;
+  }
+  .ad {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .ad-banner-pauschalreisen {
+    width: 370px;
+  }
+  .ad-banner-c24 {
+    width: 370px;
+  }
+}

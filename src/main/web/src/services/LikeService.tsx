@@ -23,7 +23,7 @@ const handleLike = async (
       setHeartClass('heart-filled');
       localStorage.setItem(`liked_${postId}`, 'true');
 
-      await fetch(config.apiUrl + `increase-likes`, {
+      await fetch(config.apiUrl + `post/increase-likes`, {
         method: 'POST',
         headers: headersWithJwt,
         body: JSON.stringify({
@@ -37,7 +37,7 @@ const handleLike = async (
       setHeartClass('heart-empty');
       localStorage.removeItem(`liked_${postId}`);
 
-      await fetch(config.apiUrl + `decrease-likes`, {
+      await fetch(config.apiUrl + `post/decrease-likes`, {
         method: 'POST',
         headers: headersWithJwt,
         body: JSON.stringify({

@@ -32,7 +32,6 @@
 }
 
 .report-popup-header {
-  color: var(--white);
   font-size: var(--title-font-size);
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -41,7 +40,7 @@
 }
 
 .report-popup-field {
-  color: var(--white);
+
   font-size: 14px;
   font-weight: var(--normal-font-weight);
   line-height: 24px;

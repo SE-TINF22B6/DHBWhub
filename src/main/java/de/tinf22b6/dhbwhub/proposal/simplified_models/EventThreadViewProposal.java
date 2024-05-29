@@ -27,19 +27,9 @@ public class EventThreadViewProposal {
 
     private int commentAmount;
 
-    private Date timestamp;
+    private Date startDate;
 
-    private Date startdate;
-
-    private Date enddate;
-
-    private byte[] postImage;
-
-    private Long accountId;
-
-    private String username;
-
-    private byte[] userImage;
+    private Date endDate;
 
     private List<EventCommentThreadViewProposal> comments;
 }

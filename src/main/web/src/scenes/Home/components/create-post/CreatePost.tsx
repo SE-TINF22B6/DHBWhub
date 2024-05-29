@@ -28,8 +28,11 @@ export const CreatePost = () => {
           <img className={`profile-picture-create-post ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`} src={userImage} alt="Profile"/>
         </Link>
         <div className={`post-text-area ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`} onClick={handleCreatePostClick}>
-          <input className={`post-input-field ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`} name="create-post-input"
-                 placeholder="Write something..." readOnly={!isUserLoggedIn()}/>
+          <input
+              className={`post-input-field ${isUserLoggedIn() ? 'allowed' : 'not-allowed'}`}
+              name="create-post-input"
+              placeholder="Write something..."
+              readOnly={!isUserLoggedIn()}/>
         </div>
         <button className="create-post-button" disabled={!isUserLoggedIn()}>
           <div onClick={handleCreatePostClick} className="button-label">
