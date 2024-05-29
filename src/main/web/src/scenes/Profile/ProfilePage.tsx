@@ -70,7 +70,6 @@ export const ProfilePage: React.FC = () => {
                     </div>
                     <div className="profile-field">
                         <label className="label-profile-page-text">Password</label>
-                        <input type="password" value={password} onChange={handlePasswordChange}/>
                         <button>Change Password</button>
                     </div>
                 </div>
