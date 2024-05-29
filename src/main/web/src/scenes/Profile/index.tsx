@@ -5,7 +5,9 @@ import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
-import {getProfilePicture} from "../../services/ProfilePictureService";
+import {isUserLoggedIn, logout} from "../../services/AuthService";
+import "./index.css";
+import ProfilePictureService from "../../services/ProfilePictureService";
 
 interface ProfileData {
     username: string;
@@ -82,6 +84,9 @@ export const Profile: React.FC = () => {
     return (
         <>
             <Header/>
+            {isUserLoggedIn() && (
+                <button className="back-button" onClick={logout}>Logout</button>
+            )}
             <div className="profile-page">
                 <div className="profile-container">
                     <div className="profile-picture">
@@ -123,6 +128,7 @@ export const Profile: React.FC = () => {
             </div>
             <div className="footer-profilepage">
                 <Footer/>
+                {isSmartphoneSize && <MobileFooter/>}
             </div>
         </>
     );
