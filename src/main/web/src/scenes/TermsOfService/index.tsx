@@ -4,18 +4,19 @@ import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
+import TermsOfServiceInterface from "./TermsOfServiceInterface";
 
 export const TermsOfService = () => {
-  const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
+    const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
-  return (
-      <div className="page">
-        <Header/>
-        <div className="tos-content">
-          <h1 className="loading">Work in progress</h1>
+    return (
+        <div className="tos-component">
+            <Header/>
+            <div className="tos-content">
+                <TermsOfServiceInterface/>
+            </div>
+            <Footer/>
+            {isSmartphoneSize && <MobileFooter/>}
         </div>
-        <Footer/>
-        {isSmartphoneSize && <MobileFooter/>}
-      </div>
-  );
+    );
 };
