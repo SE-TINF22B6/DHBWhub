@@ -2,14 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 .profile-container {
   background-color: #2b2b2b;
   border-radius: 10px;
-  padding: 20px;
+  padding: 30px;
   width: 300px;
   text-align: center;
 }
