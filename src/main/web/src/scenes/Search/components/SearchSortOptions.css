@@ -6,7 +6,6 @@
   flex-direction: column;
   gap: 10px;
   padding: var(--component-padding);
-  color: var(--white);
 }
 
 .newest, .popular, .following {
