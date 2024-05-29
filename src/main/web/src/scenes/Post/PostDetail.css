@@ -23,11 +23,13 @@
 }
 
 .post-detail-menu {
-  margin-left: 400px;
+  position: absolute;
+  top: 60px;
+  right: 60px;
 }
 
 .post-detail-menu-button, .post-detail-title {
-  color: var(--white);
+
   position: relative;
   line-height: 24px;
   white-space: nowrap;
@@ -39,7 +41,7 @@
   font-size: 20px;
   font-weight: var(--strong-font-weight);
   right: 20px;
-  top: 20px;
+  top: 10px;
   position: absolute;
 }
 
@@ -76,7 +78,6 @@
 }
 
 .post-detail-description {
-  color: var(--white);
   font-size: var(--description-font-size);
   font-weight: var(--normal-font-weight);
   line-height: 24px;

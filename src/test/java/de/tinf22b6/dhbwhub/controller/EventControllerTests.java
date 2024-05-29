@@ -54,6 +54,18 @@ class EventControllerTests extends AbstractApplicationTest {
     }
 
     @Test
+    void GetCalendarEvents_StatusIsOk() throws Exception {
+        CalendarEventProposal calendarEventProposal = createDefaultCalendarEventProposal();
+        when(eventService.getCalendarEvents()).thenReturn(List.of(calendarEventProposal, calendarEventProposal));
+
+        ResultActions response = mockMvc.perform(get("/event/calendar-events")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
     void GetEventThreadView_StatusIsOk() throws Exception {
         EventThreadViewProposal eventThreadView = createDefaultEventThreadViewProposal();
         when(eventService.getEventThreadView(1L)).thenReturn(eventThreadView);
@@ -108,24 +120,7 @@ class EventControllerTests extends AbstractApplicationTest {
     }
 
     @Test
-    void UpdateEvent_StatusIsOk() throws Exception {
-        UpdateEventPostProposal eventPostProposal = createDefaultUpdateEventPostProposal();
-        EventThreadViewProposal eventThreadViewProposal = createDefaultEventThreadViewProposal();
-
-        when(eventService.update(any(Long.class), any(UpdateEventPostProposal.class))).thenReturn(eventThreadViewProposal);
-
-        ResultActions response = mockMvc.perform(put("/event/update-event/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(eventPostProposal)));
-
-        response.andExpect(status().isOk())
-                .andExpect(jsonPath("$.title", is(eventPostProposal.getTitle())))
-                .andExpect(jsonPath("$.description", is(eventPostProposal.getDescription())));
-    }
-
-    @Test
     void IncreaseLikesPost_StatusIsOk() throws Exception {
-        Integer likes = 1;
         LikeEventPostProposal likeEventPostProposal = createDefaultLikeEventPostProposal();
 
         when(eventService.adjustPostLikes(any(LikeEventPostProposal.class),any(Integer.class))).thenReturn(2);
@@ -139,7 +134,6 @@ class EventControllerTests extends AbstractApplicationTest {
 
     @Test
     void DecreaseLikesPost_StatusIsOk() throws Exception {
-        Integer likes = 0;
         LikeEventPostProposal likeEventPostProposal = createDefaultLikeEventPostProposal();
         when(eventService.adjustPostLikes(any(LikeEventPostProposal.class),any(Integer.class))).thenReturn(0);
 
@@ -152,7 +146,6 @@ class EventControllerTests extends AbstractApplicationTest {
 
     @Test
     void IncreaseLikesComment_StatusIsOk() throws Exception {
-        Integer likes = 1;
         LikeEventCommentProposal likeEventCommentProposal = createDefaultLikeEventCommentProposal();
 
         when(eventService.adjustCommentLikes(any(LikeEventCommentProposal.class),any(Integer.class))).thenReturn(2);
@@ -166,7 +159,6 @@ class EventControllerTests extends AbstractApplicationTest {
 
     @Test
     void DecreaseLikesComment_StatusIsOk() throws Exception {
-        Integer likes = 0;
         LikeEventCommentProposal likeEventCommentProposal = createDefaultLikeEventCommentProposal();
 
         when(eventService.adjustCommentLikes(any(LikeEventCommentProposal.class),any(Integer.class))).thenReturn(0);

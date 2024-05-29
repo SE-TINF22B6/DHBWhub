@@ -4,35 +4,29 @@ import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
 public class EventMapper {
-    public static EventPost mapToModel(CreateEventPostProposal proposal, User user, Picture picture){
+    public static EventPost mapToModel(CreateEventPostProposal proposal){
         return new EventPost(
                 proposal.getTitle(),
                 proposal.getDescription(),
                 proposal.getLocation().getLocation(),
                 proposal.getLocation().getLatitude(),
                 proposal.getLocation().getLongitude(),
-                proposal.getTimestamp(),
                 proposal.getStartdate(),
                 proposal.getEnddate(),
-                0,
-                picture,
-                user
+                0
         );
     }
 
-    public static EventPost mapToModel(UpdateEventPostProposal proposal, EventPost post, Picture picture){
+    public static EventPost mapToModel(UpdateEventPostProposal proposal, EventPost post){
         return new EventPost(
                 proposal.getTitle(),
                 proposal.getDescription(),
                 proposal.getLocation().getLocation(),
                 proposal.getLocation().getLatitude(),
                 proposal.getLocation().getLongitude(),
-                post.getTimestamp(),
                 proposal.getStartdate(),
                 proposal.getEnddate(),
-                post.getLikes(),
-                picture,
-                post.getUser()
+                post.getLikes()
         );
     }
 
@@ -43,12 +37,9 @@ public class EventMapper {
                 post.getLocation(),
                 post.getLatitude(),
                 post.getLongitude(),
-                post.getTimestamp(),
                 post.getStartdate(),
                 post.getEnddate(),
-                likes,
-                post.getPicture(),
-                post.getUser()
+                likes
         );
     }
 
@@ -81,14 +72,18 @@ public class EventMapper {
                 new LocationProposal(post.getLocation(), post.getLatitude(), post.getLongitude()),
                 post.getLikes(),
                 0,
-                post.getTimestamp(),
                 post.getStartdate(),
                 post.getEnddate(),
-                post.getPicture() != null ? post.getPicture().getImageData() : null,
-                post.getUser() != null ? post.getUser().getAccount().getId() : null,
-                post.getUser() != null ? post.getUser().getAccount().getUsername(): null,
-                post.getUser().getAccount().getPicture() != null ? post.getUser().getAccount().getPicture().getImageData() : null,
                 null
+        );
+    }
+
+    public static CalendarEventProposal mapToCalendarEventProposal(EventPost post) {
+        return new CalendarEventProposal(
+                post.getId(),
+                post.getTitle(),
+                post.getStartdate(),
+                post.getEnddate()
         );
     }
 

@@ -9,7 +9,7 @@ export const TermsOfService = () => {
   const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   return (
-      <div className="tos-component">
+      <div className="page">
         <Header/>
         <div className="tos-content">
           <h1 className="loading">Work in progress</h1>

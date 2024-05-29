@@ -8,7 +8,6 @@ import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.EventCommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.repository.EventRepository;
 import de.tinf22b6.dhbwhub.repository.LogtableRepository;
-import de.tinf22b6.dhbwhub.repository.NotificationRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,9 +34,6 @@ class EventServiceImplTests extends AbstractApplicationTest {
 
     @Mock
     private LogtableRepository logtableRepository;
-
-    @Mock
-    private NotificationRepository notificationRepository;
 
     @InjectMocks
     private EventServiceImpl eventService;
@@ -78,6 +74,20 @@ class EventServiceImplTests extends AbstractApplicationTest {
         when(eventRepository.findAllEventPosts()).thenReturn(List.of(post1, post2));
 
         assertThat(eventService.getHomepageEvents()).hasSize(2);
+    }
+
+    @Test
+    void GetCalendarEvents_IsEmpty() {
+        assertThat(eventService.getCalendarEvents()).isEmpty();
+    }
+
+    @Test
+    void GetCalendarEvents_HasSize_Two() {
+        EventPost post1 = createDefaultEventPost();
+        EventPost post2 = createDefaultEventPost();
+        when(eventRepository.findAllEventPosts()).thenReturn(List.of(post1, post2));
+
+        assertThat(eventService.getCalendarEvents()).hasSize(2);
     }
 
     @Test
@@ -124,7 +134,6 @@ class EventServiceImplTests extends AbstractApplicationTest {
     @Test
     void IncreasePostLikes_ValueIncreased() {
         EventPost post = createDefaultEventPost();
-        post.getUser().setId(0L);
         EventPost updatedPost = createUpdatedDefaultEventPost();
         User user = createDefaultUser();
         user.setId(1L);
@@ -154,7 +163,6 @@ class EventServiceImplTests extends AbstractApplicationTest {
     @Test
     void DecreasePostLikes_ValueDecreased() {
         EventPost post = createDefaultEventPost();
-        post.getUser().setId(0L);
         EventPost updatedPost = createUpdatedDefaultEventPost2();
         User user = createDefaultUser();
         user.setId(1L);

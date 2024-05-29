@@ -25,6 +25,7 @@
 }
 
 .log-in-wrapper {
+    color: var(--white);
     border: 1px solid var(--red);
     border-radius: 10px;
     height: 40px;
@@ -38,7 +39,6 @@
 }
 
 .log-in-text {
-    color: var(--white);
     font-size: var(--title-font-size);
     font-weight: 400;
     left: 16px;
