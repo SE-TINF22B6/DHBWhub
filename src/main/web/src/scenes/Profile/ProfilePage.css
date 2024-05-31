@@ -3,6 +3,7 @@
   padding: 30px;
   width: 300px;
   text-align: center;
+  background-color: var(--component-grey);
 }
 
 .profile-picture img {
