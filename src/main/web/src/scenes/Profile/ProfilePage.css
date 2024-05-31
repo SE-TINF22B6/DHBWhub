@@ -1,13 +1,5 @@
-.profile-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-}
-
 .profile-container {
-  background-color: #2b2b2b;
+  background-color: var(--component-grey);
   border-radius: 10px;
   padding: 30px;
   width: 300px;
@@ -24,7 +16,10 @@
 
 .profile-picture {
   margin-bottom: 20px;
-  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 .profile-picture input {
