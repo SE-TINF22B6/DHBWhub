@@ -93,7 +93,7 @@ public class UserController {
         service.updatePicture(proposal);
     }
 
-    @PutMapping("/check-password-correctness")
+    @GetMapping("/check-password-correctness")
     public ResponseEntity<?> checkPasswordCorrectness(@RequestBody CheckPasswordCorrectnessProposal proposal) {
         if(!service.checkPasswordCorrectness(proposal)){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

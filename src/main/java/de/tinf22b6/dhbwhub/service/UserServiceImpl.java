@@ -144,8 +144,8 @@ public class UserServiceImpl implements UserService {
     public boolean checkPasswordCorrectness(CheckPasswordCorrectnessProposal proposal) {
         User user = get(proposal.getUserId());
         String userPassword = user.getAccount().getPassword();
-        String proposalPassword = passwordEncoder.encode(proposal.getOldPassword());
-        return !passwordEncoder.matches(userPassword, proposalPassword);
+        String proposalPassword = proposal.getOldPassword();
+        return passwordEncoder.matches(proposalPassword, userPassword);
     }
 
     @Override
