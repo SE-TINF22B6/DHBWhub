@@ -26,11 +26,9 @@ export const ProfilePage: React.FC = () => {
     const [isEditing, setIsEditing] = useState<{ username: boolean, email: boolean }>({username: false, email: false});
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = event.target;
-
+        const { name, value } = event.target;
         const sanitizedValue = DOMPurify.sanitize(value);
-
-        setProfileData({...profileData, [name]: sanitizedValue});
+        setProfileData({ ...profileData, [name]: sanitizedValue });
     };
 
     const handleEdit = (field: 'username' | 'email') => {
@@ -49,11 +47,11 @@ export const ProfilePage: React.FC = () => {
 
     return (
         <div className="page">
-            <Header/>
+            <Header />
             <div className="profile-container">
                 <div className="profile-picture">
-                    <img src={profileData.profilePicture} alt="Profile"/>
-                    <input type="file"/>
+                    <img src={profileData.profilePicture} alt="Profile" />
+                    <input type="file" />
                 </div>
                 <div className="followers">
                     <button className="followers-btn">{profileData.followers} Followers</button>
@@ -61,7 +59,7 @@ export const ProfilePage: React.FC = () => {
                 <div className="profile-field">
                     <label className="label-profile-page-text">Username</label>
                     {isEditing.username ? (
-                        <input type="text" name="username" value={profileData.username} onChange={handleChange}/>
+                        <input type="text" name="username" value={profileData.username} onChange={handleChange} />
                     ) : (
                         <span>{profileData.username}</span>
                     )}
@@ -70,9 +68,9 @@ export const ProfilePage: React.FC = () => {
                 <div className="profile-field">
                     <label className="label-profile-page-text">Email Address</label>
                     {isEditing.email ? (
-                        <input type="email" name="email" value={profileData.email} onChange={handleChange}/>
+                        <input type="email" name="email" value={profileData.email} onChange={handleChange} />
                     ) : (
-                        <span>{profileData.email}</span>
+                        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(profileData.email) }}></span>
                     )}
                     <button onClick={() => handleEdit('email')}>{isEditing.email ? 'Save' : 'Edit'}</button>
                 </div>
@@ -80,7 +78,7 @@ export const ProfilePage: React.FC = () => {
                     <label className="label-profile-page-text">Password</label>
                     <button onClick={handlePasswordChange}>Change Password</button>
                 </div>
-                <button className="logout-btn" onClick={handleLogout}>Logout</button>
+                <button className="logout-btn">Logout</button>
             </div>
             <Footer/>
         </div>
