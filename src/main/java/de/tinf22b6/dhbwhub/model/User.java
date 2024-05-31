@@ -19,6 +19,8 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    private final Integer age;
+
     private final String description;
 
     @JoinColumn(name = "course_id")

@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserProposal {
+    private Integer age;
+
     private String description;
 
     private CourseProposal course;
