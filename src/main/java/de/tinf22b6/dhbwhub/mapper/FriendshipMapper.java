@@ -1,9 +1,7 @@
 package de.tinf22b6.dhbwhub.mapper;
 
-import de.tinf22b6.dhbwhub.model.EventComment;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import de.tinf22b6.dhbwhub.model.User;
-import de.tinf22b6.dhbwhub.model.notification_tables.EventCommentLikeNotification;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.FriendlistProposal;
 
 public class FriendshipMapper {
@@ -19,13 +17,5 @@ public class FriendshipMapper {
         return new Friendship(
                 requester,
                 receiver);
-    }
-    public static EventCommentLikeNotification mapToEventCommentLikeNotification(EventComment eventComment, User user) {
-        return new EventCommentLikeNotification(
-                eventComment.getUser(),
-                eventComment.getEventPost(),
-                user,
-                false
-        );
     }
 }

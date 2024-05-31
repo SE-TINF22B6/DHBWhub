@@ -55,11 +55,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected User createDefaultUser() {
-		return new User("Ich studiere Informatik", createDefaultCourse(), createDefaultAccount());
+		return new User(20, "Ich studiere Informatik", createDefaultCourse(), createDefaultAccount());
 	}
 
 	protected User createDefaultUser2() {
-		return new User("Ich studiere Jura", createDefaultCourse2(), createDefaultAccount2());
+		return new User(20, "Ich studiere Jura", createDefaultCourse2(), createDefaultAccount2());
 	}
 
 	protected Friendship createDefaultFriendship() {
@@ -132,7 +132,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected UserProposal createDefaultUserProposal() {
-		return new UserProposal("Ich studiere Informatik", createDefaultCourseProposal(), createDefaultAccountProposal());
+		return new UserProposal(20, "Ich studiere Informatik", createDefaultCourseProposal(), createDefaultAccountProposal());
 	}
 
 	protected PostProposal createDefaultPostProposal() {
