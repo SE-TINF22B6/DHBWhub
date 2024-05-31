@@ -1,9 +1,10 @@
 .profile-container {
   border-radius: 10px;
   padding: 30px;
-  width: 300px;
+  width: 400px; /* Vergrößere die Breite des Containers */
   text-align: center;
   background-color: var(--component-grey);
+  margin: 0 auto; /* Zentriert den Container auf der Seite */
 }
 
 .profile-picture img {
@@ -11,11 +12,11 @@
   width: 100px;
   height: 100px;
   object-fit: cover;
-  margin-bottom: 10px;
+  margin-bottom: 20px; /* Erhöht den Abstand unter dem Bild */
 }
 
 .profile-picture {
-  margin-bottom: 20px;
+  margin-bottom: 80px; /* Erhöht den Abstand zum nächsten Element */
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -27,7 +28,7 @@
 }
 
 .followers {
-  margin: 10px 0;
+  margin: 20px 0; /* Erhöht den Abstand oben und unten */
 }
 
 .followers-btn {
@@ -35,18 +36,28 @@
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 10px 20px; /* Erhöht die Polsterung für mehr Platz */
   cursor: pointer;
 }
 
+.logout-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px; /* Erhöht die Polsterung für mehr Platz */
+  cursor: pointer;
+  margin-top: 20px; /* Erhöht den Abstand über dem Button */
+}
+
 .profile-field {
-  margin: 20px 0;
+  margin: 30px 0; /* Erhöht den Abstand oben und unten */
 }
 
 .profile-field label {
   display: block;
   color: white;
-  margin-bottom: 5px;
+  margin-bottom: 10px; /* Erhöht den Abstand unter dem Label */
 }
 
 .profile-field span,
@@ -55,8 +66,9 @@
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 5px;
-  width: 100%;
+  padding: 10px; /* Erhöht die Polsterung für mehr Platz */
+  width: calc(100% - 20px); /* Verkleinert die Breite, um Platz für die Polsterung zu schaffen */
+  margin-bottom: 10px; /* Erhöht den Abstand unter dem Eingabefeld */
 }
 
 .profile-field button {
@@ -64,9 +76,9 @@
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 10px 20px; /* Erhöht die Polsterung für mehr Platz */
   cursor: pointer;
-  margin-top: 5px;
+  margin-top: 10px; /* Erhöht den Abstand über dem Button */
 }
 
 .label-profile-page-text {
