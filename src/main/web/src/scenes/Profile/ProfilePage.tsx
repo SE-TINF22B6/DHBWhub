@@ -36,7 +36,7 @@ export const ProfilePage: React.FC = () => {
     };
 
     const handlePasswordChange = () => {
-
+        navigate("");
     };
 
     const handleLogout = () => {
