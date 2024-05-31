@@ -105,18 +105,11 @@ const EmailInput = ({onSuccess}: any) => {
                         <label className="signup-option-text">Already have an account? </label>
                         <label className="signup-option-text-link" onClick={handleOpenLogin}>LOGIN</label>
                     </div>
-
-                    <div className="error-message-dialog">
-                        {showError && !isInputFocused && (
-                            <ErrorModal message={message} onClose={() => setShowError(false)}/>
-                        )}
-                    </div>
                 </Form>
             </Formik>
 
             <div className="google-oauth-signup">
-                <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
-                             text={"signup_with"}
+                <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true} text={"signup_with"}
                              onSuccess={credentialResponse => {
                                  console.log(credentialResponse);
                              }}
@@ -124,6 +117,12 @@ const EmailInput = ({onSuccess}: any) => {
                                  console.log('Login Failed');
                              }}
                 />
+            </div>
+
+            <div className="error-message-dialog">
+                {showError && !isInputFocused && (
+                    <ErrorModal message={message} onClose={() => setShowError(false)}/>
+                )}
             </div>
         </div>
     );
