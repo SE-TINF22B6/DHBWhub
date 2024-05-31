@@ -72,7 +72,8 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable) // TODO: CodeQL doesn't like that
+        http.csrf(AbstractHttpConfigurer::disable)
+            // CSRF protection is disabled as this is a stateless API. The application uses token-based authentication, making CSRF less relevant.
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                     .anyRequest().authenticated()
