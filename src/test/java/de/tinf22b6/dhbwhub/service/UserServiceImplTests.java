@@ -2,14 +2,15 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.AbstractApplicationTest;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
+import de.tinf22b6.dhbwhub.model.Course;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
 import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventPost;
 import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
 import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePostComment;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
-import de.tinf22b6.dhbwhub.repository.LogtableRepository;
-import de.tinf22b6.dhbwhub.repository.UserRepository;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
+import de.tinf22b6.dhbwhub.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,6 +33,15 @@ class UserServiceImplTests extends AbstractApplicationTest {
 
     @Mock
     private LogtableRepository logtableRepository;
+
+    @Mock
+    private CourseRepository courseRepository;
+
+    @Mock
+    private AccountRepository accountRepository;
+
+    @Mock
+    private PictureRepository pictureRepository;
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -82,6 +92,108 @@ class UserServiceImplTests extends AbstractApplicationTest {
         assertThat(userService.getUserLikes(1L).getLikedComments()).hasSize(1);
         assertThat(userService.getUserLikes(1L).getLikedEvents()).hasSize(1);
         assertThat(userService.getUserLikes(1L).getLikedEventComments()).hasSize(1);
+    }
+
+    @Test
+    void GetProfileInformation_IsNotNull() {
+        User user = createDefaultUser();
+        when(userRepository.find(1L)).thenReturn(user);
+
+        assertThat(userService.getProfileInformation(1L)).isNotNull();
+    }
+
+    @Test
+    void GetUserInformation_IsNotNull() {
+        User user = createDefaultUser();
+        when(userRepository.find(1L)).thenReturn(user);
+
+        assertThat(userService.getUserInformation(1L)).isNotNull();
+    }
+
+    @Test
+    void UpdateAge_IsNotNull() {
+        User user = createDefaultUser();
+        user.setId(1L);
+        UpdateAgeProposal updateAgeProposal = createUpdateAgeProposal();
+
+        when(userRepository.find(1L)).thenReturn(user);
+        when(userRepository.save(any(User.class))).thenReturn(user);
+
+        assertDoesNotThrow(() -> userService.updateAge(updateAgeProposal));
+    }
+
+    @Test
+    void UpdateDescription_IsNotNull() {
+        User user = createDefaultUser();
+        user.setId(1L);
+        UpdateDescriptionProposal updateDescriptionProposal = createUpdateDescriptionProposal();
+
+        when(userRepository.find(1L)).thenReturn(user);
+        when(userRepository.save(any(User.class))).thenReturn(user);
+
+        assertDoesNotThrow(() -> userService.updateDescription(updateDescriptionProposal));
+    }
+
+    @Test
+    void UpdateCourse_IsNotNull() {
+        User user = createDefaultUser();
+        user.setId(1L);
+        UpdateCourseProposal updateCourseProposal = createUpdateCourseProposal();
+        Course updatedCourse = createDefaultCourse();
+
+        when(userRepository.find(1L)).thenReturn(user);
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        when(courseRepository.findByName(any(String.class))).thenReturn(updatedCourse);
+
+        assertDoesNotThrow(() -> userService.updateCourse(updateCourseProposal));
+    }
+
+    @Test
+    void UpdateEmail_IsNotNull() {
+        User user = createDefaultUser();
+        user.setId(1L);
+        user.getAccount().setId(1L);
+        UpdateEmailProposal updateEmailProposal = createUpdateEmailProposal();
+
+        when(userRepository.find(1L)).thenReturn(user);
+
+        assertDoesNotThrow(() -> userService.updateEmail(updateEmailProposal));
+    }
+
+    @Test
+    void UpdateUsername_IsNotNull() {
+        User user = createDefaultUser();
+        user.setId(1L);
+        user.getAccount().setId(1L);
+        UpdateUsernameProposal updateUsernameProposal = createUpdateUsernameProposal();
+
+        when(userRepository.find(1L)).thenReturn(user);
+
+        assertDoesNotThrow(() -> userService.updateUsername(updateUsernameProposal));
+    }
+
+    @Test
+    void UpdatePassword_IsNotNull() {
+        User user = createDefaultUser();
+        user.setId(1L);
+        user.getAccount().setId(1L);
+        UpdatePasswordProposal updatePasswordProposal = createUpdatePasswordProposal();
+
+        when(userRepository.find(1L)).thenReturn(user);
+
+        assertDoesNotThrow(() -> userService.updatePassword(updatePasswordProposal));
+    }
+
+    @Test
+    void UpdatePicture_IsNotNull() {
+        User user = createDefaultUser();
+        user.setId(1L);
+        user.getAccount().setId(1L);
+        UpdatePictureProposal updatePictureProposal = createUpdatePictureProposal();
+
+        when(userRepository.find(1L)).thenReturn(user);
+
+        assertDoesNotThrow(() -> userService.updatePicture(updatePictureProposal));
     }
 
     @Test
