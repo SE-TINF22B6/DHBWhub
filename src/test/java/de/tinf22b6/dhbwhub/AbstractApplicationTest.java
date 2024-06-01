@@ -367,7 +367,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected UserInformationProposal createUserInformationProposal() {
-		return new UserInformationProposal(1L , new byte[]{12, 12, 12, 12}, 12,  12, "Beschreibung 1", "TINF22B6");
+		return new UserInformationProposal(1L , createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
 	}
 
 	protected UpdateAgeProposal createUpdateAgeProposal() {

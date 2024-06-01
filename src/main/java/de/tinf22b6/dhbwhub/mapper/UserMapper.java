@@ -19,7 +19,7 @@ public class UserMapper {
     public static UserInformationProposal mapToUserInformationProposal(User user, int followerAmount) {
         return new UserInformationProposal(
                 user.getId(),
-                user.getAccount().getPicture() != null ? user.getAccount().getPicture().getImageData() : null,
+                user.getAccount().getPicture(),
                 followerAmount,
                 user.getAge(),
                 user.getDescription(),
