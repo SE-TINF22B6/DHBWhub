@@ -73,7 +73,6 @@
 }
 
 .short-description {
-  color: var(--white);
   font-size: var(--text-font-size);
   height: 50px;
   margin-top: 0;

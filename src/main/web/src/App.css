@@ -1,8 +1,10 @@
 :root {
   background-color: #151719;
+  color: var(--white);
   font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
 
   --grey: #32363b;
+  --lighter-grey: #575e67;
   --component-grey: #25282c;
   --red: #e3001b;
   --dark-red: #831525;
@@ -28,7 +30,7 @@
 }
 
 .error, .loading {
-  color: var(--white);
+
   font-size: 24px;
   font-weight: var(--strong-font-weight);
   line-height: 24px;
@@ -42,7 +44,7 @@
   font-size: var(--text-font-size);
   font-weight: var(--strong-font-weight);
   &&:hover {
-    color: var(--white);
+
   }
 }
 
@@ -72,6 +74,45 @@
   margin-top: -20px;
   width: 500px;
   height: 500px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+  color: var(--white);
+}
+
+.navigate-back-link {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px;
+
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.navigate-back-vector {
+  width: 10px;
+  height: 15px;
+  margin-top: -4px;
+}
+
+.navigate-back-rectangle {
+  width: 10px;
+  height: 3px;
+  margin-top: 2px;
+}
+
+.navigate-back-text {
+  color: var(--white);
+  position: relative;
+  margin-top: -9px;
+  margin-left: 10px;
+  font-size: 22px;
 }
 
 @media (max-width: 1200px) {

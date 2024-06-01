@@ -63,21 +63,19 @@
   .infos {
     width: 600px;
     gap: 100px;
-    flex-direction: row;
   }
-  .privacy-policy-text, .faq-text, .contact-text, .terms-of-service-symbol {
+  .privacy-policy-text, .faq-text, .contact-text {
     margin-left: 40px;
   }
 }
 
 @media (max-width: 412px) {
   .infos {
-    margin-top: -5px;
+    display: flex;
     width: 350px;
-    gap: 18px;
+    gap: 15px;
   }
-  .privacy-policy-text, .faq-text, .contact-text, .terms-of-service-symbol {
-    margin-left: 35px;
-    margin-top: 3px;
+  .privacy-policy-text, .faq-text, .contact-text, .terms-of-service-text, .imprint-text {
+    margin-left: 40px;
   }
 }

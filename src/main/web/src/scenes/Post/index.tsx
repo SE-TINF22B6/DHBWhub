@@ -9,12 +9,14 @@ import errorAnimationData from "../../assets/error.json";
 import Lottie from "lottie-react";
 import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
-import {dummyPost} from "./data/dummyPost";
-import {PostDetailModel} from "./models/PostDetailModel";
+import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
+import {useDetectAdBlock} from "adblock-detect-react";
+import {PrimeAd} from "../../atoms/ads/PrimeAd";
+import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import {PostThreadModel} from "./models/PostThreadModel";
-import {CommentModel} from "../../organisms/comment/CommentModel";
+import {PostCommentModel} from "../Home/components/post/models/PostCommentModel";
 import {CommentProposalModel} from "./models/CommentProposalModel";
 import {getJWT} from "../../services/AuthService";
 import {dummyPostThread} from "./data/dummyPostThread";
@@ -25,7 +27,7 @@ import "./index.css";
 export const Post: React.FC = () => {
   const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
   const postId: string | null = searchParams.get('id');
-  const [comments, setComments] = useState<CommentModel[]>(dummyComments);
+  const [comments, setComments] = useState<PostCommentModel[]>(dummyComments);
   const [postThread, setPostThread] = useState<PostThreadModel>(dummyPostThread);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,10 @@ export const Post: React.FC = () => {
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
   };
-  
+
+  const adBlockDetected: boolean = useDetectAdBlock();
+  usePreventScrolling(adBlockDetected);
+
   const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   const [scrollToComments, setScrollToComments] = useState(false);
@@ -71,19 +76,6 @@ export const Post: React.FC = () => {
     fetchPostThread();
   }, [postId]);
 
-  if (loading) {
-    return (
-        <div className="post-detail-component">
-          <Header/>
-          <div className="loading-animation">
-            <Lottie animationData={animationData}/>
-          </div>
-          <Footer/>
-          {isSmartphoneSize && <MobileFooter/>}
-        </div>
-    );
-  }
-
   const handleReplyClick = async (newCommentText: string): Promise<void> => {
     const commentProposal: CommentProposalModel = {
       postId: 3,
@@ -108,26 +100,54 @@ export const Post: React.FC = () => {
       setLoading(false);
     } catch (error) {
       console.error("Error when creating the comment:", error);
-      setNotFound(true);
       setLoading(false);
     }
   };
 
-  if (notFound || !postThread) {
+  if (loading) {
+    return (
+        <div className="page">
+          {adBlockDetected && <AdBlockOverlay/>}
+          <Header/>
+          <Link to="/" className="navigate-back-link">
+            <img alt="Navigate back" src={process.env.PUBLIC_URL + '/assets/post/navigate-back-vector.svg'}
+                 className="navigate-back-vector"/>
+            <img alt="Navigate back" src={process.env.PUBLIC_URL + '/assets/post/navigate-back-rectangle.svg'}
+                 className="navigate-back-rectangle"/>
+            <div className="navigate-back-text">Post</div>
+          </Link>
+          <div className="loading-animation">
+            <Lottie animationData={animationData}/>
+          </div>
+          <Footer/>
+          {isSmartphoneSize && <MobileFooter/>}
+        </div>
+    );
+  }
+
+  if (notFound) {
      return (
-         <div className="post-detail-component">
+         <div className="page">
            <Header/>
-           <div className="error-animation">
-             <Lottie animationData={errorAnimationData}/>
+           <Link to="/" className="navigate-back-link">
+             <img alt="Navigate back" src={process.env.PUBLIC_URL + '/assets/post/navigate-back-vector.svg'}
+                  className="navigate-back-vector"/>
+             <img alt="Navigate back" src={process.env.PUBLIC_URL + '/assets/post/navigate-back-rectangle.svg'}
+                  className="navigate-back-rectangle"/>
+             <div className="navigate-back-text">Post</div>
+           </Link>
+           <div className="loading">
+             Post not found
            </div>
            <Footer/>
            {isSmartphoneSize && <MobileFooter/>}
          </div>
      );
-   }
+  }
 
   return (
-      <div className="post-detail-component">
+      <div className="page">
+        {adBlockDetected && <AdBlockOverlay/>}
         <div ref={scrollUpRef}/>
         <Header/>
         <Link to="/" className="navigate-back-link">
@@ -156,14 +176,14 @@ export const Post: React.FC = () => {
           <div ref={commentsWrapperRef} className="post-detail-comments-wrapper">
             {comments
             .slice()
-            .sort((a: CommentModel, b: CommentModel): number => {
+            .sort((a: PostCommentModel, b: PostCommentModel): number => {
               const dateA: Date = new Date(a.timestamp);
               const dateB: Date = new Date(b.timestamp);
               if (dateA > dateB) return -1;
               if (dateA < dateB) return 1;
               return 0;
             })
-            .map((comment: CommentModel) => (
+            .map((comment: PostCommentModel) => (
                 <Comment
                     key={comment.commentId}
                     postId={comment.postId}
@@ -177,6 +197,7 @@ export const Post: React.FC = () => {
                 />
             ))}
           </div>
+          <PrimeAd/>
           <ScrollUpButton scrollUpRef={scrollUpRef}/>
         </div>
         <Footer/>

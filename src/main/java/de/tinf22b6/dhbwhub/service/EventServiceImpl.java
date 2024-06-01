@@ -255,6 +255,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<CalendarEventProposal> getCalendarEvents() {
+        return this.repository.findAllEventPosts().stream().map(EventMapper::mapToCalendarEventProposal).toList();
+    }
+
+    @Override
     public List<EventCommentThreadViewProposal> getEventComments(Long id) {
         return repository.getEventComments(id);
     }

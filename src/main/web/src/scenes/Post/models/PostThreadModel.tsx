@@ -1,4 +1,4 @@
-import {CommentModel} from "../../../organisms/comment/CommentModel";
+import {PostCommentModel} from "../../Home/components/post/models/PostCommentModel";
 
 export interface PostThreadModel {
   id: number;
@@ -12,5 +12,5 @@ export interface PostThreadModel {
   accountId: number;
   username: string;
   userImage: null | string;
-  comments: CommentModel[];
+  comments: PostCommentModel[];
 }
