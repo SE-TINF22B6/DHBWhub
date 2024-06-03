@@ -1,0 +1,18 @@
+.tag-overview-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+
+.tag-overview-left, .tag-overview-right, .tag-overview-middle {
+  align-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.tag-overview-left, .tag-overview-right {
+  margin-top: 50px;
+}
