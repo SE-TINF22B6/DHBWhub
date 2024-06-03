@@ -62,13 +62,13 @@ export const PrivacyPolicy = () => {
               <p>{privacyPolicyInterface.CollectingAndUsingYourPersonalData.DeleteYourPersonalData.Content}</p>
 
               <h4>Disclosure of Your Personal Data</h4>
-              <h5>Business Transactions</h5>
+              <h4>Business Transactions</h4>
               <p>{privacyPolicyInterface.CollectingAndUsingYourPersonalData.DisclosureOfYourPersonalData.BusinessTransactions}</p>
 
-              <h5>Law Enforcement</h5>
+              <h4>Law Enforcement</h4>
               <p>{privacyPolicyInterface.CollectingAndUsingYourPersonalData.DisclosureOfYourPersonalData.LawEnforcement}</p>
 
-              <h5>Other Legal Requirements</h5>
+              <h4>Other Legal Requirements</h4>
               <ul>
                   {privacyPolicyInterface.CollectingAndUsingYourPersonalData.DisclosureOfYourPersonalData.OtherLegalRequirements.map((requirement, index) => (
                       <li key={index}>{requirement}</li>
