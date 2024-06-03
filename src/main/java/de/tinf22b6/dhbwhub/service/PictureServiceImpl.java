@@ -9,6 +9,10 @@ import de.tinf22b6.dhbwhub.service.interfaces.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
 import java.util.List;
 
 @Service
@@ -56,6 +60,23 @@ public class PictureServiceImpl implements PictureService {
         Picture picture = PictureMapper.mapToModel(proposal);
         picture.setId(id);
         return repository.save(picture);
+    }
+
+    public Picture getImageFromUrl(String imageUrl) {
+        byte[] imageBytes = null;
+        try {
+            URL url = new URL(imageUrl);
+            BufferedImage image = ImageIO.read(url);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", baos);
+            imageBytes = baos.toByteArray();
+        }catch (Exception e) {
+            System.out.println("Something went wrong during the image retrieval");
+        }
+        if (imageBytes.length == 0) {
+            return null;
+        }
+        return PictureMapper.mapToPicture(imageBytes);
     }
 
     @Override

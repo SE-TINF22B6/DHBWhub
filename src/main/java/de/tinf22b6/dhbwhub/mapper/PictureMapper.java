@@ -23,24 +23,11 @@ public class PictureMapper {
                 image.getBytes()
         );
     }
-    public static Picture mapToModelComment(byte[] imageData) {
-        return new Picture(
-                "comment.png",
-                imageData
-        );
-    }
 
-    public static Picture mapToModelEventPost(byte[] imageData) {
+    public static Picture mapToPicture(byte[] imageData){
         return new Picture(
-                "event_post.png",
+                "profile.png",
                 imageData
         );
     }
-    public static Picture mapToModelEventComment(byte[] imageData) {
-        return new Picture(
-                "event_comment.png",
-                imageData
-        );
-    }
-
 }

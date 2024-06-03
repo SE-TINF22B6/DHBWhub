@@ -1,8 +1,16 @@
 package de.tinf22b6.dhbwhub.controller;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.model.User;
-import de.tinf22b6.dhbwhub.payload.request.*;
+import de.tinf22b6.dhbwhub.payload.request.EmailVerificationRequest;
+import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
+import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
+import de.tinf22b6.dhbwhub.payload.request.TokenValidationRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
 import de.tinf22b6.dhbwhub.payload.response.MessageResponse;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
@@ -11,9 +19,11 @@ import de.tinf22b6.dhbwhub.security.jwt.JwtUtils;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
 import de.tinf22b6.dhbwhub.service.EmailService;
 import de.tinf22b6.dhbwhub.service.EmailVerificationTokenManager;
+import de.tinf22b6.dhbwhub.service.interfaces.PictureService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,16 +32,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
+//@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
@@ -42,6 +53,9 @@ public class AuthController {
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
     private final EmailService emailService;
+    private final PictureService pictureService;
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String clientId;
 
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
@@ -121,5 +135,35 @@ public class AuthController {
         }
     }
 
+    @PostMapping("google")
+    public ResponseEntity<?> googleLogin(@RequestBody Map<String, String> request) {
+        String idTokenString = request.get("token");
+        GoogleIdToken idToken = null;
 
+        try {
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(GoogleNetHttpTransport.newTrustedTransport(), new GsonFactory())
+                    .setAudience(Collections.singletonList(clientId))
+                    .build();
+
+            idToken = verifier.verify(idTokenString);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (idToken != null) {
+            GoogleIdToken.Payload payload = idToken.getPayload();
+
+            String userId = payload.getSubject();
+            String email = payload.getEmail();
+            String name = (String) payload.get("name");
+            String pictureUrl = (String) payload.get("picture");
+            Picture picture = pictureService.getImageFromUrl(pictureUrl);
+            System.out.println(email + " " + name + "\n" + Arrays.toString(picture.getImageData()));
+            // TODO Logik.
+
+            return ResponseEntity.ok("User authenticated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid ID token");
+        }
+    }
 }

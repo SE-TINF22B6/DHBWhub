@@ -6,7 +6,7 @@ import './Login.css';
 import {login} from "../../services/AuthService";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import EmailInput from "../signup/EmailInput";
-import {GoogleLogin} from "@react-oauth/google";
+import {CredentialResponse, GoogleLogin} from "@react-oauth/google";
 
 type Props = {}
 
@@ -60,6 +60,26 @@ const Login: React.FC<Props> = () => {
                 setMessage(resMessage);
             }
         );
+    };
+
+    const handleSuccess = (credentialResponse: CredentialResponse) => {
+        console.log(credentialResponse);
+
+        // Send the token to the backend
+        fetch('https://localhost:8443/api/auth/google', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: credentialResponse.credential }),
+        })
+            .then((data) => {
+                console.log('Backend response:', data);
+                // Handle backend response
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     };
 
     return (
@@ -123,9 +143,7 @@ const Login: React.FC<Props> = () => {
                             <div className="google-oauth-login">
                                 <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
                                              text={"continue_with"}
-                                    onSuccess={credentialResponse => {
-                                        console.log(credentialResponse);
-                                    }}
+                                    onSuccess={handleSuccess}
                                     onError={() => {
                                         console.log('Login Failed');
                                     }}
