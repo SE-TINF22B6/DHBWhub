@@ -29,6 +29,11 @@ public class UserRepository {
         return repository.findUsersWithKeyword(keyword);
     }
 
+    public int findAmountFollower(Long userId){
+        Integer followerAmount = repository.findFollowerAmountByUserId(userId);
+        return followerAmount == null ? 0 : followerAmount;
+    }
+
     public User save(User user) {
         return repository.save(user);
     }

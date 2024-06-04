@@ -7,10 +7,7 @@ import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtablePost;
 import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CommentThreadViewProposal;
-import de.tinf22b6.dhbwhub.repository.LogtableRepository;
-import de.tinf22b6.dhbwhub.repository.NotificationRepository;
-import de.tinf22b6.dhbwhub.repository.PostRepository;
-import de.tinf22b6.dhbwhub.repository.UserRepository;
+import de.tinf22b6.dhbwhub.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,6 +36,12 @@ class PostServiceImplTests extends AbstractApplicationTest {
 
     @Mock
     private NotificationRepository notificationRepository;
+
+    @Mock
+    private CommentRepository commentRepository;
+
+    @Mock
+    private PostTagRepository postTagRepository;
 
     @InjectMocks
     private PostServiceImpl postService;

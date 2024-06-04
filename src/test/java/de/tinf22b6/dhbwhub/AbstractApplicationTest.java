@@ -332,4 +332,40 @@ public abstract class AbstractApplicationTest {
 	protected DeleteSavedPostProposal createDeleteSavedPostProposal() {
 		return new DeleteSavedPostProposal(1L, 1L);
 	}
+
+	protected ProfileInformationProposal createProfileInformationProposal() {
+		return new ProfileInformationProposal(12, "adsa@gmail.com", "Beschreibung 1", "TINF22B6");
+	}
+
+	protected UserInformationProposal createUserInformationProposal() {
+		return new UserInformationProposal(1L , createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
+	}
+
+	protected UpdateAgeProposal createUpdateAgeProposal() {
+		return new UpdateAgeProposal(1L, 12);
+	}
+
+	protected UpdateDescriptionProposal createUpdateDescriptionProposal() {
+		return new UpdateDescriptionProposal(1L, "Beschreibung 1");
+	}
+
+	protected UpdateCourseProposal createUpdateCourseProposal() {
+		return new UpdateCourseProposal(1L, "TINF22B6");
+	}
+
+	protected UpdateEmailProposal createUpdateEmailProposal() {
+		return new UpdateEmailProposal(1L, "test@gmail.com");
+	}
+
+	protected UpdateUsernameProposal createUpdateUsernameProposal() {
+		return new UpdateUsernameProposal(1L, "User1");
+	}
+
+	protected UpdatePasswordProposal createUpdatePasswordProposal() {
+		return new UpdatePasswordProposal(1L, "NeuesPasswort");
+	}
+
+	protected UpdatePictureProposal createUpdatePictureProposal() {
+		return new UpdatePictureProposal(1L, new byte[]{12, 12, 12, 12});
+	}
 }

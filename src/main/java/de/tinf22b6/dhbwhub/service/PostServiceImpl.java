@@ -32,19 +32,22 @@ public class PostServiceImpl implements PostService {
     private final PostTagRepository postTagRepository;
     private final LogtableRepository logtableRepository;
     private final NotificationRepository notificationRepository;
+    private final CommentRepository commentRepository;
 
     public PostServiceImpl(@Autowired PostRepository repository,
                            @Autowired UserRepository userRepository,
                            @Autowired PictureRepository pictureRepository,
                            @Autowired PostTagRepository postTagRepository,
                            @Autowired LogtableRepository logtableRepository,
-                           @Autowired NotificationRepository notificationRepository) {
+                           @Autowired NotificationRepository notificationRepository,
+                           @Autowired CommentRepository commentRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.pictureRepository = pictureRepository;
         this.postTagRepository = postTagRepository;
         this.logtableRepository = logtableRepository;
         this.notificationRepository = notificationRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -190,6 +193,10 @@ public class PostServiceImpl implements PostService {
     public void delete(Long id) {
         // Check if post exists
         get(id);
+        // Delete all related Comments first
+        commentRepository.findByPostId(id).forEach(comment -> commentRepository.delete(comment.getId()));
+        // Delete all Tags
+        postTagRepository.findByPostId(id).forEach(postTag -> postTagRepository.delete(postTag.getId()));
 
         repository.delete(id);
     }
