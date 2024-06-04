@@ -40,6 +40,9 @@ class PostServiceImplTests extends AbstractApplicationTest {
     @Mock
     private CommentRepository commentRepository;
 
+    @Mock
+    private PostTagRepository postTagRepository;
+
     @InjectMocks
     private PostServiceImpl postService;
 
