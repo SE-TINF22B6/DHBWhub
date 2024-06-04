@@ -139,13 +139,4 @@ public class NotificationMapper {
                 false
         );
     }
-
-    public static EventCommentLikeNotification mapToEventCommentLikeNotification(EventComment eventComment, User user) {
-        return new EventCommentLikeNotification(
-                eventComment.getUser(),
-                eventComment.getEventPost(),
-                user,
-                false
-        );
-    }
 }

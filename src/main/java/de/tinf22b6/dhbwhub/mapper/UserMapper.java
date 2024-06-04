@@ -9,7 +9,6 @@ import de.tinf22b6.dhbwhub.proposal.simplified_models.UserInformationProposal;
 public class UserMapper {
     public static User mapToModel(UserProposal proposal) {
         return new User(
-                proposal.getAge(),
                 proposal.getDescription(),
                 proposal.getCourse() != null ? CourseMapper.mapToModel(proposal.getCourse()) : null,
                 proposal.getAccount() != null ? AccountMapper.mapToModel(proposal.getAccount()) : null

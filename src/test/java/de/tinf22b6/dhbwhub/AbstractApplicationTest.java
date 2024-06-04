@@ -55,11 +55,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected User createDefaultUser() {
-		return new User(20, "Ich studiere Informatik", createDefaultCourse(), createDefaultAccount());
+		return new User("Ich studiere Informatik", createDefaultCourse(), createDefaultAccount());
 	}
 
 	protected User createDefaultUser2() {
-		return new User(20, "Ich studiere Jura", createDefaultCourse2(), createDefaultAccount2());
+		return new User("Ich studiere Jura", createDefaultCourse2(), createDefaultAccount2());
 	}
 
 	protected Friendship createDefaultFriendship() {
@@ -110,6 +110,7 @@ public abstract class AbstractApplicationTest {
 		return new SavedPost(createDefaultUser2(), createDefaultPost2());
 	}
 
+
 	protected PictureProposal createDefaultPictureProposal() {
 		return new PictureProposal("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
@@ -131,7 +132,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected UserProposal createDefaultUserProposal() {
-		return new UserProposal(20, "Ich studiere Informatik", createDefaultCourseProposal(), createDefaultAccountProposal());
+		return new UserProposal("Ich studiere Informatik", createDefaultCourseProposal(), createDefaultAccountProposal());
 	}
 
 	protected PostProposal createDefaultPostProposal() {
@@ -179,15 +180,15 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected EventPost createDefaultEventPost() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 1);
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979208L), new Date(1478979209L), 1);
 	}
 
 	protected EventPost createUpdatedDefaultEventPost() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 2);
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979208L), new Date(1478979209L), 2);
 	}
 
 	protected EventPost createUpdatedDefaultEventPost2() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 0);
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979208L), new Date(1478979209L), 0);
 	}
 
 	protected EventComment createDefaultEventComment() {
@@ -211,10 +212,6 @@ public abstract class AbstractApplicationTest {
 	}
 	protected CreateEventPostProposal createDefaultCreateEventPostProposal() {
 		return new CreateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData(), 1L);
-	}
-
-	protected UpdateEventPostProposal createDefaultUpdateEventPostProposal() {
-		return new UpdateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
 	}
 
 	protected EventThreadViewProposal createDefaultEventThreadViewProposal() {
@@ -331,41 +328,5 @@ public abstract class AbstractApplicationTest {
 
 	protected DeleteSavedPostProposal createDeleteSavedPostProposal() {
 		return new DeleteSavedPostProposal(1L, 1L);
-	}
-
-	protected ProfileInformationProposal createProfileInformationProposal() {
-		return new ProfileInformationProposal(12, "adsa@gmail.com", "Beschreibung 1", "TINF22B6");
-	}
-
-	protected UserInformationProposal createUserInformationProposal() {
-		return new UserInformationProposal(1L , createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
-	}
-
-	protected UpdateAgeProposal createUpdateAgeProposal() {
-		return new UpdateAgeProposal(1L, 12);
-	}
-
-	protected UpdateDescriptionProposal createUpdateDescriptionProposal() {
-		return new UpdateDescriptionProposal(1L, "Beschreibung 1");
-	}
-
-	protected UpdateCourseProposal createUpdateCourseProposal() {
-		return new UpdateCourseProposal(1L, "TINF22B6");
-	}
-
-	protected UpdateEmailProposal createUpdateEmailProposal() {
-		return new UpdateEmailProposal(1L, "test@gmail.com");
-	}
-
-	protected UpdateUsernameProposal createUpdateUsernameProposal() {
-		return new UpdateUsernameProposal(1L, "User1");
-	}
-
-	protected UpdatePasswordProposal createUpdatePasswordProposal() {
-		return new UpdatePasswordProposal(1L, "NeuesPasswort");
-	}
-
-	protected UpdatePictureProposal createUpdatePictureProposal() {
-		return new UpdatePictureProposal(1L, new byte[]{12, 12, 12, 12});
 	}
 }

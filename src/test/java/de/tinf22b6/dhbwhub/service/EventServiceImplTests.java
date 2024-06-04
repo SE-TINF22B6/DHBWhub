@@ -8,7 +8,6 @@ import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.EventCommentThreadViewProposal;
 import de.tinf22b6.dhbwhub.repository.EventRepository;
 import de.tinf22b6.dhbwhub.repository.LogtableRepository;
-import de.tinf22b6.dhbwhub.repository.NotificationRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,9 +34,6 @@ class EventServiceImplTests extends AbstractApplicationTest {
 
     @Mock
     private LogtableRepository logtableRepository;
-
-    @Mock
-    private NotificationRepository notificationRepository;
 
     @InjectMocks
     private EventServiceImpl eventService;
