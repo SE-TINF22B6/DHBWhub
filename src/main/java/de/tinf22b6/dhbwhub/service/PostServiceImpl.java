@@ -148,14 +148,14 @@ public class PostServiceImpl implements PostService {
         Post initialPost = get(id);
         Picture picture;
 
-        byte[] proposalImageData = proposal.getPostImage() != null? proposal.getPostImage() : new byte[0];
-        byte[] initialImageData = initialPost.getPicture() != null? initialPost.getPicture().getImageData() : new byte[0];
+        String proposalImageData = proposal.getPostImage() != null ? proposal.getPostImage() : "";
+        String initialImageData = initialPost.getPicture() != null ? initialPost.getPicture().getImageData() : "";
         // Check if Picture has changed
-        if (proposalImageData.length == 0 && initialImageData.length != 0) {
+        if (proposalImageData.isEmpty() && !initialImageData.isEmpty()) {
             pictureRepository.delete(initialPost.getPicture().getId());
             picture = null;
         }
-        else if (!Arrays.equals(initialImageData, proposalImageData)) {
+        else if (!initialImageData.equals(proposalImageData)) {
             pictureRepository.delete(initialPost.getPicture().getId());
             picture = pictureRepository.save(PictureMapper.mapToModelPost(proposalImageData));
         } else {
