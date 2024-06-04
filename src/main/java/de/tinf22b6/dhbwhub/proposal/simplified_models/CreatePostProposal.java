@@ -21,7 +21,7 @@ public class CreatePostProposal {
 
     private Date timestamp;
 
-    private byte[] postImage;
+    private String postImage;
 
     private Long accountId;
 

@@ -18,6 +18,6 @@ public class FriendlistProposal {
 
     private String username;
 
-    private byte[] image;
+    private String image;
 
 }
