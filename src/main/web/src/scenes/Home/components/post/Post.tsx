@@ -30,7 +30,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   } = props;
 
   const matches: boolean = useMediaQuery('(max-width: 412px)')
-  const formattedTime: string = TimeService.timeDifference(new Date(timestamp).toISOString());
+  const formattedTime: string = TimeService.timeDifference(new Date(timestamp));
   const [likes, setLikes] = useState(likeAmount);
   const [userLiked, setUserLiked] = useState(false);
   const [heartClass, setHeartClass] = useState('heart-empty');

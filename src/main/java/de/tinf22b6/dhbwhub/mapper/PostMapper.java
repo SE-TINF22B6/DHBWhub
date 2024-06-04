@@ -10,6 +10,7 @@ import de.tinf22b6.dhbwhub.proposal.simplified_models.PostThreadViewProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.UpdatePostProposal;
 
 public class PostMapper {
+
     public static Post mapToModel(PostProposal proposal) {
         return new Post(
                 proposal.getTitle(),
@@ -69,7 +70,7 @@ public class PostMapper {
                 post.getTimestamp(),
                 post.getPicture() != null ? post.getPicture().getImageData() : null,
                 post.getUser() != null ? post.getUser().getAccount().getId() : null,
-                post.getUser() != null ? post.getUser().getAccount().getUsername(): null
+                post.getUser() != null ? post.getUser().getAccount().getUsername(): User.USER_DELETED
         );
     }
 
@@ -84,7 +85,7 @@ public class PostMapper {
                 post.getTimestamp(),
                 post.getPicture() != null ? post.getPicture().getImageData() : null,
                 post.getUser() != null ? post.getUser().getAccount().getId() : null,
-                post.getUser() != null ? post.getUser().getAccount().getUsername(): null,
+                post.getUser() != null ? post.getUser().getAccount().getUsername(): User.USER_DELETED,
                 post.getUser().getAccount().getPicture() != null ? post.getUser().getAccount().getPicture().getImageData() : null,
                 null
         );

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.xml.stream.Location;
 import java.util.Date;
 
 @Getter
@@ -27,7 +26,7 @@ public class CreateEventPostProposal {
 
     private String[] tags;
 
-    private byte[] postImage;
+    private String postImage;
 
     private Long accountId;
 }

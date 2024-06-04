@@ -27,13 +27,13 @@ public class PostThreadViewProposal {
 
     private Date timestamp;
 
-    private byte[] postImage;
+    private String postImage;
 
     private Long accountId;
 
     private String username;
 
-    private byte[] userImage;
+    private String userImage;
 
     private List<CommentThreadViewProposal> comments;
 }
