@@ -22,7 +22,6 @@ public class Account {
     @NotBlank
     private final String email;
 
-    @NotBlank
     private final String password;
 
     @JoinColumn(name = "picture_id")

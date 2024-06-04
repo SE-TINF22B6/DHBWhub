@@ -74,7 +74,7 @@ const Login: React.FC<Props> = () => {
             body: JSON.stringify({ token: credentialResponse.credential }),
         })
             .then((data) => {
-                console.log('Backend response:', data);
+                console.log('Backend response:', data.body);
                 // Handle backend response
             })
             .catch((error) => {

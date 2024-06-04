@@ -12,6 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor(force = true)
 @Entity
 public class OAuthAccount {
+    public static String GOOGLE_ENTRY = "GOOGLE";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "oauth_account_generator")
     @SequenceGenerator(name = "oauth_account_generator", sequenceName = "oauth_account_seq", allocationSize = 1)

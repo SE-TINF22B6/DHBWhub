@@ -1,6 +1,7 @@
 package de.tinf22b6.dhbwhub.repository;
 
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.OAuthAccount;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringAccountRepository;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringOAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,10 @@ public class AccountRepository {
     }
 
     public Boolean existsOAuthEntry(Long accountId) {
-        return oAuthRepository.findById(accountId).isEmpty();
+        return oAuthRepository.findByAccountId(accountId).orElse(null) != null;
+    }
+
+    public OAuthAccount saveOAuthEntry(OAuthAccount account) {
+        return oAuthRepository.save(account);
     }
 }

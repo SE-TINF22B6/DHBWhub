@@ -6,6 +6,7 @@ import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.proposal.PictureProposal;
 import de.tinf22b6.dhbwhub.repository.PictureRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PictureService;
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.base64.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,11 +70,11 @@ public class PictureServiceImpl implements PictureService {
             BufferedImage image = ImageIO.read(url);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(image, "png", baos);
-            imageBytes = baos.toByteArray();
+            imageBytes = Base64.encode(baos.toByteArray());;
         }catch (Exception e) {
             System.out.println("Something went wrong during the image retrieval");
         }
-        if (imageBytes.length == 0) {
+        if (imageBytes == null) {
             return null;
         }
         return PictureMapper.mapToPicture(imageBytes);
