@@ -4,19 +4,16 @@ import de.tinf22b6.dhbwhub.model.*;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 
 public class EventMapper {
-    public static EventPost mapToModel(CreateEventPostProposal proposal, User user, Picture picture){
+    public static EventPost mapToModel(CreateEventPostProposal proposal){
         return new EventPost(
                 proposal.getTitle(),
                 proposal.getDescription(),
                 proposal.getLocation().getLocation(),
                 proposal.getLocation().getLatitude(),
                 proposal.getLocation().getLongitude(),
-                proposal.getTimestamp(),
                 proposal.getStartdate(),
                 proposal.getEnddate(),
-                0,
-                picture,
-                user
+                0
         );
     }
 
@@ -27,12 +24,9 @@ public class EventMapper {
                 proposal.getLocation().getLocation(),
                 proposal.getLocation().getLatitude(),
                 proposal.getLocation().getLongitude(),
-                post.getTimestamp(),
                 proposal.getStartdate(),
                 proposal.getEnddate(),
-                post.getLikes(),
-                picture,
-                post.getUser()
+                post.getLikes()
         );
     }
 
@@ -43,12 +37,9 @@ public class EventMapper {
                 post.getLocation(),
                 post.getLatitude(),
                 post.getLongitude(),
-                post.getTimestamp(),
                 post.getStartdate(),
                 post.getEnddate(),
-                likes,
-                post.getPicture(),
-                post.getUser()
+                likes
         );
     }
 
@@ -101,7 +92,7 @@ public class EventMapper {
                 comment.getEventPost() != null? comment.getEventPost().getId() : null,
                 comment.getId(),
                 comment.getDescription(),
-                comment.getUser() != null ? comment.getUser().getAccount().getUsername() : null,
+                comment.getUser() != null ? comment.getUser().getAccount().getUsername() : User.USER_DELETED,
                 comment.getUser() != null ? comment.getUser().getAccount().getId() : null,
                 comment.getUser() != null && comment.getUser().getAccount().getPicture() != null ? comment.getUser().getAccount().getPicture().getImageData() : null,
                 comment.getTimestamp(),
