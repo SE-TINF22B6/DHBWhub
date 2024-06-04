@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import "./Posts.css";
 import { Post } from "./Post";
 import {PostModel} from "./models/PostModel";
@@ -14,10 +14,10 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
   const [posts, setPosts] = useState<PostModel[]>(dummyPosts);
   const [followingPosts, setFollowingPosts] = useState<PostModel[]>([]);
   const jwt: string | null = getJWT();
-  const headersWithJwt = {
+  const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
+  }), [jwt]);
   const userId: number | null = getUserId();
 
   useEffect((): void => {
@@ -60,7 +60,7 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
       }
     };
     fetchFollowingPosts();
-  }, []);
+  }, [headersWithJwt, userId]);
 
   const sortedPosts = (): PostModel[] => {
     switch (sortOption) {

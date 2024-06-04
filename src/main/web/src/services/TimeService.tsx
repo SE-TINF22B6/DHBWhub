@@ -1,4 +1,4 @@
-const timeDifference = (timestamp: string): string => {
+const timeDifference = (timestamp: Date): string => {
   const postTime: number = new Date(timestamp).getTime();
   const currentTime: number = new Date().getTime();
   const difference: number = currentTime - postTime;

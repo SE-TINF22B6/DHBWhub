@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { CalendarEntry } from "./CalendarEntry";
 import { Link } from "react-router-dom";
 import { dummyEvents } from "./dummyEvents";
@@ -11,10 +11,10 @@ export const Events = () => {
   const [events, setEvents] = useState<EventModel[]>(dummyEvents);
   const sortedEvents = [...events].sort((a: EventModel, b: EventModel) => a.startDate - b.startDate);
   const jwt: string | null = getJWT();
-  const headersWithJwt = {
+  const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
+  }), [jwt]);
 
   useEffect((): void => {
     const fetchEvents = async (): Promise<void> => {
@@ -33,7 +33,7 @@ export const Events = () => {
       }
     };
     fetchEvents();
-  }, []);
+  }, [headersWithJwt]);
 
   const months: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 

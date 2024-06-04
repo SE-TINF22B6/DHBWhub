@@ -30,4 +30,8 @@ public class CourseRepository {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    public Course findByName(String course) {
+        return repository.findByName(course);
+    }
 }

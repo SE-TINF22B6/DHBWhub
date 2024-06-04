@@ -110,7 +110,6 @@ public abstract class AbstractApplicationTest {
 		return new SavedPost(createDefaultUser2(), createDefaultPost2());
 	}
 
-
 	protected PictureProposal createDefaultPictureProposal() {
 		return new PictureProposal("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
 	}
@@ -180,15 +179,15 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected EventPost createDefaultEventPost() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979208L), new Date(1478979209L), 1);
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 1);
 	}
 
 	protected EventPost createUpdatedDefaultEventPost() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979208L), new Date(1478979209L), 2);
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 2);
 	}
 
 	protected EventPost createUpdatedDefaultEventPost2() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979208L), new Date(1478979209L), 0);
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 0);
 	}
 
 	protected EventComment createDefaultEventComment() {
