@@ -62,6 +62,9 @@ public class PostServiceImpl implements PostService {
     public HomepagePostPreviewProposal create(CreatePostProposal proposal) {
         // Creating the Post itself
         User user = userRepository.findByAccountId(proposal.getAccountId());
+        if(user == null){
+            throw new NoSuchEntryException("User with the AccountId " + proposal.getAccountId() + " does not exist!");
+        }
         Picture picture = proposal.getPostImage().length != 0 ?
                 pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage())): null;
 
