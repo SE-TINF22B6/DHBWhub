@@ -195,6 +195,8 @@ public class PostServiceImpl implements PostService {
         get(id);
         // Delete all related Comments first
         commentRepository.findByPostId(id).forEach(comment -> commentRepository.delete(comment.getId()));
+        // Delete all Tags
+        postTagRepository.findByPostId(id).forEach(postTag -> postTagRepository.delete(postTag.getId()));
 
         repository.delete(id);
     }
