@@ -1,4 +1,4 @@
-import {PostCommentModel} from "../../Home/components/post/models/PostCommentModel";
+import {EventCommentModel} from "./EventCommentModel";
 
 export interface EventDetailModel {
   id: number,
@@ -14,5 +14,5 @@ export interface EventDetailModel {
   commentAmount: number,
   startDate: number,
   endDate: number,
-  comments: PostCommentModel[]
+  comments: EventCommentModel[]
 }

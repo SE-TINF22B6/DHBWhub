@@ -87,13 +87,13 @@
     gap: 0;
   }
   .post-share-text {
-    left: -120px;
+    left: -60px;
   }
   .post-save-text {
-    left: -122px;
+    left: -62px;
   }
   .post-report-text {
-    left: -118px;
+    left: -58px;
   }
   .post-share-text, .post-save-text, .post-report-text {
     font-size: 12px;

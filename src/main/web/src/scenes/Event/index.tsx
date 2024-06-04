@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useMemo} from "react";
 import {Link, useLocation} from "react-router-dom";
 import { Header } from "../../organisms/header/Header";
 import { EventDetail } from "./components/EventDetail";
@@ -18,7 +18,6 @@ import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import config from "../../config/config";
 import {getJWT} from "../../services/AuthService";
-import {dummyComments} from "./data/dummyComments";
 import {EventCommentModel} from "./model/EventCommentModel";
 import {CommentProposalModel} from "../Post/models/CommentProposalModel";
 
@@ -26,16 +25,15 @@ export const Event = () => {
   const location = useLocation();
   const [event, setEvent] = useState(dummyEvent);
   const eventId = location.pathname.split('event/').pop();
-  const [post, setPost] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const jwt: string | null = getJWT();
-  const headersWithJwt = {
+  const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
+  }), [jwt]);
 
-  const [comments, setComments] = useState<EventCommentModel[]>(dummyComments);
+  const [comments, setComments] = useState<EventCommentModel[]>(event.comments);
   const scrollUpRef = useRef<HTMLDivElement>(null);
   const isSmartphoneSize: boolean  = useMediaQuery('(max-width: 412px)');
 
@@ -50,20 +48,20 @@ export const Event = () => {
         });
         if (response.ok) {
           const eventData = await response.json();
-          setPost(eventData);
+          setEvent(eventData);
           setComments(eventData.comments);
         } else {
           setNotFound(true);
         }
         setLoading(false);
       } catch (error) {
-        console.error("Fehler beim Abrufen des Events:", error);
+        console.error("Error when retrieving the event:", error);
         setNotFound(true);
         setLoading(false);
       }
     };
     fetchEvent();
-  }, [eventId]);
+  }, [eventId, headersWithJwt]);
 
   const handleReplyClick = async (newCommentText: string): Promise<void> => {
     const commentProposal: CommentProposalModel = {
@@ -106,6 +104,18 @@ export const Event = () => {
         </div>
     );
   }
+
+/*  if (notFound) {
+    return (
+        <div className="page">
+          {adBlockDetected && <AdBlockOverlay/>}
+          <Header/>
+          <a className="error">Post not Found</a>
+          <Footer/>
+          {isSmartphoneSize && <MobileFooter/>}
+        </div>
+    );
+  }*/
 
   return (
       <div className="page">
@@ -151,7 +161,7 @@ export const Event = () => {
                     authorUsername={comment.authorUsername}
                     authorImage={comment.authorImage}
                     accountId={comment.accountId}
-                    timestamp={comment.timestamp}
+                    timestamp={comment.timestamp * 1000}
                     likeAmount={comment.likeAmount}
                 />
             ))}

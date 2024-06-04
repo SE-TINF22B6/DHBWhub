@@ -24,7 +24,6 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
     commentAmount,
     startDate,
     endDate,
-    comments,
   } = props;
 
   const [likes, setLikes] = useState(likeAmount);
@@ -34,10 +33,23 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL = window.location.href;
   const location = useLocation();
-  const dateStart: Date  = new Date(startDate * 1000);
+  const dateStart: Date = new Date(startDate * 1000);
   const dateEnd: Date = new Date(endDate * 1000);
-  const allDay: boolean = startDate === endDate;
-  const formattedTime: string = dateStart.getHours() + dateStart.getMinutes() + " Uhr - " + dateEnd.getHours() + dateEnd.getMinutes() + "Uhr";
+  const allDay: boolean = dateStart === dateEnd;
+
+  const formatTime = (date: Date): string => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  };
+
+  const formattedStartTime: string = formatTime(dateStart);
+  const formattedEndTime: string = formatTime(dateEnd);
+  const formattedTime: string = allDay ? 'All day' : `${formattedStartTime} - ${formattedEndTime}`;
+
   const position: LatLngExpression = [locationProposal.latitude, locationProposal.longitude];
 
   const [reportOpen, setReportOpen] = useState(false);
@@ -109,14 +121,14 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
         <div className="event-detail-content">
           <div className="event-detail-left-sidebar">
             <div className="event-detail-data">
-              {dateStart.getDay()}.{dateStart.getMonth()}.{dateStart.getFullYear()}
+              {dateStart.getDate()}.{dateStart.getMonth() + 1}.{dateStart.getFullYear()}
               <br/>
               {allDay ? 'All day' : formattedTime}
             </div>
             <div className="event-detail-tags">
               {tags.map((_tag: string, index: number) => (
                   index < 3 &&
-                  <Tag name={tags[index]} index={index} isEventTag={false}/>
+                  <Tag key={index} name={tags[index]} index={index} isEventTag={false}/>
               ))}
             </div>
             <Interaction

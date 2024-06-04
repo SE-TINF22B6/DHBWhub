@@ -138,7 +138,6 @@ class EventServiceImplTests extends AbstractApplicationTest {
     @Test
     void IncreasePostLikes_ValueIncreased() {
         EventPost post = createDefaultEventPost();
-        post.getUser().setId(0L);
         EventPost updatedPost = createUpdatedDefaultEventPost();
         User user = createDefaultUser();
         user.setId(1L);
@@ -168,7 +167,6 @@ class EventServiceImplTests extends AbstractApplicationTest {
     @Test
     void DecreasePostLikes_ValueDecreased() {
         EventPost post = createDefaultEventPost();
-        post.getUser().setId(0L);
         EventPost updatedPost = createUpdatedDefaultEventPost2();
         User user = createDefaultUser();
         user.setId(1L);

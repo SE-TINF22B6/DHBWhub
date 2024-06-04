@@ -32,19 +32,22 @@ public class PostServiceImpl implements PostService {
     private final PostTagRepository postTagRepository;
     private final LogtableRepository logtableRepository;
     private final NotificationRepository notificationRepository;
+    private final CommentRepository commentRepository;
 
     public PostServiceImpl(@Autowired PostRepository repository,
                            @Autowired UserRepository userRepository,
                            @Autowired PictureRepository pictureRepository,
                            @Autowired PostTagRepository postTagRepository,
                            @Autowired LogtableRepository logtableRepository,
-                           @Autowired NotificationRepository notificationRepository) {
+                           @Autowired NotificationRepository notificationRepository,
+                           @Autowired CommentRepository commentRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.pictureRepository = pictureRepository;
         this.postTagRepository = postTagRepository;
         this.logtableRepository = logtableRepository;
         this.notificationRepository = notificationRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -62,6 +65,9 @@ public class PostServiceImpl implements PostService {
     public HomepagePostPreviewProposal create(CreatePostProposal proposal) {
         // Creating the Post itself
         User user = userRepository.findByAccountId(proposal.getAccountId());
+        if(user == null){
+            throw new NoSuchEntryException("User with the AccountId " + proposal.getAccountId() + " does not exist!");
+        }
         Picture picture = !proposal.getPostImage().isEmpty() ?
                 pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage())): null;
 
@@ -142,14 +148,14 @@ public class PostServiceImpl implements PostService {
         Post initialPost = get(id);
         Picture picture;
 
-        String proposalImageData = proposal.getPostImage() != null? proposal.getPostImage() : "";
-        String initialImageData = initialPost.getPicture() != null? initialPost.getPicture().getImageData() : "";
+        byte[] proposalImageData = proposal.getPostImage() != null? proposal.getPostImage() : new byte[0];
+        byte[] initialImageData = initialPost.getPicture() != null? initialPost.getPicture().getImageData() : new byte[0];
         // Check if Picture has changed
-        if (proposalImageData.isEmpty() && !initialImageData.isEmpty()) {
+        if (proposalImageData.length == 0 && initialImageData.length != 0) {
             pictureRepository.delete(initialPost.getPicture().getId());
             picture = null;
         }
-        else if (!initialImageData.equals(proposalImageData)) {
+        else if (!Arrays.equals(initialImageData, proposalImageData)) {
             pictureRepository.delete(initialPost.getPicture().getId());
             picture = pictureRepository.save(PictureMapper.mapToModelPost(proposalImageData));
         } else {
@@ -187,6 +193,10 @@ public class PostServiceImpl implements PostService {
     public void delete(Long id) {
         // Check if post exists
         get(id);
+        // Delete all related Comments first
+        commentRepository.findByPostId(id).forEach(comment -> commentRepository.delete(comment.getId()));
+        // Delete all Tags
+        postTagRepository.findByPostId(id).forEach(postTag -> postTagRepository.delete(postTag.getId()));
 
         repository.delete(id);
     }

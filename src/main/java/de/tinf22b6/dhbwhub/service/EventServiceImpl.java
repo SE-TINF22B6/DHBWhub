@@ -2,10 +2,11 @@ package de.tinf22b6.dhbwhub.service;
 
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.EventMapper;
-import de.tinf22b6.dhbwhub.mapper.EventTagMapper;
 import de.tinf22b6.dhbwhub.mapper.NotificationMapper;
-import de.tinf22b6.dhbwhub.mapper.PictureMapper;
-import de.tinf22b6.dhbwhub.model.*;
+import de.tinf22b6.dhbwhub.model.EventComment;
+import de.tinf22b6.dhbwhub.model.EventPost;
+import de.tinf22b6.dhbwhub.model.EventTag;
+import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
 import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventPost;
 import de.tinf22b6.dhbwhub.model.notification_tables.EventCommentLikeNotification;
@@ -16,7 +17,6 @@ import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -77,12 +77,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventThreadViewProposal create(CreateEventPostProposal proposal) {
-        // Creating the Post itself
-        User user = userRepository.findByAccountId(proposal.getAccountId());
-        Picture picture = !proposal.getPostImage().isEmpty() ?
-                pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage())): null;
-
-        EventPost post = repository.save(EventMapper.mapToModel(proposal,user,picture));
+        EventPost post = repository.save(EventMapper.mapToModel(proposal));
 
         // Creating Tags after the Post is created
         Arrays.stream(proposal.getTags()).forEach(t -> {
@@ -107,52 +102,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public int getAmountOfComments(Long id) {
         return repository.getAmountOfComments(id);
-    }
-
-    @Override
-    public EventThreadViewProposal update(Long id, UpdateEventPostProposal proposal) {
-        EventPost initialPost = getEventPost(id);
-        Picture picture;
-
-        String proposalImageData = proposal.getPostImage() != null? proposal.getPostImage() : "";
-        String initialImageData = initialPost.getPicture() != null? initialPost.getPicture().getImageData() : "";
-        // Check if Picture has changed
-        if (proposalImageData.isEmpty() && !initialImageData.isEmpty()) {
-            pictureRepository.delete(initialPost.getPicture().getId());
-            picture = null;
-        }
-        else if (!initialImageData.equals(proposalImageData)) {
-            pictureRepository.delete(initialPost.getPicture().getId());
-            picture = pictureRepository.save(PictureMapper.mapToModelPost(proposalImageData));
-        } else {
-            picture = initialPost.getPicture();
-        }
-
-        // Update post
-        EventPost updatedPost = EventMapper.mapToModel(proposal, initialPost, picture);
-        updatedPost.setId(id);
-
-        EventPost post = repository.save(updatedPost);
-
-        /* Check if Tags changed
-            formerTags = Tags in the database
-            proposedTags = Tags proposed
-        * */
-        List<EventTag> formerTags = repository.findTagsByPostId(id);
-        List<String> proposedTags = new ArrayList<>(Arrays.stream(proposal.getTags()).toList());
-
-        for (EventTag eventTag : formerTags) {
-            if (proposedTags.contains(eventTag.getTag())) {
-                proposedTags.remove(eventTag.getTag());
-            } else {
-                repository.deleteEventTag(eventTag.getId());
-            }
-        }
-        proposedTags.forEach(t -> {
-            if( t != null) repository.save(EventTagMapper.mapToModel(post, t));
-        });
-
-        return getEventThreadView(updatedPost.getId());
     }
 
     @Override
