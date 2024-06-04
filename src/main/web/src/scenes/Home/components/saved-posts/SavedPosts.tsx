@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './SavedPosts.css';
 import { Link } from "react-router-dom";
 import { SavedPostModel } from "./model/SavedPostModel";
@@ -11,10 +11,10 @@ export const SavedPosts = () => {
   const [savedPosts, setSavedPosts] = useState<SavedPostModel[]>();
   const userId: number | null = getUserId();
   const jwt: string | null = getJWT();
-  const headersWithJwt = {
+  const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
+  }), [jwt]);
   const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   useEffect((): void => {
@@ -40,7 +40,7 @@ export const SavedPosts = () => {
       }
     };
     fetchSavedPosts();
-  }, []);
+  }, [userId, headersWithJwt]);
 
   const uniqueSavedPosts: SavedPostModel[] = (savedPosts ?? []).filter(
       (post: SavedPostModel, index: number, self: SavedPostModel[]): boolean =>

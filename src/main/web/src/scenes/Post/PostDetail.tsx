@@ -28,7 +28,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     userImage,
   } = props;
 
-  const formattedTime = TimeService.timeDifference(new Date(timestamp).toISOString());
+  const formattedTime = TimeService.timeDifference(new Date(timestamp));
   const [likes, setLikes] = useState(likeAmount);
   const [userLiked, setUserLiked] = useState(false);
   const [heartClass, setHeartClass] = useState('heart-empty');

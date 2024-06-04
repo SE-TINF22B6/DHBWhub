@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping(value = "/event")
 public class EventController {
     private final EventService service;
@@ -46,11 +45,6 @@ public class EventController {
     @PostMapping("/create-event")
     public EventThreadViewProposal create(@RequestBody CreateEventPostProposal proposal) {
         return service.create(proposal);
-    }
-
-    @PutMapping("/update-event/{id}")
-    public EventThreadViewProposal update(@PathVariable Long id, @RequestBody UpdateEventPostProposal proposal) {
-        return service.update(id, proposal);
     }
 
     @PostMapping("/create-comment")
