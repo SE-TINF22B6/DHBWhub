@@ -15,11 +15,11 @@ import java.util.List;
 
 public abstract class AbstractApplicationTest {
 	protected Picture createDefaultPicture() {
-		return new Picture("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new Picture("profile.png", "ahudmpiwmhapicuhawiughui");
 	}
 
 	protected Picture createDefaultPicture2() {
-		return new Picture("img-user", new byte[]{ 12, 34, 44, 67, 78 });
+		return new Picture("img-user", "ahudmpiwmhapicuhawiughui");
 	}
 
 	protected Account createDefaultAccount() {
@@ -111,7 +111,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected PictureProposal createDefaultPictureProposal() {
-		return new PictureProposal("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new PictureProposal("profile.png", "ahudmpiwmhapicuhawiughui");
 	}
 
 	protected AccountProposal createDefaultAccountProposal() {
@@ -147,19 +147,19 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected HomepagePostPreviewProposal createDefaultHomepagePostPreviewProposal() {
-		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno");
+		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), "ahudmpiwmhapicuhawiughui", 1L, "Bruno");
 	}
 
 	protected PostThreadViewProposal createDefaultPostThreadViewProposal() {
-		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, List.of(createDefaultCommentThreadViewProposal()));
+		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), "ahudmpiwmhapicuhawiughui", 1L, "Bruno", "ahudmpiwmhapicuhawiughui", List.of(createDefaultCommentThreadViewProposal()));
 	}
 
 	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
-		return new CommentThreadViewProposal(1L, 0L,"Beschreibung 1", "Bruno", 1L,  new byte[]{ 12, 34, 45, 67, 78, 91 }, new Date(1478979207L), 23);
+		return new CommentThreadViewProposal(1L, 0L,"Beschreibung 1", "Bruno", 1L, "ahudmpiwmhapicuhawiughui", new Date(1478979207L), 23);
 	}
 
 	protected FriendlistProposal createDefaultFriendlistProposal() {
-		return new FriendlistProposal(1L,2L,"Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new FriendlistProposal(1L,2L,"Bruno", "ahudmpiwmhapicuhawiughui");
 	}
 
 	protected CreateCommentProposal createDefaultCreateCommentProposal() {
@@ -171,7 +171,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected CreatePostProposal createDefaultCreatePostProposal() {
-		return new CreatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L);
+		return new CreatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, new Date(1478979207L), "ahudmpiwmhapicuhawiughui", 1L);
 	}
 
 	protected UpdatePostProposal createDefaultUpdatePostProposal() {
@@ -211,6 +211,10 @@ public abstract class AbstractApplicationTest {
 	}
 	protected CreateEventPostProposal createDefaultCreateEventPostProposal() {
 		return new CreateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData(), 1L);
+	}
+
+	protected UpdateEventPostProposal createDefaultUpdateEventPostProposal() {
+		return new UpdateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
 	}
 
 	protected EventThreadViewProposal createDefaultEventThreadViewProposal() {
@@ -327,5 +331,41 @@ public abstract class AbstractApplicationTest {
 
 	protected DeleteSavedPostProposal createDeleteSavedPostProposal() {
 		return new DeleteSavedPostProposal(1L, 1L);
+	}
+
+	protected ProfileInformationProposal createProfileInformationProposal() {
+		return new ProfileInformationProposal(12, "adsa@gmail.com", "Beschreibung 1", "TINF22B6");
+	}
+
+	protected UserInformationProposal createUserInformationProposal() {
+		return new UserInformationProposal(1L , createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
+	}
+
+	protected UpdateAgeProposal createUpdateAgeProposal() {
+		return new UpdateAgeProposal(1L, 12);
+	}
+
+	protected UpdateDescriptionProposal createUpdateDescriptionProposal() {
+		return new UpdateDescriptionProposal(1L, "Beschreibung 1");
+	}
+
+	protected UpdateCourseProposal createUpdateCourseProposal() {
+		return new UpdateCourseProposal(1L, "TINF22B6");
+	}
+
+	protected UpdateEmailProposal createUpdateEmailProposal() {
+		return new UpdateEmailProposal(1L, "test@gmail.com");
+	}
+
+	protected UpdateUsernameProposal createUpdateUsernameProposal() {
+		return new UpdateUsernameProposal(1L, "User1");
+	}
+
+	protected UpdatePasswordProposal createUpdatePasswordProposal() {
+		return new UpdatePasswordProposal(1L, "NeuesPasswort");
+	}
+
+	protected UpdatePictureProposal createUpdatePictureProposal() {
+		return new UpdatePictureProposal(1L, "ahudmpiwmhapicuhawiughui");
 	}
 }

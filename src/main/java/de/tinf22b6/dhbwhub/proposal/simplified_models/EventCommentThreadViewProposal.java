@@ -22,7 +22,7 @@ public class EventCommentThreadViewProposal {
 
     private Long accountId;
 
-    private byte[] authorImage;
+    private String authorImage;
 
     private Date timestamp;
 

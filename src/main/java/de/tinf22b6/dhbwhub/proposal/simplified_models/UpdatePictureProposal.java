@@ -12,5 +12,5 @@ import lombok.Setter;
 public class UpdatePictureProposal {
     private Long userId;
 
-    private byte[] imageData;
+    private String imageData;
 }
