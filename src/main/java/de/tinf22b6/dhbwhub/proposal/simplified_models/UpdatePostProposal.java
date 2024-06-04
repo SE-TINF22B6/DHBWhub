@@ -18,6 +18,6 @@ public class UpdatePostProposal {
 
     private String[] tags;
 
-    private byte[] postImage;
+    private String postImage;
 
 }

@@ -11,14 +11,14 @@ public class PictureMapper {
         );
     }
 
-    public static Picture mapToModelUser(byte[] imageData) {
+    public static Picture mapToModelUser(String imageData) {
         return new Picture(
                 "user.png",
                 imageData
         );
     }
 
-    public static Picture mapToModelPost(byte[] imageData) {
+    public static Picture mapToModelPost(String imageData) {
         return new Picture(
                 "post.png",
                 imageData

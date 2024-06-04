@@ -27,7 +27,7 @@ public class HomepagePostPreviewProposal {
 
     private Date timestamp;
 
-    private byte[] postImage;
+    private String postImage;
 
     private Long accountId;
 
