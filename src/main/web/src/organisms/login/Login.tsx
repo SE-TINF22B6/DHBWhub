@@ -69,9 +69,8 @@ const Login: React.FC<Props> = () => {
                 navigate("/profile");
                 window.location.reload();
             },
-            (error) => {
-                const resMessage = "Unable to sign in via Google :(";
-
+            () => {
+                const resMessage = "Unable to sign in via Google";
                 setLoading(false);
                 setMessage(resMessage);
             }
