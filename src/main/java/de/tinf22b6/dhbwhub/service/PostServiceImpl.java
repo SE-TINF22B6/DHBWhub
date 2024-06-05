@@ -193,6 +193,19 @@ public class PostServiceImpl implements PostService {
     public void delete(Long id) {
         // Check if post exists
         get(id);
+
+        // Delete all like entries
+        logtableRepository.findAllPosts().stream().filter(p -> p.getPost().getId().equals(id)).forEach(p -> {
+            LikeLogtablePost likeLogtablePost = logtableRepository.findPost(id, p.getUser().getId());
+            logtableRepository.deletePost(likeLogtablePost.getId());
+        });
+        // Delete all post like notifications
+        notificationRepository.getAllPostLikeNotifications().stream().filter(n -> n.getPostId().equals(id)).forEach(notificationRepository::deletePostLikeNotification);
+        // Delete all post comment notifications
+        notificationRepository.getAllPostCommentNotifications().stream().filter(n -> n.getPostId().equals(id)).forEach(notificationRepository::deletePostCommentNotification);
+        // Delete all comment like notifications
+        notificationRepository.getAllCommentLikeNotifications().stream().filter(n -> n.getPostId().equals(id)).forEach(notificationRepository::deleteCommentLikeNotification);
+
         // Delete all related Comments first
         commentRepository.findByPostId(id).forEach(comment -> commentRepository.delete(comment.getId()));
         // Delete all Tags
