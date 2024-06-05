@@ -56,7 +56,7 @@ export const ProfilePage = () => {
         <div className="page">
             <Header />
             <div className="profile-container">
-                <div className="profile-picture">
+                <div className="profile-page-picture">
                     <img src={profileData.profilePicture} alt="Profile"/>
                     <input type="file"/>
                 </div>
