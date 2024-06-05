@@ -9,7 +9,7 @@ export const register = (username: string, email: string, password: string) => {
     });
 };
 
-const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; username: string; accessToken: string; }): void => {
+export const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; username: string; accessToken: string; }): void => {
     localStorage.setItem('accountId', data.accountId.toString());
     localStorage.setItem('userId', data.userId.toString());
     localStorage.setItem('username', data.username);
