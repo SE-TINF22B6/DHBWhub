@@ -5,7 +5,6 @@ import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
 import {logout} from "../../services/AuthService";
 import {NavigateFunction, useNavigate} from "react-router-dom";
-import {boolean} from "yup";
 
 interface ProfileData {
     username: string;

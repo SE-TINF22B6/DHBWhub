@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {useLocation} from "react-router-dom";
@@ -20,10 +20,10 @@ export const Search = () => {
   const searchTerm: string | null = searchParams.get('query');
   const [searchResults, setSearchResults] = useState([]);
   const jwt: string | null = getJWT();
-  const headersWithJwt = {
+  const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
+  }), [jwt]);
 
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ export const Search = () => {
     };
 
     fetchResults();
-  }, [searchTerm]);
+  }, [searchTerm, headersWithJwt]);
 
   const [sortOption, setSortOption] = useState<string>('popular');
   const [findByOption, setFindByOption] = useState<string>('title');

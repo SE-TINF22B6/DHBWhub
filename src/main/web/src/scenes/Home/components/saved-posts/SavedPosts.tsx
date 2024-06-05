@@ -46,7 +46,11 @@ export const SavedPosts = () => {
           self.findIndex(p => p.postId === post.postId) === index
   );
 
-  if (savedPosts) {
+  if (uniqueSavedPosts.length === 0) {
+    return null;
+  }
+
+  if (uniqueSavedPosts) {
     return (
         <div className="saved-posts">
           <div className="component-headline">Saved posts</div>

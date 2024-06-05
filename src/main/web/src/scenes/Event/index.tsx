@@ -19,11 +19,11 @@ import {useMediaQuery} from "@mui/system";
 import config from "../../config/config";
 import {getAccountId, getJWT} from "../../services/AuthService";
 import {EventCommentModel} from "./model/EventCommentModel";
-import {CommentProposalModel} from "../Post/models/CommentProposalModel";
+import {EventCommentProposalModel} from "./model/EventCommentProposalModel";
+import {EventDetailModel} from "./model/EventDetailModel";
 
 export const Event = () => {
-  const location = useLocation();
-  const [event, setEvent] = useState(dummyEvent);
+  const [event, setEvent] = useState<EventDetailModel>(dummyEvent);
   const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
   const idString: string | null = searchParams.get('id');
   const eventId: number | null = idString !== null ? parseInt(idString) : null;
@@ -46,19 +46,23 @@ export const Event = () => {
   useEffect((): void => {
     const fetchEvent = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(config.apiUrl + `event-thread/?id=${eventId}`, {
-          headers: headersWithJwt
+        const response: Response = await fetch(config.apiUrl + `event/event-thread/?id=${eventId}`, {
+          headers: headersWithJwt,
+          method: 'GET'
         });
         if (response.ok) {
-          const eventData = await response.json();
-          setEvent(eventData);
-          setComments(eventData.comments);
+          const eventThread = await response.json();
+          console.log(eventThread);
+          setEvent(eventThread);
+          setComments(eventThread.comments);
         } else {
+          console.log(response);
           setNotFound(true);
+          console.log("Event not found");
         }
         setLoading(false);
       } catch (error) {
-        console.error("Error when retrieving the event:", error);
+        console.error("Error when retrieving the event thread:", error);
         setNotFound(true);
         setLoading(false);
       }
@@ -77,8 +81,8 @@ export const Event = () => {
       return;
     }
 
-    const commentProposal: CommentProposalModel = {
-      postId: eventId,
+    const commentProposal: EventCommentProposalModel = {
+      eventId: eventId,
       accountId: accountId,
       description: newCommentText,
       timestamp: Math.floor(new Date().getTime()),
@@ -86,7 +90,7 @@ export const Event = () => {
     console.log(commentProposal);
 
     try {
-      const response: Response = await fetch(config.apiUrl + `comment/create-comment`, {
+      const response: Response = await fetch(config.apiUrl + `event/create-comment`, {
         method: 'POST',
         headers: headersWithJwt,
         body: JSON.stringify(commentProposal)
