@@ -6,10 +6,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: true # Enabled for debug purposes
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true # Enabled for debug purposes
+        format_sql: true
   mail:
     host: smtp.strato.de
     port: 465
