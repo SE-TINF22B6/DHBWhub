@@ -27,7 +27,7 @@ public class Post {
     private final int likes;
 
     @JoinColumn(name = "picture_id")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private final Picture picture;
 
     @JoinColumn(name = "user_id")

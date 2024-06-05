@@ -1,0 +1,31 @@
+name: User Story
+description: Creating a new User Story
+title: "🏭 "
+labels:
+- user story
+projects:
+  - SE-TINF22B6/6
+body:
+- type: markdown
+  attributes:
+    value: "## 🏭 User Story\nPlease fill out the following details to help us effectively plan and execute the User Story."
+
+- type: textarea
+  id: user-story-description
+  attributes:
+    label: User Story Description
+    description: "Provide a detailed description of the User Story."
+    placeholder: "I want this feature because ... so that I can ..."
+    render: markdown
+  validations:
+    required: true
+
+- type: textarea
+  id: acceptance-criteria
+  attributes:
+    label: Acceptance Criteria
+    description: "What are the acceptance criteria for this User Story?"
+    placeholder: "List the conditions that must be met for the User Story to be considered complete."
+    render: markdown
+  validations:
+    required: true

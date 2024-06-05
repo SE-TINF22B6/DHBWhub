@@ -1,0 +1,30 @@
+name: Task
+description: Creating a new task
+labels:
+- task
+projects:
+  - SE-TINF22B6/6
+body:
+- type: markdown
+  attributes:
+    value: "## Task\nPlease fill out the following details to help us effectively plan and execute the task."
+
+- type: textarea
+  attributes:
+    label: Task Description
+    description: "Provide a detailed description of the task."
+    placeholder: "I need ..."
+    render: markdown
+  validations:
+    required: true
+
+- type: dropdown
+  attributes:
+    label: Priority
+    description: "Select the priority of this task."
+    options:
+      - High
+      - Medium
+      - Low
+  validations:
+    required: true
