@@ -17,14 +17,16 @@ import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrol
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import config from "../../config/config";
-import {getJWT} from "../../services/AuthService";
+import {getAccountId, getJWT} from "../../services/AuthService";
 import {EventCommentModel} from "./model/EventCommentModel";
 import {CommentProposalModel} from "../Post/models/CommentProposalModel";
 
 export const Event = () => {
   const location = useLocation();
   const [event, setEvent] = useState(dummyEvent);
-  const eventId = location.pathname.split('event/').pop();
+  const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
+  const idString: string | null = searchParams.get('id');
+  const eventId: number | null = idString !== null ? parseInt(idString) : null;
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const jwt: string | null = getJWT();
@@ -32,6 +34,7 @@ export const Event = () => {
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
   }), [jwt]);
+  const accountId: number | null = getAccountId();
 
   const [comments, setComments] = useState<EventCommentModel[]>(event.comments);
   const scrollUpRef = useRef<HTMLDivElement>(null);
@@ -43,7 +46,7 @@ export const Event = () => {
   useEffect((): void => {
     const fetchEvent = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(config.apiUrl + `event/?id=${eventId}`, {
+        const response: Response = await fetch(config.apiUrl + `event-thread/?id=${eventId}`, {
           headers: headersWithJwt
         });
         if (response.ok) {
@@ -64,15 +67,26 @@ export const Event = () => {
   }, [eventId, headersWithJwt]);
 
   const handleReplyClick = async (newCommentText: string): Promise<void> => {
+    if (eventId == null) {
+      console.error("Event ID null");
+      return;
+    }
+
+    if (accountId == null) {
+      console.error("Account ID null");
+      return;
+    }
+
     const commentProposal: CommentProposalModel = {
-      postId: 3,
-      text: newCommentText,
-      accountId: 5,
+      postId: eventId,
+      accountId: accountId,
+      description: newCommentText,
       timestamp: Math.floor(new Date().getTime()),
     };
+    console.log(commentProposal);
 
     try {
-      const response: Response = await fetch(config.apiUrl + `post/create-comment`, {
+      const response: Response = await fetch(config.apiUrl + `comment/create-comment`, {
         method: 'POST',
         headers: headersWithJwt,
         body: JSON.stringify(commentProposal)
@@ -82,7 +96,8 @@ export const Event = () => {
         const newComment = await response.json();
         setComments([...comments, newComment]);
       } else {
-        setNotFound(true);
+        console.error("Failed to create the comment: ");
+        console.log(response);
       }
       setLoading(false);
     } catch (error) {

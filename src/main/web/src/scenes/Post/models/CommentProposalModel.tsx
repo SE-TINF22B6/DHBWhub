@@ -1,6 +1,6 @@
 export interface CommentProposalModel {
   postId: number,
-  text: string,
   accountId: number,
+  description: string,
   timestamp: number,
 }

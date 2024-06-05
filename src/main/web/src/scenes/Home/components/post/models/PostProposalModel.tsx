@@ -3,6 +3,6 @@ export interface PostProposalModel {
   description: string;
   tags: string[] | null;
   timestamp: number;
-  image: null | string;
+  postImage: null | string;
   accountId: number;
 }
