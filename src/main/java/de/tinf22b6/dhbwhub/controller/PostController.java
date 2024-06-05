@@ -88,6 +88,11 @@ public class PostController {
         return service.create(proposal);
     }
 
+    @PostMapping("/report")
+    public void report(@RequestBody ReportPostProposal proposal) {
+        service.report(proposal);
+    }
+
     @GetMapping("/{id}")
     public Post get(@PathVariable Long id) {
         return service.get(id);

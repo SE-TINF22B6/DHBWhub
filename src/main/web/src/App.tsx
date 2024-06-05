@@ -9,7 +9,7 @@ import { Contact } from './scenes/Contact';
 import { CalendarPage } from './scenes/Calendar';
 import { PrivacyPolicy } from './scenes/PrivacyPolicy';
 import { Imprint } from './scenes/Imprint';
-import { ProfilePage } from './scenes/Profile/ProfilePage';
+import { ProfilePage } from './scenes/Profile';
 import { Search } from './scenes/Search';
 import { Event } from './scenes/Event';
 // import { TagOverview } from './scenes/Tag';

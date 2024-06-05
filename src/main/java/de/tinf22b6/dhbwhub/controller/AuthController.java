@@ -101,7 +101,7 @@ public class AuthController {
 
             try {
                 emailService.sendMessageUsingThymeleafTemplate(
-                        emailVerificationRequest.getEmail(), "Email Verification", templateModel);
+                        emailVerificationRequest.getEmail(), "Email Verification", "mail-template.html", templateModel);
             } catch (MessagingException | IOException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .body(new MessageResponse("Failed to send email with token."));

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incoming User Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: grey;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #25282c;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .text {
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .header img {
+            max-width: 150px;
+        }
+        .verification-code {
+            text-align: center;
+            font-size: 24px;
+            color: #ff4444;
+            margin-bottom: 30px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="text">
+        <p>Dies ist eine automatische Nachricht, die Sie über die neusten Benutzeraktivitäten in Bezug auf die Meldung von Inhalten informiert</p>
+
+        <h4>Details zum Vorfall:</h4>
+        <ul>
+            <li><strong>URL zum Post:</strong>  <td th:text="${post_url}"></td></li>
+            <li><strong>Benutzer-ID des Reporters:</strong> <td th:text="${user_id_of_reporter}"></td></li>
+            <li><strong>Benutzer-ID des Authors:</strong> <td th:text="${user_id_of_author}"></td></li>
+            <li><strong>Report Grund:</strong> <td th:text="${report_reason}"></td></li>
+            <li><strong>Zusätzliche Anmerkungen des Reporters:</strong> <td th:text="${additional_notes}"></td></li>
+        </ul>
+
+        <h4>Erforderliche Maßnahmen:</h4>
+        <p>Bitte überprüfen Sie den gemeldeten Inhalt, um sicherzustellen, dass er mit den Community-Richtlinien und Nutzungsbedingungen unserer Plattform übereinstimmt.</p>
+    </div>
+    <div class="footer">
+        © 2024 DHBWhub. All rights reserved.
+        <br>
+        <br>
+        Erzbergerstraße 121, 76133 Karlsruhe, Deutschland
+    </div>
+</div>
+</body>
+</html>
