@@ -1,11 +1,10 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useMemo} from "react";
 import {Link} from "react-router-dom";
 import { Header } from "../../organisms/header/Header";
 import { PostDetail } from "./PostDetail";
 import {CreateComment} from "../../organisms/create-comment/CreateComment";
 import {Comment} from "../../organisms/comment/Comment";
 import animationData from "../../assets/loading.json";
-import errorAnimationData from "../../assets/error.json";
 import Lottie from "lottie-react";
 import {Footer} from "../../organisms/footer/Footer";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
@@ -18,7 +17,7 @@ import {useMediaQuery} from "@mui/system";
 import {PostThreadModel} from "./models/PostThreadModel";
 import {PostCommentModel} from "../Home/components/post/models/PostCommentModel";
 import {CommentProposalModel} from "./models/CommentProposalModel";
-import {getJWT} from "../../services/AuthService";
+import {getAccountId, getJWT} from "../../services/AuthService";
 import {dummyPostThread} from "./data/dummyPostThread";
 import {dummyComments} from "./data/dummyComments";
 import config from "../../config/config";
@@ -26,16 +25,18 @@ import "./index.css";
 
 export const Post: React.FC = () => {
   const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
-  const postId: string | null = searchParams.get('id');
+  const idString = searchParams.get('id');
+  const postId: number | null = idString !== null ? parseInt(idString) : null;
   const [comments, setComments] = useState<PostCommentModel[]>(dummyComments);
   const [postThread, setPostThread] = useState<PostThreadModel>(dummyPostThread);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const jwt: string | null = getJWT();
-  const headersWithJwt = {
+  const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
+  }), [jwt]);
+  const accountId: number | null = getAccountId();
 
   const adBlockDetected: boolean = useDetectAdBlock();
   usePreventScrolling(adBlockDetected);
@@ -60,7 +61,6 @@ export const Post: React.FC = () => {
         });
         if (response.ok) {
           const postThreadData = await response.json();
-          console.log(postThreadData);
           setPostThread(postThreadData);
           setComments(postThreadData.comments);
         } else {
@@ -74,18 +74,29 @@ export const Post: React.FC = () => {
       }
     };
     fetchPostThread();
-  }, [postId]);
+  }, [postId, headersWithJwt]);
 
   const handleReplyClick = async (newCommentText: string): Promise<void> => {
+    if (postId == null) {
+      console.error("Post ID null");
+      return;
+    }
+
+    if (accountId == null) {
+      console.error("Account ID null");
+      return;
+    }
+
     const commentProposal: CommentProposalModel = {
-      postId: 3,
-      text: newCommentText,
-      accountId: 5,
+      postId: postId,
+      accountId: accountId,
+      description: newCommentText,
       timestamp: Math.floor(new Date().getTime()),
     };
+    console.log(commentProposal);
 
     try {
-      const response: Response = await fetch(config.apiUrl + `post/create-comment`, {
+      const response: Response = await fetch(config.apiUrl + `comment/create-comment`, {
         method: 'POST',
         headers: headersWithJwt,
         body: JSON.stringify(commentProposal)
@@ -95,7 +106,8 @@ export const Post: React.FC = () => {
         const newComment = await response.json();
         setComments([...comments, newComment]);
       } else {
-        setNotFound(true);
+        console.error("Failed to create the comment: ");
+        console.log(response);
       }
       setLoading(false);
     } catch (error) {
