@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import "./EmailInput.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { emailVerification } from "../../services/AuthService";
+import {emailVerification, googleLogin} from "../../services/AuthService";
 import ErrorModal from "./ErrorModal";
-import { GoogleLogin } from "@react-oauth/google";
+import {CredentialResponse, GoogleLogin} from "@react-oauth/google";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
 const EmailInput = ({ onSuccess }: any) => {
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
+  let navigate: NavigateFunction = useNavigate();
 
   const initialValues: {
     email: string;
@@ -57,6 +59,21 @@ const EmailInput = ({ onSuccess }: any) => {
         setLoading(false);
         setMessage(resMessage);
       }
+    );
+  };
+
+  const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
+    console.log(credentialResponse);
+    googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
+        () => {
+          navigate("/profile");
+          window.location.reload();
+        },
+        () => {
+          const resMessage = "Unable to sign in via Google";
+          setLoading(false);
+          setMessage(resMessage);
+        }
     );
   };
 
@@ -122,9 +139,7 @@ const EmailInput = ({ onSuccess }: any) => {
           ux_mode={"popup"}
           useOneTap={true}
           text={"signup_with"}
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse);
-          }}
+          onSuccess={handleGoogleLogin}
           onError={() => {
             console.log("Login Failed");
           }}
