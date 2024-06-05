@@ -16,7 +16,7 @@ const fetchUserImage = async (setUserImage: (data: any) => void): Promise<void> 
       });
       if (response.ok) {
         const data = await response.json();
-        setUserImage(data);
+        setUserImage(data.imageData);
       } else {
         console.log(new Error("Failed to fetch user image"));
       }
