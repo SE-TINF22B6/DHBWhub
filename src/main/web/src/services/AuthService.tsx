@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../config/config";
+import {CredentialResponse} from "@react-oauth/google";
 
 export const register = (username: string, email: string, password: string) => {
     return axios.post(config.apiUrl + "api/auth/signup", {
@@ -26,6 +27,13 @@ export const login = async (username: string, password: string, rememberMe: bool
     saveUserDataToLocalStorage(response.data);
     return response.data;
 };
+
+export const googleLogin = async (credentialResponse: CredentialResponse): Promise<any> => {
+    const response = await axios
+        .post('https://localhost:8443/api/auth/google', credentialResponse.credential)
+    saveUserDataToLocalStorage(response.data);
+    return response.data
+}
 
 export const emailVerification = async (email: string): Promise<any> => {
     const response = await axios

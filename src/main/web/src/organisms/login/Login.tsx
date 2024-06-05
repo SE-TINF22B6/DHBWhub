@@ -3,7 +3,7 @@ import {NavigateFunction, useNavigate} from 'react-router-dom';
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import './Login.css';
-import {login} from "../../services/AuthService";
+import {googleLogin, login} from "../../services/AuthService";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import EmailInput from "../signup/EmailInput";
 import {CredentialResponse, GoogleLogin} from "@react-oauth/google";
@@ -62,11 +62,26 @@ const Login: React.FC<Props> = () => {
         );
     };
 
-    const handleSuccess = (credentialResponse: CredentialResponse) => {
+    const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
         console.log(credentialResponse);
+        googleLogin(credentialResponse).then(
+            () => {
+                navigate("/profile");
+                window.location.reload();
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
 
-        // Send the token to the backend
-        fetch('https://localhost:8443/api/auth/google', {
+                setLoading(false);
+                setMessage(resMessage);
+            }
+        );
+        /*fetch('https://localhost:8443/api/auth/google', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,6 +95,8 @@ const Login: React.FC<Props> = () => {
             .catch((error) => {
                 console.error('Error:', error);
             });
+        // Send the token to the backend
+*/
     };
 
     return (
@@ -143,7 +160,7 @@ const Login: React.FC<Props> = () => {
                             <div className="google-oauth-login">
                                 <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
                                              text={"continue_with"}
-                                    onSuccess={handleSuccess}
+                                    onSuccess={handleGoogleLogin}
                                     onError={() => {
                                         console.log('Login Failed');
                                     }}

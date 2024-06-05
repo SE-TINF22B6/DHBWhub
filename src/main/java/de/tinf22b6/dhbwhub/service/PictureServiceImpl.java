@@ -64,20 +64,20 @@ public class PictureServiceImpl implements PictureService {
     }
 
     public Picture getImageFromUrl(String imageUrl) {
-        byte[] imageBytes = null;
+        String imageBytes = null;
         try {
             URL url = new URL(imageUrl);
             BufferedImage image = ImageIO.read(url);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(image, "png", baos);
-            imageBytes = Base64.encode(baos.toByteArray());;
+            imageBytes = Base64.toBase64String(baos.toByteArray());
         }catch (Exception e) {
             System.out.println("Something went wrong during the image retrieval");
         }
         if (imageBytes == null) {
             return null;
         }
-        return PictureMapper.mapToPicture(imageBytes);
+        return PictureMapper.mapToModelUser(imageBytes);
     }
 
     @Override
