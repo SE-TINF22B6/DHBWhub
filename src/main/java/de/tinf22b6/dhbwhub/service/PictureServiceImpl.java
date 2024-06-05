@@ -70,7 +70,7 @@ public class PictureServiceImpl implements PictureService {
             BufferedImage image = ImageIO.read(url);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(image, "png", baos);
-            imageBytes = Base64.toBase64String(baos.toByteArray());
+            imageBytes = "data:image/png;base64," + Base64.toBase64String(baos.toByteArray());
         }catch (Exception e) {
             System.out.println("Something went wrong during the image retrieval");
         }
