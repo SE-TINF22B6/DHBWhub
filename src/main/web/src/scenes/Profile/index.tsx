@@ -112,7 +112,7 @@ export const ProfilePage = () => {
                     <label className="label-profile-page-text">Password</label>
                     <button onClick={handlePasswordChange}>Change Password</button>
                 </div>
-                <button className="logout-btn">Logout</button>
+                <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
             <Footer/>
         </div>
