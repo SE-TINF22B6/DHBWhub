@@ -28,9 +28,14 @@ export const login = async (username: string, password: string, rememberMe: bool
     return response.data;
 };
 
-export const googleLogin = async (credentialResponse: CredentialResponse): Promise<any> => {
+export const googleLogin = async (credentialResponse: String): Promise<any> => {
     const response = await axios
-        .post('https://localhost:8443/api/auth/google', credentialResponse.credential)
+        .post('https://localhost:8443/api/auth/google', credentialResponse,
+            {
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            });
     saveUserDataToLocalStorage(response.data);
     return response.data
 }

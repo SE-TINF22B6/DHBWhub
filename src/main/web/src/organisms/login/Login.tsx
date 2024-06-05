@@ -64,39 +64,18 @@ const Login: React.FC<Props> = () => {
 
     const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
         console.log(credentialResponse);
-        googleLogin(credentialResponse).then(
+        googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
             () => {
                 navigate("/profile");
                 window.location.reload();
             },
             (error) => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+                const resMessage = "Unable to sign in via Google :(";
 
                 setLoading(false);
                 setMessage(resMessage);
             }
         );
-        /*fetch('https://localhost:8443/api/auth/google', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ token: credentialResponse.credential }),
-        })
-            .then((data) => {
-                console.log('Backend response:', data.body);
-                // Handle backend response
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        // Send the token to the backend
-*/
     };
 
     return (

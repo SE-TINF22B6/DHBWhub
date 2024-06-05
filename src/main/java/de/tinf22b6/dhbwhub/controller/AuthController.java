@@ -153,7 +153,7 @@ public class AuthController {
 
             idToken = verifier.verify(idTokenString);
         }catch (Exception e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There has been a serverside problem");
         }
 
         if (idToken == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid ID token");
@@ -183,7 +183,12 @@ public class AuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-
+        System.out.println(new JwtResponse(jwt,
+                userDetails.getAccountId(),
+                userDetails.getUserId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles).toString());
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getAccountId(),
                 userDetails.getUserId(),
