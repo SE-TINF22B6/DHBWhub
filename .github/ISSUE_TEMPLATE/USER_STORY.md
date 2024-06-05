@@ -1,20 +1,32 @@
----
 name: User Story
-about: Issue template for User Stories
-title: ''
-labels: user story
-assignees: ''
+description: Creating a new User Story
+title: "🏭 "
+labels:
+- user story
+assignees:
+body:
+- type: markdown
+  attributes:
+  value: "## 🏭 User Story\nPlease fill out the following details to help us effectively plan and execute the User Story."
 
----
+- type: textarea
+  id: user-story-description
+  attributes:
+  label: User Story Description
+  description: "Provide a detailed description of the User Story."
+  placeholder: "I want this feature because ... so that I can ..."
+  render: markdown
+  validations:
+    required: true
 
-Epic:
+- type: textarea
+  id: acceptance-criteria
+  attributes:
+  label: Acceptance Criteria
+  description: "What are the acceptance criteria for this User Story?"
+  placeholder: "List the conditions that must be met for the User Story to be considered complete."
+  render: markdown
+  validations:
+    required: true
 
-### Description
-
-### Tasks
-I want this concrete feature because [ ... ] so that I can [ ... ]. 
-These are the following criteria:
-
-- [ ] Task 1
-- [ ] Task 2
-- [ ] Task 3
+footer: "Thank you for documenting this User Story. Please double-check all information before submitting."
