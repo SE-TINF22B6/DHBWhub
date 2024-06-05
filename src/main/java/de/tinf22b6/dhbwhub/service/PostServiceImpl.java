@@ -15,14 +15,14 @@ import de.tinf22b6.dhbwhub.proposal.PostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
 import de.tinf22b6.dhbwhub.repository.*;
 import de.tinf22b6.dhbwhub.service.interfaces.PostService;
+import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -33,6 +33,7 @@ public class PostServiceImpl implements PostService {
     private final LogtableRepository logtableRepository;
     private final NotificationRepository notificationRepository;
     private final CommentRepository commentRepository;
+    private final EmailService emailService;
 
     public PostServiceImpl(@Autowired PostRepository repository,
                            @Autowired UserRepository userRepository,
@@ -40,7 +41,8 @@ public class PostServiceImpl implements PostService {
                            @Autowired PostTagRepository postTagRepository,
                            @Autowired LogtableRepository logtableRepository,
                            @Autowired NotificationRepository notificationRepository,
-                           @Autowired CommentRepository commentRepository) {
+                           @Autowired CommentRepository commentRepository,
+                           @Autowired EmailService emailService) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.pictureRepository = pictureRepository;
@@ -48,7 +50,11 @@ public class PostServiceImpl implements PostService {
         this.logtableRepository = logtableRepository;
         this.notificationRepository = notificationRepository;
         this.commentRepository = commentRepository;
+        this.emailService = emailService;
     }
+
+    @Value("${spring.mail.support-mail}")
+    private String supportMail;
 
     @Override
     public List<Post> getAll() {
@@ -80,6 +86,22 @@ public class PostServiceImpl implements PostService {
         } );
 
         return getPostHomepageView(post.getId());
+    }
+
+    @Override
+    public void report(ReportPostProposal proposal) {
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("post_url", String.format("https://www.dhbwhub.de/post/?id=%d", proposal.getPostId()));
+        templateModel.put("user_id_of_reporter", proposal.getUserId());
+        templateModel.put("user_id_of_author", proposal.getAuthorId());
+        templateModel.put("report_reason", proposal.getReportReason());
+        templateModel.put("additional_notes", proposal.getReportDescription());
+
+        try {
+            emailService.sendMessageUsingThymeleafTemplate(supportMail, "Incoming User Report", "report-template.html", templateModel);
+        } catch (MessagingException | IOException e) {
+            throw new RuntimeException("An error occurred while trying to send the report: " + e.getMessage());
+        }
     }
 
     @Override
