@@ -25,18 +25,15 @@ import java.util.Objects;
 public class EventServiceImpl implements EventService {
     private final EventRepository repository;
     private final UserRepository userRepository;
-    private final PictureRepository pictureRepository;
     private final LogtableRepository logtableRepository;
     private final NotificationRepository notificationRepository;
 
     public EventServiceImpl(@Autowired EventRepository repository,
                             @Autowired UserRepository userRepository,
-                            @Autowired PictureRepository pictureRepository,
                             @Autowired LogtableRepository logtableRepository,
                             @Autowired NotificationRepository notificationRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
-        this.pictureRepository = pictureRepository;
         this.logtableRepository = logtableRepository;
         this.notificationRepository = notificationRepository;
     }

@@ -6,7 +6,7 @@ import './Login.css';
 import {login} from "../../services/AuthService";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import EmailInput from "../signup/EmailInput";
-import {GoogleLogin} from "@react-oauth/google";
+import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 
 type Props = {}
 
@@ -121,15 +121,17 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="google-oauth-login">
-                                <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
-                                             text={"continue_with"}
-                                    onSuccess={credentialResponse => {
-                                        console.log(credentialResponse);
-                                    }}
-                                    onError={() => {
-                                        console.log('Login Failed');
-                                    }}
-                                />
+                                <GoogleOAuthProvider clientId="">
+                                    <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
+                                                 text={"continue_with"}
+                                                 onSuccess={credentialResponse => {
+                                                     console.log(credentialResponse);
+                                                 }}
+                                                 onError={() => {
+                                                     console.log('Login Failed');
+                                                 }}
+                                    />
+                                </GoogleOAuthProvider>
                             </div>
 
                             {showSignUp && <EmailInput/>}

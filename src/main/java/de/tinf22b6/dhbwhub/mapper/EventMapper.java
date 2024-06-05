@@ -17,7 +17,7 @@ public class EventMapper {
         );
     }
 
-    public static EventPost mapToModel(UpdateEventPostProposal proposal, EventPost post, Picture picture){
+    public static EventPost mapToModel(UpdateEventPostProposal proposal, EventPost post){
         return new EventPost(
                 proposal.getTitle(),
                 proposal.getDescription(),
