@@ -11,5 +11,6 @@ public interface PictureService {
     Picture get(Long id);
     Picture findByUserId(Long id);
     Picture update(Long id, PictureProposal proposal);
+    Picture getImageFromUrl(String url);
     void delete(Long id);
 }

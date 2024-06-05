@@ -1,19 +1,29 @@
 package de.tinf22b6.dhbwhub.controller;
 
-import de.tinf22b6.dhbwhub.model.Account;
-import de.tinf22b6.dhbwhub.model.User;
-import de.tinf22b6.dhbwhub.payload.request.*;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+import de.tinf22b6.dhbwhub.model.*;
+import de.tinf22b6.dhbwhub.payload.request.EmailVerificationRequest;
+import de.tinf22b6.dhbwhub.payload.request.LoginRequest;
+import de.tinf22b6.dhbwhub.payload.request.SignupRequest;
+import de.tinf22b6.dhbwhub.payload.request.TokenValidationRequest;
 import de.tinf22b6.dhbwhub.payload.response.JwtResponse;
 import de.tinf22b6.dhbwhub.payload.response.MessageResponse;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
+import de.tinf22b6.dhbwhub.repository.AdministratorRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.security.jwt.JwtUtils;
 import de.tinf22b6.dhbwhub.security.services.UserDetailsImpl;
+import de.tinf22b6.dhbwhub.service.AccountServiceImpl;
 import de.tinf22b6.dhbwhub.service.EmailService;
 import de.tinf22b6.dhbwhub.service.EmailVerificationTokenManager;
+import de.tinf22b6.dhbwhub.service.interfaces.PictureService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,9 +32,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,10 +51,16 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final AccountRepository accountRepository;
+    private final AdministratorRepository administratorRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
     private final EmailService emailService;
+    private final PictureService pictureService;
+    private final AccountServiceImpl accountServiceImpl;
+
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String clientId;
 
     // TODO: Save JWT in Database
     @PostMapping("login")
@@ -122,5 +142,54 @@ public class AuthController {
         }
     }
 
+    @PostMapping("google")
+    public ResponseEntity<?> googleLogin(@RequestBody Map<String, String> request) {
+        String idTokenString = request.get("token");
+        GoogleIdToken idToken = null;
 
+        try {
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(GoogleNetHttpTransport.newTrustedTransport(), new GsonFactory())
+                    .setAudience(Collections.singletonList(clientId))
+                    .build();
+
+            idToken = verifier.verify(idTokenString);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There has been a serverside problem");
+        }
+
+        if (idToken == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid ID token");
+        GoogleIdToken.Payload payload = idToken.getPayload();
+        String userId = payload.getSubject();
+        String email = payload.getEmail();
+        String name = (String) payload.get("name");
+        String pictureUrl = (String) payload.get("picture");
+        Picture picture = pictureService.getImageFromUrl(pictureUrl);
+
+        Account account = accountServiceImpl.findByEmail(email);
+        User user = null;
+
+        if(account == null) {
+            account = accountRepository.save(new Account(name, email, null, picture, true));
+            user = userRepository.save(new User(0, null, null, account));
+            accountRepository.saveOAuthEntry(new OAuthAccount(account,OAuthAccount.GOOGLE_ENTRY));
+        } else if (!accountRepository.existsOAuthEntry(account.getId())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied - No such account exists");
+        } else {
+            user = userRepository.findByAccountId(account.getId());
+        }
+
+        String jwt = jwtUtils.generateJwtToken(account.getUsername());
+        UserDetailsImpl userDetails = UserDetailsImpl.build(user, administratorRepository);
+
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getAccountId(),
+                userDetails.getUserId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles));
+    }
 }

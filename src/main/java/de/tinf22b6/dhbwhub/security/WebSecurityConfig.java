@@ -28,6 +28,7 @@ public class WebSecurityConfig {
     private static final String[] PUBLIC_ENDPOINTS = {
             "/api/auth/login",
             "/api/auth/signup",
+            "/api/auth/google",
             "/api/auth/email-verification",
             "/api/auth/token-validation",
             "/post/homepage-preview-posts",
