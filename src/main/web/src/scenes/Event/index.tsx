@@ -46,7 +46,7 @@ export const Event = () => {
   useEffect((): void => {
     const fetchEvent = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(config.apiUrl + `event/event-thread/?id=${eventId}`, {
+        const response: Response = await fetch(config.apiUrl + `event/event-thread/${eventId}`, {
           headers: headersWithJwt,
           method: 'GET'
         });
@@ -124,17 +124,24 @@ export const Event = () => {
     );
   }
 
-/*  if (notFound) {
+  if (notFound) {
     return (
         <div className="page">
           {adBlockDetected && <AdBlockOverlay/>}
           <Header/>
-          <a className="error">Post not Found</a>
+          <Link to="/" className="navigate-back-link">
+            <img alt="Navigate back" src={process.env.PUBLIC_URL + '/assets/post/navigate-back-vector.svg'}
+                 className="navigate-back-vector"/>
+            <img alt="Navigate back" src={process.env.PUBLIC_URL + '/assets/post/navigate-back-rectangle.svg'}
+                 className="navigate-back-rectangle"/>
+            <div className="navigate-back-text">Event</div>
+          </Link>
+          <a className="error">Event not Found</a>
           <Footer/>
           {isSmartphoneSize && <MobileFooter/>}
         </div>
     );
-  }*/
+  }
 
   return (
       <div className="page">
