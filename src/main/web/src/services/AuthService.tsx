@@ -30,7 +30,7 @@ export const login = async (username: string, password: string, rememberMe: bool
 
 export const googleLogin = async (credentialResponse: String): Promise<any> => {
     const response = await axios
-        .post('https://localhost:8443/api/auth/google', credentialResponse,
+        .post(config.apiUrl + "api/auth/google", credentialResponse,
             {
                 headers:{
                     'Content-Type': 'application/json'
