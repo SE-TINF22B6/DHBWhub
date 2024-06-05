@@ -13,12 +13,14 @@
 }
 
 .post-image {
-  width: 152px;
-  height: 170px;
+  width: auto;
+  height: auto;
+  max-width: 260px;
+  max-height: 170px;
   top: 50%;
   transform: translateY(-50%);
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: 10px;
   &&:hover {
     filter: brightness(75%);
     transition: var(--transition);

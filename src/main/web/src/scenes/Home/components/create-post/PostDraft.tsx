@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import "./PostDraft.css";
 import { ImageUpload } from "./ImageUpload";
 import Modal from "@mui/material/Modal";
@@ -6,7 +6,6 @@ import TextEditor from "./editor/TextEditor";
 import { Link } from "react-router-dom";
 import { Tag } from "../../../../atoms/Tag";
 import { PostModel } from "../post/models/PostModel";
-import { dummyPosts } from "../post/dummyPosts";
 import { ImageType } from "react-images-uploading";
 import { PostProposalModel } from "../post/models/PostProposalModel";
 import { EditorState } from "lexical";
@@ -29,7 +28,6 @@ export const PostDraft: React.FC<PostDraftProps> = (props: PostDraftProps) => {
   const [newTag, setNewTag] = useState('');
   const [tagError, setTagError] = useState('');
   const [title, setTitle] = useState('');
-  const [posts, setPosts] = useState<PostModel[]>(dummyPosts);
   const [images, setImages] = useState<ImageType[]>([]);
   const [text, setText] = useState('');
   const jwt: string | null = getJWT();
@@ -38,8 +36,10 @@ export const PostDraft: React.FC<PostDraftProps> = (props: PostDraftProps) => {
     'Authorization': jwt ? `Bearer ${jwt}` : ''
   };
 
+  const fetchUserImage = useMemo(() => ProfilePictureService.fetchUserImage, []);
+
   useEffect((): void => {
-    ProfilePictureService.fetchUserImage(setUserImage);
+    fetchUserImage(setUserImage);
   }, []);
 
   const handleImagesChange = (newImages: ImageType[]): void => {
@@ -68,11 +68,15 @@ export const PostDraft: React.FC<PostDraftProps> = (props: PostDraftProps) => {
   };
 
   const buttonClick = async (): Promise<void> => {
+    console.log("Button clicked");
+
     const accountId: number | null = getAccountId();
     if (accountId === null) {
       alert('Account ID is null. Unable to create post.');
       return;
     }
+
+    console.log("Account ID:", accountId);
     if (!title || !text) {
       let message: string;
       if (!title && !text) {
@@ -83,38 +87,41 @@ export const PostDraft: React.FC<PostDraftProps> = (props: PostDraftProps) => {
         message = 'Please enter a text.';
       }
       alert(message);
-    } else {
-      const image = images.length > 0 ? images[0]['data_url'] : null;
-      const newPostProposal: PostProposalModel = {
-        title: title,
-        description: text,
-        tags: tags,
-        timestamp: Date.now(),
-        image: image,
-        accountId: accountId,
-      };
-      console.log('Neuer Post-Vorschlag:', newPostProposal);
-      console.log(headersWithJwt);
+      return;
+    }
 
-      try {
-        const response: Response = await fetch(config.apiUrl + 'post/create-post', {
-          method: 'POST',
-          credentials: 'include',
-          headers: headersWithJwt,
-          body: JSON.stringify(newPostProposal)
-        });
-        if (response.ok) {
-          console.log('Post has been created: ', response);
-          alert('Post has been created!');
-          setDraftOpen(false);
-        } else {
-          console.error('Error saving the post: ', response.statusText);
-        }
-      } catch (err) {
-        console.error('Error creating the post: ', err);
+    const image = images.length > 0 ? images[0]['data_url'] : null;
+    const newPostProposal: PostProposalModel = {
+      title: title,
+      description: text,
+      tags: tags,
+      timestamp: Date.now(),
+      postImage: image,
+      accountId: accountId,
+    };
+
+    console.log('Neuer Post-Vorschlag:', newPostProposal);
+
+    try {
+      const response: Response = await fetch(config.apiUrl + 'post/create-post', {
+        method: 'POST',
+        credentials: 'include',
+        headers: headersWithJwt,
+        body: JSON.stringify(newPostProposal)
+      });
+      if (response.ok) {
+        console.log('Post has been created: ', response);
+        alert('Post has been created!');
+        setDraftOpen(false);
+      } else {
+        const errorText: string = await response.text();
+        console.error('Error saving the post:', response.statusText, errorText);
       }
+    } catch (err) {
+      console.error('Error creating the post:', err);
     }
   };
+
 
   const handleTagInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setNewTag(event.target.value);
