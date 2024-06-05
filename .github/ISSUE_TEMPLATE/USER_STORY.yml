@@ -3,6 +3,8 @@ description: Creating a new User Story
 title: "🏭 "
 labels:
 - user story
+projects:
+  - SE-TINF22B6/6
 body:
 - type: markdown
   attributes:
