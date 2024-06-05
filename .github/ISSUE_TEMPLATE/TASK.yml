@@ -1,7 +1,9 @@
 name: Task
-description: Creating a task
+description: Creating a new task
 labels:
 - task
+projects:
+  - SE-TINF22B6/6
 body:
 - type: markdown
   attributes:
