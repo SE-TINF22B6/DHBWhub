@@ -40,7 +40,7 @@ public class WebSecurityConfig {
             "/post/user-posts/{id:\\d+}",
             "/post/friend-posts/{id:\\d+}",
             "/post/posts-by-keyword/{keyword}",
-            "/post/post-by-tag-keyword/{keyword}",
+            "/post/posts-by-tag-keyword/{keyword}",
             "/post/friend-posts-by-tag",
             "/event/homepage-preview-events",
             "/event/event-thread/{id:\\d+}",
