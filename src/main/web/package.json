@@ -10,7 +10,7 @@
     "@emotion/styled": "^11.11.5",
     "@lexical/code": "^0.15.0",
     "@lexical/link": "^0.15.0",
-    "@lexical/list": "^0.15.0",
+    "@lexical/list": "^0.16.0",
     "@lexical/markdown": "^0.15.0",
     "@lexical/react": "^0.15.0",
     "@lexical/rich-text": "^0.15.0",
