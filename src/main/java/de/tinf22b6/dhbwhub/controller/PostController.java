@@ -118,6 +118,11 @@ public class PostController {
         return service.decreaseLikes(likePostProposal);
     }
 
+    @PostMapping("/is-liked")
+    public boolean isLiked(@RequestBody LikePostProposal likePostProposal) {
+        return service.isLiked(likePostProposal);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
