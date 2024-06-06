@@ -16,7 +16,6 @@
     "@lexical/table": "^0.15.0",
     "@lexical/utils": "^0.15.0",
     "@mui/material": "^5.15.19",
-    "@mui/system": "^5.15.15",
     "@react-buddy/ide-toolbox": "^2.4.0",
     "@react-buddy/palette-mui": "^5.0.1",
     "@react-oauth/google": "^0.12.1",
