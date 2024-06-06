@@ -166,6 +166,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public boolean isLiked(LikePostProposal likePostProposal) {
+        return logtableRepository.findPost(likePostProposal.getPostId(), likePostProposal.getUserId()) != null;
+    }
+
+    @Override
     public PostThreadViewProposal update(Long id, UpdatePostProposal proposal) {
         Post initialPost = get(id);
         Picture picture;

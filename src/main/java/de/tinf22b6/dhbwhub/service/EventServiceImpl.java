@@ -169,6 +169,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public boolean isPostLiked(LikeEventPostProposal likeEventPostProposal) {
+        return logtableRepository.findEventPost(likeEventPostProposal.getEventId(), likeEventPostProposal.getUserId()) != null;
+    }
+
+    @Override
     public int adjustCommentLikes(LikeEventCommentProposal likeEventCommentProposal, int i) {
         EventComment eventComment = getEventComment(likeEventCommentProposal.getEventCommentId());
         int likes;
@@ -198,6 +203,11 @@ public class EventServiceImpl implements EventService {
         EventComment updatedComment = EventMapper.mapToModel(eventComment,likes);
         updatedComment.setId(eventComment.getId());
         return repository.save(updatedComment).getLikes();
+    }
+
+    @Override
+    public boolean isCommentLiked(LikeEventCommentProposal likeEventCommentProposal) {
+        return logtableRepository.findEventComment(likeEventCommentProposal.getEventCommentId(), likeEventCommentProposal.getUserId()) != null;
     }
 
     @Override
