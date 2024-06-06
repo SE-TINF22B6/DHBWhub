@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/runtime": "^7.24.6",
+    "@babel/runtime": "^7.24.7",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@lexical/code": "^0.15.0",
