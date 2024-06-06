@@ -13,7 +13,7 @@ import { ProfilePage } from './scenes/Profile';
 import { Search } from './scenes/Search';
 import { Event } from './scenes/Event';
 // import { TagOverview } from './scenes/Tag';
-import { User } from './scenes/User';
+import { UserPage } from './scenes/User';
 import { PageNotFound } from './scenes/PageNotFound';
 import config from "./config/config";
 import {GoogleOAuthProvider} from "@react-oauth/google";
@@ -40,7 +40,7 @@ class App extends Component {
               <Route path="/search" element={<Search/>}/>
               {/*<Route path="/tag" element={<TagOverview/>}/>*/}
               <Route path="/terms-of-service" element={<TermsOfService/>}/>
-              <Route path="/user" element={<User/>}/>
+              <Route path="/user" element={<UserPage/>}/>
             </Routes>
           </Router>
         </GoogleOAuthProvider>
