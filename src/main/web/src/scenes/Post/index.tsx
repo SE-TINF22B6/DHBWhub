@@ -16,16 +16,17 @@ import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import {PostThreadModel} from "./models/PostThreadModel";
 import {PostCommentModel} from "../Home/components/post/models/PostCommentModel";
-import {CommentProposalModel} from "./models/CommentProposalModel";
+import {CommentProposalModel} from "../../organisms/comment/model/CommentProposalModel";
 import {getAccountId, getJWT} from "../../services/AuthService";
 import {dummyPostThread} from "./data/dummyPostThread";
 import {dummyComments} from "./data/dummyComments";
 import config from "../../config/config";
 import "./index.css";
+import {PostCommentProposalModel} from "./models/PostCommentProposalModel";
 
 export const Post: React.FC = () => {
   const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
-  const idString = searchParams.get('id');
+  const idString: string | null = searchParams.get('id');
   const postId: number | null = idString !== null ? parseInt(idString) : null;
   const [comments, setComments] = useState<PostCommentModel[]>(dummyComments);
   const [postThread, setPostThread] = useState<PostThreadModel>(dummyPostThread);
@@ -41,8 +42,6 @@ export const Post: React.FC = () => {
   const adBlockDetected: boolean = useDetectAdBlock();
   usePreventScrolling(adBlockDetected);
 
-  const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
-
   const [scrollToComments, setScrollToComments] = useState(false);
   const commentsWrapperRef = useRef<HTMLDivElement>(null);
   useEffect((): void => {
@@ -52,6 +51,7 @@ export const Post: React.FC = () => {
     setScrollToComments(false);
   }, [scrollToComments]);
   const scrollUpRef = useRef<HTMLDivElement>(null);
+  const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   useEffect((): void => {
     const fetchPostThread = async (): Promise<void> => {
@@ -60,9 +60,9 @@ export const Post: React.FC = () => {
           headers: headersWithJwt
         });
         if (response.ok) {
-          const postThreadData = await response.json();
-          setPostThread(postThreadData);
-          setComments(postThreadData.comments);
+          const postThread = await response.json();
+          setPostThread(postThread);
+          setComments(postThread.comments);
         } else {
           setNotFound(true);
         }
@@ -87,7 +87,7 @@ export const Post: React.FC = () => {
       return;
     }
 
-    const commentProposal: CommentProposalModel = {
+    const commentProposal: PostCommentProposalModel = {
       postId: postId,
       accountId: accountId,
       description: newCommentText,
