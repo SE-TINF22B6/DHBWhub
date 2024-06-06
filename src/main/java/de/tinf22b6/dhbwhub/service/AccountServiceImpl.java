@@ -3,6 +3,7 @@ package de.tinf22b6.dhbwhub.service;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.AccountMapper;
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.OAuthAccount;
 import de.tinf22b6.dhbwhub.proposal.AccountProposal;
 import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.AccountService;
@@ -57,8 +58,28 @@ public class AccountServiceImpl implements AccountService {
         repository.delete(id);
     }
 
+    @Override
+    public boolean checkIfOAuthAccountExists(Long id) {
+        return repository.existsOAuthEntry(id);
+    }
+
     public boolean checkIfEmailExists(String email) {
         return getAll().stream().anyMatch(account -> account.getEmail().equals(email));
     }
 
+    @Override
+    public Account findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
+
+    @Override
+    public boolean existsOAuthEntry(Long accountId) {
+        return repository.existsOAuthEntry(accountId);
+    }
+
+    @Override
+    public OAuthAccount saveOAuthEntry(OAuthAccount account) {
+        return repository.saveOAuthEntry(account);
+    }
 }

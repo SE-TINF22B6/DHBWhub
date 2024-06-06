@@ -6,9 +6,14 @@ import de.tinf22b6.dhbwhub.model.Picture;
 import de.tinf22b6.dhbwhub.proposal.PictureProposal;
 import de.tinf22b6.dhbwhub.repository.PictureRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.PictureService;
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.base64.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
 import java.util.List;
 
 @Service
@@ -56,6 +61,23 @@ public class PictureServiceImpl implements PictureService {
         Picture picture = PictureMapper.mapToModel(proposal);
         picture.setId(id);
         return repository.save(picture);
+    }
+
+    public Picture getImageFromUrl(String imageUrl) {
+        String imageBytes = null;
+        try {
+            URL url = new URL(imageUrl);
+            BufferedImage image = ImageIO.read(url);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", baos);
+            imageBytes = "data:image/png;base64," + Base64.toBase64String(baos.toByteArray());
+        }catch (Exception e) {
+            System.out.println("Something went wrong during the image retrieval");
+        }
+        if (imageBytes == null) {
+            return null;
+        }
+        return PictureMapper.mapToModelUser(imageBytes);
     }
 
     @Override

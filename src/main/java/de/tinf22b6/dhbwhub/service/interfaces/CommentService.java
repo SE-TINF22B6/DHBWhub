@@ -20,5 +20,6 @@ public interface CommentService {
     List<Comment> findByPostId(Long postId);
     int increaseLikes(LikeCommentProposal likeCommentProposal);
     int decreaseLikes(LikeCommentProposal likeCommentProposal);
+    boolean isLiked(LikeCommentProposal likeCommentProposal);
     CommentThreadViewProposal getCommentThreadView(Long id);
 }

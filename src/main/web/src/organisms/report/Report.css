@@ -103,6 +103,7 @@
 .report-popup-input,
 .report-popup-textarea {
   font-size: var(--text-font-size);
+  font-family: "Source Sans Pro-SemiBold", Helvetica, serif;
 }
 
 .report-popup-button-label {

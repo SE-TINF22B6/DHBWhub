@@ -64,7 +64,7 @@
   width: 920px;
   transform: translate(-25%, -50%);
   height: 34px;
-
+  color: var(--white);
 }
 
 .comment-input-field:focus,

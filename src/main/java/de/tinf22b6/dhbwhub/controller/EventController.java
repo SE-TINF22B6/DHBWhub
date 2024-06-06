@@ -47,11 +47,6 @@ public class EventController {
         return service.create(proposal);
     }
 
-    @PutMapping("/update-event/{id}")
-    public EventThreadViewProposal update(@PathVariable Long id, @RequestBody UpdateEventPostProposal proposal) {
-        return service.update(id, proposal);
-    }
-
     @PostMapping("/create-comment")
     public EventCommentThreadViewProposal create(@RequestBody CreateEventCommentProposal proposal) {
         return service.create(proposal);
@@ -72,6 +67,11 @@ public class EventController {
         return service.adjustPostLikes(likeEventPostProposal,1);
     }
 
+    @PostMapping("/post-is-liked")
+    public boolean isPostLiked(@RequestBody LikeEventPostProposal likeEventPostProposal) {
+        return service.isPostLiked(likeEventPostProposal);
+    }
+
     @PutMapping("/comment-increase-likes")
     public int increaseLikesComment(@RequestBody LikeEventCommentProposal likeEventCommentProposal) {
         return service.adjustCommentLikes(likeEventCommentProposal,0);
@@ -80,6 +80,11 @@ public class EventController {
     @PutMapping("/comment-decrease-likes")
     public int decreaseLikesComment(@RequestBody LikeEventCommentProposal likeEventCommentProposal) {
         return service.adjustCommentLikes(likeEventCommentProposal,1);
+    }
+
+    @PostMapping("/comment-is-liked")
+    public boolean isCommentLiked(@RequestBody LikeEventCommentProposal likeEventCommentProposal) {
+        return service.isCommentLiked(likeEventCommentProposal);
     }
 
     @DeleteMapping("/{id}")

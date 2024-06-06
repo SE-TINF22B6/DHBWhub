@@ -44,7 +44,7 @@ public class CommentMapper {
                 comment.getPost() != null? comment.getPost().getId() : null,
                 comment.getId(),
                 comment.getDescription(),
-                comment.getUser() != null ? comment.getUser().getAccount().getUsername() : null,
+                comment.getUser() != null ? comment.getUser().getAccount().getUsername() : User.USER_DELETED,
                 comment.getUser() != null ? comment.getUser().getAccount().getId() : null,
                 comment.getUser() != null && comment.getUser().getAccount().getPicture() != null ? comment.getUser().getAccount().getPicture().getImageData() : null,
                 comment.getTimestamp(),

@@ -1,0 +1,29 @@
+name: Epic
+description: Creating a new Epic
+title: "💯 "
+labels:
+- epic
+projects:
+  - SE-TINF22B6/6
+body:
+- type: markdown
+  attributes:
+    value: "## 💯 Epic\nPlease fill out the following details to help us effectively plan and execute the Epic."
+
+- type: textarea
+  attributes:
+    label: Epic Description
+    description: "Provide a detailed description of the Epic."
+    placeholder: "This project should provide ... so that ..."
+    render: markdown
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Acceptance Criteria
+    description: "What are the acceptance criteria for this Epic?"
+    placeholder: "List the conditions that must be met for the Epic to be considered complete."
+    render: markdown
+  validations:
+    required: true

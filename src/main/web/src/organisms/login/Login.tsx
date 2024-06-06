@@ -3,10 +3,11 @@ import {NavigateFunction, useNavigate} from 'react-router-dom';
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import './Login.css';
-import {login} from "../../services/AuthService";
+import {googleLogin, login} from "../../services/AuthService";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import EmailInput from "../signup/EmailInput";
-import {GoogleLogin} from "@react-oauth/google";
+
+import {CredentialResponse, GoogleLogin} from "@react-oauth/google";
 
 type Props = {}
 
@@ -44,11 +45,11 @@ const Login: React.FC<Props> = () => {
         setLoading(true);
 
         login(username, password, rememberMe).then(
-            () => {
+            (): void => {
                 navigate("/profile");
                 window.location.reload();
             },
-            (error) => {
+            (error): void => {
                 const resMessage =
                     (error.response &&
                         error.response.data &&
@@ -56,6 +57,21 @@ const Login: React.FC<Props> = () => {
                     error.message ||
                     error.toString();
 
+                setLoading(false);
+                setMessage(resMessage);
+            }
+        );
+    };
+
+    const handleGoogleLogin = (credentialResponse: CredentialResponse): void => {
+        console.log(credentialResponse);
+        googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
+            (): void => {
+                navigate("/profile");
+                window.location.reload();
+            },
+            (): void => {
+                const resMessage = "Unable to sign in via Google";
                 setLoading(false);
                 setMessage(resMessage);
             }
@@ -121,11 +137,10 @@ const Login: React.FC<Props> = () => {
                             </div>
 
                             <div className="google-oauth-login">
-                                <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
+
+                              <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
                                              text={"continue_with"}
-                                    onSuccess={credentialResponse => {
-                                        console.log(credentialResponse);
-                                    }}
+                                    onSuccess={handleGoogleLogin}
                                     onError={() => {
                                         console.log('Login Failed');
                                     }}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './SavedPosts.css';
 import { Link } from "react-router-dom";
 import { SavedPostModel } from "./model/SavedPostModel";
@@ -11,10 +11,10 @@ export const SavedPosts = () => {
   const [savedPosts, setSavedPosts] = useState<SavedPostModel[]>();
   const userId: number | null = getUserId();
   const jwt: string | null = getJWT();
-  const headersWithJwt = {
+  const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
+  }), [jwt]);
   const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
   useEffect((): void => {
@@ -27,7 +27,6 @@ export const SavedPosts = () => {
           });
           if (response.ok) {
             const data = await response.json();
-            console.log('Saved posts:' + data);
             setSavedPosts(data);
           } else {
             console.log(new Error("Failed to fetch saved posts"));
@@ -35,19 +34,21 @@ export const SavedPosts = () => {
         } catch (error) {
           console.error("Error fetching saved posts:", error);
         }
-      } else {
-        console.log("User is not logged in: cannot fetch saved posts.");
       }
     };
     fetchSavedPosts();
-  }, []);
+  }, [userId, headersWithJwt]);
 
   const uniqueSavedPosts: SavedPostModel[] = (savedPosts ?? []).filter(
       (post: SavedPostModel, index: number, self: SavedPostModel[]): boolean =>
           self.findIndex(p => p.postId === post.postId) === index
   );
 
-  if (savedPosts) {
+  if (uniqueSavedPosts.length === 0) {
+    return null;
+  }
+
+  if (uniqueSavedPosts) {
     return (
         <div className="saved-posts">
           <div className="component-headline">Saved posts</div>

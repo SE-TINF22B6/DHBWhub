@@ -13,11 +13,9 @@ export default function ToolbarPlugin() {
     const toolbarRef = useRef(null);
     const [canUndo, setCanUndo] = useState(false);
     const [canRedo, setCanRedo] = useState(false);
-    const [blockType, setBlockType] = useState("paragraph");
-    const [selectedElementKey, setSelectedElementKey] = useState(null);
-    const [showBlockOptionsDropDown, setShowBlockOptionsDropDown] = useState(
-        false
-    );
+    const [blockType, setBlockType] = useState("paragraph"); // eslint-disable-line no-unused-vars
+    const [selectedElementKey, setSelectedElementKey] = useState(null); // eslint-disable-line no-unused-vars
+    const [showBlockOptionsDropDown, setShowBlockOptionsDropDown] = useState(false); // eslint-disable-line no-unused-vars
 
     const updateToolbar = useCallback(() => {
         const selection = $getSelection();

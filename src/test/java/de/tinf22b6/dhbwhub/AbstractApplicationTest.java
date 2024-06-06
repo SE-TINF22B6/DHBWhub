@@ -15,11 +15,11 @@ import java.util.List;
 
 public abstract class AbstractApplicationTest {
 	protected Picture createDefaultPicture() {
-		return new Picture("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new Picture("profile.png", "ahudmpiwmhapicuhawiughui");
 	}
 
 	protected Picture createDefaultPicture2() {
-		return new Picture("img-user", new byte[]{ 12, 34, 44, 67, 78 });
+		return new Picture("img-user", "ahudmpiwmhapicuhawiughui");
 	}
 
 	protected Account createDefaultAccount() {
@@ -55,11 +55,11 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected User createDefaultUser() {
-		return new User(19, "Ich studiere Informatik", createDefaultCourse(), createDefaultAccount());
+		return new User(20, "Ich studiere Informatik", createDefaultCourse(), createDefaultAccount());
 	}
 
 	protected User createDefaultUser2() {
-		return new User(21, "Ich studiere Jura", createDefaultCourse2(), createDefaultAccount2());
+		return new User(20, "Ich studiere Jura", createDefaultCourse2(), createDefaultAccount2());
 	}
 
 	protected Friendship createDefaultFriendship() {
@@ -110,9 +110,8 @@ public abstract class AbstractApplicationTest {
 		return new SavedPost(createDefaultUser2(), createDefaultPost2());
 	}
 
-
 	protected PictureProposal createDefaultPictureProposal() {
-		return new PictureProposal("profile.png", new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new PictureProposal("profile.png", "ahudmpiwmhapicuhawiughui");
 	}
 
 	protected AccountProposal createDefaultAccountProposal() {
@@ -132,11 +131,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected UserProposal createDefaultUserProposal() {
-		return new UserProposal(19, "Ich studiere Informatik", createDefaultCourseProposal(), createDefaultAccountProposal());
-	}
-
-	protected FriendshipProposal createDefaultFriendshipProposal() {
-		return new FriendshipProposal(createDefaultAccountProposal(), createDefaultAccountProposal(), false);
+		return new UserProposal(20, "Ich studiere Informatik", createDefaultCourseProposal(), createDefaultAccountProposal());
 	}
 
 	protected PostProposal createDefaultPostProposal() {
@@ -152,19 +147,19 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected HomepagePostPreviewProposal createDefaultHomepagePostPreviewProposal() {
-		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno");
+		return new HomepagePostPreviewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), "ahudmpiwmhapicuhawiughui", 1L, "Bruno");
 	}
 
 	protected PostThreadViewProposal createDefaultPostThreadViewProposal() {
-		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L, "Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 }, List.of(createDefaultCommentThreadViewProposal()));
+		return new PostThreadViewProposal(1L,"Titel 1","Beschreibung 1", Arrays.stream(new String[]{"Tag 1", "Tag 2"}).toList(), 12, 4, new Date(1478979207L), "ahudmpiwmhapicuhawiughui", 1L, "Bruno", "ahudmpiwmhapicuhawiughui", List.of(createDefaultCommentThreadViewProposal()));
 	}
 
 	protected CommentThreadViewProposal createDefaultCommentThreadViewProposal() {
-		return new CommentThreadViewProposal(1L, 0L,"Beschreibung 1", "Bruno", 1L,  new byte[]{ 12, 34, 45, 67, 78, 91 }, new Date(1478979207L), 23);
+		return new CommentThreadViewProposal(1L, 0L,"Beschreibung 1", "Bruno", 1L, "ahudmpiwmhapicuhawiughui", new Date(1478979207L), 23);
 	}
 
 	protected FriendlistProposal createDefaultFriendlistProposal() {
-		return new FriendlistProposal(1L,2L,"Bruno", new byte[]{ 12, 34, 45, 67, 78, 91 });
+		return new FriendlistProposal(1L,2L,"Bruno", "ahudmpiwmhapicuhawiughui");
 	}
 
 	protected CreateCommentProposal createDefaultCreateCommentProposal() {
@@ -176,7 +171,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected CreatePostProposal createDefaultCreatePostProposal() {
-		return new CreatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, new Date(1478979207L), new byte[]{ 12, 34, 45, 67, 78, 91 }, 1L);
+		return new CreatePostProposal("Titel 1", "Beschreibung 1", new String[]{"Tag 1", "Tag 2"}, new Date(1478979207L), "ahudmpiwmhapicuhawiughui", 1L);
 	}
 
 	protected UpdatePostProposal createDefaultUpdatePostProposal() {
@@ -184,15 +179,15 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected EventPost createDefaultEventPost() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 1, createDefaultPicture(), createDefaultUser());
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 1);
 	}
 
 	protected EventPost createUpdatedDefaultEventPost() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 2, createDefaultPicture(), createDefaultUser());
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 2);
 	}
 
 	protected EventPost createUpdatedDefaultEventPost2() {
-		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), 0, createDefaultPicture(), createDefaultUser());
+		return new EventPost("Titel 1", "Beschreibung 1", "Location 1", 1.0, 2.0, new Date(1478979207L), new Date(1478979208L), 0);
 	}
 
 	protected EventComment createDefaultEventComment() {
@@ -236,14 +231,6 @@ public abstract class AbstractApplicationTest {
 
 	protected EventCommentThreadViewProposal createDefaultEventCommentThreadViewProposal() {
 		return new EventCommentThreadViewProposal(1L, 1L,  "Beschreibung 1", "Maxim", 1L, createDefaultPicture().getImageData(), new Date(1478979207L), 0);
-	}
-
-	protected CreateEventCommentProposal createDefaultCreateEventCommentProposal() {
-		return new CreateEventCommentProposal(1L, 1L, "Beschreibung 1", new Date(1478979207L));
-	}
-
-	protected UpdateEventCommentProposal createDefaultUpdateEventCommentProposal() {
-		return new UpdateEventCommentProposal("Beschreibung 1");
 	}
 
 	protected FollowUserProposal createDefaultFollowUserProposal() {
@@ -292,22 +279,6 @@ public abstract class AbstractApplicationTest {
 
 	protected DeleteNotificationProposal createDeleteNotificationProposal() {
 		return new DeleteNotificationProposal(1L, null, "Type-Post-Like");
-	}
-
-	protected DeleteNotificationProposal createDeleteNotificationProposal2() {
-		return new DeleteNotificationProposal(1L, null, "Type-Post-Comment");
-	}
-
-	protected DeleteNotificationProposal createDeleteNotificationProposal3() {
-		return new DeleteNotificationProposal(1L, null, "Type-Comment-Like");
-	}
-
-	protected DeleteNotificationProposal createDeleteNotificationProposal4() {
-		return new DeleteNotificationProposal(1L, null, "Type-Event-Comment-Like");
-	}
-
-	protected DeleteNotificationProposal createDeleteNotificationProposal5() {
-		return new DeleteNotificationProposal(1L, null, "Type-Follow");
 	}
 
 	protected UserLikes createDefaultUserLikes() {
@@ -360,5 +331,41 @@ public abstract class AbstractApplicationTest {
 
 	protected DeleteSavedPostProposal createDeleteSavedPostProposal() {
 		return new DeleteSavedPostProposal(1L, 1L);
+	}
+
+	protected ProfileInformationProposal createProfileInformationProposal() {
+		return new ProfileInformationProposal(12, "adsa@gmail.com", "Beschreibung 1", "TINF22B6");
+	}
+
+	protected UserInformationProposal createUserInformationProposal() {
+		return new UserInformationProposal(1L , createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
+	}
+
+	protected UpdateAgeProposal createUpdateAgeProposal() {
+		return new UpdateAgeProposal(1L, 12);
+	}
+
+	protected UpdateDescriptionProposal createUpdateDescriptionProposal() {
+		return new UpdateDescriptionProposal(1L, "Beschreibung 1");
+	}
+
+	protected UpdateCourseProposal createUpdateCourseProposal() {
+		return new UpdateCourseProposal(1L, "TINF22B6");
+	}
+
+	protected UpdateEmailProposal createUpdateEmailProposal() {
+		return new UpdateEmailProposal(1L, "test@gmail.com");
+	}
+
+	protected UpdateUsernameProposal createUpdateUsernameProposal() {
+		return new UpdateUsernameProposal(1L, "User1");
+	}
+
+	protected UpdatePasswordProposal createUpdatePasswordProposal() {
+		return new UpdatePasswordProposal(1L, "NeuesPasswort");
+	}
+
+	protected UpdatePictureProposal createUpdatePictureProposal() {
+		return new UpdatePictureProposal(1L, "ahudmpiwmhapicuhawiughui");
 	}
 }

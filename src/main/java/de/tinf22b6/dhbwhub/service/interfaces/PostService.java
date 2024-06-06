@@ -10,10 +10,12 @@ public interface PostService {
     List<Post> getAll();
     Post create(PostProposal proposal);
     HomepagePostPreviewProposal create(CreatePostProposal proposal);
+    void report(ReportPostProposal proposal);
     Post get(Long id);
     Post update(Long id, PostProposal proposal);
     int increaseLikes(LikePostProposal likePostProposal);
     int decreaseLikes(LikePostProposal likePostProposal);
+    boolean isLiked(LikePostProposal likePostProposal);
     PostThreadViewProposal update(Long id, UpdatePostProposal proposal);
     void delete(Long id);
     int getAmountOfComments(Long id);

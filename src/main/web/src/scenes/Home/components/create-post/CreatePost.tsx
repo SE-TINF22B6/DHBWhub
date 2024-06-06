@@ -18,7 +18,13 @@ export const CreatePost = () => {
   };
 
   useEffect((): void => {
-    ProfilePictureService.fetchUserImage(setUserImage);
+    const fetchUserImage = async () => {
+      const image: string | null = await ProfilePictureService.fetchUserImage();
+      if (image) {
+        setUserImage(image);
+      }
+    };
+    fetchUserImage();
   }, []);
 
   return (
