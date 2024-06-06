@@ -1,6 +1,6 @@
 .modal-container {
-    width: 500px; /* Ändere die Breite hier nach Bedarf */
-    max-width: 90%; /* Optional: Maximalbreite auf 90% des Viewports setzen */
+    width: 500px;
+    max-width: 90%;
     height: auto;
     z-index: 10;
     border-radius: 16px;

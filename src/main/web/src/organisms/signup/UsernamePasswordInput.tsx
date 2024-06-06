@@ -5,7 +5,6 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import './UsernamePasswordInput.css';
-import ErrorModal from "./ErrorModal";
 import ErrorUsernameModal from "./ErrorUsernameModal";
 
 const UsernamePasswordInput = () => {
