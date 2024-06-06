@@ -15,6 +15,7 @@ public interface PostService {
     Post update(Long id, PostProposal proposal);
     int increaseLikes(LikePostProposal likePostProposal);
     int decreaseLikes(LikePostProposal likePostProposal);
+    boolean isLiked(LikePostProposal likePostProposal);
     PostThreadViewProposal update(Long id, UpdatePostProposal proposal);
     void delete(Long id);
     int getAmountOfComments(Long id);
