@@ -5,6 +5,6 @@
   display: inline-flex;
   flex-direction: column;
   border-radius: 25px;
-  background-color: var(--grey);
+  background-color: var(--component-grey);
   width: 1400px;
 }

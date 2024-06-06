@@ -1,12 +1,13 @@
 import config from "../config/config";
-import {getJWT} from "./AuthService";
+import {getJWT, getUserId} from "./AuthService";
 
-const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number | null, userId: number): void => {
+const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number | null, type: string): void => {
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
   };
+  const userId: number | null = getUserId();
 
   const report = {
     reportReason: reportReason,
@@ -14,27 +15,22 @@ const sendReportToBackend = (reportReason: string, reportDescription: string, po
     postId: postId,
     authorId: authorId,
     userId: userId,
+    type: type
   };
 
-  fetch(config.apiUrl + 'report', {
+  console.log('Report:', JSON.stringify(report));
+
+  fetch(config.apiUrl + 'post/report', {
     method: 'POST',
     headers: headersWithJwt,
     body: JSON.stringify(report),
-    credentials: 'include',
   })
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      console.log(response);
+      throw new Error('Error sending report: ' + response.statusText);
     }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-    alert('Report has been sent!');
-  })
-  .catch(error => {
-    console.error('Fetch error:', error);
-    alert('Error sending the report');
+    alert('Report of post ' + postId + ' sent successfully');
   });
 };
 

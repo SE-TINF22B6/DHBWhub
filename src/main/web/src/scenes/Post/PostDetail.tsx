@@ -53,7 +53,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, 187);
+    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, "post");
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
@@ -131,6 +131,22 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
 
+  const handleClose = () => {
+    setReportOpen(false);
+  };
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && reportOpen) {
+        handleClose();
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [reportOpen, handleClose]);
+
   return (
       <div className="post-detail">
         <div className="post-detail-content">
@@ -197,11 +213,10 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
             <div className="post-detail-report-window">
               <Report
                   reportOpen={reportOpen}
-                  reportReason={reportReason}
-                  reportDescription={reportDescription}
                   setReportReason={setReportReason}
                   setReportDescription={setReportDescription}
                   handleReportSubmit={handleReportSubmit}
+                  handleClose={handleClose}
               />
             </div>
         )}

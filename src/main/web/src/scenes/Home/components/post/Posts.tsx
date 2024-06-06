@@ -2,16 +2,17 @@ import React, {useEffect, useMemo, useState} from "react";
 import "./Posts.css";
 import { Post } from "./Post";
 import {PostModel} from "./models/PostModel";
-import {dummyPosts} from "./dummyPosts";
 import config from "../../../../config/config";
 import {getJWT, getUserId, isUserLoggedIn} from "../../../../services/AuthService";
+import Lottie from "lottie-react";
+import animationData from "../../../../assets/loading.json";
 
 interface PostsProps {
   sortOption: string;
 }
 
 export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
-  const [posts, setPosts] = useState<PostModel[]>(dummyPosts);
+  const [posts, setPosts] = useState<PostModel[]>();
   const [followingPosts, setFollowingPosts] = useState<PostModel[]>([]);
   const jwt: string | null = getJWT();
   const headersWithJwt = useMemo(() => ({
@@ -19,6 +20,7 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
     'Authorization': jwt ? `Bearer ${jwt}` : ''
   }), [jwt]);
   const userId: number | null = getUserId();
+  const [loading, setLoading] = useState(true);
 
   useEffect((): void => {
     const fetchPosts = async (): Promise<void> => {
@@ -29,6 +31,7 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
         if (response.ok) {
           const data = await response.json();
           setPosts(data);
+          setLoading(false);
         } else {
           console.log(new Error("Failed to fetch posts"));
         }
@@ -55,14 +58,13 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
         } catch (error) {
           console.error("Error fetching following posts:", error);
         }
-      } else {
-        console.log("User is not logged in: cannot fetch following posts.");
       }
     };
     fetchFollowingPosts();
   }, [headersWithJwt, userId]);
 
   const sortedPosts = (): PostModel[] => {
+    if (posts === undefined) return [];
     switch (sortOption) {
       case "newest":
         return posts.sort((a: PostModel, b: PostModel) => Date.parse(new Date(b.timestamp).toISOString()) -
@@ -76,6 +78,16 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
     }
   };
 
+  if (loading) {
+    return (
+        <div className="posts">
+          <div className="loading-animation">
+            <Lottie animationData={animationData}/>
+          </div>
+        </div>
+    );
+  }
+
   return (
       <div className="posts">
         {sortedPosts().map(post => (
@@ -88,7 +100,7 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
                 likeAmount={post.likeAmount}
                 commentAmount={post.commentAmount}
                 timestamp={post.timestamp}
-                image={post.image}
+                postImage={post.postImage}
                 accountId={post.accountId}
                 username={post.username}
             />

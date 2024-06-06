@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './Report.css';
 import Modal from "@mui/material/Modal";
 import { useFormik } from 'formik';
@@ -6,11 +6,10 @@ import * as yup from 'yup';
 
 interface ReportPostProps {
   reportOpen: boolean;
-  reportReason: string;
-  reportDescription: string;
   setReportReason: React.Dispatch<React.SetStateAction<string>>;
   setReportDescription: React.Dispatch<React.SetStateAction<string>>;
   handleReportSubmit: () => void;
+  handleClose: () => void;
 }
 
 export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
@@ -19,6 +18,7 @@ export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
     setReportReason,
     setReportDescription,
     handleReportSubmit,
+    handleClose,
   } = props;
 
   const validationSchema = yup.object().shape({
@@ -31,7 +31,7 @@ export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
       reportDescription: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: (values): void => {
       setReportReason(values.reportReason);
       setReportDescription(values.reportDescription);
       handleReportSubmit();
@@ -43,7 +43,7 @@ export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
   }
 
   return (
-      <Modal open={reportOpen} onClose={() => handleReportSubmit()}>
+      <Modal open={reportOpen} onClose={handleClose}>
         <div className="report-popup">
           <div className="report-popup-header">Report Form</div>
           <form className="report-form" onSubmit={formik.handleSubmit}>
@@ -55,6 +55,7 @@ export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
                 name="reportReason"
                 value={formik.values.reportReason}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
             />
             {formik.errors.reportReason && formik.touched.reportReason && (
                 <div className="report-error">{formik.errors.reportReason}</div>
@@ -67,6 +68,7 @@ export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
                 name="reportDescription"
                 value={formik.values.reportDescription}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
             />
             <br/>
             <button className="report-popup-button" type="submit">

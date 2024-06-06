@@ -5,7 +5,6 @@ import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
 import {logout} from "../../services/AuthService";
 import {NavigateFunction, useNavigate} from "react-router-dom";
-import {boolean} from "yup";
 
 interface ProfileData {
     username: string;
@@ -56,7 +55,7 @@ export const ProfilePage = () => {
         <div className="page">
             <Header />
             <div className="profile-container">
-                <div className="profile-picture">
+                <div className="profile-page-picture">
                     <img src={profileData.profilePicture} alt="Profile"/>
                     <input type="file"/>
                 </div>

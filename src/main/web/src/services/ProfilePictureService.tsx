@@ -1,7 +1,7 @@
 import config from "../config/config";
-import {getJWT, getUserId, isUserLoggedIn} from "./AuthService";
+import { getJWT, getUserId, isUserLoggedIn } from "./AuthService";
 
-const fetchUserImage = async (setUserImage: (data: any) => void): Promise<void> => {
+const fetchUserImage = async (): Promise<string | null> => {
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
@@ -16,15 +16,18 @@ const fetchUserImage = async (setUserImage: (data: any) => void): Promise<void> 
       });
       if (response.ok) {
         const data = await response.json();
-        setUserImage(data);
+        localStorage.setItem('userImage', data.imageData);
+        return data.imageData;
       } else {
         console.log(new Error("Failed to fetch user image"));
+        return null;
       }
     } catch (error) {
       console.error("Error fetching user image:", error);
+      return null;
     }
   } else {
-    console.log("User is not logged in: cannot fetch user image.");
+    return null;
   }
 };
 

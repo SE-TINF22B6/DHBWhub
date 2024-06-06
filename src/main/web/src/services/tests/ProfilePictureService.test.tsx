@@ -1,100 +1,94 @@
 import ProfilePictureService from '../ProfilePictureService';
-import { getJWT, getUserId, isUserLoggedIn } from '../AuthService';
-import config from '../../config/config';
+import config from "../../config/config";
+import { getJWT, getUserId, isUserLoggedIn } from "../AuthService";
 
 jest.mock('../AuthService', () => ({
   getJWT: jest.fn(),
   getUserId: jest.fn(),
-  isUserLoggedIn: jest.fn(),
+  isUserLoggedIn: jest.fn()
 }));
 
-global.console.log = jest.fn();
-global.console.error = jest.fn();
 global.fetch = jest.fn();
 
-describe('fetchUserImage', (): void => {
-  const setUserImage = jest.fn();
-
+describe('ProfilePictureService', () => {
   beforeEach((): void => {
     jest.clearAllMocks();
   });
 
-  it('should fetch user image successfully when user is logged in', async (): Promise<void> => {
-    const mockData = { image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz3' };
+  it('should fetch user image if user is logged in', async (): Promise<void> => {
+    const mockImageData = 'mockImageData';
     const mockResponse = {
       ok: true,
-      json: jest.fn().mockResolvedValue(mockData),
+      json: jest.fn().mockResolvedValue({ imageData: mockImageData })
     };
-    (getJWT as jest.Mock).mockReturnValue('mock-jwt');
+    (getJWT as jest.Mock).mockReturnValue('mockJwt');
     (getUserId as jest.Mock).mockReturnValue(1);
     (isUserLoggedIn as jest.Mock).mockReturnValue(true);
-    (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+    (fetch as jest.Mock).mockResolvedValue(mockResponse);
 
-    await ProfilePictureService.fetchUserImage(setUserImage);
+    const result: string | null = await ProfilePictureService.fetchUserImage();
 
-    expect(isUserLoggedIn).toHaveBeenCalled();
-    expect(getJWT).toHaveBeenCalled();
-    expect(getUserId).toHaveBeenCalled();
-    expect(global.fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
+    expect(fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
       headers: {
         ...config.headers,
-        'Authorization': 'Bearer mock-jwt',
-      },
+        'Authorization': 'Bearer mockJwt'
+      }
     });
-    expect(setUserImage).toHaveBeenCalledWith(mockData);
+    expect(localStorage.getItem('userImage')).toBe(mockImageData);
+    expect(result).toBe(mockImageData);
   });
 
-  it('should not fetch user image if user is not logged in', async (): Promise<void> => {
+  it('should return null if user is not logged in', async (): Promise<void> => {
     (isUserLoggedIn as jest.Mock).mockReturnValue(false);
 
-    await ProfilePictureService.fetchUserImage(setUserImage);
+    const result: string | null = await ProfilePictureService.fetchUserImage();
 
-    expect(isUserLoggedIn).toHaveBeenCalled();
-    expect(global.fetch).not.toHaveBeenCalled();
-    expect(setUserImage).not.toHaveBeenCalled();
-    expect(console.log).toHaveBeenCalledWith("User is not logged in: cannot fetch user image.");
+    expect(fetch).not.toHaveBeenCalled();
+    expect(result).toBeNull();
   });
 
-  it('should handle fetch failure', async (): Promise<void> => {
+  it('should return null and log error if fetch fails', async (): Promise<void> => {
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    (getJWT as jest.Mock).mockReturnValue('mockJwt');
+    (getUserId as jest.Mock).mockReturnValue(1);
+    (isUserLoggedIn as jest.Mock).mockReturnValue(true);
+    (fetch as jest.Mock).mockRejectedValue(new Error('Fetch failed'));
+
+    const result: string | null = await ProfilePictureService.fetchUserImage();
+
+    expect(fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
+      headers: {
+        ...config.headers,
+        'Authorization': 'Bearer mockJwt'
+      }
+    });
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error fetching user image:", new Error('Fetch failed'));
+    expect(result).toBeNull();
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('should return null if response is not ok', async (): Promise<void> => {
     const mockResponse = {
-      ok: false,
-      statusText: 'Not Found',
+      ok: false
     };
-    (getJWT as jest.Mock).mockReturnValue('mock-jwt');
+    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+    (getJWT as jest.Mock).mockReturnValue('mockJwt');
     (getUserId as jest.Mock).mockReturnValue(1);
     (isUserLoggedIn as jest.Mock).mockReturnValue(true);
-    (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+    (fetch as jest.Mock).mockResolvedValue(mockResponse);
 
-    await ProfilePictureService.fetchUserImage(setUserImage);
+    const result: string | null = await ProfilePictureService.fetchUserImage();
 
-    expect(isUserLoggedIn).toHaveBeenCalled();
-    expect(global.fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
+    expect(fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
       headers: {
         ...config.headers,
-        'Authorization': 'Bearer mock-jwt',
-      },
+        'Authorization': 'Bearer mockJwt'
+      }
     });
-    expect(setUserImage).not.toHaveBeenCalled();
-    expect(console.log).toHaveBeenCalledWith(new Error("Failed to fetch user image"));
-  });
+    expect(consoleLogSpy).toHaveBeenCalledWith(new Error("Failed to fetch user image"));
+    expect(result).toBeNull();
 
-  it('should handle fetch error', async () => {
-    const mockError = new Error('Network Error');
-    (getJWT as jest.Mock).mockReturnValue('mock-jwt');
-    (getUserId as jest.Mock).mockReturnValue(1);
-    (isUserLoggedIn as jest.Mock).mockReturnValue(true);
-    (global.fetch as jest.Mock).mockRejectedValue(mockError);
-
-    await ProfilePictureService.fetchUserImage(setUserImage);
-
-    expect(isUserLoggedIn).toHaveBeenCalled();
-    expect(global.fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
-      headers: {
-        ...config.headers,
-        'Authorization': 'Bearer mock-jwt',
-      },
-    });
-    expect(setUserImage).not.toHaveBeenCalled();
-    expect(console.error).toHaveBeenCalledWith("Error fetching user image:", mockError);
+    consoleLogSpy.mockRestore();
   });
 });

@@ -6,10 +6,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: true # Enabled for debug purposes
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true # Enabled for debug purposes
+        format_sql: true
   mail:
     host: smtp.strato.de
     port: 465
@@ -26,6 +26,21 @@ spring:
     suffix: ".html"
     cache: false
     encoding: UTF-8
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            scope:
+              - profile
+              - email
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
 server:
   port: 8443
   ssl:
@@ -34,12 +49,12 @@ server:
     key-store-password: ${KEY_STORE_PASSWORD}
     key-store-type: "PKCS12"
     key-alias: "tomcat"
+
 #App Properties
 DHBWhub:
   app:
     jwtSecret: ${JWT_SECRET}
     jwtExpirationMs: 86400000
-
 # server:
   # error:
     # whitelabel:

@@ -1,13 +1,13 @@
 .profile-container {
   border-radius: 10px;
   padding: 30px;
-  width: 400px; /* Vergrößere die Breite des Containers */
+  width: 400px;
   text-align: center;
   background-color: var(--component-grey);
-  margin: 0 auto; /* Zentriert den Container auf der Seite */
+  margin: 0 auto;
 }
 
-.profile-picture img {
+.profile-page-picture img {
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -15,15 +15,14 @@
   margin-bottom: 20px;
 }
 
-.profile-picture {
-  margin-bottom: 80px;
+.profile-page-picture {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
 }
 
-.profile-picture input {
+.profile-page-picture input {
   display: none;
 }
 

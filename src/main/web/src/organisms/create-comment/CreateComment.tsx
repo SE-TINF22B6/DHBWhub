@@ -32,7 +32,13 @@ export const CreateComment: React.FC<CreateCommentProps> = ({ onReplyClick }) =>
   };
 
   useEffect((): void => {
-    ProfilePictureService.fetchUserImage(setUserImage);
+    const fetchUserImage = async () => {
+      const image: string | null = await ProfilePictureService.fetchUserImage();
+      if (image) {
+        setUserImage(image);
+      }
+    };
+    fetchUserImage();
   }, []);
 
   return (

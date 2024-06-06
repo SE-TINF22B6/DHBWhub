@@ -37,8 +37,6 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   useEffect((): void => {
     if (authorImage != null) {
       setImage(authorImage);
-    } else {
-      console.log("No author image for comment with id " + commentId + ", using default");
     }
   }, [authorImage, commentId]);
 
@@ -47,7 +45,7 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, 187);
+    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, "comment");
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
@@ -74,6 +72,22 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   const handleLike = (): void => {
     LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
+
+  const handleClose = () => {
+    setReportOpen(false);
+  };
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && reportOpen) {
+        handleClose();
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [reportOpen, handleClose]);
 
   return (
       <div className="comment">
@@ -112,11 +126,10 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
             <div className="comment-report-window">
               <Report
                   reportOpen={reportOpen}
-                  reportReason={reportReason}
-                  reportDescription={reportDescription}
                   setReportReason={setReportReason}
                   setReportDescription={setReportDescription}
                   handleReportSubmit={handleReportSubmit}
+                  handleClose={handleClose}
               />
             </div>
         )}
