@@ -13,4 +13,7 @@ public interface SpringUserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT * FROM client_user WHERE account_id IN (SELECT account_id WHERE username LIKE '%?1%')", nativeQuery = true)
     List<User> findUsersWithKeyword(String keyword);
+
+    @Query(value = "SELECT v.follower FROM view_follower_amount v WHERE v.receiver_id = ?1", nativeQuery = true)
+    Integer findFollowerAmountByUserId(Long userId);
 }

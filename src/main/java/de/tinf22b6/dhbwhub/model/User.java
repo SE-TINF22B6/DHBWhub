@@ -13,6 +13,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "client_user")
 public class User {
+    public static String USER_DELETED = "DeletedUser";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
     @SequenceGenerator(name = "user_generator", sequenceName = "user_seq", allocationSize = 1)

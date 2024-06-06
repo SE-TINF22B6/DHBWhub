@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Post.css';
 import {Share} from "../../../../organisms/share/Share";
 import {Link, useLocation} from "react-router-dom";
@@ -24,13 +24,13 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     likeAmount,
     commentAmount,
     timestamp,
-    image,
+    postImage,
     accountId,
     username
   } = props;
 
   const matches: boolean = useMediaQuery('(max-width: 412px)')
-  const formattedTime: string = TimeService.timeDifference(new Date(timestamp).toISOString());
+  const formattedTime: string = TimeService.timeDifference(new Date(timestamp));
   const [likes, setLikes] = useState(likeAmount);
   const [userLiked, setUserLiked] = useState(false);
   const [heartClass, setHeartClass] = useState('heart-empty');
@@ -50,13 +50,14 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   const [reportOpen, setReportOpen] = useState(false);
   const [reportReason, setReportReason] = useState('');
   const [reportDescription, setReportDescription] = useState('');
+  const [imageWidth, setImageWidth] = useState<number | null>(null);
 
   const handleReportClick = (): void => {
     setReportOpen(!reportOpen);
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, 187);
+    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId);
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
@@ -70,9 +71,9 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     }
   }, [location, id]);
 
-  useEffect(() => {
-    setShortDescription(DescriptionService.shortenDescription(description, image ? 190 : matches ? 190 : 280));
-  }, [description, image, matches]);
+  useEffect((): void => {
+    setShortDescription(DescriptionService.shortenDescription(description, postImage ? 190 : matches ? 190 : 280));
+  }, [description, postImage, matches]);
 
   const handleMenuClick = (): void => {
     setMenuOpen(!menuOpen);
@@ -82,6 +83,17 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   const handleShareClick = (): void => {
     setShareWindowOpen(!shareWindowOpen);
   };
+
+  const imageRef = useRef(null);
+
+  useEffect((): void => {
+    const imageElement = imageRef.current;
+    if (imageElement) {
+      const computedStyle: CSSStyleDeclaration = window.getComputedStyle(imageElement);
+      const width: number = parseInt(computedStyle.getPropertyValue('width'));
+      setImageWidth(width);
+    }
+  }, []);
 
   const handleSaveClick = async (): Promise<void> => {
     try {
@@ -137,31 +149,47 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     if (matches) {
       return tags ? '110px' : '0';
     } else {
-      return image ? '180px' : '10px';
+      return postImage ? (imageWidth ? `${imageWidth + 20}px` : '280px') : '10px';
     }
   }
 
   function getWidth() {
     if (matches) {
-      return image ? '240px' : '260px';
+      return postImage ? '240px' : '260px';
     } else {
-      return image ? '440px' : '600px';
+      return postImage ? '300px' : '600px';
     }
   }
 
   function getMarginTop() {
     if (matches) {
-      return image ? '140px' : '5px';
+      return postImage ? '140px' : '5px';
     } else {
       return '0';
     }
   }
 
+  const handleClose = () => {
+    setReportOpen(false);
+  };
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && reportOpen) {
+        handleClose();
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [reportOpen, handleClose]);
+
   return (
       <div className="post-container">
         <div className="post">
           <Link to={`/post/?id=${id}`} aria-label="To the post" className="post-button">
-            {image && <img className="post-image" alt="Post" src={image} loading="lazy" />}
+            {postImage && <img className="post-image" ref={imageRef} alt="Post" src={postImage} loading="lazy" />}
           </Link>
           <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots"
                src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
@@ -174,7 +202,11 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
                   <Tag name={tag} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
-            <p className="short-description" style={{width: getWidth()}}>{shortDescription}</p>
+
+            <p className="short-description" style={{ width: getWidth() }}>
+              {postImage ? DescriptionService.shortenDescription(shortDescription, 150) : shortDescription}
+            </p>
+
             <div className="footer">
               <Link to={`/user/?id=${accountId}`} className="author-link" aria-label="To the author">
                 {username}
@@ -201,11 +233,10 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         {reportOpen && (
             <Report
                 reportOpen={reportOpen}
-                reportReason={reportReason}
-                reportDescription={reportDescription}
                 setReportReason={setReportReason}
                 setReportDescription={setReportDescription}
                 handleReportSubmit={handleReportSubmit}
+                handleClose={handleClose}
             />
         )}
       </div>

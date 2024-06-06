@@ -12,6 +12,7 @@ import {LatLngExpression} from "leaflet";
 import {Interaction} from "../../../organisms/interaction/Interaction";
 import config from "../../../config/config";
 import {EventDetailModel} from "../model/EventDetailModel";
+import {getUserId} from "../../../services/AuthService";
 
 export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel) => {
   const {
@@ -24,7 +25,6 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
     commentAmount,
     startDate,
     endDate,
-    comments,
   } = props;
 
   const [likes, setLikes] = useState(likeAmount);
@@ -32,12 +32,25 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const [heartClass, setHeartClass] = useState('heart-empty');
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
-  const currentPageURL = window.location.href;
+  const currentPageURL: string = window.location.href;
   const location = useLocation();
-  const dateStart: Date  = new Date(startDate * 1000);
+  const dateStart: Date = new Date(startDate * 1000);
   const dateEnd: Date = new Date(endDate * 1000);
-  const allDay: boolean = startDate === endDate;
-  const formattedTime: string = dateStart.getHours() + dateStart.getMinutes() + " Uhr - " + dateEnd.getHours() + dateEnd.getMinutes() + "Uhr";
+  const allDay: boolean = dateStart === dateEnd;
+
+  const formatTime = (date: Date): string => {
+    const hours: number = date.getHours();
+    const minutes: number = date.getMinutes();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    const formattedHours: number = hours % 12 || 12;
+    const formattedMinutes: string = minutes.toString().padStart(2, '0');
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  };
+
+  const formattedStartTime: string = formatTime(dateStart);
+  const formattedEndTime: string = formatTime(dateEnd);
+  const formattedTime: string = allDay ? 'All day' : `${formattedStartTime} - ${formattedEndTime}`;
+
   const position: LatLngExpression = [locationProposal.latitude, locationProposal.longitude];
 
   const [reportOpen, setReportOpen] = useState(false);
@@ -49,7 +62,7 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, null,187);
+    ReportService.sendReportToBackend(reportReason, reportDescription, id, null);
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
@@ -104,19 +117,35 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
     LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
 
+  const handleClose = () => {
+    setReportOpen(false);
+  };
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && reportOpen) {
+        handleClose();
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [reportOpen, handleClose]);
+
   return (
       <div className="event-detail">
         <div className="event-detail-content">
           <div className="event-detail-left-sidebar">
             <div className="event-detail-data">
-              {dateStart.getDay()}.{dateStart.getMonth()}.{dateStart.getFullYear()}
+              {dateStart.getDate()}.{dateStart.getMonth() + 1}.{dateStart.getFullYear()}
               <br/>
               {allDay ? 'All day' : formattedTime}
             </div>
             <div className="event-detail-tags">
               {tags.map((_tag: string, index: number) => (
                   index < 3 &&
-                  <Tag name={tags[index]} index={index} isEventTag={false}/>
+                  <Tag key={index} name={tags[index]} index={index} isEventTag={false}/>
               ))}
             </div>
             <Interaction
@@ -156,11 +185,10 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
           {reportOpen && (
               <Report
                   reportOpen={reportOpen}
-                  reportReason={reportReason}
-                  reportDescription={reportDescription}
                   setReportReason={setReportReason}
                   setReportDescription={setReportDescription}
                   handleReportSubmit={handleReportSubmit}
+                  handleClose={handleClose}
               />
           )}
         </div>

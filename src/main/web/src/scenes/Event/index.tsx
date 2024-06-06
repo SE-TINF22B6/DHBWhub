@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useMemo} from "react";
 import {Link, useLocation} from "react-router-dom";
 import { Header } from "../../organisms/header/Header";
 import { EventDetail } from "./components/EventDetail";
@@ -17,25 +17,26 @@ import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrol
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {useMediaQuery} from "@mui/system";
 import config from "../../config/config";
-import {getJWT} from "../../services/AuthService";
-import {dummyComments} from "./data/dummyComments";
+import {getAccountId, getJWT} from "../../services/AuthService";
 import {EventCommentModel} from "./model/EventCommentModel";
-import {CommentProposalModel} from "../Post/models/CommentProposalModel";
+import {EventCommentProposalModel} from "./model/EventCommentProposalModel";
+import {EventDetailModel} from "./model/EventDetailModel";
 
 export const Event = () => {
-  const location = useLocation();
-  const [event, setEvent] = useState(dummyEvent);
-  const eventId = location.pathname.split('event/').pop();
-  const [post, setPost] = useState(null);
+  const [event, setEvent] = useState<EventDetailModel>(dummyEvent);
+  const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
+  const idString: string | null = searchParams.get('id');
+  const eventId: number | null = idString !== null ? parseInt(idString) : null;
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const jwt: string | null = getJWT();
-  const headersWithJwt = {
+  const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
+  }), [jwt]);
+  const accountId: number | null = getAccountId();
 
-  const [comments, setComments] = useState<EventCommentModel[]>(dummyComments);
+  const [comments, setComments] = useState<EventCommentModel[]>(event.comments);
   const scrollUpRef = useRef<HTMLDivElement>(null);
   const isSmartphoneSize: boolean  = useMediaQuery('(max-width: 412px)');
 
@@ -45,36 +46,51 @@ export const Event = () => {
   useEffect((): void => {
     const fetchEvent = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(config.apiUrl + `event/?id=${eventId}`, {
-          headers: headersWithJwt
+        const response: Response = await fetch(config.apiUrl + `event/event-thread/${eventId}`, {
+          headers: headersWithJwt,
+          method: 'GET'
         });
         if (response.ok) {
-          const eventData = await response.json();
-          setPost(eventData);
-          setComments(eventData.comments);
+          const eventThread = await response.json();
+          console.log(eventThread);
+          setEvent(eventThread);
+          setComments(eventThread.comments);
         } else {
+          console.log(response);
           setNotFound(true);
+          console.log("Event not found");
         }
         setLoading(false);
       } catch (error) {
-        console.error("Fehler beim Abrufen des Events:", error);
+        console.error("Error when retrieving the event thread:", error);
         setNotFound(true);
         setLoading(false);
       }
     };
     fetchEvent();
-  }, [eventId]);
+  }, [eventId, headersWithJwt]);
 
   const handleReplyClick = async (newCommentText: string): Promise<void> => {
-    const commentProposal: CommentProposalModel = {
-      postId: 3,
-      text: newCommentText,
-      accountId: 5,
+    if (eventId == null) {
+      console.error("Event ID null");
+      return;
+    }
+
+    if (accountId == null) {
+      console.error("Account ID null");
+      return;
+    }
+
+    const commentProposal: EventCommentProposalModel = {
+      eventId: eventId,
+      accountId: accountId,
+      description: newCommentText,
       timestamp: Math.floor(new Date().getTime()),
     };
+    console.log(commentProposal);
 
     try {
-      const response: Response = await fetch(config.apiUrl + `post/create-comment`, {
+      const response: Response = await fetch(config.apiUrl + `event/create-comment`, {
         method: 'POST',
         headers: headersWithJwt,
         body: JSON.stringify(commentProposal)
@@ -84,7 +100,8 @@ export const Event = () => {
         const newComment = await response.json();
         setComments([...comments, newComment]);
       } else {
-        setNotFound(true);
+        console.error("Failed to create the comment: ");
+        console.log(response);
       }
       setLoading(false);
     } catch (error) {
@@ -101,6 +118,25 @@ export const Event = () => {
           <div className="loading-animation">
             <Lottie animationData={loadingAnimationData}/>
           </div>
+          <Footer/>
+          {isSmartphoneSize && <MobileFooter/>}
+        </div>
+    );
+  }
+
+  if (notFound) {
+    return (
+        <div className="page">
+          {adBlockDetected && <AdBlockOverlay/>}
+          <Header/>
+          <Link to="/" className="navigate-back-link">
+            <img alt="Navigate back" src={process.env.PUBLIC_URL + '/assets/post/navigate-back-vector.svg'}
+                 className="navigate-back-vector"/>
+            <img alt="Navigate back" src={process.env.PUBLIC_URL + '/assets/post/navigate-back-rectangle.svg'}
+                 className="navigate-back-rectangle"/>
+            <div className="navigate-back-text">Event</div>
+          </Link>
+          <a className="error">Event not Found</a>
           <Footer/>
           {isSmartphoneSize && <MobileFooter/>}
         </div>
@@ -151,7 +187,7 @@ export const Event = () => {
                     authorUsername={comment.authorUsername}
                     authorImage={comment.authorImage}
                     accountId={comment.accountId}
-                    timestamp={comment.timestamp}
+                    timestamp={comment.timestamp * 1000}
                     likeAmount={comment.likeAmount}
                 />
             ))}

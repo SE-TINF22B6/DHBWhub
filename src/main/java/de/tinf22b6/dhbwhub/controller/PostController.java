@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"https://www.dhbwhub.de", "http://localhost:3000"})
 @RequestMapping(value = "/post")
 public class PostController {
     private final PostService service;
@@ -87,6 +86,11 @@ public class PostController {
     @PostMapping("/create-post")
     public HomepagePostPreviewProposal create(@RequestBody CreatePostProposal proposal) {
         return service.create(proposal);
+    }
+
+    @PostMapping("/report")
+    public void report(@RequestBody ReportPostProposal proposal) {
+        service.report(proposal);
     }
 
     @GetMapping("/{id}")

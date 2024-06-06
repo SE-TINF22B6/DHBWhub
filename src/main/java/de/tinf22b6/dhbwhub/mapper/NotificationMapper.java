@@ -142,7 +142,7 @@ public class NotificationMapper {
 
     public static EventCommentLikeNotification mapToEventCommentLikeNotification(EventComment eventComment, User user) {
         return new EventCommentLikeNotification(
-                eventComment.getEventPost().getUser(),
+                eventComment.getUser(),
                 eventComment.getEventPost(),
                 user,
                 false

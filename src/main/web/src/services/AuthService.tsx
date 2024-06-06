@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../config/config";
+import {CredentialResponse} from "@react-oauth/google";
 
 export const register = (username: string, email: string, password: string) => {
     return axios.post(config.apiUrl + "api/auth/signup", {
@@ -9,7 +10,7 @@ export const register = (username: string, email: string, password: string) => {
     });
 };
 
-const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; username: string; accessToken: string; }): void => {
+export const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; username: string; accessToken: string; }): void => {
     localStorage.setItem('accountId', data.accountId.toString());
     localStorage.setItem('userId', data.userId.toString());
     localStorage.setItem('username', data.username);
@@ -26,6 +27,18 @@ export const login = async (username: string, password: string, rememberMe: bool
     saveUserDataToLocalStorage(response.data);
     return response.data;
 };
+
+export const googleLogin = async (credentialResponse: String): Promise<any> => {
+    const response = await axios
+        .post(config.apiUrl + "api/auth/google", credentialResponse,
+            {
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            });
+    saveUserDataToLocalStorage(response.data);
+    return response.data
+}
 
 export const emailVerification = async (email: string): Promise<any> => {
     const response = await axios
