@@ -34,8 +34,6 @@ export const SavedPosts = () => {
         } catch (error) {
           console.error("Error fetching saved posts:", error);
         }
-      } else {
-        console.log("User is not logged in: cannot fetch saved posts.");
       }
     };
     fetchSavedPosts();

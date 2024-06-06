@@ -2,17 +2,13 @@ import React, {useEffect, useState} from 'react';
 import './EventDetail.css';
 import {Share} from "../../../organisms/share/Share";
 import {useLocation} from "react-router-dom";
-import {Report} from "../../../organisms/report/Report";
-import {PostMenu} from "../../../organisms/post-menu/PostMenu";
 import {Tag} from "../../../atoms/Tag";
 import LikeService from "../../../services/LikeService";
-import ReportService from "../../../services/ReportService";
 import { Map } from './Map';
 import {LatLngExpression} from "leaflet";
 import {Interaction} from "../../../organisms/interaction/Interaction";
-import config from "../../../config/config";
 import {EventDetailModel} from "../model/EventDetailModel";
-import {getUserId} from "../../../services/AuthService";
+import {EventMenu} from "./EventMenu";
 
 export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel) => {
   const {
@@ -53,21 +49,6 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
 
   const position: LatLngExpression = [locationProposal.latitude, locationProposal.longitude];
 
-  const [reportOpen, setReportOpen] = useState(false);
-  const [reportReason, setReportReason] = useState('');
-  const [reportDescription, setReportDescription] = useState('');
-
-  const handleReportClick = (): void => {
-    setReportOpen(true);
-  };
-
-  const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, null);
-    setReportOpen(!reportOpen);
-    setReportReason('');
-    setReportDescription('');
-  };
-
   useEffect((): void => {
     const userLikedEvent: string | null = localStorage.getItem(`liked_${id}`);
     if (userLikedEvent) {
@@ -85,53 +66,9 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
     setShareWindowOpen(!shareWindowOpen);
   };
 
-  const handleSaveClick = (): void => {
-    fetch(config.apiUrl + `/saveEvent?eventId=${id}`, {
-      method: 'POST',
-      credentials: 'include',
-    })
-    .then((): void => {
-      alert('EventDetail has been saved!');
-    })
-    .catch(err => {
-      console.error('Error saving the event: ', err);
-      alert('Error saving the event');
-    });
-  };
-
-  const handleUnsaveClick = (): void => {
-    fetch(config.apiUrl + `/unsaveEvent?eventId=${id}`, {
-      method: 'POST',
-      credentials: 'include',
-    })
-    .then((): void => {
-      alert('EventDetail has been unsaved!');
-    })
-    .catch(err => {
-      console.error('Error unsaving the event: ', err);
-      alert('Error unsaving the event');
-    });
-  };
-
   const handleLike = (): void => {
     LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
-
-  const handleClose = () => {
-    setReportOpen(false);
-  };
-
-  useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && reportOpen) {
-        handleClose();
-      }
-    };
-    document.addEventListener('keydown', handleEsc);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-    };
-  }, [reportOpen, handleClose]);
 
   return (
       <div className="event-detail">
@@ -170,28 +107,13 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
           <img alt="Menu" src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
         </button>
         {menuOpen && (
-            <PostMenu
-                handleShareClick={handleShareClick}
-                handleSaveClick={handleSaveClick}
-                handleUnsaveClick={handleUnsaveClick}
-                handleReportClick={handleReportClick}/>
+            <EventMenu handleShareClick={handleShareClick}/>
         )}
         {shareWindowOpen && (
             <div className="event-share-window">
-              <Share postId={id} currentPageURL={currentPageURL}></Share>
+              <Share eventId={id} currentPageURL={currentPageURL}></Share>
             </div>
         )}
-        <div className="report-window">
-          {reportOpen && (
-              <Report
-                  reportOpen={reportOpen}
-                  setReportReason={setReportReason}
-                  setReportDescription={setReportDescription}
-                  handleReportSubmit={handleReportSubmit}
-                  handleClose={handleClose}
-              />
-          )}
-        </div>
       </div>
   );
 };

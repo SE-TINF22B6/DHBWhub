@@ -57,7 +57,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId);
+    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, "post");
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
