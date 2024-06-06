@@ -6,21 +6,22 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     border-radius: 25px;
     background-color: var(--grey);
     width: 356px;
 }
-.user-name {
-    font-size: var(--headline-font-size);
-    padding: 10px;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 5px;
-    background-color: var(--lighter-grey);
-    width: auto;
+
+.user-page-picture img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
-.user-course {
+
+.description-field {
     font-size: var(--headline-font-size);
     padding: 10px;
     display: inline-flex;
@@ -29,6 +30,7 @@
     border-radius: 5px;
     background-color: var(--lighter-grey);
     width: auto;
+    margin-bottom: 20px;
 }
 
 .user-followers {
@@ -40,11 +42,13 @@
     border-radius: 5px;
     background-color: var(--red);
     width: auto;
+    margin-bottom: 20px;
 }
-.user-follow {
+
+.follow-button {
     font-size: var(--headline-font-size);
     padding: 10px;
-
+    color: white;
     align-items: center;
     border-radius: 5px;
     background-color: var(--red);
