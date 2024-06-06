@@ -5,28 +5,47 @@ import './Share.css';
 import {useMediaQuery} from "@mui/system";
 
 interface ShareProps {
-  postId: number;
+  postId?: number;
+  eventId?: number;
   commentId?: number;
   currentPageURL: string;
 }
 
 export const Share = (props: ShareProps) => {
-  const {postId, commentId, currentPageURL} = props;
-  let url = currentPageURL;
-  const title= "Check out this post at DHBWhub";
+  const {
+    postId,
+    eventId,
+    commentId,
+    currentPageURL
+  } = props;
+  let url: string = currentPageURL;
 
-  if (!currentPageURL.includes("post/?id=")) {
+  let type: string = "";
+  if (postId) {
+    type = "post";
+  } else if (eventId) {
+    type = "event";
+  } else if (commentId) {
+    type = "comment";
+  }
+
+  const title: string = "Check out this " + type + " at DHBWhub:";
+
+  if (postId && !currentPageURL.includes("post/?id=")) {
     url += "post/?id=" + postId;
+  }
+  if (eventId && !currentPageURL.includes("event/?id=")) {
+    url += "event/?id=" + eventId;
   }
   if (commentId) {
     url += "&comment=" + commentId;
   }
 
   const [iconSize, setIconSize] = useState<number>(32);
-  const matches = useMediaQuery('(max-width: 412px)')
+  const matches: boolean = useMediaQuery('(max-width: 412px)')
 
   useEffect((): void => {
-    const handleResize = () => {
+    const handleResize = (): void => {
       const newSize = matches ? 25 : 32;
       setIconSize(newSize);
     };
@@ -52,13 +71,13 @@ export const Share = (props: ShareProps) => {
         url: url,
       });
     } catch (error) {
-      console.error('Error sharing the post: ', error);
-      alert('Error sharing the post. Please try again.');
+      console.error('Error sharing the ' + type + ' : ', error);
+      alert('Error sharing the ' + type + '. Please try again.');
     }
   };
 
   const openWindowsShareOptions = (): void => {
-    sharePost().then(result => console.log('Shared post successfully.'));
+    sharePost().then(() => console.log('Shared ' + type + ' successfully.'));
   };
 
   return (

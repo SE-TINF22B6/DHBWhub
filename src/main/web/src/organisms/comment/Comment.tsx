@@ -45,7 +45,7 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId);
+    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, "comment");
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');

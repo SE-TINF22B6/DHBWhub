@@ -58,8 +58,6 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
         } catch (error) {
           console.error("Error fetching following posts:", error);
         }
-      } else {
-        console.log("User is not logged in: cannot fetch following posts.");
       }
     };
     fetchFollowingPosts();

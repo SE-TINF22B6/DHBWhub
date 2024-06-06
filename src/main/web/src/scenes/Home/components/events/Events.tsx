@@ -1,15 +1,14 @@
 import React, {useEffect, useMemo, useState} from "react";
 import { CalendarEntry } from "./CalendarEntry";
 import { Link } from "react-router-dom";
-import { dummyEvents } from "./dummyEvents";
 import config from "../../../../config/config";
 import { EventModel } from "./models/EventModel";
 import {getJWT} from "../../../../services/AuthService";
 import "./Events.css";
 
 export const Events = () => {
-  const [events, setEvents] = useState<EventModel[]>(dummyEvents);
-  const sortedEvents = [...events].sort((a: EventModel, b: EventModel) => a.startDate - b.startDate);
+  const [events, setEvents] = useState<EventModel[]>();
+  const sortedEvents = [...(events || [])].sort((a: EventModel, b: EventModel) => a.startDate - b.startDate);
   const jwt: string | null = getJWT();
   const headersWithJwt = useMemo(() => ({
     ...config.headers,

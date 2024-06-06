@@ -45,11 +45,11 @@ const Login: React.FC<Props> = () => {
         setLoading(true);
 
         login(username, password, rememberMe).then(
-            () => {
+            (): void => {
                 navigate("/profile");
                 window.location.reload();
             },
-            (error) => {
+            (error): void => {
                 const resMessage =
                     (error.response &&
                         error.response.data &&
@@ -63,14 +63,14 @@ const Login: React.FC<Props> = () => {
         );
     };
 
-    const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
+    const handleGoogleLogin = (credentialResponse: CredentialResponse): void => {
         console.log(credentialResponse);
         googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
-            () => {
+            (): void => {
                 navigate("/profile");
                 window.location.reload();
             },
-            () => {
+            (): void => {
                 const resMessage = "Unable to sign in via Google";
                 setLoading(false);
                 setMessage(resMessage);
