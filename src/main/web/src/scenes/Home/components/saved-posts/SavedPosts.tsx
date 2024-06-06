@@ -27,7 +27,6 @@ export const SavedPosts = () => {
           });
           if (response.ok) {
             const data = await response.json();
-            console.log('Saved posts:' + data);
             setSavedPosts(data);
           } else {
             console.log(new Error("Failed to fetch saved posts"));

@@ -12,4 +12,5 @@ public interface SpringAccountRepository extends JpaRepository<Account, Long> {
 
     Boolean existsByEmail(String email);
 
+    Optional<Account> findByEmail(String email);
 }

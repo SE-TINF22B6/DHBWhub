@@ -1,7 +1,9 @@
 package de.tinf22b6.dhbwhub.repository;
 
 import de.tinf22b6.dhbwhub.model.Account;
+import de.tinf22b6.dhbwhub.model.OAuthAccount;
 import de.tinf22b6.dhbwhub.repository.interfaces.SpringAccountRepository;
+import de.tinf22b6.dhbwhub.repository.interfaces.SpringOAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,9 +13,12 @@ import java.util.Optional;
 @Repository
 public class AccountRepository {
     private final SpringAccountRepository repository;
+    private final SpringOAuthRepository oAuthRepository;
 
-    public AccountRepository(@Autowired SpringAccountRepository repository) {
+    public AccountRepository(@Autowired SpringAccountRepository repository,
+                             @Autowired SpringOAuthRepository oAuthRepository) {
         this.repository = repository;
+        this.oAuthRepository = oAuthRepository;
     }
 
     public List<Account> findAll() {
@@ -44,4 +49,15 @@ public class AccountRepository {
         return repository.existsByEmail(email);
     }
 
+    public Account findByEmail(String email) {
+        return repository.findByEmail(email).orElse(null);
+    }
+
+    public Boolean existsOAuthEntry(Long accountId) {
+        return oAuthRepository.findByAccountId(accountId).orElse(null) != null;
+    }
+
+    public OAuthAccount saveOAuthEntry(OAuthAccount account) {
+        return oAuthRepository.save(account);
+    }
 }

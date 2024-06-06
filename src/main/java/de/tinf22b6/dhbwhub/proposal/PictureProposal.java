@@ -12,5 +12,5 @@ import lombok.Setter;
 public class PictureProposal {
     private String name;
 
-    private byte[] imageData;
+    private String imageData;
 }

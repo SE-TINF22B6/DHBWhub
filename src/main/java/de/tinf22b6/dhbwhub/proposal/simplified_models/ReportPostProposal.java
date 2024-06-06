@@ -1,4 +1,3 @@
-
 package de.tinf22b6.dhbwhub.proposal.simplified_models;
 
 import lombok.AllArgsConstructor;
@@ -10,14 +9,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FriendlistProposal {
+public class ReportPostProposal {
+	private String reportReason;
 
-    private Long friendlistId;
+	private String reportDescription;
 
-    private Long userId;
+	private Long postId;
 
-    private String username;
+	private Long authorId;
 
-    private String image;
-
+	private Long userId;
 }

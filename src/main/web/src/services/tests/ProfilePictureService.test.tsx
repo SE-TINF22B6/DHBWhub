@@ -20,7 +20,7 @@ describe('fetchUserImage', (): void => {
   });
 
   it('should fetch user image successfully when user is logged in', async (): Promise<void> => {
-    const mockData = { image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz3' };
+    const mockData = { imageData: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz3' };
     const mockResponse = {
       ok: true,
       json: jest.fn().mockResolvedValue(mockData),
@@ -41,7 +41,7 @@ describe('fetchUserImage', (): void => {
         'Authorization': 'Bearer mock-jwt',
       },
     });
-    expect(setUserImage).toHaveBeenCalledWith(mockData);
+    expect(setUserImage).toHaveBeenCalledWith(mockData.imageData);
   });
 
   it('should not fetch user image if user is not logged in', async (): Promise<void> => {

@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePicture(UpdatePictureProposal proposal) {
         User user = get(proposal.getUserId());
-        if (proposal.getImageData().length == 0){
+        if (proposal.getImageData().isEmpty()){
             throw new IllegalArgumentException("Image data is empty");
         }
         Picture picture = pictureRepository.save(PictureMapper.mapToModelUser(proposal.getImageData()));
