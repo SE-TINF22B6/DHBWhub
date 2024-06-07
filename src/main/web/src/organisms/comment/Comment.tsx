@@ -63,9 +63,8 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   const [heartClass, setHeartClass] = useState('heart-empty');
 
   useEffect((): void => {
-    const userLikedPost: string | null = localStorage.getItem(`${type}_liked_${id}`);
-    if (userLikedPost) {
-      setLikes(likes + 1);
+    const userLikedComment: string | null = localStorage.getItem(`${type}_liked_${id}`);
+    if (userLikedComment) {
       setUserLiked(true);
       setHeartClass('heart-filled');
     }
@@ -109,7 +108,7 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
               userLiked={userLiked}
               heartClass={heartClass}
               comments={null}
-              handleLike={() => handleLike(id, type, likes, setLikes, setUserLiked, setHeartClass)}
+              handleLike={() => handleLike(commentId, type, likes, setLikes, setUserLiked, setHeartClass)}
               id={0}
               isHomepage={false}/>
         </div>
