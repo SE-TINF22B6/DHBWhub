@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { SearchBar } from './SearchBar';
-import { Link, useLocation } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {SearchBar} from './SearchBar';
+import {Link, useLocation} from 'react-router-dom';
 import ModalLoginContainer from '../login/ModalLoginContainer';
-import { Notifications } from "./Notifications";
+import {Notifications} from "./Notifications";
 import SignUp from "../signup/SignUp";
-import ProfilePictureService from "../../services/ProfilePictureService";
-import { isUserLoggedIn } from "../../services/AuthService";
+import {isUserLoggedIn} from "../../services/AuthService";
 import "./Header.css";
-import "./Notifications.css";
 import {Tooltip} from "react-tooltip";
 import config from "../../config/config";
 import {fetchUserImage} from "../../services/ProfilePictureService";
@@ -24,19 +22,22 @@ export const Header = () => {
     }, [location]);
 
     useEffect((): void => {
-        const fetchUserImage = async () => {
-            const image: string | null = await ProfilePictureService.fetchUserImage();
+        const fetchUserProfileImage = async (): Promise<void> => {
+            const image: string | null = await fetchUserImage();
             if (image) {
                 setUserImage(image);
             }
         };
-        fetchUserImage();
+        fetchUserProfileImage();
     }, []);
+
+    useEffect((): void => {
+        setCurrentLocation(location.pathname);
+    }, [location]);
 
     const handleNotificationsButtonClick = (): void => {
         setShowNotifications(!showNotifications);
     };
-
     return (
         <div className="header">
             <Link to="/" aria-label="To the homepage">
@@ -62,14 +63,23 @@ export const Header = () => {
             </Link>
             <SearchBar/>
             <div className="notifications-button-container" data-tooltip-id="notifications" data-tooltip-content={config.tooltipMessage}>
-                <button className={`notifications-button ${showNotifications ? 'active' : ''}`} onClick={handleNotificationsButtonClick}
-                        aria-label="Notifications-Button" disabled={!isUserLoggedIn()}>
-                  <img alt="New notifications" src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}
-                       style={{height: "25px", width: "26px"}}/>
-                </button>
+                {showNotifications ? (
+                    <button className="notifications-button-new" onClick={handleNotificationsButtonClick} disabled={!isUserLoggedIn()}>
+                        <img alt="New notifications"
+                             src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'} style={{height: "25px", width: "26px"}}/>
+                        <img className="notifications-dot" alt="New notifications"
+                             src={process.env.PUBLIC_URL + '/assets/header/notifications-dot.svg'} style={{height: "7px", width: "8px"}}/>
+                    </button>
+                ) : (
+                    <button className="notifications-button" onClick={handleNotificationsButtonClick}
+                            aria-label="Notifications-Button" disabled={!isUserLoggedIn()}>
+                        <img alt="New notifications" src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}
+                             style={{height: "25px", width: "26px"}}/>
+                    </button>
+                )}
             </div>
             {!isUserLoggedIn() && (
-                <Tooltip variant={"light"} id="notifications" place="bottom" style={{ zIndex: 999 }}/>
+                <Tooltip variant={"light"} id="notifications" place="bottom" style={{zIndex: 999}}/>
             )}
             {showNotifications && <Notifications showNotifications={showNotifications}/>}
             {isUserLoggedIn() ? (
