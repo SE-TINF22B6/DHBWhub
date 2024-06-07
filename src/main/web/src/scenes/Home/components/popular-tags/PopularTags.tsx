@@ -4,8 +4,7 @@ import config from "../../../../config/config";
 import './PopularTags.css';
 
 export const PopularTags = () => {
-  const dummyTags: string[] = ['Leisure', 'Business', 'Lecturers', 'Exams', 'Computers', 'Sport', 'Events', 'Projects'];
-  const [popularTags, setPopularTags] = useState<string[]>(dummyTags);
+  const [popularTags, setPopularTags] = useState<string[]>();
 
   useEffect((): void => {
     const fetchPopularTags = async (): Promise<void> => {
@@ -26,14 +25,20 @@ export const PopularTags = () => {
     fetchPopularTags();
   }, []);
 
+  if (popularTags?.length === 0 || popularTags === undefined) {
+    return null;
+  }
+
   return (
       <div className="popular-tags">
         <div className="component-headline">Popular tags</div>
-        <div className="popular-tags-list">
-          {popularTags.slice(0, 7).map((tag: string, index: number) =>
-              <Tag name={popularTags[index]} key={index} index={index} isEventTag={false}/>
-          )}
-        </div>
+        {popularTags && (
+            <div className="popular-tags-list">
+              {popularTags.slice(0, 7).map((tag: string, index: number) =>
+                  <Tag name={popularTags[index]} key={index} index={index} isEventTag={false}/>
+              )}
+            </div>
+        )}
       </div>
   );
 };

@@ -90,7 +90,6 @@ export const Post = () => {
       description: newCommentText,
       timestamp: Math.floor(new Date().getTime()),
     };
-    console.log(commentProposal);
 
     try {
       const response: Response = await fetch(config.apiUrl + `comment/create-comment`, {
@@ -205,6 +204,7 @@ export const Post = () => {
                             authorImage={comment.authorImage}
                             timestamp={comment.timestamp}
                             likeAmount={comment.likeAmount}
+                            type={"comment"}
                         />
                     ))}
                   </div>

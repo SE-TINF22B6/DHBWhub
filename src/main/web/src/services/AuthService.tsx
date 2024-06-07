@@ -1,6 +1,5 @@
 import axios from "axios";
 import config from "../config/config";
-import {CredentialResponse} from "@react-oauth/google";
 
 export const register = (username: string, email: string, password: string) => {
     return axios.post(config.apiUrl + "api/auth/signup", {

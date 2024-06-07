@@ -15,7 +15,6 @@ export const Contact = () => {
   const adBlockDetected = useDetectAdBlock();
   usePreventScrolling(adBlockDetected);
   const isSmartphoneSize = useMediaQuery('(max-width: 412px)');
-
   const scrollUpRef = useRef<HTMLDivElement>(null);
   const [showMobileScrollUpButton, setShowMobileScrollUpButton] = useState(false);
 
@@ -42,6 +41,7 @@ export const Contact = () => {
           <C24Ad/>
           {showMobileScrollUpButton && (<ScrollUpButton scrollUpRef={scrollUpRef}/>)}
         </div>
+        <ScrollUpButton scrollUpRef={scrollUpRef}/>
         <Footer/>
         {isSmartphoneSize && <MobileFooter/>}
       </div>

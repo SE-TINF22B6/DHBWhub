@@ -13,11 +13,11 @@ export default function SignUp() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleVerifyEmailSuccess = () => {
+    const handleVerifyEmailSuccess = (): void => {
         setShowEmailVerification(true);
     };
 
-    const handleVerificationSuccess = () => {
+    const handleVerificationSuccess = (): void => {
         setShowEmailVerification(false);
         setShowUsernamePasswordInput(true);
     };
@@ -29,13 +29,13 @@ export default function SignUp() {
                     <div className="signup-text">SIGN UP</div>
                 </div>
             </button>
-            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" tabIndex={0}>
                 {showEmailVerification ? (
-                    <VerificationCodeInput onSuccess={handleVerificationSuccess} />
+                    <VerificationCodeInput onSuccess={handleVerificationSuccess}/>
                 ) : showUsernamePasswordInput ? (
-                    <UsernamePasswordInput />
+                    <UsernamePasswordInput/>
                 ) : (
-                    <EmailInput onSuccess={handleVerifyEmailSuccess} />
+                    <EmailInput onSuccess={handleVerifyEmailSuccess}/>
                 )}
             </Modal>
         </>

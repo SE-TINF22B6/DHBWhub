@@ -1,4 +1,4 @@
-const timeDifference = (timestamp: Date): string => {
+export const timeDifference = (timestamp: Date): string => {
   const postTime: number = new Date(timestamp).getTime();
   const currentTime: number = new Date().getTime();
   const difference: number = currentTime - postTime;
@@ -18,9 +18,3 @@ const timeDifference = (timestamp: Date): string => {
     return 'Just now';
   }
 };
-
-const TimeService = {
-  timeDifference,
-};
-
-export default TimeService;
