@@ -112,7 +112,7 @@
 .notifications {
   width: 0;
   height: 0;
-  margin-right: -30px;
+  margin-right: -50px;
 }
 
 @media (max-width: 1800px) {
