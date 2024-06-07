@@ -33,9 +33,7 @@ export const CalendarEntry: React.FC<CalenderEntryProps> = (props: CalenderEntry
         {tags && tags.length > 0 && (
             <div className="event-tags">
               {tags.map((tag: string, index: number) => (tag && (
-                  <Link key={tag} to={`/tag/?name=${tag.toLowerCase().replace(' ', '-')}`} className="event-tag-button">
-                    <Tag name={tag} index={index} isEventTag={true}/>
-                  </Link>
+                  <Tag key={index} name={tag} index={index} isEventTag={true}/>
               )))}
             </div>
         )}

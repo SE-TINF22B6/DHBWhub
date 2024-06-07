@@ -1,10 +1,10 @@
-const shortenDescription = (text: string, maxLength: number): string => {
+export const shortenDescription = (text: string, maxLength: number): string => {
   if (text.length <= maxLength) {
     return text;
   }
 
-  let shortenedText = text.slice(0, maxLength);
-  let lastSpace = shortenedText.lastIndexOf(' ');
+  let shortenedText: string = text.slice(0, maxLength);
+  let lastSpace: number = shortenedText.lastIndexOf(' ');
 
   if (lastSpace === -1 || lastSpace === maxLength - 1) {
     return shortenedText.trim() + '...';
@@ -12,9 +12,3 @@ const shortenDescription = (text: string, maxLength: number): string => {
 
   return shortenedText.slice(0, lastSpace).trim() + '...';
 };
-
-const DescriptionService = {
-  shortenDescription,
-};
-
-export default DescriptionService;

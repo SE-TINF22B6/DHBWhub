@@ -1,7 +1,7 @@
 import config from "../config/config";
 import { getJWT, getUserId, isUserLoggedIn } from "./AuthService";
 
-const fetchUserImage = async (): Promise<string | null> => {
+export const fetchUserImage = async (): Promise<string | null> => {
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
@@ -30,9 +30,3 @@ const fetchUserImage = async (): Promise<string | null> => {
     return null;
   }
 };
-
-const ProfilePictureService = {
-  fetchUserImage,
-};
-
-export default ProfilePictureService;

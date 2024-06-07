@@ -12,12 +12,7 @@ interface ShareProps {
 }
 
 export const Share = (props: ShareProps) => {
-  const {
-    postId,
-    eventId,
-    commentId,
-    currentPageURL
-  } = props;
+  const {postId, eventId, commentId, currentPageURL} = props;
   let url: string = currentPageURL;
 
   let type: string = "";
@@ -46,11 +41,11 @@ export const Share = (props: ShareProps) => {
 
   useEffect((): void => {
     const handleResize = (): void => {
-      const newSize = matches ? 25 : 32;
+      const newSize: 32 | 25 = matches ? 25 : 32;
       setIconSize(newSize);
     };
     handleResize();
-  }, []);
+  }, [matches]);
 
   const copyToClipboard = (): void => {
     navigator.clipboard.writeText(url)

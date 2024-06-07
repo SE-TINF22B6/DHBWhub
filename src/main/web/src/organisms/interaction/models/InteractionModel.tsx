@@ -4,6 +4,6 @@ export interface InteractionModel {
   userLiked: boolean;
   heartClass: string;
   comments: number | null;
-  handleLike: () => void;
+  handleLike: () => Promise<void>;
   isHomepage?: boolean;
 }
