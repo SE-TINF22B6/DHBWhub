@@ -30,14 +30,14 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL: string = window.location.href;
   const location = useLocation();
-  const dateStart: Date = new Date(startDate * 1000);
-  const dateEnd: Date = new Date(endDate * 1000);
+  const dateStart: Date = new Date(startDate);
+  const dateEnd: Date = new Date(endDate);
   const allDay: boolean = dateStart === dateEnd;
 
   const formatTime = (date: Date): string => {
     const hours: number = date.getHours();
     const minutes: number = date.getMinutes();
-    const ampm = hours >= 12 ? 'pm' : 'am';
+    const ampm: 'pm' | 'am' = hours >= 12 ? 'pm' : 'am';
     const formattedHours: number = hours % 12 || 12;
     const formattedMinutes: string = minutes.toString().padStart(2, '0');
     return `${formattedHours}:${formattedMinutes} ${ampm}`;
@@ -48,6 +48,7 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const formattedTime: string = allDay ? 'All day' : `${formattedStartTime} - ${formattedEndTime}`;
 
   const position: LatLngExpression = [locationProposal.latitude, locationProposal.longitude];
+  const [noPlace, setNoPlace] = useState(false);
 
   useEffect((): void => {
     const userLikedEvent: string | null = localStorage.getItem(`event_liked_${id}`);
@@ -65,6 +66,10 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const handleShareClick = (): void => {
     setShareWindowOpen(!shareWindowOpen);
   };
+
+  if (!locationProposal.latitude == null || !locationProposal.longitude == null || locationProposal.location === 'online') {
+    setNoPlace(true);
+  }
 
   return (
       <div className="event-detail">
@@ -95,12 +100,14 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
               <p className="event-detail-title">{title}</p>
               <p className="event-detail-description">{description}</p>
           </div>
-          <div className="event-map">
-            <Map position={position} address={locationProposal.location}/>
-          </div>
+          {!noPlace && (
+              <div className="event-map">
+                <Map position={position} address={locationProposal.location}/>
+              </div>
+          )}
         </div>
         <button className="event-detail-menu-button" onClick={handleMenuClick}>
-          <img alt="Menu" src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
+        <img alt="Menu" src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
         </button>
         {menuOpen && (
             <EventMenu handleShareClick={handleShareClick}/>
