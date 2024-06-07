@@ -71,17 +71,6 @@ class EventServiceImplTests extends AbstractApplicationTest {
         assertThat(eventService.getHomepageEvents()).isEmpty();
     }
 
-/* Depends on the current Date -> Doesnt function anymore
-    @Test
-    void GetHomepageEvents_HasSize_Two() {
-        EventPost post1 = createDefaultEventPost();
-        EventPost post2 = createDefaultEventPost();
-        when(eventRepository.findAllEventPosts()).thenReturn(List.of(post1, post2));
-
-        assertThat(eventService.getHomepageEvents()).hasSize(2);
-    }
-*/
-
     @Test
     void GetCalendarEvents_IsEmpty() {
         assertThat(eventService.getCalendarEvents()).isEmpty();
