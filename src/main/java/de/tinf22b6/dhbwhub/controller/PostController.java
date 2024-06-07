@@ -64,7 +64,7 @@ public class PostController {
         return service.getPostsByKeyword(keyword);
     }
 
-    @GetMapping("/post-by-tag-keyword/{keyword}")
+    @GetMapping("/posts-by-tag-keyword/{keyword}")
     public List<HomepagePostPreviewProposal> getPostsByTagKeyword(@PathVariable String keyword) {
         return service.getPostTagsByKeyword(keyword);
     }
