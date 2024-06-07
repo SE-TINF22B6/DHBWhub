@@ -25,7 +25,7 @@
   padding: 10px;
   display: inline-block;
   box-shadow: 0 2px 4px var(--box-shadow);
-  text-shadow: none
+  text-shadow: none;
 }
 
 .home-background, .friends-background, .calendar-background {
@@ -44,6 +44,10 @@
   &&.active {
     background-color: var(--red);
   }
+}
+
+.notifications-button-container {
+  position: relative;
 }
 
 .notifications-button,
@@ -107,12 +111,6 @@
   padding: 0;
   background: none;
   border: none;
-}
-
-.notifications {
-  width: 0;
-  height: 0;
-  margin-right: -30px;
 }
 
 @media (max-width: 1800px) {

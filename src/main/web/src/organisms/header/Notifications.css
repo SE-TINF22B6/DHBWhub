@@ -1,0 +1,47 @@
+.notifications {
+    position: absolute;
+    top: 67px; /* Adjust this value as needed */
+    right: 115px;
+    background-color: #2b2b2b;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.notifications-title {
+    display: flex;
+    color: var(--light-grey);
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px; /* Adjusted padding to make the border more visible */
+    border-bottom: 1px solid #444;
+}
+
+.notifications ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0; /* Add margin at the top */
+}
+
+.notifications li {
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+}
+
+.notifications li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+}
+
+.notifications li a:hover {
+    background-color: #444;
+}
