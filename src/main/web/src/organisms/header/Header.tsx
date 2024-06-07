@@ -10,8 +10,10 @@ import "./Header.css";
 import "./Notifications.css";
 import {Tooltip} from "react-tooltip";
 import config from "../../config/config";
+import {fetchUserImage} from "../../services/ProfilePictureService";
 
 export const Header = () => {
+
     const [showNotifications, setShowNotifications] = useState(false);
     const [currentLocation, setCurrentLocation] = useState('');
     const [userImage, setUserImage] = useState(localStorage.getItem('userImage') || "data:image/svg+xml;base64,PHg==");
@@ -62,12 +64,8 @@ export const Header = () => {
             <div className="notifications-button-container" data-tooltip-id="notifications" data-tooltip-content={config.tooltipMessage}>
                 <button className={`notifications-button ${showNotifications ? 'active' : ''}`} onClick={handleNotificationsButtonClick}
                         aria-label="Notifications-Button" disabled={!isUserLoggedIn()}>
-                    <img alt="New notifications" src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}
-                         style={{height: "25px", width: "26px"}}/>
-                    {showNotifications && (
-                        <img className="notifications-dot" alt="New notifications"
-                             src={process.env.PUBLIC_URL + '/assets/header/notifications-dot.svg'} style={{height: "7px", width: "8px"}}/>
-                    )}
+                  <img alt="New notifications" src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}
+                       style={{height: "25px", width: "26px"}}/>
                 </button>
             </div>
             {!isUserLoggedIn() && (

@@ -1,10 +1,14 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import DOMPurify from "dompurify";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
 import {logout} from "../../services/AuthService";
 import {NavigateFunction, useNavigate} from "react-router-dom";
+import ScrollUpButton from "../../atoms/ScrollUpButton";
+import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
+import {useDetectAdBlock} from "adblock-detect-react";
+import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
 
 interface ProfileData {
     username: string;
@@ -51,9 +55,15 @@ export const ProfilePage = () => {
         window.location.reload();
     }
 
+    const adBlockDetected = useDetectAdBlock();
+    usePreventScrolling(adBlockDetected);
+    const scrollUpRef = useRef<HTMLDivElement>(null);
+
     return (
         <div className="page">
-            <Header />
+            {adBlockDetected && <AdBlockOverlay/>}
+            <div ref={scrollUpRef}/>
+            <Header/>
             <div className="profile-container">
                 <div className="profile-page-picture">
                     <img src={profileData.profilePicture} alt="Profile"/>
@@ -113,6 +123,7 @@ export const ProfilePage = () => {
                 </div>
                 <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
+            <ScrollUpButton scrollUpRef={scrollUpRef}/>
             <Footer/>
         </div>
     );

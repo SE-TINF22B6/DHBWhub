@@ -5,15 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LocationProposal {
-    private String location;
+public class CheckSavedPostProposal {
+    private Long postId;
 
-    private Double latitude;
-
-    private Double longitude;
+    private Long userId;
 }

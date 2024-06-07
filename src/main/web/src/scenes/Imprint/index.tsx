@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
@@ -7,12 +7,15 @@ import {useMediaQuery} from "@mui/system";
 import {imprint} from "./ImprintInterface";
 import {Link} from "react-router-dom";
 import {DigitalOceanAd} from "../../atoms/ads/DigitalOceanAd";
+import ScrollUpButton from "../../atoms/ScrollUpButton";
 
 export const Imprint = () => {
   const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
+  const scrollUpRef = useRef<HTMLDivElement>(null);
 
   return (
       <div className="page">
+        <div ref={scrollUpRef}></div>
         <Header/>
         <div className="imprint-content">
           <div>
@@ -38,6 +41,7 @@ export const Imprint = () => {
           <br/>
           <DigitalOceanAd/>
         </div>
+        <ScrollUpButton scrollUpRef={scrollUpRef}/>
         <Footer/>
         {isSmartphoneSize && <MobileFooter/>}
       </div>

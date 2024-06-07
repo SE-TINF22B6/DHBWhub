@@ -1,6 +1,11 @@
-const timeDifference = (timestamp: Date): string => {
-  const postTime: number = new Date(timestamp).getTime();
+export const timeDifference = (timestamp: Date): string => {
+  let postTime: number = (timestamp).getTime();
+  if (postTime.toString().length > 13) {
+    const postTimeStr: string = postTime.toString();
+    postTime = parseInt(postTimeStr.substring(0, 13));
+  }
   const currentTime: number = new Date().getTime();
+
   const difference: number = currentTime - postTime;
 
   const seconds: number = Math.floor(difference / 1000);
@@ -18,9 +23,3 @@ const timeDifference = (timestamp: Date): string => {
     return 'Just now';
   }
 };
-
-const TimeService = {
-  timeDifference,
-};
-
-export default TimeService;

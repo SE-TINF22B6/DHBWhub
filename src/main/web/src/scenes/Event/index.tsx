@@ -51,7 +51,6 @@ export const Event = (): JSX.Element | null => {
         });
         if (response.ok) {
           const eventThread = await response.json();
-          console.log(eventThread);
           setEvent(eventThread);
           setComments(eventThread.comments);
         } else {
@@ -74,7 +73,6 @@ export const Event = (): JSX.Element | null => {
       console.error("Event ID null");
       return;
     }
-
     if (accountId == null) {
       console.error("Account ID null");
       return;
@@ -86,7 +84,6 @@ export const Event = (): JSX.Element | null => {
       description: newCommentText,
       timestamp: Math.floor(new Date().getTime()),
     };
-    console.log(commentProposal);
 
     try {
       const response: Response = await fetch(config.apiUrl + `event/create-comment`, {
@@ -135,7 +132,7 @@ export const Event = (): JSX.Element | null => {
                  className="navigate-back-rectangle"/>
             <div className="navigate-back-text">Event</div>
           </Link>
-          <a className="error">Event not Found</a>
+          <div className="error">Event not Found</div>
           <Footer/>
           {isSmartphoneSize && <MobileFooter/>}
         </div>
@@ -189,6 +186,7 @@ export const Event = (): JSX.Element | null => {
                         accountId={comment.accountId}
                         timestamp={comment.timestamp * 1000}
                         likeAmount={comment.likeAmount}
+                        type={"eventComment"}
                     />
                 ))}
               </div>
