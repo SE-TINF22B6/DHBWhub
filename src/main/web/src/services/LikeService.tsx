@@ -1,5 +1,5 @@
 import config from "../config/config";
-import { getJWT, getUserId } from "./AuthService";
+import {getJWT, getUserId} from "./AuthService";
 
 const jwt: string | null = getJWT();
 const headersWithJwt = {
@@ -37,10 +37,7 @@ export const checkUserLiked = async (id: number, type: string): Promise<boolean>
     throw new Error(`Failed to check if user liked ${type}: ${response.statusText}`);
   }
 
-  const isLiked: boolean = await response.json();
-  console.log(type + " with id " + id + " is liked: " + isLiked);
-
-  return isLiked;
+  return await response.json();
 };
 
 export const handleLike = async (
@@ -54,7 +51,6 @@ export const handleLike = async (
 
   try {
     const userLiked: boolean = await checkUserLiked(id, type);
-    console.log("User liked:", userLiked);
 
     let endpoint: string = '';
     if (type === 'post') {
@@ -68,7 +64,6 @@ export const handleLike = async (
     } else {
       console.log(new Error('Invalid type provided: ' +  type));
     }
-    console.log("Endpoint:", endpoint);
 
     const requestOptions = {
       method: 'PUT',
@@ -78,8 +73,6 @@ export const handleLike = async (
         [type + "Id"]: id
       }),
     };
-
-    console.log("Request options:", requestOptions);
 
     const response: Response = await fetch(config.apiUrl + endpoint, requestOptions);
 
@@ -92,14 +85,11 @@ export const handleLike = async (
         setUserLiked(true);
         setHeartClass('heart-filled');
         localStorage.setItem(`${type}_liked_${id}`, 'true');
-        console.log('Local storage item: ' + localStorage.getItem(`${type}_liked_${id}`));
-        console.log('User liked ' + type + ' with id ' + id);
       } else {
         setLikes(likes - 1);
         setUserLiked(false);
         setHeartClass('heart-empty');
         localStorage.removeItem(`${type}_liked_${id}`);
-        console.log('User unliked ' + type + ' with id ' + id);
       }
     }
 

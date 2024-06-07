@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import "./Comment.css";
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {Share} from "../share/Share";
 import {Report} from "../report/Report";
 import {CommentMenu} from "../comment-menu/CommentMenu";
@@ -9,7 +9,7 @@ import {timeDifference} from "../../services/TimeService";
 import {Interaction} from "../interaction/Interaction";
 import {PostCommentModel} from "../../scenes/Home/components/post/models/PostCommentModel";
 import {EventCommentModel} from "../../scenes/Event/model/EventCommentModel";
-import {handleLike} from "../../services/LikeService";
+import {checkUserLiked, handleLike} from "../../services/LikeService";
 
 type CommentProps = PostCommentModel | EventCommentModel;
 
@@ -34,7 +34,6 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL: string = window.location.href;
   const id: number = 'postId' in props ? props.postId : props.eventId;
-  const location = useLocation();
 
   useEffect((): void => {
     if (authorImage != null) {
@@ -59,16 +58,24 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   };
 
   const [likes, setLikes] = useState(likeAmount);
-  const [userLiked, setUserLiked] = useState(false);
-  const [heartClass, setHeartClass] = useState('heart-empty');
+
+  const [userLiked, setUserLiked] = useState(localStorage.getItem(`${type}_liked_${id}`) === 'true');
+  const [heartClass, setHeartClass] = useState(userLiked ? 'heart-filled' : 'heart-empty');
+
+  const loadInitialLikes = useCallback(async () => {
+    try {
+      const userLiked: boolean = await checkUserLiked(commentId, type);
+      setLikes(props.likeAmount);
+      setUserLiked(userLiked);
+      setHeartClass(userLiked ? 'heart-filled' : 'heart-empty');
+    } catch (error) {
+      console.error('Error loading initial likes:', error);
+    }
+  }, [commentId, type, props.likeAmount]);
 
   useEffect((): void => {
-    const userLikedComment: string | null = localStorage.getItem(`${type}_liked_${id}`);
-    if (userLikedComment) {
-      setUserLiked(true);
-      setHeartClass('heart-filled');
-    }
-  }, [location, id, type]);
+    loadInitialLikes();
+  }, [loadInitialLikes]);
 
   const handleClose = useCallback((): void => {
     setReportOpen(false);
