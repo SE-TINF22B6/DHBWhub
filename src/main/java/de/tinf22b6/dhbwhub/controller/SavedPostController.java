@@ -1,5 +1,6 @@
 package de.tinf22b6.dhbwhub.controller;
 
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CheckSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.DeleteSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageSavedPostProposal;
@@ -22,6 +23,11 @@ public class SavedPostController {
     @GetMapping("/homepage-saved-posts/{id}")
     public List<HomepageSavedPostProposal> getSavedPosts(@PathVariable Long id) {
         return service.getSavedPostsByUserId(id);
+    }
+
+    @PostMapping("/is-saved")
+    public boolean isSaved(@RequestBody CheckSavedPostProposal proposal) {
+        return service.isSaved(proposal);
     }
 
     @PostMapping

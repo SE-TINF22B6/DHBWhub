@@ -12,10 +12,10 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
   const [notificationShown, setNotificationShown] = useState(false);
 
   useEffect(() => {
-    const showNotification = async () => {
+    const showNotification = async (): Promise<void> => {
       try {
         if ('Notification' in window && showNotifications && !notificationShown) {
-          const permission = await Notification.requestPermission();
+          const permission: NotificationPermission = await Notification.requestPermission();
           if (permission === 'granted') {
             new Notification('DHBWhub', {
               body: 'Neue Benachrichtigung von DHBWhub.',
