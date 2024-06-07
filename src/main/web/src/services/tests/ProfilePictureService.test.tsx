@@ -73,6 +73,7 @@ describe('ProfilePictureService', () => {
       ok: false
     };
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
     (getJWT as jest.Mock).mockReturnValue('mockJwt');
     (getUserId as jest.Mock).mockReturnValue(1);
     (isUserLoggedIn as jest.Mock).mockReturnValue(true);
@@ -86,7 +87,7 @@ describe('ProfilePictureService', () => {
         'Authorization': 'Bearer mockJwt'
       }
     });
-    expect(consoleLogSpy).toHaveBeenCalledWith(new Error("Failed to fetch user image"));
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Failed to fetch user image");
     expect(result).toBeNull();
 
     consoleLogSpy.mockRestore();

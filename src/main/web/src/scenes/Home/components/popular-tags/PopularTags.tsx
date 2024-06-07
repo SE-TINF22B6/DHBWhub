@@ -16,7 +16,7 @@ export const PopularTags = () => {
           const popularTags = await response.json();
           setPopularTags(popularTags);
         } else {
-          console.log(new Error("Failed to fetch popular tags"));
+          console.error("Failed to fetch popular tags");
         }
       } catch (error) {
         console.error("Error fetching popular tags:", error);
