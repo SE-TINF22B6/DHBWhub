@@ -11,8 +11,10 @@ import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
 import {useDetectAdBlock} from "adblock-detect-react";
 import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
 import {C24Ad} from "../../atoms/ads/C24Ad";
-import {getJWT} from "../../services/AuthService";
+import {getJWT, getUserId, isUserLoggedIn} from "../../services/AuthService";
 import config from "../../config/config";
+import {PostModel} from "./components/PostModel";
+import {Post} from "./components/Post";
 
 export const Search = () => {
   const location = useLocation();
@@ -20,6 +22,8 @@ export const Search = () => {
   const searchTerm: string | null = searchParams.get('query');
   const [searchResults, setSearchResults] = useState([]);
   const jwt: string | null = getJWT();
+  const userId: number | null = getUserId();
+  const [sortOption, setSortOption] = useState<string>('popular');
   const headersWithJwt = useMemo(() => ({
     ...config.headers,
     'Authorization': jwt ? `Bearer ${jwt}` : ''
@@ -33,7 +37,7 @@ export const Search = () => {
   useEffect((): void => {
     const fetchResults = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(config.apiUrl + `search/${searchTerm}`, {
+        const response: Response = await fetch(`https://localhost:8443` + `/post/posts-by-keyword/${searchTerm}`, {
           headers: headersWithJwt
         });
         if (response.ok) {
@@ -52,15 +56,37 @@ export const Search = () => {
     fetchResults();
   }, [searchTerm, headersWithJwt]);
 
-  const [sortOption, setSortOption] = useState<string>('popular');
-  const [findByOption, setFindByOption] = useState<string>('title');
+  useEffect((): void => {
+    const fetchFollowingPosts = async (): Promise<void> => {
+      if (isUserLoggedIn()) {
+        try {
+          const response: Response = await fetch(`https://localhost:8443` + `post/friend-posts/${userId}`, {
+            headers: headersWithJwt
+          });
+          if (response.ok) {
+            const followingPosts = await response.json();
+            setSearchResults(followingPosts);
+            console.log("Fetching ok" );
+          } else {
+            setNotFound(true);
+            console.log(new Error("Failed to fetch following posts"));
+          }
+        } catch (error) {
+          console.error("Error fetching following posts:", error);
+
+        }
+      }
+    };
+    fetchFollowingPosts();
+  }, [headersWithJwt, userId]);
+
 
   const handleSortChange = (option: string): void => {
     setSortOption(option);
   };
 
   const handleFindByChange = (option: string): void => {
-    setFindByOption(option);
+    console.log("option"+ option)
   };
 
   if (loading) {
@@ -75,8 +101,21 @@ export const Search = () => {
         </div>
     );
   }
-
-  if (notFound || !searchTerm) {
+  const sortedResults = (): PostModel[] => {
+    if (searchResults === undefined) return [];
+    switch (sortOption) {
+      case "newest":
+        return searchResults.sort((a: PostModel, b: PostModel) => Date.parse(new Date(b.timestamp).toISOString()) -
+            Date.parse(new Date(a.timestamp).toISOString()));
+      case "following":
+        return searchResults;
+      case "popular":
+        return searchResults.sort((a: PostModel, b: PostModel) => b.likeAmount - a.likeAmount);
+      default:
+        return searchResults;
+    }
+  };
+  if (notFound) {
     return (
         <div className="page">
           {adBlockDetected && <AdBlockOverlay/>}
@@ -100,9 +139,29 @@ export const Search = () => {
       <div className="page">
         {adBlockDetected && <AdBlockOverlay/>}
         <Header/>
+        <div className="search-content">
         <div className="search-sidebar">
           <SearchSortOptions onSortChange={handleSortChange}/>
           <FindByOptions onSortChange={handleFindByChange}/>
+        </div>
+          <div className="search-results">
+
+          {sortedResults().map(post => (
+              <Post
+                  key={post.id}
+                  id={post.id}
+                  title={post.title}
+                  description={post.description}
+                  tags={post.tags}
+                  likeAmount={post.likeAmount}
+                  commentAmount={post.commentAmount}
+                  timestamp={post.timestamp}
+                  postImage={post.postImage}
+                  accountId={post.accountId}
+                  username={post.username}
+              />
+          ))}
+        </div>
         </div>
         <Footer/>
       </div>

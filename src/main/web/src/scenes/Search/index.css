@@ -1,9 +1,9 @@
 .search-content {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 1650px;
+  gap:20px;
+  align-items:flex-start;
+  display:inline-flex;
+  justify-content:center;
+  position:relative;
 }
 
 .search-sidebar {
@@ -13,7 +13,15 @@
 }
 
 .search-results {
-  padding-left: 40px;
-  padding-right: 40px;
-  width: 920px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  position: relative;
+}
+
+@media (max-width: 412px) {
+  .search-results {
+    margin-left: 20px;
+    margin-top: -5px;
+  }
 }
