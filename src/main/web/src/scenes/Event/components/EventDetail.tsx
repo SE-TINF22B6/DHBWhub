@@ -3,8 +3,7 @@ import './EventDetail.css';
 import {Share} from "../../../organisms/share/Share";
 import {useLocation} from "react-router-dom";
 import {Tag} from "../../../atoms/Tag";
-import { Map } from './Map';
-import {LatLngExpression} from "leaflet";
+import {Map} from './Map';
 import {Interaction} from "../../../organisms/interaction/Interaction";
 import {EventDetailModel} from "../model/EventDetailModel";
 import {EventMenu} from "./EventMenu";
@@ -47,9 +46,6 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const formattedEndTime: string = formatTime(dateEnd);
   const formattedTime: string = allDay ? 'All day' : `${formattedStartTime} - ${formattedEndTime}`;
 
-  const position: LatLngExpression = [locationProposal.latitude, locationProposal.longitude];
-  const [noPlace, setNoPlace] = useState(false);
-
   useEffect((): void => {
     const userLikedEvent: string | null = localStorage.getItem(`event_liked_${id}`);
     if (userLikedEvent) {
@@ -66,10 +62,6 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const handleShareClick = (): void => {
     setShareWindowOpen(!shareWindowOpen);
   };
-
-  if (!locationProposal.latitude == null || !locationProposal.longitude == null || locationProposal.location === 'online') {
-    setNoPlace(true);
-  }
 
   return (
       <div className="event-detail">
@@ -100,9 +92,9 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
               <p className="event-detail-title">{title}</p>
               <p className="event-detail-description">{description}</p>
           </div>
-          {!noPlace && (
+          {locationProposal.latitude != null && locationProposal.longitude != null && (
               <div className="event-map">
-                <Map position={position} address={locationProposal.location}/>
+                <Map position={[locationProposal.latitude, locationProposal.longitude]} address={locationProposal.location}/>
               </div>
           )}
         </div>

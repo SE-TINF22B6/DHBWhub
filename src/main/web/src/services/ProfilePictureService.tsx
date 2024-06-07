@@ -19,7 +19,7 @@ export const fetchUserImage = async (): Promise<string | null> => {
         localStorage.setItem('userImage', data.imageData);
         return data.imageData;
       } else {
-        console.log(new Error("Failed to fetch user image"));
+        console.error("Failed to fetch user image");
         return null;
       }
     } catch (error) {

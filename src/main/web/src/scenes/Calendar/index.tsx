@@ -74,7 +74,7 @@ export const CalendarPage: React.FC = () => {
           const frontendEvents: CalendarEvent[] = events.map(convertEndpointEventToFrontendEvent);
           setCalendarEvents(frontendEvents);
         } else {
-          console.log(new Error("Failed to fetch calendar events"));
+          console.error("Failed to fetch calendar events");
         }
       } catch (error) {
         console.error("Failed to fetch calendar events:", error);
@@ -97,11 +97,11 @@ export const CalendarPage: React.FC = () => {
               startAccessor={(event: CalendarEvent) => new Date(event.start)}
               endAccessor={(event: CalendarEvent) => new Date(event.end)}
               style={{ height: 610 }}
-              eventPropGetter={(event, start, end, isSelected) => {
+              eventPropGetter={() => {
                 let newStyle = { backgroundColor: "var(--red)", color: 'var(--white)' };
                 return { style: newStyle };
               }}
-              dayPropGetter={(day: Date) => {
+              dayPropGetter={() => {
                 let newStyle = { color: 'var(--white)', backgroundColor: 'transparent' };
                 return { style: newStyle };
               }}
