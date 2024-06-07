@@ -15,7 +15,7 @@
     "@lexical/react": "^0.15.0",
     "@lexical/rich-text": "^0.15.0",
     "@lexical/selection": "^0.15.0",
-    "@lexical/table": "^0.15.0",
+    "@lexical/table": "^0.16.0",
     "@lexical/utils": "^0.15.0",
     "@mui/material": "^5.15.19",
     "@mui/system": "^5.15.15",
