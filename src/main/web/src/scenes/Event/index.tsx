@@ -73,7 +73,6 @@ export const Event = (): JSX.Element | null => {
       console.error("Event ID null");
       return;
     }
-
     if (accountId == null) {
       console.error("Account ID null");
       return;
@@ -85,7 +84,6 @@ export const Event = (): JSX.Element | null => {
       description: newCommentText,
       timestamp: Math.floor(new Date().getTime()),
     };
-    console.log(commentProposal);
 
     try {
       const response: Response = await fetch(config.apiUrl + `event/create-comment`, {
