@@ -37,7 +37,7 @@ export const Search = () => {
   useEffect((): void => {
     const fetchResults = async (): Promise<void> => {
       try {
-        const response: Response = await fetch(`https://localhost:8443` + `/post/posts-by-keyword/${searchTerm}`, {
+        const response: Response = await fetch(config.apiUrl + `/post/posts-by-keyword/${searchTerm}`, {
           headers: headersWithJwt
         });
         if (response.ok) {
@@ -60,7 +60,7 @@ export const Search = () => {
     const fetchFollowingPosts = async (): Promise<void> => {
       if (isUserLoggedIn()) {
         try {
-          const response: Response = await fetch(`https://localhost:8443` + `post/friend-posts/${userId}`, {
+          const response: Response = await fetch(config.apiUrl + `post/friend-posts/${userId}`, {
             headers: headersWithJwt
           });
           if (response.ok) {
