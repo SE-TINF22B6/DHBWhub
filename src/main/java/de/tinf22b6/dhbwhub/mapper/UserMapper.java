@@ -4,6 +4,7 @@ import de.tinf22b6.dhbwhub.model.Course;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.ProfileInformationProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.SearchedUserProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.UserInformationProposal;
 
 public class UserMapper {
@@ -36,6 +37,13 @@ public class UserMapper {
         );
     }
 
+    public static SearchedUserProposal mapToSearchedUserProposal(User user) {
+        return new SearchedUserProposal(
+                user.getId(),
+                user.getAccount().getUsername(),
+                user.getAccount().getPicture()
+        );
+    }
     public static User mapToUpdatedAgeModel(User user, int age) {
         return new User(
                 age,
