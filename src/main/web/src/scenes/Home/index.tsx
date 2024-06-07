@@ -20,7 +20,7 @@ import {TravelAd} from "../../atoms/ads/TravelAd";
 import {useMediaQuery} from "@mui/system";
 
 export const Home = () => {
-  const [sortOption, setSortOption] = useState<string>('popular');
+  const [sortOption, setSortOption] = useState<string>('newest');
   const scrollUpRef = useRef<HTMLDivElement>(null);
 
   const adBlockDetected: boolean = useDetectAdBlock();

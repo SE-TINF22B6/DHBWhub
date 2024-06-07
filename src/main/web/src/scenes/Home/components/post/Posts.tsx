@@ -33,7 +33,7 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
           setPosts(data);
           setLoading(false);
         } else {
-          console.log(new Error("Failed to fetch posts"));
+          console.error("Failed to fetch posts");
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -53,7 +53,7 @@ export const Posts: React.FC<PostsProps> = ({ sortOption }) => {
             const followingPosts = await response.json();
             setFollowingPosts(followingPosts);
           } else {
-            console.log(new Error("Failed to fetch following posts"));
+            console.error("Failed to fetch following posts");
           }
         } catch (error) {
           console.error("Error fetching following posts:", error);

@@ -19,7 +19,7 @@ export const checkUserLiked = async (id: number, type: string): Promise<boolean>
   } else if (type === 'eventComment') {
     endpoint = 'event/comment-is-liked';
   } else {
-    console.log(new Error('Invalid type provided: ' +  type));
+    console.error('Invalid type provided: ' +  type);
   }
 
   const requestOptions = {
@@ -62,7 +62,7 @@ export const handleLike = async (
     } else if (type === 'eventComment') {
       endpoint = userLiked ? 'event/comment-decrease-likes' : 'event/comment-increase-likes';
     } else {
-      console.log(new Error('Invalid type provided: ' +  type));
+      console.error('Invalid type provided: ' +  type);
     }
 
     const requestOptions = {
@@ -78,7 +78,7 @@ export const handleLike = async (
 
     if (!response.ok) {
       console.log("Response:", response);
-      console.log(new Error(`Failed to ${userLiked ? 'unlike' : 'like'} ${type}: ${response.statusText}`));
+      console.error(`Failed to ${userLiked ? 'unlike' : 'like'} ${type}: ${response.statusText}`);
     } else {
       if (!userLiked) {
         setLikes(likes + 1);

@@ -225,7 +225,13 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
 
         {menuOpen && (
             <div className="post-menu-container">
-              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleUnsaveClick={handleUnsaveClick} handleReportClick={handleReportClick}/>
+              <PostMenu
+                  handleShareClick={handleShareClick}
+                  handleSaveClick={handleSaveClick}
+                  handleUnsaveClick={handleUnsaveClick}
+                  handleReportClick={handleReportClick}
+                  id={id}
+              />
             </div>
         )}
         {shareWindowOpen && (
