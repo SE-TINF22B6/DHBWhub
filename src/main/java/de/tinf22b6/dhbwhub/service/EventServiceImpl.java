@@ -11,13 +11,17 @@ import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventComment;
 import de.tinf22b6.dhbwhub.model.log_tables.LikeLogtableEventPost;
 import de.tinf22b6.dhbwhub.model.notification_tables.EventCommentLikeNotification;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
-import de.tinf22b6.dhbwhub.repository.*;
+import de.tinf22b6.dhbwhub.repository.EventRepository;
+import de.tinf22b6.dhbwhub.repository.LogtableRepository;
+import de.tinf22b6.dhbwhub.repository.NotificationRepository;
+import de.tinf22b6.dhbwhub.repository.UserRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.EventService;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -67,7 +71,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<HomepageEventPreviewProposal> getHomepageEvents() {
-        List<HomepageEventPreviewProposal> homepageEventPreviewProposals = repository.findAllEventPosts().stream().map(EventMapper::mapToHomepagePreviewProposal).toList();
+        List<HomepageEventPreviewProposal> homepageEventPreviewProposals = repository.findAllEventPosts().stream().filter(p -> p.getStartdate().after(new Date())).map(EventMapper::mapToHomepagePreviewProposal).limit(5).toList();
         homepageEventPreviewProposals.forEach(p -> p.setTags(getEventTags(p.getId())));
         return homepageEventPreviewProposals;
     }
