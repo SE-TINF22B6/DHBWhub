@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import "./Notifications.css"; // Ensure you import the CSS for styling
 
 interface NotificationsProps {
   showNotifications: boolean;
@@ -18,9 +19,17 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
   const [notifications, setNotifications] = useState<Notification[]>([]);
   let navigate: NavigateFunction = useNavigate();
 
-  const handleClick = (link : string):void => {
+  const handleClick = (link: string): void => {
     navigate(link);
     window.location.reload();
+  };
+
+  const handleRemoveNotification = (notificationId: number): void => {
+    const confirmed = window.confirm("Are you sure you want to delete this notification?");
+    if (confirmed) {
+      const updatedNotifications = notifications.filter(notification => notification.notificationId !== notificationId);
+      setNotifications(updatedNotifications);
+    }
   };
 
   useEffect(() => {
@@ -48,8 +57,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
             /*new Notification('DHBWhub', {
               body: 'Neue Benachrichtigung von DHBWhub.',
               icon: '/logo192.png',
-            });
-            */
+            });*/
             setNotificationShown(true);
           }
         }
@@ -62,12 +70,15 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
   }, [showNotifications, notificationShown]);
 
   return (
-      <div className= "notifications">
-        <span className= "notifications-title"> Notifications </span>
+      <div className="notifications">
+        <span className="notifications-title"> Notifications </span>
         <ul>
           {notifications.map((notification) => (
-              <li key={notification.notificationId}>
+              <li key={notification.notificationId} className="notification-item">
                 <a onClick={() => handleClick(notification.link)}>{notification.text}</a>
+                <button className="remove-notification" onClick={() => handleRemoveNotification(notification.notificationId)}>
+                  ×
+                </button>
               </li>
           ))}
         </ul>

@@ -2,7 +2,7 @@
     position: absolute;
     top: 67px; /* Adjust this value as needed */
     right: 115px;
-    background-color: #2b2b2b;
+    background-color: #262626;
     color: white;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -13,14 +13,13 @@
 }
 
 .notifications-title {
-    display: flex;
-    color: var(--light-grey);
-    justify-content: center;
-    align-items: center;
     font-size: 16px;
+    align-content: center;
     font-weight: bold;
-    padding: 15px; /* Adjusted padding to make the border more visible */
+    padding: 15px;
     border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: center;
 }
 
 .notifications ul {
@@ -29,19 +28,37 @@
     margin: 10px 0 0 0; /* Add margin at the top */
 }
 
-.notifications li {
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #444;
+    padding: 10px 15px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.notifications li a {
-    display: block;
-    padding: 10px 15px;
+.notification-item:hover {
+    background-color: #444;
+}
+
+.notification-item a {
     text-decoration: none;
     color: white;
-    transition: background 0.3s;
+    flex-grow: 1;
 }
 
-.notifications li a:hover {
-    background-color: #444;
+.remove-notification {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0;
+    user-select: none;
+}
+
+.remove-notification:hover {
+    color: red;
 }

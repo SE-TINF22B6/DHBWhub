@@ -5,12 +5,17 @@ import de.tinf22b6.dhbwhub.model.notification_tables.*;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageNotificationProposal;
 
 public class NotificationMapper {
+    public static String POST_URL = "/post/?id=";
+    public static String EVENT_URL = "/event/?id=";
+    public static String USER_URL = "/user/?id=";
+    public static String FRIENDS_URL = "/friends";
+
     public static HomepageNotificationProposal mapToSingleNotification(PostLikeNotification notification) {
         return new HomepageNotificationProposal(
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("Your Post '%s' has been liked by the user %s", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
-                "post/post-thread/" + notification.getPostId(),
+                POST_URL + notification.getPostId(),
                 NotificationType.TYPE_POST_LIKE.name()
         );
     }
@@ -20,7 +25,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("Your Post '%s' has been commented by the user %s", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
-                "post/post-thread/" + notification.getPostId(),
+                POST_URL + notification.getPostId(),
                 NotificationType.TYPE_POST_COMMENT.name()
         );
     }
@@ -30,7 +35,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("The user '%s' follows you now", notification.getTriggeringUser().getAccount().getUsername()),
-                "user/user-info/" + notification.getTriggeringUser().getId(),
+                USER_URL + notification.getTriggeringUser().getId(),
                 NotificationType.TYPE_FOLLOW.name()
         );
     }
@@ -40,7 +45,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("Your comment on the post '%s' has been liked by the user %s", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
-                "post/post-thread/" + notification.getPostId(),
+                POST_URL + notification.getPostId(),
                 NotificationType.TYPE_COMMENT_LIKE.name()
         );
     }
@@ -50,7 +55,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("Your comment on the Event-Post '%s' has been liked by the user %s", notification.getEventPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
-                "event/event-thread/" + notification.getEventPostId(),
+                EVENT_URL + notification.getEventPostId(),
                 NotificationType.TYPE_EVENT_COMMENT_LIKE.name()
         );
     }
@@ -60,7 +65,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("Your Post '%s' has been liked by %d users", notification.getPost().getTitle(), size),
-                "post/post-thread/" + notification.getPostId(),
+                POST_URL + notification.getPostId(),
                 NotificationType.TYPE_POST_LIKE.name()
         );
     }
@@ -70,7 +75,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("Your Post '%s' has been commented by %d users", notification.getPost().getTitle(), size),
-                "post/post-thread/" + notification.getPostId(),
+                POST_URL + notification.getPostId(),
                 NotificationType.TYPE_POST_COMMENT.name()
         );
     }
@@ -80,7 +85,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("You have %d new follower now", size),
-                "friends",
+                FRIENDS_URL,
                 NotificationType.TYPE_FOLLOW.name()
         );
     }
@@ -90,7 +95,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("Your comment on the post '%s' has been liked by %d users", notification.getPost().getTitle(), size),
-                "post/post-thread/" + notification.getPostId(),
+                POST_URL + notification.getPostId(),
                 NotificationType.TYPE_COMMENT_LIKE.name()
         );
     }
@@ -100,7 +105,7 @@ public class NotificationMapper {
                 notification.getId(),
                 notification.getAccumulatedId(),
                 String.format("Your comment on the Event-Post '%s' has been liked by %d users", notification.getEventPost().getTitle(), size),
-                "event/event-thread/" + notification.getEventPostId(),
+                EVENT_URL + notification.getEventPostId(),
                 NotificationType.TYPE_EVENT_COMMENT_LIKE.name()
         );
     }
