@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import "./EmailInput.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { emailVerification } from "../../services/AuthService";
+import {emailVerification, googleLogin} from "../../services/AuthService";
 import ErrorModal from "./ErrorModal";
-import { GoogleLogin } from "@react-oauth/google";
+import {CredentialResponse, GoogleLogin} from "@react-oauth/google";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
-const EmailInput = ({ onSuccess }: any) => {
+export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(({ onSuccess }, ref) => {
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
+  let navigate: NavigateFunction = useNavigate();
 
   const initialValues: {
     email: string;
@@ -18,11 +20,7 @@ const EmailInput = ({ onSuccess }: any) => {
     email: "",
   };
 
-  const handleOpenLogin = () => {};
-
-  const handleInputFocus = () => {
-    setShowError(false);
-  };
+  const handleOpenLogin = (): void => {};
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -30,7 +28,7 @@ const EmailInput = ({ onSuccess }: any) => {
       .required("This field is required!"),
   });
 
-  const handleVerify = (formValue: { email: string }) => {
+  const handleVerify = (formValue: { email: string }): void => {
     const { email } = formValue;
 
     setMessage("");
@@ -39,10 +37,10 @@ const EmailInput = ({ onSuccess }: any) => {
     localStorage.setItem("userEmailAddress", email);
 
     emailVerification(email).then(
-      () => {
+      (): void => {
         onSuccess();
       },
-      (error) => {
+      (error): void => {
         let resMessage =
           (error.response &&
             error.response.data &&
@@ -60,8 +58,23 @@ const EmailInput = ({ onSuccess }: any) => {
     );
   };
 
+  const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
+    console.log(credentialResponse);
+    googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
+        () => {
+          navigate("/profile");
+          window.location.reload();
+        },
+        () => {
+          const resMessage = "Unable to sign in via Google";
+          setLoading(false);
+          setMessage(resMessage);
+        }
+    );
+  };
+
   return (
-    <div className="email-input-modal-content">
+    <div className="email-input-modal-content" ref={ref}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -122,10 +135,8 @@ const EmailInput = ({ onSuccess }: any) => {
           ux_mode={"popup"}
           useOneTap={true}
           text={"signup_with"}
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
+          onSuccess={handleGoogleLogin}
+          onError={(): void => {
             console.log("Login Failed");
           }}
         />
@@ -138,6 +149,6 @@ const EmailInput = ({ onSuccess }: any) => {
       </div>
     </div>
   );
-};
+});
 
 export default EmailInput;

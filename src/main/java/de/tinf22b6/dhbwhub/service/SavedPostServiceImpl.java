@@ -6,6 +6,7 @@ import de.tinf22b6.dhbwhub.model.Post;
 import de.tinf22b6.dhbwhub.model.SavedPost;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.proposal.SavedPostProposal;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.CheckSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.CreateSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.DeleteSavedPostProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.HomepageSavedPostProposal;
@@ -56,6 +57,11 @@ public class SavedPostServiceImpl implements SavedPostService {
     @Override
     public List<HomepageSavedPostProposal> getSavedPostsByUserId(Long id) {
         return repository.findByUserId(id).stream().map(SavedPostMapper::mapToHomepageProposal).toList();
+    }
+
+    @Override
+    public boolean isSaved(CheckSavedPostProposal proposal) {
+        return !repository.findByUserIdAndPostId(proposal.getUserId(), proposal.getPostId()).isEmpty();
     }
 
     @Override

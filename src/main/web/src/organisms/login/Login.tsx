@@ -5,9 +5,9 @@ import * as Yup from "yup";
 import './Login.css';
 import {googleLogin, login} from "../../services/AuthService";
 import {Checkbox, FormControlLabel} from "@mui/material";
-import EmailInput from "../signup/EmailInput";
 
 import {CredentialResponse, GoogleLogin} from "@react-oauth/google";
+import SignUp from "../signup/SignUp";
 
 type Props = {}
 
@@ -45,11 +45,11 @@ const Login: React.FC<Props> = () => {
         setLoading(true);
 
         login(username, password, rememberMe).then(
-            () => {
+            (): void => {
                 navigate("/profile");
                 window.location.reload();
             },
-            (error) => {
+            (error): void => {
                 const resMessage =
                     (error.response &&
                         error.response.data &&
@@ -63,17 +63,15 @@ const Login: React.FC<Props> = () => {
         );
     };
 
-    const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
-        console.log(credentialResponse);
+    const handleGoogleLogin = (credentialResponse: CredentialResponse): void => {
         googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
-            () => {
+            (): void => {
                 navigate("/profile");
                 window.location.reload();
             },
-            () => {
-                const resMessage = "Unable to sign in via Google";
+            (): void => {
                 setLoading(false);
-                setMessage(resMessage);
+                setMessage("Unable to sign in via Google");
             }
         );
     };
@@ -147,7 +145,7 @@ const Login: React.FC<Props> = () => {
                                 />
                             </div>
 
-                            {showSignUp && <EmailInput/>}
+                            {showSignUp && <SignUp/>}
 
                             {message && (
                                 <div className="form-group">

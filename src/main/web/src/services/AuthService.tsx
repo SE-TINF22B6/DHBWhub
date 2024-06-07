@@ -1,6 +1,5 @@
 import axios from "axios";
 import config from "../config/config";
-import {CredentialResponse} from "@react-oauth/google";
 
 export const register = (username: string, email: string, password: string) => {
     return axios.post(config.apiUrl + "api/auth/signup", {
@@ -61,6 +60,7 @@ export const logout = (): void => {
     localStorage.removeItem("userId");
     localStorage.removeItem("username");
     localStorage.removeItem("token");
+    localStorage.removeItem('userImage');
 };
 
 export const getAccountId = (): number | null => {

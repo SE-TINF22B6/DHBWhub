@@ -64,7 +64,7 @@ public class PostController {
         return service.getPostsByKeyword(keyword);
     }
 
-    @GetMapping("/post-by-tag-keyword/{keyword}")
+    @GetMapping("/posts-by-tag-keyword/{keyword}")
     public List<HomepagePostPreviewProposal> getPostsByTagKeyword(@PathVariable String keyword) {
         return service.getPostTagsByKeyword(keyword);
     }
@@ -116,6 +116,11 @@ public class PostController {
     @PutMapping("/decrease-likes")
     public int decreaseLikes(@RequestBody LikePostProposal likePostProposal) {
         return service.decreaseLikes(likePostProposal);
+    }
+
+    @PostMapping("/is-liked")
+    public boolean isLiked(@RequestBody LikePostProposal likePostProposal) {
+        return service.isLiked(likePostProposal);
     }
 
     @DeleteMapping("/{id}")

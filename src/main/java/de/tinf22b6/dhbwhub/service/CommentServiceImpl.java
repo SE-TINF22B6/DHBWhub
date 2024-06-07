@@ -157,6 +157,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public boolean isLiked(LikeCommentProposal likeCommentProposal) {
+        return logtableRepository.findComment(likeCommentProposal.getCommentId(), likeCommentProposal.getUserId()) != null;
+    }
+
+    @Override
     public CommentThreadViewProposal getCommentThreadView(Long id) {
         return CommentMapper.mapToThreadView(get(id));
     }

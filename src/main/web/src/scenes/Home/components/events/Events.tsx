@@ -1,15 +1,14 @@
 import React, {useEffect, useMemo, useState} from "react";
 import { CalendarEntry } from "./CalendarEntry";
 import { Link } from "react-router-dom";
-import { dummyEvents } from "./dummyEvents";
 import config from "../../../../config/config";
 import { EventModel } from "./models/EventModel";
 import {getJWT} from "../../../../services/AuthService";
 import "./Events.css";
 
 export const Events = () => {
-  const [events, setEvents] = useState<EventModel[]>(dummyEvents);
-  const sortedEvents = [...events].sort((a: EventModel, b: EventModel) => a.startDate - b.startDate);
+  const [events, setEvents] = useState<EventModel[]>();
+  const sortedEvents = [...(events || [])].sort((a: EventModel, b: EventModel) => a.startDate - b.startDate);
   const jwt: string | null = getJWT();
   const headersWithJwt = useMemo(() => ({
     ...config.headers,
@@ -26,7 +25,7 @@ export const Events = () => {
           const data = await response.json();
           setEvents(data);
         } else {
-          console.log(new Error("Failed to fetch events"));
+          console.error("Failed to fetch events");
         }
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -37,14 +36,18 @@ export const Events = () => {
 
   const months: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
+  if (sortedEvents?.length === 0) {
+    return null;
+  }
+
   return (
       <div className="events">
         <Link to={"/calendar"} className="link">
           <div className="component-headline">Next Events</div>
         </Link>
         <div className="events-layout">
-          {sortedEvents.map(event => {
-            const date: Date = new Date(event.startDate * 1000);
+          {sortedEvents.slice(0,5).map(event => {
+            const date: Date = new Date(event.startDate);
             const day: number = date.getDate();
             const monthIndex: number = date.getMonth();
             const month: string = months[monthIndex];
@@ -58,7 +61,7 @@ export const Events = () => {
                       day={day}
                       month={month}
                       year={year}
-                      tags={event.tags}
+                      tags={event.tags.slice(0,2)}
                       id={event.id}
                   />
                 </div>

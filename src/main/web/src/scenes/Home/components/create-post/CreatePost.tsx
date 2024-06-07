@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./CreatePost.css";
 import {Link} from "react-router-dom";
 import {PostDraft} from "./PostDraft";
-import ProfilePictureService from "../../../../services/ProfilePictureService";
+import {fetchUserImage} from "../../../../services/ProfilePictureService";
 import {isUserLoggedIn} from "../../../../services/AuthService";
 import {Tooltip} from "react-tooltip";
 import config from "../../../../config/config";
@@ -18,7 +18,13 @@ export const CreatePost = () => {
   };
 
   useEffect((): void => {
-    ProfilePictureService.fetchUserImage(setUserImage);
+    const fetchUserProfileImage = async (): Promise<void> => {
+      const image: string | null = await fetchUserImage();
+      if (image) {
+        setUserImage(image);
+      }
+    };
+    fetchUserProfileImage();
   }, []);
 
   return (

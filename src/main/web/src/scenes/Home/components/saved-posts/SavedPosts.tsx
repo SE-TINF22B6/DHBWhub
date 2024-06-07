@@ -29,13 +29,11 @@ export const SavedPosts = () => {
             const data = await response.json();
             setSavedPosts(data);
           } else {
-            console.log(new Error("Failed to fetch saved posts"));
+            console.error("Failed to fetch saved posts");
           }
         } catch (error) {
           console.error("Error fetching saved posts:", error);
         }
-      } else {
-        console.log("User is not logged in: cannot fetch saved posts.");
       }
     };
     fetchSavedPosts();
@@ -46,7 +44,11 @@ export const SavedPosts = () => {
           self.findIndex(p => p.postId === post.postId) === index
   );
 
-  if (savedPosts) {
+  if (uniqueSavedPosts.length === 0) {
+    return null;
+  }
+
+  if (uniqueSavedPosts) {
     return (
         <div className="saved-posts">
           <div className="component-headline">Saved posts</div>
