@@ -46,8 +46,8 @@ export const Events = () => {
           <div className="component-headline">Next Events</div>
         </Link>
         <div className="events-layout">
-          {sortedEvents.map(event => {
-            const date: Date = new Date(event.startDate * 1000);
+          {sortedEvents.slice(0,5).map(event => {
+            const date: Date = new Date(event.startDate);
             const day: number = date.getDate();
             const monthIndex: number = date.getMonth();
             const month: string = months[monthIndex];
