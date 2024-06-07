@@ -45,11 +45,11 @@ export const ProfilePage = () => {
         setIsEditing({...isEditing, [field]: !isEditing[field]});
     };
 
-    const handlePasswordChange = () => {
+    const handlePasswordChange = (): void => {
         //navigate("/");
     };
 
-    const handleLogout = () => {
+    const handleLogout = (): void => {
         logout();
         navigate("/");
         window.location.reload();

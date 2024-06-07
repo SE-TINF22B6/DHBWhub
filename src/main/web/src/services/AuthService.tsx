@@ -60,6 +60,7 @@ export const logout = (): void => {
     localStorage.removeItem("userId");
     localStorage.removeItem("username");
     localStorage.removeItem("token");
+    localStorage.removeItem('userImage');
 };
 
 export const getAccountId = (): number | null => {

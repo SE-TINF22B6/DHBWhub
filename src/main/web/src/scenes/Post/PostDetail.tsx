@@ -197,6 +197,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
                   handleSaveClick={handleSaveClick}
                   handleUnsaveClick={handleUnsaveClick}
                   handleReportClick={handleReportClick}
+                  id={id}
               />
             </div>
         )}

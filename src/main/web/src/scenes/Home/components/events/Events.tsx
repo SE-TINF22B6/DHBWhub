@@ -25,7 +25,7 @@ export const Events = () => {
           const data = await response.json();
           setEvents(data);
         } else {
-          console.log(new Error("Failed to fetch events"));
+          console.error("Failed to fetch events");
         }
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -61,7 +61,7 @@ export const Events = () => {
                       day={day}
                       month={month}
                       year={year}
-                      tags={event.tags}
+                      tags={event.tags.slice(0,2)}
                       id={event.id}
                   />
                 </div>
