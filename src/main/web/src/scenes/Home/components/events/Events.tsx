@@ -36,6 +36,10 @@ export const Events = () => {
 
   const months: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
+  if (sortedEvents?.length === 0) {
+    return null;
+  }
+
   return (
       <div className="events">
         <Link to={"/calendar"} className="link">

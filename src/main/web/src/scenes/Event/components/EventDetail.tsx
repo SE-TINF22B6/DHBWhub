@@ -3,12 +3,12 @@ import './EventDetail.css';
 import {Share} from "../../../organisms/share/Share";
 import {useLocation} from "react-router-dom";
 import {Tag} from "../../../atoms/Tag";
-import LikeService from "../../../services/LikeService";
 import { Map } from './Map';
 import {LatLngExpression} from "leaflet";
 import {Interaction} from "../../../organisms/interaction/Interaction";
 import {EventDetailModel} from "../model/EventDetailModel";
 import {EventMenu} from "./EventMenu";
+import {handleLike} from "../../../services/LikeService";
 
 export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel) => {
   const {
@@ -50,7 +50,7 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const position: LatLngExpression = [locationProposal.latitude, locationProposal.longitude];
 
   useEffect((): void => {
-    const userLikedEvent: string | null = localStorage.getItem(`liked_${id}`);
+    const userLikedEvent: string | null = localStorage.getItem(`event_liked_${id}`);
     if (userLikedEvent) {
       setUserLiked(true);
       setHeartClass('heart-filled');
@@ -64,10 +64,6 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
 
   const handleShareClick = (): void => {
     setShareWindowOpen(!shareWindowOpen);
-  };
-
-  const handleLike = (): void => {
-    LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
 
   return (
@@ -90,7 +86,7 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
                 userLiked={userLiked}
                 heartClass={heartClass}
                 comments={commentAmount}
-                handleLike={handleLike}
+                handleLike={() => handleLike(id, "event", likes, setLikes, setUserLiked, setHeartClass)}
                 id={id}
                 isHomepage={false}
             />

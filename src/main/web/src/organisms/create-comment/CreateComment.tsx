@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./CreateComment.css";
 import { Link } from "react-router-dom";
-import ProfilePictureService from "../../services/ProfilePictureService";
+import {fetchUserImage} from "../../services/ProfilePictureService";
 import config from "../../config/config";
 import {isUserLoggedIn} from "../../services/AuthService";
 import {Tooltip} from "react-tooltip";
@@ -32,13 +32,13 @@ export const CreateComment: React.FC<CreateCommentProps> = ({ onReplyClick }) =>
   };
 
   useEffect((): void => {
-    const fetchUserImage = async () => {
-      const image: string | null = await ProfilePictureService.fetchUserImage();
+    const fetchUserProfileImage = async (): Promise<void> => {
+      const image: string | null = await fetchUserImage();
       if (image) {
         setUserImage(image);
       }
     };
-    fetchUserImage();
+    fetchUserProfileImage();
   }, []);
 
   return (

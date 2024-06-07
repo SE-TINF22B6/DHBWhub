@@ -1,6 +1,6 @@
-import ProfilePictureService from '../ProfilePictureService';
 import config from "../../config/config";
 import { getJWT, getUserId, isUserLoggedIn } from "../AuthService";
+import {fetchUserImage} from "../ProfilePictureService";
 
 jest.mock('../AuthService', () => ({
   getJWT: jest.fn(),
@@ -26,7 +26,7 @@ describe('ProfilePictureService', () => {
     (isUserLoggedIn as jest.Mock).mockReturnValue(true);
     (fetch as jest.Mock).mockResolvedValue(mockResponse);
 
-    const result: string | null = await ProfilePictureService.fetchUserImage();
+    const result: string | null = await fetchUserImage();
 
     expect(fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
       headers: {
@@ -41,7 +41,7 @@ describe('ProfilePictureService', () => {
   it('should return null if user is not logged in', async (): Promise<void> => {
     (isUserLoggedIn as jest.Mock).mockReturnValue(false);
 
-    const result: string | null = await ProfilePictureService.fetchUserImage();
+    const result: string | null = await fetchUserImage();
 
     expect(fetch).not.toHaveBeenCalled();
     expect(result).toBeNull();
@@ -54,7 +54,7 @@ describe('ProfilePictureService', () => {
     (isUserLoggedIn as jest.Mock).mockReturnValue(true);
     (fetch as jest.Mock).mockRejectedValue(new Error('Fetch failed'));
 
-    const result: string | null = await ProfilePictureService.fetchUserImage();
+    const result: string | null = await fetchUserImage();
 
     expect(fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
       headers: {
@@ -78,7 +78,7 @@ describe('ProfilePictureService', () => {
     (isUserLoggedIn as jest.Mock).mockReturnValue(true);
     (fetch as jest.Mock).mockResolvedValue(mockResponse);
 
-    const result: string | null = await ProfilePictureService.fetchUserImage();
+    const result: string | null = await fetchUserImage();
 
     expect(fetch).toHaveBeenCalledWith(`${config.apiUrl}picture/find/1`, {
       headers: {

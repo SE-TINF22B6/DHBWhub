@@ -11,7 +11,7 @@ import { EditorState } from "lexical";
 import config from "../../../../config/config";
 import { getAccountId, getJWT } from "../../../../services/AuthService";
 import { handleTagInput } from "../../../../services/TagService";
-import ProfilePictureService from "../../../../services/ProfilePictureService";
+import {fetchUserImage} from "../../../../services/ProfilePictureService";
 
 interface PostDraftProps {
   draftOpen: boolean;
@@ -35,13 +35,13 @@ export const PostDraft: React.FC<PostDraftProps> = (props: PostDraftProps) => {
   };
 
   useEffect((): void => {
-    const fetchUserImage = async () => {
-      const image: string | null = await ProfilePictureService.fetchUserImage();
+    const fetchUserProfileImage = async (): Promise<void> => {
+      const image: string | null = await fetchUserImage();
       if (image) {
         setUserImage(image);
       }
     };
-    fetchUserImage();
+    fetchUserProfileImage();
   }, []);
 
   const handleImagesChange = (newImages: ImageType[]): void => {

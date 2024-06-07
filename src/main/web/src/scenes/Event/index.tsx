@@ -51,7 +51,6 @@ export const Event = (): JSX.Element | null => {
         });
         if (response.ok) {
           const eventThread = await response.json();
-          console.log(eventThread);
           setEvent(eventThread);
           setComments(eventThread.comments);
         } else {
@@ -135,7 +134,7 @@ export const Event = (): JSX.Element | null => {
                  className="navigate-back-rectangle"/>
             <div className="navigate-back-text">Event</div>
           </Link>
-          <a className="error">Event not Found</a>
+          <div className="error">Event not Found</div>
           <Footer/>
           {isSmartphoneSize && <MobileFooter/>}
         </div>
@@ -189,6 +188,7 @@ export const Event = (): JSX.Element | null => {
                         accountId={comment.accountId}
                         timestamp={comment.timestamp * 1000}
                         likeAmount={comment.likeAmount}
+                        type={"eventComment"}
                     />
                 ))}
               </div>

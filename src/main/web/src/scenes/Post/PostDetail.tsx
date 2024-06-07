@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Share} from "../../organisms/share/Share";
 import {Link, useLocation} from "react-router-dom";
 import {Report} from "../../organisms/report/Report";
 import {PostMenu} from "../../organisms/post-menu/PostMenu";
 import {Tag} from "../../atoms/Tag";
-import LikeService from "../../services/LikeService";
-import TimeService from "../../services/TimeService";
-import ReportService from "../../services/ReportService";
+import {handleLike} from "../../services/LikeService";
+import {timeDifference} from "../../services/TimeService";
 import {PostDetailModel} from "./models/PostDetailModel";
 import {Interaction} from "../../organisms/interaction/Interaction";
 import {getJWT, getUserId} from "../../services/AuthService";
 import config from "../../config/config";
 import './PostDetail.css';
+import {sendReportToBackend} from "../../services/ReportService";
 
 export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) => {
   const {
@@ -28,7 +28,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     userImage,
   } = props;
 
-  const formattedTime = TimeService.timeDifference(new Date(timestamp));
+  const formattedTime = timeDifference(new Date(timestamp));
   const [likes, setLikes] = useState(likeAmount);
   const [userLiked, setUserLiked] = useState(false);
   const [heartClass, setHeartClass] = useState('heart-empty');
@@ -53,14 +53,14 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, "post");
+    sendReportToBackend(reportReason, reportDescription, id, accountId, "post");
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
   };
 
   useEffect((): void => {
-    const userLikedPost: string | null = localStorage.getItem(`liked_${id}`);
+    const userLikedPost: string | null = localStorage.getItem(`post_liked_${id}`);
     if (userLikedPost) {
       setUserLiked(true);
       setHeartClass('heart-filled');
@@ -127,22 +127,18 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     }
   };
 
-  const handleLike = (): void => {
-    LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
-  };
-
-  const handleClose = () => {
+  const handleClose = useCallback((): void => {
     setReportOpen(false);
-  };
+  }, [setReportOpen]);
 
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
+    const handleEsc = (event: KeyboardEvent): void => {
       if (event.key === 'Escape' && reportOpen) {
         handleClose();
       }
     };
     document.addEventListener('keydown', handleEsc);
-    return () => {
+    return (): void => {
       document.removeEventListener('keydown', handleEsc);
     };
   }, [reportOpen, handleClose]);
@@ -172,7 +168,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
                 userLiked={userLiked}
                 heartClass={heartClass}
                 comments={comments}
-                handleLike={handleLike}
+                handleLike={() => handleLike(id, "post", likes, setLikes, setUserLiked, setHeartClass)}
                 id={id}
                 isHomepage={false}
             />
@@ -219,7 +215,6 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
               />
             </div>
         )}
-
       </div>
   );
 };
