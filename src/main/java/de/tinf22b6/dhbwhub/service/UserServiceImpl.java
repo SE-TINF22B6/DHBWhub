@@ -75,6 +75,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<SearchedUserProposal> getUserByKeyword(String keyword) {
+        return repository.findUsersByKeyword(keyword).stream().map(UserMapper::mapToSearchedUserProposal).toList();
+    }
+
+    @Override
     public void updateAge(UpdateAgeProposal updateAgeProposal) {
         User user = get(updateAgeProposal.getUserId());
         User updatedUser = UserMapper.mapToUpdatedAgeModel(user, updateAgeProposal.getAge());

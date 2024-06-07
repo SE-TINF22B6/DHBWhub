@@ -26,7 +26,7 @@ public class UserRepository {
     public User findByAccountId(Long accountId) { return repository.findByAccountId(accountId); }
 
     public List<User> findUsersByKeyword(String keyword){
-        return repository.findUsersWithKeyword(keyword);
+        return repository.findByKeywordIgnoreCase(keyword);
     }
 
     public int findAmountFollower(Long userId){
