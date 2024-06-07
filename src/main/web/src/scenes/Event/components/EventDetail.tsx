@@ -3,12 +3,11 @@ import './EventDetail.css';
 import {Share} from "../../../organisms/share/Share";
 import {useLocation} from "react-router-dom";
 import {Tag} from "../../../atoms/Tag";
-import LikeService from "../../../services/LikeService";
-import { Map } from './Map';
-import {LatLngExpression} from "leaflet";
+import {Map} from './Map';
 import {Interaction} from "../../../organisms/interaction/Interaction";
 import {EventDetailModel} from "../model/EventDetailModel";
 import {EventMenu} from "./EventMenu";
+import {handleLike} from "../../../services/LikeService";
 
 export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel) => {
   const {
@@ -30,14 +29,14 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL: string = window.location.href;
   const location = useLocation();
-  const dateStart: Date = new Date(startDate * 1000);
-  const dateEnd: Date = new Date(endDate * 1000);
+  const dateStart: Date = new Date(startDate);
+  const dateEnd: Date = new Date(endDate);
   const allDay: boolean = dateStart === dateEnd;
 
   const formatTime = (date: Date): string => {
     const hours: number = date.getHours();
     const minutes: number = date.getMinutes();
-    const ampm = hours >= 12 ? 'pm' : 'am';
+    const ampm: 'pm' | 'am' = hours >= 12 ? 'pm' : 'am';
     const formattedHours: number = hours % 12 || 12;
     const formattedMinutes: string = minutes.toString().padStart(2, '0');
     return `${formattedHours}:${formattedMinutes} ${ampm}`;
@@ -47,10 +46,8 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
   const formattedEndTime: string = formatTime(dateEnd);
   const formattedTime: string = allDay ? 'All day' : `${formattedStartTime} - ${formattedEndTime}`;
 
-  const position: LatLngExpression = [locationProposal.latitude, locationProposal.longitude];
-
   useEffect((): void => {
-    const userLikedEvent: string | null = localStorage.getItem(`liked_${id}`);
+    const userLikedEvent: string | null = localStorage.getItem(`event_liked_${id}`);
     if (userLikedEvent) {
       setUserLiked(true);
       setHeartClass('heart-filled');
@@ -64,10 +61,6 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
 
   const handleShareClick = (): void => {
     setShareWindowOpen(!shareWindowOpen);
-  };
-
-  const handleLike = (): void => {
-    LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
   };
 
   return (
@@ -90,7 +83,7 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
                 userLiked={userLiked}
                 heartClass={heartClass}
                 comments={commentAmount}
-                handleLike={handleLike}
+                handleLike={() => handleLike(id, "event", likes, setLikes, setUserLiked, setHeartClass)}
                 id={id}
                 isHomepage={false}
             />
@@ -99,12 +92,14 @@ export const EventDetail: React.FC<EventDetailModel> = (props: EventDetailModel)
               <p className="event-detail-title">{title}</p>
               <p className="event-detail-description">{description}</p>
           </div>
-          <div className="event-map">
-            <Map position={position} address={locationProposal.location}/>
-          </div>
+          {locationProposal.latitude != null && locationProposal.longitude != null && (
+              <div className="event-map">
+                <Map position={[locationProposal.latitude, locationProposal.longitude]} address={locationProposal.location}/>
+              </div>
+          )}
         </div>
         <button className="event-detail-menu-button" onClick={handleMenuClick}>
-          <img alt="Menu" src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
+        <img alt="Menu" src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
         </button>
         {menuOpen && (
             <EventMenu handleShareClick={handleShareClick}/>

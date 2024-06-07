@@ -4,11 +4,11 @@ import {Link, useLocation} from 'react-router-dom';
 import ModalLoginContainer from '../login/ModalLoginContainer';
 import {Notifications} from "./Notifications";
 import SignUp from "../signup/SignUp";
-import ProfilePictureService from "../../services/ProfilePictureService";
 import {isUserLoggedIn} from "../../services/AuthService";
 import "./Header.css";
 import {Tooltip} from "react-tooltip";
 import config from "../../config/config";
+import {fetchUserImage} from "../../services/ProfilePictureService";
 
 export const Header = () => {
 
@@ -21,15 +21,15 @@ export const Header = () => {
       setCurrentLocation(location.pathname);
     }, [location]);
 
-    useEffect((): void => {
-      const fetchUserImage = async () => {
-        const image: string | null = await ProfilePictureService.fetchUserImage();
-        if (image) {
-          setUserImage(image);
-        }
-      };
-      fetchUserImage();
-    }, []);
+  useEffect((): void => {
+    const fetchUserProfileImage = async (): Promise<void> => {
+      const image: string | null = await fetchUserImage();
+      if (image) {
+        setUserImage(image);
+      }
+    };
+    fetchUserProfileImage();
+  }, []);
 
     useEffect((): void => {
         setCurrentLocation(location.pathname);
@@ -79,7 +79,7 @@ export const Header = () => {
             )}
           </div>
           {!isUserLoggedIn() && (
-              <Tooltip variant={"light"} id="notifications" place="bottom" style={{ zIndex: 999 }}/>
+              <Tooltip variant={"light"} id="notifications" place="bottom" style={{zIndex: 999}}/>
           )}
           {showNotifications && <Notifications showNotifications={showNotifications}/>}
           {isUserLoggedIn() ? (

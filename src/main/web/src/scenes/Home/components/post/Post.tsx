@@ -1,19 +1,19 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import './Post.css';
 import {Share} from "../../../../organisms/share/Share";
 import {Link, useLocation} from "react-router-dom";
 import {Report} from "../../../../organisms/report/Report";
 import {PostMenu} from "../../../../organisms/post-menu/PostMenu";
 import {Tag} from "../../../../atoms/Tag";
-import ReportService from '../../../../services/ReportService';
-import LikeService from '../../../../services/LikeService';
-import TimeService from "../../../../services/TimeService";
+import {handleLike} from '../../../../services/LikeService';
+import {timeDifference} from "../../../../services/TimeService";
 import {PostModel} from "./models/PostModel";
 import {Interaction} from "../../../../organisms/interaction/Interaction";
-import DescriptionService from "../../../../services/DescriptionService";
+import {shortenDescription} from "../../../../services/DescriptionService";
 import {useMediaQuery} from "@mui/system";
 import config from "../../../../config/config";
 import {getJWT, getUserId} from "../../../../services/AuthService";
+import {sendReportToBackend} from "../../../../services/ReportService";
 
 export const Post: React.FC<PostModel> = (props: PostModel) => {
   const {
@@ -30,10 +30,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   } = props;
 
   const matches: boolean = useMediaQuery('(max-width: 412px)')
-  const formattedTime: string = TimeService.timeDifference(new Date(timestamp));
-  const [likes, setLikes] = useState(likeAmount);
-  const [userLiked, setUserLiked] = useState(false);
-  const [heartClass, setHeartClass] = useState('heart-empty');
+  const formattedTime: string = timeDifference(new Date(timestamp));
   const [comments] = useState(commentAmount);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
@@ -57,14 +54,18 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   };
 
   const handleReportSubmit = (): void => {
-    ReportService.sendReportToBackend(reportReason, reportDescription, id, accountId, "post");
+    sendReportToBackend(reportReason, reportDescription, id, accountId, "post");
     setReportOpen(!reportOpen);
     setReportReason('');
     setReportDescription('');
   };
 
+  const [likes, setLikes] = useState(likeAmount);
+  const [userLiked, setUserLiked] = useState(false);
+  const [heartClass, setHeartClass] = useState('heart-empty');
+
   useEffect((): void => {
-    const userLikedPost: string | null = localStorage.getItem(`liked_${id}`);
+    const userLikedPost: string | null = localStorage.getItem(`post_liked_${id}`);
     if (userLikedPost) {
       setUserLiked(true);
       setHeartClass('heart-filled');
@@ -72,7 +73,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   }, [location, id]);
 
   useEffect((): void => {
-    setShortDescription(DescriptionService.shortenDescription(description, postImage ? 190 : matches ? 190 : 280));
+    setShortDescription(shortenDescription(description, postImage ? 190 : matches ? 190 : 280));
   }, [description, postImage, matches]);
 
   const handleMenuClick = (): void => {
@@ -141,10 +142,6 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     }
   };
 
-  const handleLike = (): void => {
-    LikeService.handleLike(id, userLiked, likes, setLikes, setUserLiked, setHeartClass);
-  };
-
   function getMarginLeft() {
     if (matches) {
       return tags ? '110px' : '0';
@@ -157,7 +154,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     if (matches) {
       return postImage ? '240px' : '260px';
     } else {
-      return postImage ? '300px' : '600px';
+      return postImage ? '310px' : '600px';
     }
   }
 
@@ -169,18 +166,18 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     }
   }
 
-  const handleClose = () => {
+  const handleClose = useCallback((): void => {
     setReportOpen(false);
-  };
+  }, [setReportOpen]);
 
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
+    const handleEsc = (event: KeyboardEvent): void => {
       if (event.key === 'Escape' && reportOpen) {
         handleClose();
       }
     };
     document.addEventListener('keydown', handleEsc);
-    return () => {
+    return (): void => {
       document.removeEventListener('keydown', handleEsc);
     };
   }, [reportOpen, handleClose]);
@@ -204,7 +201,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
             </div>
 
             <p className="short-description" style={{ width: getWidth() }}>
-              {postImage ? DescriptionService.shortenDescription(shortDescription, 150) : shortDescription}
+              {postImage ? shortenDescription(shortDescription, 150) : shortDescription}
             </p>
 
             <div className="footer">
@@ -215,14 +212,26 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
             </div>
           </div>
           <div className="home-post-interaction">
-            <Interaction likes={likes} userLiked={userLiked} heartClass={heartClass} comments={comments} handleLike={handleLike} id={id}
-                         isHomepage={true}/>
+            <Interaction
+                likes={likes}
+                userLiked={userLiked}
+                heartClass={heartClass}
+                comments={comments}
+                handleLike={() => handleLike(id, "post", likes, setLikes, setUserLiked, setHeartClass)}
+                id={id}
+                isHomepage={true}/>
           </div>
         </div>
 
         {menuOpen && (
             <div className="post-menu-container">
-              <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleUnsaveClick={handleUnsaveClick} handleReportClick={handleReportClick}/>
+              <PostMenu
+                  handleShareClick={handleShareClick}
+                  handleSaveClick={handleSaveClick}
+                  handleUnsaveClick={handleUnsaveClick}
+                  handleReportClick={handleReportClick}
+                  id={id}
+              />
             </div>
         )}
         {shareWindowOpen && (

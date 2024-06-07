@@ -50,6 +50,11 @@ public class UserController {
         return service.getUserInformation(id);
     }
 
+    @GetMapping("/user-by-keyword/{keyword}")
+    public List<SearchedUserProposal> getUserByKeyword(@PathVariable String keyword) {
+        return service.getUserByKeyword(keyword);
+    }
+
     @PutMapping("/update-age")
     @ResponseStatus(HttpStatus.OK)
     public void updateAge(@RequestBody UpdateAgeProposal proposal) {

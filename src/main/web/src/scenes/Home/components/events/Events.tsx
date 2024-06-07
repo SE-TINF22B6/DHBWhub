@@ -25,7 +25,7 @@ export const Events = () => {
           const data = await response.json();
           setEvents(data);
         } else {
-          console.log(new Error("Failed to fetch events"));
+          console.error("Failed to fetch events");
         }
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -36,14 +36,18 @@ export const Events = () => {
 
   const months: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
+  if (sortedEvents?.length === 0) {
+    return null;
+  }
+
   return (
       <div className="events">
         <Link to={"/calendar"} className="link">
           <div className="component-headline">Next Events</div>
         </Link>
         <div className="events-layout">
-          {sortedEvents.map(event => {
-            const date: Date = new Date(event.startDate * 1000);
+          {sortedEvents.slice(0,5).map(event => {
+            const date: Date = new Date(event.startDate);
             const day: number = date.getDate();
             const monthIndex: number = date.getMonth();
             const month: string = months[monthIndex];
@@ -57,7 +61,7 @@ export const Events = () => {
                       day={day}
                       month={month}
                       year={year}
-                      tags={event.tags}
+                      tags={event.tags.slice(0,2)}
                       id={event.id}
                   />
                 </div>

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import './Report.css';
 import Modal from "@mui/material/Modal";
 import { useFormik } from 'formik';

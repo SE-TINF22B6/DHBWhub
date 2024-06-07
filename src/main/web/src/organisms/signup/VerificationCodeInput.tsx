@@ -5,7 +5,6 @@ import './SignUp.css';
 import './VerificationCodeInput.css';
 
 const VerificationCodeInput = ({onSuccess}: any) => {
-    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState<boolean>(false);
     const [result, setResult] = useState('');
 
@@ -18,31 +17,25 @@ const VerificationCodeInput = ({onSuccess}: any) => {
     };
 
     const handleValidation = (): void => {
-        const token = result;
-
-        setMessage("");
+        const token: string = result;
         setLoading(true);
-
         tokenValidation(token)
         .then(
-            () => {
+            (): void => {
                 onSuccess();
             },
-            (error) => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
+            (error): void => {
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
                 setLoading(false);
-                setMessage(resMessage);
             }
         );
     };
 
-    const handleKeyDown = (event: React.KeyboardEvent) => {
+    const handleKeyDown = (event: React.KeyboardEvent): void => {
         if (event.key === 'Enter') {
             event.preventDefault();
             handleValidation();
@@ -65,18 +58,13 @@ const VerificationCodeInput = ({onSuccess}: any) => {
                     />
                 </div>
                 <div className="form-group">
-                    <button
-                        type="button"
-                        className="loading-btn"
-                        onClick={handleValidation}
-                    >
+                    <button type="button" className="loading-btn" onClick={handleValidation}>
                         {loading && (
                             <span className="spinner-border spinner-border-sm"></span>
                         )}
                         <span className="btn-text">CONTINUE</span>
                     </button>
                 </div>
-
                 <div className="signup-option">
                     <label className="signup-option-text">Already have an account? </label>
                     <label className="signup-option-text-link" onClick={handleOpenLogin}>LOGIN</label>

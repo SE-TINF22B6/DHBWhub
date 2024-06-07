@@ -6,4 +6,5 @@ export interface CommentModel {
   accountId: number;
   timestamp: number;
   likeAmount: number;
+  type: string;
 }

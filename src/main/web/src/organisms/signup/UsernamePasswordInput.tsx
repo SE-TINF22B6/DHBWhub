@@ -14,7 +14,6 @@ const UsernamePasswordInput = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState(false);
     const [showError, setShowError] = useState<boolean>(false);
-    const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
 
     const initialValues: {
         username: string;
@@ -24,49 +23,39 @@ const UsernamePasswordInput = () => {
         password: ""
     };
 
-    const handleOpenLogin = () => {
+    const handleOpenLogin = (): void => {
 
     }
-
-    const handleInputFocus = () => {
-        setShowError(false);
-    };
 
     const validationSchema = Yup.object().shape({
         username: Yup.string().required("This field is required!"),
         password: Yup.string().required("This field is required!"),
     });
 
-    const handleSignUp = (formValue: { username: string, password: string }) => {
+    const handleSignUp = (formValue: { username: string, password: string }): void => {
         const {username, password} = formValue;
 
         setMessage("");
         setLoading(true);
 
-        const email = localStorage.getItem("userEmailAddress");
+        const email: string | null = localStorage.getItem("userEmailAddress");
 
         if (!email) {
             throw new Error("Value for user email address is not available! Registration failed! ");
         } else {
             register(username, email, password)
                 .then(
-                    () => {
+                    (): void => {
                         localStorage.removeItem("userEmailAddress");
                         navigate("/profile");
                         window.location.reload();
                     },
-                    (error) => {
-                        let resMessage =
-                            (error.response &&
-                                error.response.data &&
-                                error.response.data.message) ||
-                            error.message ||
+                    (error): void => {
+                        let resMessage = (error.response && error.response.data && error.response.data.message) || error.message ||
                             error.toString();
-
                         if (error.message === "Request failed with status code 400") {
                             setShowError(true);
                         }
-
                         setLoading(false);
                         setMessage(resMessage);
                     }
@@ -84,35 +73,26 @@ const UsernamePasswordInput = () => {
                         <div className="form-group">
                             <label htmlFor="username" className="heading">Username</label>
                             <Field name="username" type="text" className="form-control"/>
-                            <ErrorMessage
-                                name="username"
-                                component="div"
-                                className="alert-danger"
-                            />
+                            <ErrorMessage name="username" component="div" className="alert-danger"/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="password" className="heading">Password</label>
                             <Field name="password" type="password" className="form-control"/>
-                            <ErrorMessage
-                                name="password"
-                                component="div"
-                                className="alert-danger"
-                            />
+                            <ErrorMessage name="password" component="div" className="alert-danger"/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="re-password" className="heading">Re-enter Password</label>
                             <Field name="re-password" type="password" className="form-control"/>
-                            <ErrorMessage
-                                name="re-password"
-                                component="div"
-                                className="alert-danger"
-                            />
+                            <ErrorMessage name="re-password" component="div" className="alert-danger"/>
                         </div>
                         <div className="accept-privacy-policy">
-                            <FormControlLabel control={<Checkbox className="checkbox" checked={acceptPrivacyPolicy}
-                                                                 onChange={(e) => setAcceptPrivacyPolicy(e.target.checked)}/>}
-                                              label="I accept Terms of Service and Privacy Policy"
-                                              className="accept-privacy-policy-checkbox"/>
+                            <FormControlLabel
+                                control={
+                                <Checkbox className="checkbox" checked={acceptPrivacyPolicy}
+                                          onChange={(e) => setAcceptPrivacyPolicy(e.target.checked)}
+                                />}
+                                label="I accept Terms of Service and Privacy Policy"
+                                className="accept-privacy-policy-checkbox"/>
                         </div>
                         <div className="form-group">
                             <button type="submit" className="loading-btn">
@@ -129,7 +109,7 @@ const UsernamePasswordInput = () => {
                         </div>
 
                         <div className="error-message-dialog">
-                            {showError && !isInputFocused && (
+                            {showError && (
                                 <ErrorUsernameModal message={message} onClose={() => setShowError(false)}/>
                             )}
                         </div>
