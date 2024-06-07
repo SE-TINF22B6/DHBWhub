@@ -37,7 +37,6 @@ export const Map: React.FC<MapProps> = ({ position, address}) => {
             {address}
           </Popup>
         </Marker>
-
       </MapContainer>
   );
 };
