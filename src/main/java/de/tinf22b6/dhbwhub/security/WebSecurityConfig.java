@@ -38,11 +38,10 @@ public class WebSecurityConfig {
             "/post/popular-tags",
             "/post/posts-by-tag/{tag}",
             "/post/user-posts/{id:\\d+}",
-            "/post/friend-posts/{id:\\d+}",
             "/post/posts-by-keyword/{keyword}",
             "/post/posts-by-tag-keyword/{keyword}",
-            "/post/friend-posts-by-tag",
             "/event/homepage-preview-events",
+            "/event/calendar-events",
             "/event/event-thread/{id:\\d+}",
             "/event/event-comments/{id:\\d+}",
 
