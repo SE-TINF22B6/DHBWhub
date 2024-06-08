@@ -100,7 +100,6 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         alert('Post has been saved!');
       } else {
         console.error('Error saving the post: ', response.statusText);
-        alert('Error saving the post');
       }
     } catch (err) {
       console.error('Error saving the post: ', err);

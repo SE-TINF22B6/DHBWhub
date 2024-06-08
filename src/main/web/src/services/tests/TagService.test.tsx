@@ -23,9 +23,9 @@ describe("handleTagInput", (): void => {
   };
 
   test("should add a valid tag", (): void => {
-    triggerEnterEvent("ValidTag", []);
+    triggerEnterEvent("Validtag", []);
 
-    expect(setTags).toHaveBeenCalledWith(["ValidTag"]);
+    expect(setTags).toHaveBeenCalledWith(["Validtag"]);
     expect(setNewTag).toHaveBeenCalledWith("");
     expect(setTagError).toHaveBeenCalledWith("");
   });
@@ -87,7 +87,7 @@ describe("handleTagInput", (): void => {
   });
 
   test("should not add a tag with more than 12 letters", (): void => {
-    triggerEnterEvent("VeryLongTagName", []);
+    triggerEnterEvent("Verylongtagname", []);
 
     expect(setTags).not.toHaveBeenCalled();
     expect(setNewTag).not.toHaveBeenCalled();
@@ -95,7 +95,7 @@ describe("handleTagInput", (): void => {
   });
 
   test("should not add a tag that already exists", (): void => {
-    triggerEnterEvent("ExistingTag", ["ExistingTag"]);
+    triggerEnterEvent("Existingtag", ["Existingtag"]);
 
     expect(setTags).not.toHaveBeenCalled();
     expect(setNewTag).not.toHaveBeenCalled();

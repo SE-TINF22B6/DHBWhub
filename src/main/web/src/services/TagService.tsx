@@ -31,6 +31,8 @@ export const handleTagInput = (
       errorMessage = '🚫 Tag can have a maximum of 12 letters.';
     } else if (tags.includes(trimmedTag)) {
       errorMessage = '🚫 Tag already exists.';
+    } else if (!/^[A-Z][a-z]*$/.test(trimmedTag)) {
+      errorMessage = '🚫 Tag must start with a capital and only have lowercase letters afterwards.';
     } else {
       setTags([...tags, trimmedTag]);
       setNewTag('');
