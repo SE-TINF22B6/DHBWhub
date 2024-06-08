@@ -28,6 +28,7 @@
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.2",
     "axios-mock-adapter": "^1.22.0",
+    "babel-jest": "^29.7.0",
     "canvas": "^2.11.2",
     "cors": "^2.8.5",
     "dictionary-en": "^4.0.0",
