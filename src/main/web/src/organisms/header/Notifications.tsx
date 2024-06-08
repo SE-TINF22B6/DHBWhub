@@ -47,7 +47,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
           type: notification.type
         };
 
-        const response: Response = await fetch(  `https://localhost:8443/notification`, {
+        const response: Response = await fetch(  config.apiUrl + `notification`, {
           method: 'DELETE',
           headers: headersWithJwt,
           body: JSON.stringify(deleteNotification)
@@ -68,7 +68,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response: Response = await fetch(  `https://localhost:8443/notification/unseen/` + 8, {
+        const response: Response = await fetch(  config.apiUrl + `/notification/unseen/` + 8, {
           headers: headersWithJwt
         });
         if (response.ok) {

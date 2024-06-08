@@ -16,7 +16,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("Your post '%s' has been liked by the user %s.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
                 POST_URL + notification.getPostId(),
-                NotificationType.TYPE_POST_LIKE.name()
+                NotificationType.TYPE_POST_LIKE.getType()
         );
     }
 
@@ -26,7 +26,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("Your post '%s' has been commented by the user %s.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
                 POST_URL + notification.getPostId(),
-                NotificationType.TYPE_POST_COMMENT.name()
+                NotificationType.TYPE_POST_COMMENT.getType()
         );
     }
 
@@ -36,7 +36,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("The user '%s' follows you now.", notification.getTriggeringUser().getAccount().getUsername()),
                 USER_URL + notification.getTriggeringUser().getId(),
-                NotificationType.TYPE_FOLLOW.name()
+                NotificationType.TYPE_FOLLOW.getType()
         );
     }
 
@@ -46,7 +46,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("Your comment on the post '%s' has been liked by the user %s.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
                 POST_URL + notification.getPostId(),
-                NotificationType.TYPE_COMMENT_LIKE.name()
+                NotificationType.TYPE_COMMENT_LIKE.getType()
         );
     }
 
@@ -56,7 +56,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("Your comment on the event '%s' has been liked by the user %s.", notification.getEventPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
                 EVENT_URL + notification.getEventPostId(),
-                NotificationType.TYPE_EVENT_COMMENT_LIKE.name()
+                NotificationType.TYPE_EVENT_COMMENT_LIKE.getType()
         );
     }
 
@@ -66,7 +66,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("Your post '%s' has been liked by %d users.", notification.getPost().getTitle(), size),
                 POST_URL + notification.getPostId(),
-                NotificationType.TYPE_POST_LIKE.name()
+                NotificationType.TYPE_POST_LIKE.getType()
         );
     }
 
@@ -76,7 +76,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("Your post '%s' has been commented by %d users.", notification.getPost().getTitle(), size),
                 POST_URL + notification.getPostId(),
-                NotificationType.TYPE_POST_COMMENT.name()
+                NotificationType.TYPE_POST_COMMENT.getType()
         );
     }
 
@@ -86,7 +86,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("You have %d new follower now.", size),
                 FRIENDS_URL,
-                NotificationType.TYPE_FOLLOW.name()
+                NotificationType.TYPE_FOLLOW.getType()
         );
     }
 
@@ -96,7 +96,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("Your comment on the post '%s' has been liked by %d users", notification.getPost().getTitle(), size),
                 POST_URL + notification.getPostId(),
-                NotificationType.TYPE_COMMENT_LIKE.name()
+                NotificationType.TYPE_COMMENT_LIKE.getType()
         );
     }
 
@@ -106,7 +106,7 @@ public class NotificationMapper {
                 notification.getAccumulatedId(),
                 String.format("Your comment on the event '%s' has been liked by %d users", notification.getEventPost().getTitle(), size),
                 EVENT_URL + notification.getEventPostId(),
-                NotificationType.TYPE_EVENT_COMMENT_LIKE.name()
+                NotificationType.TYPE_EVENT_COMMENT_LIKE.getType()
         );
     }
 

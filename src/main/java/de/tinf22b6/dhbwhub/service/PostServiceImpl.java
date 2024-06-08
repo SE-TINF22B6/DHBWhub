@@ -139,7 +139,8 @@ public class PostServiceImpl implements PostService {
         logtableRepository.savePost(likeLogtablePost);
 
         // Create Notification for Post-author
-        if(!Objects.equals(post.getUser().getId(), user.getId())){
+        if(!Objects.equals(post.getUser().getId(), user.getId()) &&
+                !notificationRepository.checkIfPostLikeEntryExists(user.getId(), post.getId())){
             PostLikeNotification notification = NotificationMapper.mapToPostLikeNotification(post, user);
             notification.setAccumulatedId(null);
             notificationRepository.savePostLikeNotification(notification);
