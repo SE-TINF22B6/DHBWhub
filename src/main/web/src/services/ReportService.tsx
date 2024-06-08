@@ -30,6 +30,6 @@ export const sendReportToBackend = (reportReason: string, reportDescription: str
       console.log(response);
       throw new Error('Error sending report: ' + response.statusText);
     }
-    alert('Report of post ' + postId + ' sent successfully');
+    alert('Report of ' + type + ' ' + postId + ' sent successfully');
   });
 };
