@@ -151,7 +151,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   };
 
   const [imageWidth, setImageWidth] = useState<number | null>(null);
-  const [marginLeft, setMarginLeft] = useState<string>('10px');
+  const [marginLeft, setMarginLeft] = useState<string>('0');
   const [width, setWidth] = useState<string>('600px');
   const [marginTop, setMarginTop] = useState<string>('0');
 
@@ -162,7 +162,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
       setMarginTop(postImage ? '140px' : '5px');
     } else {
       setMarginLeft(postImage ? (imageWidth ? `${imageWidth + 20}px` : '280px') : '10px');
-      setWidth(postImage ? '310px' : '600px');
+      setWidth(postImage ? '330px' : '600px');
       setMarginTop('0');
     }
   }, [matches, postImage, imageWidth, tags]);
