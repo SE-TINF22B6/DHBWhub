@@ -12,16 +12,3 @@
   gap: 20px;
 }
 
-.search-results {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 10px;
-  position: relative;
-}
-
-@media (max-width: 412px) {
-  .search-results {
-    margin-left: 20px;
-    margin-top: -5px;
-  }
-}

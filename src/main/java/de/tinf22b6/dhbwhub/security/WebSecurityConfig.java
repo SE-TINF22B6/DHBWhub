@@ -42,11 +42,13 @@ public class WebSecurityConfig {
             "/post/posts-by-keyword/*",
             "/post/posts-by-tag-keyword/*",
             "/post/friend-posts-by-tag",
+            "/post/posts-by-tag-keyword/*",
             "/event/homepage-preview-events",
             "/event/event-thread/{id:\\d+}",
             "/event/event-comments/{id:\\d+}",
 
             "/user-image",
+            "/user-by-keyword/*",
     };
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {

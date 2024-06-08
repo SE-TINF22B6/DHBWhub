@@ -47,7 +47,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     const [reportOpen, setReportOpen] = useState(false);
     const [reportReason, setReportReason] = useState('');
     const [reportDescription, setReportDescription] = useState('');
-    const [imageWidth, setImageWidth] = useState<number | null>(null);
+
 
     const handleReportClick = (): void => {
         setReportOpen(!reportOpen);
@@ -84,17 +84,6 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     const handleShareClick = (): void => {
         setShareWindowOpen(!shareWindowOpen);
     };
-
-    const imageRef = useRef(null);
-
-    useEffect((): void => {
-        const imageElement = imageRef.current;
-        if (imageElement) {
-            const computedStyle: CSSStyleDeclaration = window.getComputedStyle(imageElement);
-            const width: number = parseInt(computedStyle.getPropertyValue('width'));
-            setImageWidth(width);
-        }
-    }, []);
 
     const handleSaveClick = async (): Promise<void> => {
         try {
@@ -142,33 +131,46 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         }
     };
 
-    function getMarginLeft() {
-        if (matches) {
-            return tags ? '110px' : '0';
-        } else {
-            return postImage ? (imageWidth ? `${imageWidth + 20}px` : '280px') : '10px';
-        }
-    }
-
-    function getWidth() {
-        if (matches) {
-            return postImage ? '240px' : '260px';
-        } else {
-            return postImage ? '310px' : '600px';
-        }
-    }
-
-    function getMarginTop() {
-        if (matches) {
-            return postImage ? '140px' : '5px';
-        } else {
-            return '0';
-        }
-    }
+    const imageRef = useRef(null);
+    const [imageWidth, setImageWidth] = useState<number | null>();
+    const [marginLeft, setMarginLeft] = useState<string>();
+    const [width, setWidth] = useState<string>();
+    const [marginTop, setMarginTop] = useState<string>();
 
     const handleClose = useCallback((): void => {
         setReportOpen(false);
     }, [setReportOpen]);
+    useEffect((): () => void => {
+        const updateMargins = (): void => {
+            if (matches) {
+                setWidth(postImage ? '240px' : '260px');
+                setMarginLeft(tags ? '110px' : '0');
+                setMarginTop(postImage ? '140px' : '5px');
+            } else {
+                setWidth(postImage ? '330px' : '600px');
+                setMarginLeft(postImage ? (imageWidth ? `${imageWidth + 20}px` : '280px') : '10px');
+                setMarginTop('0');
+            }
+        };
+        updateMargins();
+        const imageElement = imageRef.current;
+        const handleResize = (): void => {
+            if (imageElement) {
+                const computedStyle: CSSStyleDeclaration = window.getComputedStyle(imageElement);
+                const width: number = parseInt(computedStyle.getPropertyValue('width'));
+                setImageWidth(width);
+                updateMargins();
+            }
+        };
+        if (imageElement) {
+            handleResize();
+            window.addEventListener('resize', handleResize);
+        }
+        return (): void => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [matches, postImage, imageWidth, tags]);
+
 
     useEffect(() => {
         const handleEsc = (event: KeyboardEvent): void => {
@@ -190,17 +192,17 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
                 </Link>
                 <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots"
                      src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
-                <div className="post-infos" style={{marginLeft: getMarginLeft()}}>
+                <div className="post-infos" style={{marginLeft: marginLeft}}>
                     <Link to={`/post/?id=${id}`} className="post-button">
                         <p className="post-title">{title}</p>
                     </Link>
-                    <div className="post-tags" style={{marginTop: getMarginTop()}}>
+                    <div className="post-tags" style={{marginTop: marginTop}}>
                         {tags && tags.slice(0, 3).map((tag: string, index: number) => (
                             <Tag name={tag} key={index} index={index} isEventTag={false}/>
                         ))}
                     </div>
 
-                    <p className="short-description" style={{ width: getWidth() }}>
+                    <p className="short-description" style={{ width: width }}>
                         {postImage ? shortenDescription(shortDescription, 150) : shortDescription}
                     </p>
 
@@ -225,7 +227,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
 
             {menuOpen && (
                 <div className="post-menu-container">
-                    <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleUnsaveClick={handleUnsaveClick} handleReportClick={handleReportClick}/>
+                    <PostMenu handleShareClick={handleShareClick} handleSaveClick={handleSaveClick} handleUnsaveClick={handleUnsaveClick} handleReportClick={handleReportClick} id={id}/>
                 </div>
             )}
             {shareWindowOpen && (
