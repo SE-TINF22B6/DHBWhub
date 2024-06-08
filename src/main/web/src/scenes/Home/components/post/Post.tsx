@@ -84,26 +84,6 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     setShareWindowOpen(!shareWindowOpen);
   };
 
-  const imageRef = useRef(null);
-
-  useEffect((): () => void => {
-    const imageElement = imageRef.current;
-    const handleResize = (): void => {
-      if (imageElement) {
-        const computedStyle: CSSStyleDeclaration = window.getComputedStyle(imageElement);
-        const width: number = parseInt(computedStyle.getPropertyValue('width'));
-        setImageWidth(width);
-      }
-    };
-    if (imageElement) {
-      handleResize();
-      window.addEventListener('resize', handleResize);
-    }
-    return (): void => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [postImage]);
-
   const handleSaveClick = async (): Promise<void> => {
     try {
       const response: Response = await fetch(config.apiUrl + "saved-post", {
@@ -150,26 +130,46 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     }
   };
 
-  const [imageWidth, setImageWidth] = useState<number | null>(null);
-  const [marginLeft, setMarginLeft] = useState<string>('0');
-  const [width, setWidth] = useState<string>('600px');
-  const [marginTop, setMarginTop] = useState<string>('0');
-
-  useEffect((): void => {
-    if (matches) {
-      setMarginLeft(tags ? '110px' : '0');
-      setWidth(postImage ? '240px' : '260px');
-      setMarginTop(postImage ? '140px' : '5px');
-    } else {
-      setMarginLeft(postImage ? (imageWidth ? `${imageWidth + 20}px` : '280px') : '10px');
-      setWidth(postImage ? '330px' : '600px');
-      setMarginTop('0');
-    }
-  }, [matches, postImage, imageWidth, tags]);
+  const imageRef = useRef(null);
+  const [imageWidth, setImageWidth] = useState<number | null>();
+  const [marginLeft, setMarginLeft] = useState<string>();
+  const [width, setWidth] = useState<string>();
+  const [marginTop, setMarginTop] = useState<string>();
 
   const handleClose = useCallback((): void => {
     setReportOpen(false);
   }, [setReportOpen]);
+
+  useEffect((): () => void => {
+    const updateMargins = (): void => {
+      if (matches) {
+        setWidth(postImage ? '240px' : '260px');
+        setMarginLeft(tags ? '110px' : '0');
+        setMarginTop(postImage ? '140px' : '5px');
+      } else {
+        setWidth(postImage ? '330px' : '600px');
+        setMarginLeft(postImage ? (imageWidth ? `${imageWidth + 20}px` : '280px') : '10px');
+        setMarginTop('0');
+      }
+    };
+    updateMargins();
+    const imageElement = imageRef.current;
+    const handleResize = (): void => {
+      if (imageElement) {
+        const computedStyle: CSSStyleDeclaration = window.getComputedStyle(imageElement);
+        const width: number = parseInt(computedStyle.getPropertyValue('width'));
+        setImageWidth(width);
+        updateMargins();
+      }
+    };
+    if (imageElement) {
+      handleResize();
+      window.addEventListener('resize', handleResize);
+    }
+    return (): void => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [matches, postImage, imageWidth, tags]);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent): void => {
