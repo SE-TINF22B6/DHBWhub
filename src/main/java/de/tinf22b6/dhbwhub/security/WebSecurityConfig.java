@@ -43,6 +43,7 @@ public class WebSecurityConfig {
             "/post/posts-by-tag-keyword/{keyword}",
             "/post/friend-posts-by-tag",
             "/event/homepage-preview-events",
+            "/event/calendar-events",
             "/event/event-thread/{id:\\d+}",
             "/event/event-comments/{id:\\d+}",
 
