@@ -115,6 +115,7 @@ export const PostDraft: React.FC<PostDraftProps> = (props: PostDraftProps) => {
         console.log('Post has been created: ', response);
         alert('Post has been created!');
         setDraftOpen(false);
+        window.location.reload();
       } else {
         const errorText: string = await response.text();
         console.error('Error saving the post:', response.statusText, errorText);
