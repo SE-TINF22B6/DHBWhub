@@ -12,6 +12,7 @@ public interface UserService {
     User get(Long id);
     ProfileInformationProposal getProfileInformation(Long id);
     UserInformationProposal getUserInformation(Long id);
+    List<SearchedUserProposal> getUserByKeyword(String keyword);
     void updateAge(UpdateAgeProposal updateAgeProposal);
     void updateDescription(UpdateDescriptionProposal updateDescriptionProposal);
     void updateCourse(UpdateCourseProposal updateCourseProposal);
