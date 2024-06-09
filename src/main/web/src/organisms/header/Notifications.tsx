@@ -1,14 +1,16 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useMemo, useState} from 'react';
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import "./Notifications.css";
 import config from "../../config/config";
-import {getJWT, getUserId} from "../../services/AuthService"; // Ensure you import the CSS for styling
+import {getJWT} from "../../services/AuthService";
 
 interface NotificationsProps {
   showNotifications: boolean;
+  notifications: NotificationModel[];
+  setNotifications: Dispatch<SetStateAction<NotificationModel[]>>;
 }
 
-interface Notification {
+export interface NotificationModel {
   notificationId: number;
   groupId: number;
   text: string;
@@ -16,15 +18,14 @@ interface Notification {
   type: string;
 }
 
-interface DeleteNotification {
+interface DeleteNotificationModel {
   notificationId: number;
   groupId: number;
   type: string
 }
 
-export const Notifications: React.FC<NotificationsProps> = ({ showNotifications }) => {
-  const [notificationShown, setNotificationShown] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+export const Notifications: React.FC<NotificationsProps> = ({ showNotifications, notifications, setNotifications}) => {
+  const [notificationShown, setNotificationShown] = useState(true);
   let navigate: NavigateFunction = useNavigate();
   const jwt: string | null = getJWT();
   const headersWithJwt = useMemo(() => ({
@@ -37,17 +38,17 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
     window.location.reload();
   };
 
-  const handleRemoveNotification = async (notification: Notification): Promise<void> => {
+  const handleRemoveNotification = async (notification: NotificationModel): Promise<void> => {
     const confirmed = window.confirm("Are you sure you want to delete this notification?");
     if (confirmed) {
       try {
-        const deleteNotification: DeleteNotification = {
+        const deleteNotification: DeleteNotificationModel = {
           notificationId: notification.notificationId,
           groupId: notification.groupId,
           type: notification.type
         };
 
-        const response: Response = await fetch(  config.apiUrl + `notification`, {
+        const response: Response = await fetch(`https://localhost:8443/notification`, {
           method: 'DELETE',
           headers: headersWithJwt,
           body: JSON.stringify(deleteNotification)
@@ -64,29 +65,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
       }
     }
   };
-
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const response: Response = await fetch(  config.apiUrl + `/notification/unseen/` + 8, {
-          headers: headersWithJwt
-        });
-        if (response.ok) {
-          const data: Notification[] = await response.json();
-          setNotifications(data);
-        } else {
-          console.error("Failed to fetch notifications");
-        }
-      } catch (error) {
-        console.error("Error fetching notifications:", error);
-      }
-    };
-
-    if (showNotifications) {
-      fetchNotifications();
-    }
-  }, [showNotifications]);
-
+/*
   useEffect(() => {
     const showNotification = async (): Promise<void> => {
       try {
@@ -96,7 +75,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
             /*new Notification('DHBWhub', {
               body: 'Neue Benachrichtigung von DHBWhub.',
               icon: '/logo192.png',
-            });*/
+            });
             setNotificationShown(true);
           }
         }
@@ -107,7 +86,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications 
 
     showNotification();
   }, [showNotifications, notificationShown]);
-
+  */
   return (
       <div className="notifications">
         <span className="notifications-title"> Notifications </span>

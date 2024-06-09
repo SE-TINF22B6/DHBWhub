@@ -14,7 +14,7 @@ public class NotificationMapper {
         return new HomepageNotificationProposal(
                 notification.getId(),
                 notification.getAccumulatedId(),
-                String.format("Your post '%s' has been liked by the user %s.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
+                String.format("Your post '%s' has been liked by the user '%s'.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
                 POST_URL + notification.getPostId(),
                 NotificationType.TYPE_POST_LIKE.getType()
         );
@@ -24,7 +24,7 @@ public class NotificationMapper {
         return new HomepageNotificationProposal(
                 notification.getId(),
                 notification.getAccumulatedId(),
-                String.format("Your post '%s' has been commented by the user %s.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
+                String.format("Your post '%s' has been commented by the user '%s'.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
                 POST_URL + notification.getPostId(),
                 NotificationType.TYPE_POST_COMMENT.getType()
         );
@@ -44,7 +44,7 @@ public class NotificationMapper {
         return new HomepageNotificationProposal(
                 notification.getId(),
                 notification.getAccumulatedId(),
-                String.format("Your comment on the post '%s' has been liked by the user %s.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
+                String.format("Your comment on the post '%s' has been liked by the user '%s'.", notification.getPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
                 POST_URL + notification.getPostId(),
                 NotificationType.TYPE_COMMENT_LIKE.getType()
         );
@@ -54,7 +54,7 @@ public class NotificationMapper {
         return new HomepageNotificationProposal(
                 notification.getId(),
                 notification.getAccumulatedId(),
-                String.format("Your comment on the event '%s' has been liked by the user %s.", notification.getEventPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
+                String.format("Your comment on the event '%s' has been liked by the user '%s'.", notification.getEventPost().getTitle(), notification.getTriggeringUser().getAccount().getUsername()),
                 EVENT_URL + notification.getEventPostId(),
                 NotificationType.TYPE_EVENT_COMMENT_LIKE.getType()
         );
@@ -104,7 +104,7 @@ public class NotificationMapper {
         return new HomepageNotificationProposal(
                 notification.getId(),
                 notification.getAccumulatedId(),
-                String.format("Your comment on the event '%s' has been liked by %d users", notification.getEventPost().getTitle(), size),
+                String.format("Your comment on the event '%s' has been liked by %d users.", notification.getEventPost().getTitle(), size),
                 EVENT_URL + notification.getEventPostId(),
                 NotificationType.TYPE_EVENT_COMMENT_LIKE.getType()
         );

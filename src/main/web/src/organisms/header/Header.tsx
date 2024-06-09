@@ -3,15 +3,17 @@ import {SearchBar} from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
 import ModalLoginContainer from '../login/ModalLoginContainer';
 import {Notifications} from "./Notifications";
+import {NotificationModel} from "./Notifications";
 import SignUp from "../signup/SignUp";
 import {isUserLoggedIn} from "../../services/AuthService";
 import "./Header.css";
 import {Tooltip} from "react-tooltip";
 import config from "../../config/config";
 import {fetchUserImage} from "../../services/ProfilePictureService";
+import {fetchNotifications} from "../../services/NotificationsService";
 
 export const Header = () => {
-
+    const [notifications, setNotifications] = useState<NotificationModel[]>([]);
     const [showNotifications, setShowNotifications] = useState(false);
     const [currentLocation, setCurrentLocation] = useState('');
     const [userImage, setUserImage] = useState(localStorage.getItem('userImage') || "data:image/svg+xml;base64,PHg==");
@@ -31,13 +33,22 @@ export const Header = () => {
         fetchUserProfileImage();
     }, []);
 
+    useEffect( () => {
+        const fetchAndSetNotifications = async () => {
+            const fetchedNotifications = await fetchNotifications();
+            setNotifications(fetchedNotifications);
+        };
+        fetchAndSetNotifications();
+    }, []);
+
     useEffect((): void => {
         setCurrentLocation(location.pathname);
     }, [location]);
 
-    const handleNotificationsButtonClick = (): void => {
+    const handleNotificationsButtonClick = async (): Promise<void> => {
         setShowNotifications(!showNotifications);
     };
+
     return (
         <div className="header">
             <Link to="/" aria-label="To the homepage">
@@ -63,7 +74,7 @@ export const Header = () => {
             </Link>
             <SearchBar/>
             <div className="notifications-button-container" data-tooltip-id="notifications" data-tooltip-content={config.tooltipMessage}>
-                {showNotifications ? (
+                { notifications.length > 0 ? (
                     <button className="notifications-button-new" onClick={handleNotificationsButtonClick} disabled={!isUserLoggedIn()}>
                         <img alt="New notifications"
                              src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'} style={{height: "25px", width: "26px"}}/>
@@ -81,7 +92,7 @@ export const Header = () => {
             {!isUserLoggedIn() && (
                 <Tooltip variant={"light"} id="notifications" place="bottom" style={{zIndex: 999}}/>
             )}
-            {showNotifications && <Notifications showNotifications={showNotifications}/>}
+            {showNotifications && <Notifications showNotifications={showNotifications} notifications={notifications} setNotifications={setNotifications}/>}
             {isUserLoggedIn() ? (
                 <div className="profile-component">
                     <Link to="/profile" aria-label="To the profile">

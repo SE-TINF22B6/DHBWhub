@@ -1,15 +1,16 @@
 .notifications {
     position: absolute;
     top: 67px; /* Adjust this value as needed */
-    right: 94px;
-    background-color: #262626;
+    right: 115px;
+    background-color: var(--grey);
     color: white;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
-    max-height: 400px;
-    overflow-y: auto;
+    max-height: 600px; /* Increase the maximum height */
+    overflow-y: auto; /* Allow vertical scrolling */
     z-index: 1000;
+    border: 1px solid var(--black); /* Adjust the border thickness here */
 }
 
 .notifications-title {
@@ -46,6 +47,8 @@
     text-decoration: none;
     color: white;
     flex-grow: 1;
+    word-break: break-word; /* Ensure long words break to fit the container */
+    white-space: normal; /* Allow the text to wrap */
 }
 
 .remove-notification {
@@ -61,4 +64,8 @@
 
 .remove-notification:hover {
     color: red;
+}
+
+.view-more a {
+    color: #00f;
 }
