@@ -103,6 +103,7 @@
     "adblock-detect-react": "^1.3.1",
     "ajv": "^7.2.4",
     "dompurify": "^3.1.5",
+    "jest-environment-jsdom": "^29.7.0",
     "or": "^0.2.0",
     "ts-jest": "^29.1.4",
     "webpack-dev-server": "^5.0.4"
