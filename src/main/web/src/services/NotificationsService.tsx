@@ -1,6 +1,6 @@
-import {NotificationModel} from "../organisms/header/Notifications";
 import {getJWT, getUserId} from "./AuthService";
 import config from "../config/config";
+import {NotificationModel} from "../organisms/header/model/NotificationModel";
 
 export const fetchNotifications = async (): Promise<NotificationModel[]> => {
     try {
