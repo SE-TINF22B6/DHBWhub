@@ -114,10 +114,6 @@
     text-decoration: underline;
 }
 
-.alert-danger {
-    color: red;
-}
-
 .google-oauth-login {
     display: flex;
     align-items: center;
