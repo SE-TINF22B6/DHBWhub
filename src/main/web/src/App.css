@@ -115,6 +115,13 @@
   font-size: 22px;
 }
 
+.alert-danger {
+  color: var(--red);
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 @media (max-width: 1200px) {
   :root {
     --text-font-size: 0.625rem;
