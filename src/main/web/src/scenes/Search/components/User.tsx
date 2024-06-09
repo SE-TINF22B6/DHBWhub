@@ -19,7 +19,7 @@ export const User: React.FC<UserModel> = (props: UserModel) => {
                 {picture && picture.imageData ? (
                     <img className="user-image" alt={username} src={picture.imageData} loading="lazy"/>
                 ) : (
-                    <Pictures defaultPicture={true} className="custom-image"/>
+                    <Pictures defaultPicture={false} className="custom-image"/>
                 )}
                 <div className="user-name">{truncatedUsername}</div>
             </Link>

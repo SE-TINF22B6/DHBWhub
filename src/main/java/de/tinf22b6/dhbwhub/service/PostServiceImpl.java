@@ -183,6 +183,7 @@ public class PostServiceImpl implements PostService {
             picture = null;
         }
         else if (!initialImageData.equals(proposalImageData)) {
+            assert initialPost.getPicture() != null;
             pictureRepository.delete(initialPost.getPicture().getId());
             picture = pictureRepository.save(PictureMapper.mapToModelPost(proposalImageData));
         } else {

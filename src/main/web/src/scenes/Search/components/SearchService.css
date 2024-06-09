@@ -1,4 +1,5 @@
 .search-results {
+    width: 780px;
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 10px;

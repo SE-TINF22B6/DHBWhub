@@ -54,9 +54,6 @@ export const SearchService: React.FC<SearchedPostsProps> = ({sortOption, query, 
                     const data = await response.json();
                     setSearchResults(data);
                     setNotFound(false);
-
-                    console.log('Fetched search results:', searchResults);
-
                 } else {
                     setNotFound(true);
                 }
@@ -86,7 +83,7 @@ export const SearchService: React.FC<SearchedPostsProps> = ({sortOption, query, 
     }, [findByOption, query, headersWithJwt]);
 
     const sortedResults = (): PostModel[] => {
-        if (!searchResults || searchResults.length === 0) return [];
+        if (!searchResults || searchResults.length === 0) setNotFound(true);
         if (findByOption !== "user") {
             switch (sortOption) {
                 case "newest":
