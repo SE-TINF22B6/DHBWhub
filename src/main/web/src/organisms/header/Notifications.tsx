@@ -3,25 +3,13 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import "./Notifications.css";
 import config from "../../config/config";
 import {getJWT} from "../../services/AuthService";
+import {NotificationModel} from "./model/NotificationModel";
+import {DeleteNotificationModel} from "./model/DeleteNotificationModel";
 
 interface NotificationsProps {
   showNotifications: boolean;
   notifications: NotificationModel[];
   setNotifications: Dispatch<SetStateAction<NotificationModel[]>>;
-}
-
-export interface NotificationModel {
-  notificationId: number;
-  groupId: number;
-  text: string;
-  link: string;
-  type: string;
-}
-
-interface DeleteNotificationModel {
-  notificationId: number;
-  groupId: number;
-  type: string
 }
 
 export const Notifications: React.FC<NotificationsProps> = ({ showNotifications, notifications, setNotifications}) => {

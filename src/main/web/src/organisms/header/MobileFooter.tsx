@@ -1,8 +1,9 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {NotificationModel, Notifications} from "./Notifications";
+import {Notifications} from "./Notifications";
 import "./MobileFooter.css";
 import {fetchNotifications} from "../../services/NotificationsService";
+import {NotificationModel} from "./model/NotificationModel";
 
 export const MobileFooter = () => {
     const [notifications, setNotifications] = useState<NotificationModel[]>([]);

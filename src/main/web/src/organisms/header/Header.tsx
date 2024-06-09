@@ -3,7 +3,6 @@ import {SearchBar} from './SearchBar';
 import {Link, useLocation} from 'react-router-dom';
 import ModalLoginContainer from '../login/ModalLoginContainer';
 import {Notifications} from "./Notifications";
-import {NotificationModel} from "./Notifications";
 import SignUp from "../signup/SignUp";
 import {isUserLoggedIn} from "../../services/AuthService";
 import "./Header.css";
@@ -11,6 +10,7 @@ import {Tooltip} from "react-tooltip";
 import config from "../../config/config";
 import {fetchUserImage} from "../../services/ProfilePictureService";
 import {fetchNotifications} from "../../services/NotificationsService";
+import {NotificationModel} from "./model/NotificationModel";
 
 export const Header = () => {
     const [notifications, setNotifications] = useState<NotificationModel[]>([]);

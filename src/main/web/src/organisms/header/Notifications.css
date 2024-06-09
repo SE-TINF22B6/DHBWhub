@@ -1,16 +1,16 @@
 .notifications {
     position: absolute;
-    top: 67px; /* Adjust this value as needed */
+    top: 67px;
     right: 115px;
     background-color: var(--grey);
     color: white;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
-    max-height: 600px; /* Increase the maximum height */
-    overflow-y: auto; /* Allow vertical scrolling */
+    max-height: 600px;
+    overflow-y: auto;
     z-index: 1000;
-    border: 1px solid var(--black); /* Adjust the border thickness here */
+    border: 1px solid var(--black);
 }
 
 .notifications-title {
@@ -26,7 +26,7 @@
 .notifications ul {
     list-style: none;
     padding: 0;
-    margin: 10px 0 0 0; /* Add margin at the top */
+    margin: 10px 0 0 0;
 }
 
 .notification-item {
@@ -47,8 +47,8 @@
     text-decoration: none;
     color: white;
     flex-grow: 1;
-    word-break: break-word; /* Ensure long words break to fit the container */
-    white-space: normal; /* Allow the text to wrap */
+    word-break: break-word;
+    white-space: normal;
 }
 
 .remove-notification {
