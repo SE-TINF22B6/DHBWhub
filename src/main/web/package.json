@@ -67,7 +67,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build --project tsconfig.json",
     "deploy": "npm run build",
-    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!axios)/'",
+    "test": "jtest",
     "test-all": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
