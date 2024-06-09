@@ -1,7 +1,6 @@
 .email-input-modal-content {
     top: 50%;
     width: 400px;
-    height: 520px;
     background: var(--component-grey);
     color: var(--component-grey);
     z-index: 10;
@@ -43,4 +42,12 @@
     align-items: center;
     justify-content: center;
     margin: 20px;
+}
+
+.consent-link {
+    color: var(--white);
+}
+
+.consent-radio-button {
+    accent-color: var(--red);
 }
