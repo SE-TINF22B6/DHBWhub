@@ -44,7 +44,7 @@
   font-size: var(--text-font-size);
   font-weight: var(--strong-font-weight);
   &&:hover {
-
+    color: var(--white);
   }
 }
 
