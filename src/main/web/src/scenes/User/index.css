@@ -32,6 +32,18 @@
     width: auto;
     margin-bottom: 20px;
 }
+.user-page-name{
+        font-size: 1.25rem;
+        padding: 10px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 5px;
+        background-color: var(--lighter-grey);
+        width: auto;
+        margin-bottom: 20px;
+}
+
 
 .user-followers {
     font-size: var(--headline-font-size);
@@ -47,6 +59,7 @@
 
 .follow-button {
     font-size: var(--headline-font-size);
+
     padding: 10px;
     color: white;
     align-items: center;

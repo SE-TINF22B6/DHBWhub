@@ -51,6 +51,7 @@ public class WebSecurityConfig {
             "user/{id:\\d+}",
             "/user-image",
             "/user/user-by-keyword/*",
+            "/user/user-information/*",
     };
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {

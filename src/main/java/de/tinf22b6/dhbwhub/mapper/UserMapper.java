@@ -20,6 +20,7 @@ public class UserMapper {
     public static UserInformationProposal mapToUserInformationProposal(User user, int followerAmount) {
         return new UserInformationProposal(
                 user.getId(),
+                user.getAccount().getUsername(),
                 user.getAccount().getPicture(),
                 followerAmount,
                 user.getAge(),

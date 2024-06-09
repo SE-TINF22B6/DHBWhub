@@ -13,6 +13,8 @@ import lombok.Setter;
 public class UserInformationProposal {
     private Long userId;
 
+    private String username;
+
     private Picture picture;
 
     private int amountFollower;
