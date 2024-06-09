@@ -1,7 +1,8 @@
 package de.tinf22b6.dhbwhub.mapper;
 
-import de.tinf22b6.dhbwhub.model.*;
-import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
+import de.tinf22b6.dhbwhub.model.Friendship;
+import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.proposal.simplified_models.FriendlistProposal;
 
 public class FriendshipMapper {
     public static FriendlistProposal mapToFriendlist(Friendship friendship){
