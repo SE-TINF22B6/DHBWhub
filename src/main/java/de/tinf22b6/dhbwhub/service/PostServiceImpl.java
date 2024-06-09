@@ -348,7 +348,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<HomepagePostPreviewProposal> getPostTagsByKeyword(String keyword) {
-        List<HomepagePostPreviewProposal> posts = postTagRepository.findTagByKeyword(keyword).stream().map(t-> PostMapper.mapToHomepagePreviewProposal(t.getPost())).toList();
+        List<HomepagePostPreviewProposal> posts = repository.findPostsByTagKeyword(keyword).stream().map(PostMapper::mapToHomepagePreviewProposal).toList();
         posts.forEach(p -> {
             p.setCommentAmount(getAmountOfComments(p.getId()));
             p.setTags(getPostTags(p.getId()));
