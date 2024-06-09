@@ -44,7 +44,6 @@ public class WebSecurityConfig {
             "/event/calendar-events",
             "/event/event-thread/{id:\\d+}",
             "/event/event-comments/{id:\\d+}",
-
             "/user-image",
     };
 
