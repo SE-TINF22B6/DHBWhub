@@ -9,7 +9,7 @@ import ScrollUpButton from "../../atoms/ScrollUpButton";
 import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
 import { useDetectAdBlock } from "adblock-detect-react";
 import { usePreventScrolling } from "../../organisms/ad-block-overlay/preventScrolling";
-import { fetchUserData } from "../../services/ProfileDataService";
+import {fetchUserData, updateUserProfile} from "../../services/ProfileDataService";
 import { fetchUserImage } from "../../services/ProfilePictureService";  // Import the function for fetching user image
 
 interface UserData {
@@ -57,6 +57,15 @@ export const ProfilePage = () => {
 
     const handlePasswordChange = (): void => {
         //navigate("/");
+    };
+
+    const handleSaveChanges = async () => {
+        const success = await updateUserProfile(userData);
+        if (success) {
+            console.log("Changes saved successfully");
+        } else {
+            console.error("Failed to save changes");
+        }
     };
 
     const handleLogout = (): void => {

@@ -61,7 +61,7 @@
 
 .profile-field span,
 .profile-field input {
-  background-color: #444;
+  background-color: var(--grey);
   color: white;
   border: none;
   border-radius: 5px;
