@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useMemo, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useMemo, useState} from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import "./Notifications.css";
 import config from "../../config/config";
