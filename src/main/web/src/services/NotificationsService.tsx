@@ -1,23 +1,22 @@
 import {NotificationModel} from "../organisms/header/Notifications";
-import {getJWT} from "./AuthService";
-import {useMemo} from "react";
+import {getJWT, getUserId} from "./AuthService";
 import config from "../config/config";
 
 export const fetchNotifications = async (): Promise<NotificationModel[]> => {
     try {
+        const userId = getUserId();
         const jwt: string | null = getJWT();
         const headersWithJwt = {
             ...config.headers,
             'Authorization': jwt ? `Bearer ${jwt}` : ''
         };
 
-        const response: Response = await fetch(    `https://localhost:8443/notification/unseen/` + 7, {
+        const response: Response = await fetch(config.apiUrl + `notification/unseen/` + userId, {
             headers: headersWithJwt
         });
 
         if (response.ok) {
-            const data: NotificationModel[] = await response.json();
-            return data;
+            return await response.json();
         } else {
             console.error("Failed to fetch notifications");
             return [];

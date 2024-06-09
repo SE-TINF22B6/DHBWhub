@@ -48,7 +48,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications,
           type: notification.type
         };
 
-        const response: Response = await fetch(`https://localhost:8443/notification`, {
+        const response: Response = await fetch(config.apiUrl + `notification`, {
           method: 'DELETE',
           headers: headersWithJwt,
           body: JSON.stringify(deleteNotification)
@@ -65,28 +65,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications,
       }
     }
   };
-/*
-  useEffect(() => {
-    const showNotification = async (): Promise<void> => {
-      try {
-        if ('Notification' in window && showNotifications && !notificationShown) {
-          const permission: NotificationPermission = await Notification.requestPermission();
-          if (permission === 'granted') {
-            /*new Notification('DHBWhub', {
-              body: 'Neue Benachrichtigung von DHBWhub.',
-              icon: '/logo192.png',
-            });
-            setNotificationShown(true);
-          }
-        }
-      } catch (error) {
-        console.error('Fehler beim Anzeigen der Benachrichtigung:', error);
-      }
-    };
 
-    showNotification();
-  }, [showNotifications, notificationShown]);
-  */
   return (
       <div className="notifications">
         <span className="notifications-title"> Notifications </span>
