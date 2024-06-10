@@ -15,6 +15,11 @@ export const ImageUpload: React.FC<ImageUploadProps> = (props: ImageUploadProps)
   const onChange = (imageList: ImageType[]): void => {
     setImages(imageList);
     onImagesChange?.(imageList);
+    if (imageList.length > 0) {
+      setShowButton(false);
+    } else {
+      setShowButton(true);
+    }
   };
 
   return (
@@ -27,10 +32,6 @@ export const ImageUpload: React.FC<ImageUploadProps> = (props: ImageUploadProps)
                       <button className="image-upload-button"
                               onClick={(): void => {
                                 onImageUpload();
-                                setTimeout((): void => {
-                                      setShowButton(false)
-                                    },
-                                    1000);
                               }} {...dragProps}>
                         <img className="image-upload-picture" src={process.env.PUBLIC_URL + '/assets/home/create-post/upload.svg'}
                              alt="Upload"/>
