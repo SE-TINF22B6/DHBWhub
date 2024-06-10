@@ -4,7 +4,7 @@ import {Link, useLocation} from 'react-router-dom';
 import ModalLoginContainer from '../login/ModalLoginContainer';
 import {Notifications} from "./Notifications";
 import SignUp from "../signup/SignUp";
-import {isUserLoggedIn} from "../../services/AuthService";
+import {isUserLoggedIn, isTokenValid, logout} from "../../services/AuthService";
 import "./Header.css";
 import {Tooltip} from "react-tooltip";
 import config from "../../config/config";
@@ -30,6 +30,13 @@ export const Header = () => {
     };
     fetchUserProfileImage();
   }, []);
+
+    useEffect((): void => {
+      if (isUserLoggedIn() && !isTokenValid()) {
+        logout();
+        window.location.href = "/";
+      }
+    }, []);
 
     useEffect((): void => {
         setCurrentLocation(location.pathname);

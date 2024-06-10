@@ -18,7 +18,6 @@ import {SmallC24Ad} from "../../atoms/ads/SmallC24Ad";
 import {MobileFooter} from "../../organisms/header/MobileFooter";
 import {TravelAd} from "../../atoms/ads/TravelAd";
 import {useMediaQuery} from "@mui/system";
-import {isTokenValid, isUserLoggedIn, logout} from "../../services/AuthService"
 
 export const Home = () => {
   const [sortOption, setSortOption] = useState<string>('newest');
@@ -33,13 +32,6 @@ export const Home = () => {
   const handleSortChange = (option: string): void => {
     setSortOption(option);
   };
-
-  useEffect((): void => {
-    if (isUserLoggedIn() && !isTokenValid()) {
-      logout();
-      window.location.href = "/";
-    }
-  }, []);
 
   return (
       <div className="page">
