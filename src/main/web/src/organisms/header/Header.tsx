@@ -34,6 +34,7 @@ export const Header = () => {
     useEffect((): void => {
       if (isUserLoggedIn() && !isTokenValid()) {
         logout();
+        alert("Your session has expired. Please log in again to continue.")
         window.location.href = "/";
       }
     }, []);
