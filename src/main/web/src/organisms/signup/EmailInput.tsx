@@ -78,6 +78,7 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
     console.log(credentialResponse);
     googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
         (): void => {
+          localStorage.setItem('oathUser', 'true');
           navigate("/profile");
           window.location.reload();
         },

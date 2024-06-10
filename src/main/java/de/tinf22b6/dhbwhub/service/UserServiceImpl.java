@@ -141,6 +141,8 @@ public class UserServiceImpl implements UserService {
         User user = get(proposal.getUserId());
         if (proposal.getImageData().isEmpty()){
             throw new IllegalArgumentException("Image data is empty");
+        } else if (user.getAccount().getPicture() != null){
+            pictureRepository.delete(user.getAccount().getPicture().getId());
         }
         Picture picture = pictureRepository.save(PictureMapper.mapToModelUser(proposal.getImageData()));
         Account updatedAccount = AccountMapper.mapToUpdatedPictureProposal(user.getAccount(), picture);
