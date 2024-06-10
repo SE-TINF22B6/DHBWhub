@@ -4,6 +4,7 @@ import {Notifications} from "./Notifications";
 import "./MobileFooter.css";
 import {fetchNotifications} from "../../services/NotificationsService";
 import {NotificationModel} from "./model/NotificationModel";
+import {isUserLoggedIn} from "../../services/AuthService";
 
 export const MobileFooter = () => {
     const [notifications, setNotifications] = useState<NotificationModel[]>([]);
@@ -20,7 +21,9 @@ export const MobileFooter = () => {
             const fetchedNotifications = await fetchNotifications();
             setNotifications(fetchedNotifications);
         };
-        fetchAndSetNotifications();
+        if (isUserLoggedIn()){
+            fetchAndSetNotifications();
+        }
     }, []);
 
     const handleNotificationsButtonClick = async (): Promise<void> => {
