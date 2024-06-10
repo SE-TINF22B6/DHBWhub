@@ -17,7 +17,8 @@ import {
     updateCourse,
     updateEmail,
     updateUsername,
-    updatePicture
+    updatePicture,
+    fetchNewToken
 } from "../../services/ProfileDataService";
 
 interface UserData {
@@ -75,6 +76,7 @@ export const ProfilePage = () => {
             case 'username':
                 success = await updateUsername(userData.username);
                 localStorage.setItem('username', userData.username);
+                fetchNewToken();
                 break;
             case 'email':
                 success = await updateEmail(userData.email);
