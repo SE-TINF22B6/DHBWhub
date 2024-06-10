@@ -54,7 +54,6 @@ export const fetchUserData = async (): Promise<UserData | null> => {
     }
 };
 
-// Functions to update each user parameter
 export const updateAge = async (age: string): Promise<boolean> => {
     const headers = getHeaders();
     try {
