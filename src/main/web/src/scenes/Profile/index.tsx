@@ -105,32 +105,30 @@ export const ProfilePage = () => {
     };
 
     const handlePictureChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.files);
         if (event.target.files && event.target.files.length > 0) {
             const reader = new FileReader();
             reader.onloadend = async () => {
                 if (reader.result && event.target.files) {
-                    const formData = new FormData();
-                    formData.append("image", event.target.files[0]);
-                    const success = await updatePicture(formData);
+                    const imageData = reader.result as string;
+                    const success = await updatePicture(imageData);
                     if (success) {
                         setUserData(prevState => ({
                             ...prevState,
                             picture: {
                                 ...prevState.picture,
-                                imageData: reader.result as string
+                                imageData
                             }
                         }));
-                        console.log("Bild erfolgreich aktualisiert");
+                        console.log("Picture updated successfully");
                     } else {
-                        console.error("Fehler beim Aktualisieren des Bildes");
+                        console.error("Failed to update the picture");
                     }
                 }
             };
             reader.readAsDataURL(event.target.files[0]);
         }
     };
-
-
 
     const handleLogout = (): void => {
         logout();

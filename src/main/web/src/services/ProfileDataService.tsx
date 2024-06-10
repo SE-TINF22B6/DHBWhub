@@ -121,11 +121,6 @@ export const updateEmail = async (email: string): Promise<boolean> => {
 export const updateUsername = async (username: string): Promise<boolean> => {
     const headers = getHeaders();
     const userId = getUserId();
-    if (!userId) {
-        console.error("No user ID found");
-        return false;
-    }
-
     try {
         const response = await fetch(`${config.apiUrl}user/update-username`, {
             method: 'PUT',
@@ -156,14 +151,15 @@ export const updatePassword = async (password: string): Promise<boolean> => {
     }
 };
 
-export const updatePicture = async (formData: FormData): Promise<boolean> => {
+export const updatePicture = async (imageData: string): Promise<boolean> => {
     const headers = getHeaders();
     const userId = getUserId();
+
     try {
-        const response = await fetch(config.apiUrl + "/user/update-picture", {
+        const response = await fetch(`${config.apiUrl}user/update-picture`, {
             method: 'PUT',
             headers,
-            body: JSON.stringify({ userId, formData })
+            body: JSON.stringify({ userId, imageData }),
         });
         return response.ok;
     } catch (error) {
