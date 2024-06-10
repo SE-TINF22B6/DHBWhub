@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useMemo, useState} from "react";
+import React, {Dispatch, SetStateAction, useMemo} from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import "./Notifications.css";
 import config from "../../config/config";
@@ -12,8 +12,7 @@ interface NotificationsProps {
   setNotifications: Dispatch<SetStateAction<NotificationModel[]>>;
 }
 
-export const Notifications: React.FC<NotificationsProps> = ({ showNotifications, notifications, setNotifications}) => {
-  const [notificationShown, setNotificationShown] = useState(true);
+export const Notifications: React.FC<NotificationsProps> = ({ notifications, setNotifications}) => {
   let navigate: NavigateFunction = useNavigate();
   const jwt: string | null = getJWT();
   const headersWithJwt = useMemo(() => ({
@@ -27,7 +26,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications,
   };
 
   const handleRemoveNotification = async (notification: NotificationModel): Promise<void> => {
-    const confirmed = window.confirm("Are you sure you want to delete this notification?");
+    const confirmed: boolean = window.confirm("Are you sure you want to delete this notification?");
     if (confirmed) {
       try {
         const deleteNotification: DeleteNotificationModel = {
@@ -43,7 +42,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications,
         });
 
         if (response.ok) {
-          const updatedNotifications = notifications.filter(n => n.notificationId !== notification.notificationId);
+          const updatedNotifications: NotificationModel[] = notifications.filter(n => n.notificationId !== notification.notificationId);
           setNotifications(updatedNotifications);
         } else {
           console.error("Failed to delete notification:", response.statusText);
@@ -58,7 +57,7 @@ export const Notifications: React.FC<NotificationsProps> = ({ showNotifications,
       <div className="notifications">
         <span className="notifications-title"> Notifications </span>
         <ul>
-          {notifications.map((notification) => (
+          {notifications.map((notification: NotificationModel) => (
               <li key={notification.notificationId} className="notification-item">
                 <a onClick={() => handleClick(notification.link)}>{notification.text}</a>
                 <button className="remove-notification" onClick={() => handleRemoveNotification(notification)}>
