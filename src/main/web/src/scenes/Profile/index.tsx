@@ -1,17 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import DOMPurify from "dompurify";
 import "./index.css";
-import { Header } from "../../organisms/header/Header";
-import { Footer } from "../../organisms/footer/Footer";
-import { getUserId, logout } from "../../services/AuthService";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import {Header} from "../../organisms/header/Header";
+import {Footer} from "../../organisms/footer/Footer";
+import {getUserId, logout} from "../../services/AuthService";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
 import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
-import { useDetectAdBlock } from "adblock-detect-react";
-import { usePreventScrolling } from "../../organisms/ad-block-overlay/preventScrolling";
-import { fetchUserData, updatePassword } from "../../services/ProfileDataService";
-import { fetchUserImage } from "../../services/ProfilePictureService";
-import { updateAge, updateDescription, updateCourse, updateEmail, updateUsername, updatePicture } from "../../services/ProfileDataService";
+import {useDetectAdBlock} from "adblock-detect-react";
+import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
+import {fetchUserData, updatePassword} from "../../services/ProfileDataService";
+import {fetchUserImage} from "../../services/ProfilePictureService";
+import {
+    updateAge,
+    updateDescription,
+    updateCourse,
+    updateEmail,
+    updateUsername,
+    updatePicture
+} from "../../services/ProfileDataService";
 
 interface UserData {
     username: string;
@@ -53,13 +60,13 @@ export const ProfilePage = () => {
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         const sanitizedValue = DOMPurify.sanitize(value);
-        setUserData({ ...userData, [name]: sanitizedValue });
+        setUserData({...userData, [name]: sanitizedValue});
     };
 
     const handleEdit = (field: string) => {
-        setIsEditing({ ...isEditing, [field]: !isEditing[field] });
+        setIsEditing({...isEditing, [field]: !isEditing[field]});
     };
 
     const handleSaveChanges = async (field: string) => {
@@ -86,7 +93,7 @@ export const ProfilePage = () => {
 
         if (success) {
             console.log(`${field} updated successfully`);
-            setIsEditing({ ...isEditing, [field]: false });
+            setIsEditing({...isEditing, [field]: false});
         } else {
             console.error(`Failed to update ${field}`);
         }
@@ -165,9 +172,9 @@ export const ProfilePage = () => {
 
     return (
         <div className="page">
-            {adBlockDetected && <AdBlockOverlay />}
-            <div ref={scrollUpRef} />
-            <Header />
+            {adBlockDetected && <AdBlockOverlay/>}
+            <div ref={scrollUpRef}/>
+            <Header/>
             <div className="profile-container">
                 <div className="profile-page-picture">
                     <img
@@ -178,7 +185,7 @@ export const ProfilePage = () => {
                     <input
                         id="fileInput"
                         type="file"
-                        style={{ display: "none" }}
+                        style={{display: "none"}}
                         onChange={handlePictureChange}
                     />
                 </div>
@@ -188,7 +195,7 @@ export const ProfilePage = () => {
                 <div className="profile-field">
                     <label className="label-profile-page-text">Username</label>
                     {isEditing.username ? (
-                        <input type="text" name="username" value={userData.username} onChange={handleChange} />
+                        <input type="text" name="username" value={userData.username} onChange={handleChange}/>
                     ) : (
                         <span>{userData.username}</span>
                     )}
@@ -198,23 +205,17 @@ export const ProfilePage = () => {
                 </div>
 
                 {!disableEmailAndPasswordEdit && (
-                    <>
-                        <div className="profile-field">
-                            <label className="label-profile-page-text">Email Address</label>
-                            {isEditing.email ? (
-                                <input type="email" name="email" value={userData.email} onChange={handleChange} />
-                            ) : (
-                                <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userData.email) }}></span>
-                            )}
-                            <button onClick={() => isEditing.email ? handleSaveChanges('email') : handleEdit('email')}>
-                                {isEditing.email ? 'Save' : 'Edit'}
-                            </button>
-                        </div>
-                        <div className="profile-field">
-                            <label className="label-profile-page-text">Password</label>
-                            <button onClick={handlePasswordChange}>Change Password</button>
-                        </div>
-                    </>
+                    <div className="profile-field">
+                        <label className="label-profile-page-text">Email Address</label>
+                        {isEditing.email ? (
+                            <input type="email" name="email" value={userData.email} onChange={handleChange}/>
+                        ) : (
+                            <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(userData.email)}}></span>
+                        )}
+                        <button onClick={() => isEditing.email ? handleSaveChanges('email') : handleEdit('email')}>
+                            {isEditing.email ? 'Save' : 'Edit'}
+                        </button>
+                    </div>
                 )}
 
                 <div className="profile-field">
@@ -222,9 +223,9 @@ export const ProfilePage = () => {
 
 -page-text">Course</label>
                     {isEditing.course ? (
-                        <input type="text" name="course" value={userData.course} onChange={handleChange} />
+                        <input type="text" name="course" value={userData.course} onChange={handleChange}/>
                     ) : (
-                        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userData.course) }}></span>
+                        <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(userData.course)}}></span>
                     )}
                     <button onClick={() => isEditing.course ? handleSaveChanges('course') : handleEdit('course')}>
                         {isEditing.course ? 'Save' : 'Edit'}
@@ -233,7 +234,7 @@ export const ProfilePage = () => {
                 <div className="profile-field">
                     <label className="label-profile-page-text">Age</label>
                     {isEditing.age ? (
-                        <input type="number" name="age" value={userData.age} onChange={handleChange} />
+                        <input type="number" name="age" value={userData.age} onChange={handleChange}/>
                     ) : (
                         <span>{userData.age}</span>
                     )}
@@ -244,18 +245,25 @@ export const ProfilePage = () => {
                 <div className="profile-field">
                     <label className="label-profile-page-text">Description</label>
                     {isEditing.description ? (
-                        <input type="text" name="description" value={userData.description} onChange={handleChange} />
+                        <input type="text" name="description" value={userData.description} onChange={handleChange}/>
                     ) : (
-                        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userData.description) }}></span>
+                        <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(userData.description)}}></span>
                     )}
-                    <button onClick={() => isEditing.description ? handleSaveChanges('description') : handleEdit('description')}>
+                    <button
+                        onClick={() => isEditing.description ? handleSaveChanges('description') : handleEdit('description')}>
                         {isEditing.description ? 'Save' : 'Edit'}
                     </button>
                 </div>
+                {!disableEmailAndPasswordEdit && (
+                    <div className="profile-field">
+                        <label className="label-profile-page-text">Password</label>
+                        <button onClick={handlePasswordChange}>Change Password</button>
+                    </div>
+                )}
                 <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
-            <ScrollUpButton scrollUpRef={scrollUpRef} />
-            <Footer />
+            <ScrollUpButton scrollUpRef={scrollUpRef}/>
+            <Footer/>
         </div>
     );
 };
