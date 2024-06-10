@@ -201,7 +201,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
             </div>
 
             <p className="short-description" style={{ width: width}}>
-              {postImage ? shortenDescription(shortDescription, 150) : shortDescription}
+              {postImage && shortDescription ? shortenDescription(shortDescription, 150) : shortDescription}
             </p>
 
             <div className="footer">

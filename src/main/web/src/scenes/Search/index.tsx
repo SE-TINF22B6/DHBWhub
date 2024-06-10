@@ -34,6 +34,23 @@ export const Search = () => {
     const handleFindByChange = (option: string): void => {
         setFindOption(option);
     };
+    if (findOption == "user"){
+        return(
+        <div className="page">
+            {adBlockDetected && <AdBlockOverlay/>}
+            <Header/>
+            <div className="search-content">
+                <div className="search-sidebar">
+                    <FindByOptions onSortChange={handleFindByChange}/>
+                </div>
+                <div className="search-result-container">
+                    <SearchService sortOption={sortOption} query={searchTerm} findByOption={findOption}/>
+                </div>
+            </div>
+            <Footer/> {isSmartphoneSize && <MobileFooter/>}
+        </div>
+    );
+    }
 
     return (
         <div className="page">
