@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../config/config";
+import {jwtDecode} from "jwt-decode";
 
 export const register = (username: string, email: string, password: string) => {
     return axios.post(config.apiUrl + "api/auth/signup", {
@@ -61,6 +62,12 @@ export const logout = (): void => {
     localStorage.removeItem("username");
     localStorage.removeItem("token");
     localStorage.removeItem('userImage');
+
+    Object.keys(localStorage)
+      .filter(x =>
+        x.includes("_liked_")
+      ).map(
+        x => localStorage.removeItem(x));
 };
 
 export const getAccountId = (): number | null => {
@@ -103,6 +110,21 @@ export const isUserLoggedIn = (): boolean => {
 
     if (jwtToken) {
         return !!jwtToken;
+    } else {
+        return false;
+    }
+};
+
+export const isTokenValid = (): boolean => {
+    const jwtToken: string | null = localStorage.getItem("token");
+
+    if (jwtToken) {
+        const decodedToken = jwtDecode(jwtToken);
+        if (decodedToken && decodedToken.exp) {
+            return decodedToken.exp * 1000 > Date.now();
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
