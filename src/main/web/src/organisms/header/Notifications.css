@@ -1,7 +1,7 @@
 .notifications {
     position: absolute;
-    top: 67px;
-    right: 115px;
+    top: 76px;
+    right: 95px;
     background-color: var(--grey);
     color: white;
     border-radius: 12px;
@@ -18,7 +18,7 @@
     align-content: center;
     font-weight: bold;
     padding: 15px;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--lighter-grey);
     display: flex;
     justify-content: center;
 }
@@ -26,26 +26,30 @@
 .notifications ul {
     list-style: none;
     padding: 0;
-    margin: 10px 0 0 0;
+    margin: 0;
 }
 
 .notification-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--lighter-grey);
     padding: 10px 15px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
+.notification-item:last-child {
+    border-bottom: none;
+}
+
 .notification-item:hover {
-    background-color: #444;
+    background-color: var(--lighter-grey);
 }
 
 .notification-item a {
     text-decoration: none;
-    color: white;
+    color: var(--white);
     flex-grow: 1;
     word-break: break-word;
     white-space: normal;
@@ -54,7 +58,7 @@
 .remove-notification {
     background: none;
     border: none;
-    color: white;
+    color: var(--white);
     font-size: 16px;
     cursor: pointer;
     margin-left: 10px;
@@ -63,7 +67,7 @@
 }
 
 .remove-notification:hover {
-    color: red;
+    color: var(--red);
 }
 
 .view-more a {
