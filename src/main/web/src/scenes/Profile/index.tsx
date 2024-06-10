@@ -9,7 +9,7 @@ import ScrollUpButton from "../../atoms/ScrollUpButton";
 import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
 import { useDetectAdBlock } from "adblock-detect-react";
 import { usePreventScrolling } from "../../organisms/ad-block-overlay/preventScrolling";
-import { fetchUserData } from "../../services/ProfileDataService";
+import {fetchUserData, updatePassword} from "../../services/ProfileDataService";
 import { fetchUserImage } from "../../services/ProfilePictureService";
 import { updateAge, updateDescription, updateCourse, updateEmail, updateUsername, updatePicture } from "../../services/ProfileDataService";
 
@@ -28,7 +28,7 @@ interface UserData {
 }
 
 export const ProfilePage = () => {
-    let navigate: NavigateFunction = useNavigate(); //s
+    let navigate: NavigateFunction = useNavigate();
 
     const [userData, setUserData] = useState<UserData>({
         username: "",
@@ -92,8 +92,40 @@ export const ProfilePage = () => {
         }
     };
 
-    const handlePasswordChange = (): void => {
-        navigate("/");
+    const handlePasswordChange = async () => {
+        const newPassword = prompt("Enter your new password:");
+        if (newPassword) {
+            const success = await updatePassword(newPassword);
+            if (success) {
+                console.log("Password updated successfully");
+            } else {
+                console.error("Failed to update password");
+            }
+        }
+    };
+
+    const handlePictureChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+            reader.onloadend = async () => {
+                if (reader.result) {
+                    const success = await updatePicture(reader.result as string);
+                    if (success) {
+                        setUserData(prevState => ({
+                            ...prevState,
+                            picture: {
+                                ...prevState.picture,
+                                imageData: reader.result as string
+                            }
+                        }));
+                        console.log("Picture updated successfully");
+                    } else {
+                        console.error("Failed to update picture");
+                    }
+                }
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
     };
 
     const handleLogout = (): void => {
@@ -135,7 +167,7 @@ export const ProfilePage = () => {
             <div className="profile-container">
                 <div className="profile-page-picture">
                     <img src={userData.picture.imageData || "https://via.placeholder.com/150"} alt="Profile" />
-                    <input type="file" />
+                    <input type="file" onChange={handlePictureChange} />
                 </div>
                 <div className="followers">
                     <button className="followers-btn">{userData.amountFollower} Followers</button>
@@ -143,11 +175,15 @@ export const ProfilePage = () => {
                 <div className="profile-field">
                     <label className="label-profile-page-text">Username</label>
                     {isEditing.username ? (
-                        <input type="text" name="username" value={userData.username} onChange={handleChange} />
+                        <input type="text" name="username" value={
+
+                            userData.username} onChange={handleChange} />
                     ) : (
                         <span>{userData.username}</span>
                     )}
-                    <button onClick={() => handleEdit('username')}>{isEditing.username ? 'Save' : 'Edit'}</button>
+                    <button onClick={() => isEditing.username ? handleSaveChanges('username') : handleEdit('username')}>
+                        {isEditing.username ? 'Save' : 'Edit'}
+                    </button>
                 </div>
                 <div className="profile-field">
                     <label className="label-profile-page-text">Email Address</label>
@@ -156,7 +192,9 @@ export const ProfilePage = () => {
                     ) : (
                         <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userData.email) }}></span>
                     )}
-                    <button onClick={() => handleEdit('email')}>{isEditing.email ? 'Save' : 'Edit'}</button>
+                    <button onClick={() => isEditing.email ? handleSaveChanges('email') : handleEdit('email')}>
+                        {isEditing.email ? 'Save' : 'Edit'}
+                    </button>
                 </div>
                 <div className="profile-field">
                     <label className="label-profile-page-text">Course</label>
@@ -165,7 +203,9 @@ export const ProfilePage = () => {
                     ) : (
                         <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userData.course) }}></span>
                     )}
-                    <button onClick={() => handleEdit('course')}>{isEditing.course ? 'Save' : 'Edit'}</button>
+                    <button onClick={() => isEditing.course ? handleSaveChanges('course') : handleEdit('course')}>
+                        {isEditing.course ? 'Save' : 'Edit'}
+                    </button>
                 </div>
                 <div className="profile-field">
                     <label className="label-profile-page-text">Age</label>
@@ -174,7 +214,9 @@ export const ProfilePage = () => {
                     ) : (
                         <span>{userData.age}</span>
                     )}
-                    <button onClick={() => handleEdit('age')}>{isEditing.age ? 'Save' : 'Edit'}</button>
+                    <button onClick={() => isEditing.age ? handleSaveChanges('age') : handleEdit('age')}>
+                        {isEditing.age ? 'Save' : 'Edit'}
+                    </button>
                 </div>
                 <div className="profile-field">
                     <label className="label-profile-page-text">Description</label>
@@ -183,7 +225,9 @@ export const ProfilePage = () => {
                     ) : (
                         <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userData.description) }}></span>
                     )}
-                    <button onClick={() => handleEdit('description')}>{isEditing.description ? 'Save' : 'Edit'}</button>
+                    <button onClick={() => isEditing.description ? handleSaveChanges('description') : handleEdit('description')}>
+                        {isEditing.description ? 'Save' : 'Edit'}
+                    </button>
                 </div>
                 <div className="profile-field">
                     <label className="label-profile-page-text">Password</label>

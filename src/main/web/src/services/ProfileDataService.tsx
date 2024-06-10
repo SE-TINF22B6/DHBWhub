@@ -56,11 +56,12 @@ export const fetchUserData = async (): Promise<UserData | null> => {
 
 export const updateAge = async (age: string): Promise<boolean> => {
     const headers = getHeaders();
+    const userId = getUserId();
     try {
         const response = await fetch(`${config.apiUrl}user/update-age`, {
             method: 'PUT',
             headers,
-            body: JSON.stringify({ age })
+            body: JSON.stringify({ userId, age })
         });
         return response.ok;
     } catch (error) {
@@ -71,11 +72,12 @@ export const updateAge = async (age: string): Promise<boolean> => {
 
 export const updateDescription = async (description: string): Promise<boolean> => {
     const headers = getHeaders();
+    const userId = getUserId();
     try {
         const response = await fetch(`${config.apiUrl}user/update-description`, {
             method: 'PUT',
             headers,
-            body: JSON.stringify({ description })
+            body: JSON.stringify({ userId, description })
         });
         return response.ok;
     } catch (error) {
@@ -86,11 +88,12 @@ export const updateDescription = async (description: string): Promise<boolean> =
 
 export const updateCourse = async (course: string): Promise<boolean> => {
     const headers = getHeaders();
+    const userId = getUserId();
     try {
         const response = await fetch(`${config.apiUrl}user/update-course`, {
             method: 'PUT',
             headers,
-            body: JSON.stringify({ course })
+            body: JSON.stringify({ userId, course })
         });
         return response.ok;
     } catch (error) {
@@ -101,11 +104,12 @@ export const updateCourse = async (course: string): Promise<boolean> => {
 
 export const updateEmail = async (email: string): Promise<boolean> => {
     const headers = getHeaders();
+    const userId = getUserId();
     try {
         const response = await fetch(`${config.apiUrl}user/update-email`, {
             method: 'PUT',
             headers,
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ userId, email })
         });
         return response.ok;
     } catch (error) {
@@ -116,12 +120,19 @@ export const updateEmail = async (email: string): Promise<boolean> => {
 
 export const updateUsername = async (username: string): Promise<boolean> => {
     const headers = getHeaders();
+    const userId = getUserId();
+    if (!userId) {
+        console.error("No user ID found");
+        return false;
+    }
+
     try {
         const response = await fetch(`${config.apiUrl}user/update-username`, {
             method: 'PUT',
             headers,
-            body: JSON.stringify({ username })
+            body: JSON.stringify({ userId, username })
         });
+
         return response.ok;
     } catch (error) {
         console.error("Error updating username:", error);
@@ -129,13 +140,30 @@ export const updateUsername = async (username: string): Promise<boolean> => {
     }
 };
 
+export const updatePassword = async (password: string): Promise<boolean> => {
+    const headers = getHeaders();
+    const userId = getUserId();
+    try {
+        const response = await fetch(`${config.apiUrl}user/update-password`, {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({ userId, password })
+        });
+        return response.ok;
+    } catch (error) {
+        console.error("Error updating password:", error);
+        return false;
+    }
+};
+
 export const updatePicture = async (imageData: string): Promise<boolean> => {
     const headers = getHeaders();
+    const userId = getUserId();
     try {
         const response = await fetch(`${config.apiUrl}user/update-picture`, {
             method: 'PUT',
             headers,
-            body: JSON.stringify({ imageData })
+            body: JSON.stringify({ userId, imageData })
         });
         return response.ok;
     } catch (error) {
