@@ -40,7 +40,7 @@ export const fetchUserData = async (): Promise<UserData | null> => {
                 amountFollower: data.amountFollower ?? 0,
                 age: data.age ?? '',
                 description: data.description ?? '',
-                course: data.course ?? ''
+                course: data.course.name ?? ''
             };
             console.log("Successful fetching of userdata", userData);
             return userData;
@@ -156,14 +156,14 @@ export const updatePassword = async (password: string): Promise<boolean> => {
     }
 };
 
-export const updatePicture = async (imageData: string): Promise<boolean> => {
+export const updatePicture = async (formData: FormData): Promise<boolean> => {
     const headers = getHeaders();
     const userId = getUserId();
     try {
-        const response = await fetch(`${config.apiUrl}user/update-picture`, {
+        const response = await fetch(config.apiUrl + "/user/update-picture", {
             method: 'PUT',
             headers,
-            body: JSON.stringify({ userId, imageData })
+            body: JSON.stringify({ userId, formData })
         });
         return response.ok;
     } catch (error) {
@@ -171,4 +171,5 @@ export const updatePicture = async (imageData: string): Promise<boolean> => {
         return false;
     }
 };
+
 
