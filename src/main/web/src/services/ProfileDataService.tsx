@@ -163,7 +163,7 @@ export const fetchNewToken = async (): Promise<void> => {
 
         if (response.ok) {
             const data = await response.json();
-            const newToken = data.token; // Annahme: Die Antwort enthält den neuen Token im Feld "token"
+            const newToken = data; // Annahme: Die Antwort enthält den neuen Token im Feld "token"
             localStorage.setItem('token', newToken); // Speichern Sie den Token im localStorage
             console.log('New token fetched and saved successfully');
         } else {
