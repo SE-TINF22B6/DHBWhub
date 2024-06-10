@@ -12,6 +12,7 @@ import config from "../../../../config/config";
 import { getAccountId, getJWT } from "../../../../services/AuthService";
 import { handleTagInput } from "../../../../services/TagService";
 import {fetchUserImage} from "../../../../services/ProfilePictureService";
+import {getDefaultOrRandomPicture} from "../../../../atoms/Pictures/PicturesComponent";
 
 interface PostDraftProps {
   draftOpen: boolean;
@@ -39,6 +40,9 @@ export const PostDraft: React.FC<PostDraftProps> = (props: PostDraftProps) => {
       const image: string | null = await fetchUserImage();
       if (image) {
         setUserImage(image);
+      }
+      else {
+        setUserImage(getDefaultOrRandomPicture(true));
       }
     };
     fetchUserProfileImage();

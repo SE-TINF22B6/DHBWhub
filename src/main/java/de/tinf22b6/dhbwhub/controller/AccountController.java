@@ -28,6 +28,10 @@ public class AccountController {
         return service.create(proposal);
     }
 
+    @GetMapping("/get-user-id/{id}")
+    public Long getUserIdByAccountId(@PathVariable Long id) {
+        return service.getUserIdByAccountId(id);
+    }
     @GetMapping("/{id}")
     public Account get(@PathVariable Long id) {
         return service.get(id);

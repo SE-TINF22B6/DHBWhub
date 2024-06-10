@@ -5,6 +5,7 @@ import {fetchUserImage} from "../../services/ProfilePictureService";
 import config from "../../config/config";
 import {isUserLoggedIn} from "../../services/AuthService";
 import {Tooltip} from "react-tooltip";
+import {getDefaultOrRandomPicture} from "../../atoms/Pictures/PicturesComponent";
 
 interface CreateCommentProps {
   onReplyClick: (newCommentText: string) => void;
@@ -36,6 +37,9 @@ export const CreateComment: React.FC<CreateCommentProps> = ({ onReplyClick }) =>
       const image: string | null = await fetchUserImage();
       if (image) {
         setUserImage(image);
+      }
+      else {
+        setUserImage(getDefaultOrRandomPicture(true));
       }
     };
     fetchUserProfileImage();
