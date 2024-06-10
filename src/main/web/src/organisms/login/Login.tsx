@@ -4,20 +4,15 @@ import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import './Login.css';
 import {googleLogin, login} from "../../services/AuthService";
-import {Checkbox, FormControlLabel} from "@mui/material";
-
 import {CredentialResponse, GoogleLogin} from "@react-oauth/google";
-import SignUp from "../signup/SignUp";
 
 type Props = {}
 
 const Login: React.FC<Props> = () => {
     let navigate: NavigateFunction = useNavigate();
 
-    const [showSignUp, setShowSignUp] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
-    const [rememberMe, setRememberMe] = useState(false);
 
     const initialValues: {
         username: string;
@@ -35,7 +30,7 @@ const Login: React.FC<Props> = () => {
     });
 
     const handleOpenSignUp = (): void => {
-        setShowSignUp(true);
+
     };
 
     const handleLogin = (formValue: { username: string; password: string; rememberMe: boolean }): void => {
@@ -76,87 +71,64 @@ const Login: React.FC<Props> = () => {
     };
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={handleLogin}
-                >
-                    <Form>
-                        <div className="modal-content">
-                            <div className="modalHeader">
-                                <h3 className="modalHeadline">LOGIN</h3>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="username" className="heading">Username</label>
-                                <Field name="username" type="text" className="form-control"/>
-                                <ErrorMessage
-                                    name="username"
-                                    component="div"
-                                    className="alert-danger"
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="password" className="heading">Password</label>
-                                <Field name="password" type="password" className="form-control"/>
-                                <ErrorMessage
-                                    name="password"
-                                    component="div"
-                                    className="alert-danger"
-                                />
-                            </div>
-
-                            <div className="forgot-password-option">
-                                <label className="forgot-password-option-text">Forgot Password?</label>
-                            </div>
-
-                            <div className="remember-me-option">
-                                <FormControlLabel control={<Checkbox className="checkbox" checked={rememberMe}
-                                                                     onChange={(e) => setRememberMe(e.target.checked)}/>}
-                                                  label="Remember me?"
-                                                  className="remember-me-checkbox"/>
-                            </div>
-
-                            <div className="form-group">
-                                <button type="submit" className="loading-btn" disabled={loading}>
-                                    {loading && (
-                                        <span className="spinner-border spinner-border-sm"></span>
-                                    )}
-                                    <span className="btn-text">Login</span>
-                                </button>
-                            </div>
-
-                            <div className="signup-option">
-                                <label className="signup-option-text">Need an account? </label>
-                                <label className="signup-option-text-link" onClick={handleOpenSignUp}>SIGN UP</label>
-                            </div>
-
-                            <div className="google-oauth-login">
-
-                              <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
-                                             text={"continue_with"}
-                                    onSuccess={handleGoogleLogin}
-                                    onError={() => {
-                                        console.log('Login Failed');
-                                    }}
-                                />
-                            </div>
-
-                            {showSignUp && <SignUp/>}
-
-                            {message && (
-                                <div className="form-group">
-                                    <div className="alert-danger" role="alert">
-                                        {message}
-                                    </div>
-                                </div>
-                            )}
+        <div className="card card-container">
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleLogin}>
+                <Form>
+                    <div className="modal-content">
+                        <div className="modalHeader">
+                            <h3 className="modalHeadline">LOGIN</h3>
                         </div>
-                    </Form>
-                </Formik>
-            </div>
+                        <div className="form-group">
+                            <label htmlFor="username" className="heading">Username</label>
+                            <Field name="username" type="text" className="form-control"/>
+                            <ErrorMessage name="username" component="div" className="alert-danger"/>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="password" className="heading">Password</label>
+                            <Field name="password" type="password" className="form-control"/>
+                            <ErrorMessage name="password" component="div" className="alert-danger"/>
+                        </div>
+
+                        <div className="forgot-password-option">
+                            <label className="forgot-password-option-text">Forgot Password?</label>
+                        </div>
+
+                        <div className="form-group">
+                            <button type="submit" className="loading-btn" disabled={loading}>
+                                {loading && (
+                                    <span className="spinner-border spinner-border-sm"></span>
+                                )}
+                                <span className="btn-text">Login</span>
+                            </button>
+                        </div>
+
+                        <div className="signup-option">
+                            <label className="signup-option-text">Need an account? </label>
+                            <label className="signup-option-text-link" onClick={handleOpenSignUp}>SIGN UP</label>
+                        </div>
+
+                        <div className="google-oauth-login">
+
+                            <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
+                                         text={"continue_with"}
+                                         onSuccess={handleGoogleLogin}
+                                         onError={(): void => {
+                                             console.log('Login Failed');
+                                         }}
+                            />
+                        </div>
+
+                        {message && (
+                            <div className="form-group">
+                                <div className="alert-danger" role="alert">
+                                    {message}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </Form>
+            </Formik>
         </div>
     );
 };
