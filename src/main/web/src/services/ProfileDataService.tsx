@@ -151,30 +151,6 @@ export const updatePassword = async (password: string): Promise<boolean> => {
     }
 };
 
-export const fetchNewToken = async (): Promise<void> => {
-    const headers = getHeaders();
-    const username = getUsername();
-    try {
-        const response = await fetch(`${config.apiUrl}/api/auth/new-token`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({ username })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const newToken = data; // Annahme: Die Antwort enthält den neuen Token im Feld "token"
-            localStorage.setItem('token', newToken); // Speichern Sie den Token im localStorage
-            console.log('New token fetched and saved successfully');
-        } else {
-            console.error('Failed to fetch new token:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error fetching new token:', error);
-    }
-};
-
-
 export const updatePicture = async (imageData: string): Promise<boolean> => {
     const headers = getHeaders();
     const userId = getUserId();
