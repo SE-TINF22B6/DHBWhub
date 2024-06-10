@@ -1,9 +1,9 @@
 export interface UserModel {
     username: string;
-    accountId: string;
-    picture?:  {
+    userId: string;
+    picture?: {
         id: number;
         name: string;
         imageData: string;
-    }
+    };
 }

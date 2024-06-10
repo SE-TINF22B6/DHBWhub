@@ -213,9 +213,6 @@ public abstract class AbstractApplicationTest {
 		return new CreateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new Date(1478979209L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData(), 1L);
 	}
 
-	protected UpdateEventPostProposal createDefaultUpdateEventPostProposal() {
-		return new UpdateEventPostProposal("Titel 1", "Beschreibung 1", createDefaultLocationProposal(), new Date(1478979207L), new Date(1478979208L), new String[]{"Tag 1", "Tag 2"}, createDefaultPicture().getImageData());
-	}
 
 	protected EventThreadViewProposal createDefaultEventThreadViewProposal() {
 		return new EventThreadViewProposal(1L, "Titel 1", "Beschreibung 1", List.of("Tag 1", "Tag 2"), createDefaultLocationProposal(), 0, 0, new Date(1478979208L), new Date(1478979209L), List.of(createDefaultEventCommentThreadViewProposal(),createDefaultEventCommentThreadViewProposal()));
@@ -338,7 +335,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected UserInformationProposal createUserInformationProposal() {
-		return new UserInformationProposal(1L , createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
+		return new UserInformationProposal(1L ,"test name", createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
 	}
 
 	protected UpdateAgeProposal createUpdateAgeProposal() {

@@ -6,20 +6,13 @@ import {useDetectAdBlock} from "adblock-detect-react";
 import {usePreventScrolling} from "../../../organisms/ad-block-overlay/preventScrolling";
 import {getJWT} from "../../../services/AuthService";
 import config from "../../../config/config";
-import {PostModel} from "./PostModel";
-import {Post} from "./Post";
+import {PostModel} from "../../Home/components/post/models/PostModel";
 import {User} from "./User";
+import {Post} from "../../Home/components/post/Post";
+import {UserModel} from "./models/UserModel";
 
 
-interface UserModel {
-    username: string;
-    userId: string;
-    picture?: {
-        id: number;
-        name: string;
-        imageData: string;
-    };
-}
+
 
 interface SearchedPostsProps {
     sortOption: string;
@@ -126,7 +119,7 @@ export const SearchService: React.FC<SearchedPostsProps> = ({sortOption, query, 
                 {searchResults.map((user: UserModel) => (
                     <User
                         key={user.userId}
-                        accountId={user.userId}
+                        userId={user.userId}
                         username={user.username}
                         picture={user.picture}
                     />))

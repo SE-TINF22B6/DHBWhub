@@ -27,7 +27,7 @@ export const UserPage = () => {
     useEffect((): void => {
         const fetchUserData = async (): Promise<void> => {
             try {
-                const response: Response = await fetch(`https://localhost:8443/user/user-information/${id}`, {
+                const response: Response = await fetch(config.apiUrl +`user/user-information/${id}`, {
                     headers: config.headers
                 });
                 if (response.ok) {
