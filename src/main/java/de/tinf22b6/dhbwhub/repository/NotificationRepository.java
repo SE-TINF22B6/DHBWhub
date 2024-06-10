@@ -144,4 +144,24 @@ public class NotificationRepository {
     public void deletePostLikeNotification(PostLikeNotification notification) {
         postLikeNotificationRepository.delete(notification);
     }
+
+    public boolean checkIfCommentLikeEntryExists(Long triggeringUserId, Long postId) {
+        return commentLikeNotificationRepository.findByTriggeringUserIdAndPostId(triggeringUserId, postId).orElse(null) != null;
+    }
+
+    public boolean checkIfEventCommentLikeEntryExists(Long triggeringUserId, Long eventPostId) {
+        return eventCommentLikeNotificationRepository.findByTriggeringUserIdAndEventPostId(triggeringUserId, eventPostId).orElse(null) != null;
+    }
+
+    public boolean checkIfFollowEntryExists(Long triggeringUserId, Long userId) {
+        return followNotificationRepository.findByTriggeringUserIdAndUserId(triggeringUserId, userId).orElse(null) != null;
+    }
+
+    public boolean checkIfPostCommentEntryExists(Long triggeringUserId, Long postId) {
+        return postCommentNotificationRepository.findByTriggeringUserIdAndPostId(triggeringUserId, postId).orElse(null) != null;
+    }
+
+    public boolean checkIfPostLikeEntryExists(Long triggeringUserId, Long postId) {
+        return postLikeNotificationRepository.findByTriggeringUserIdAndPostId(triggeringUserId, postId).orElse(null) != null;
+    }
 }

@@ -21,7 +21,7 @@ interface ProfileData {
 }
 
 export const ProfilePage = () => {
-    let navigate: NavigateFunction = useNavigate();
+    let navigate: NavigateFunction = useNavigate(); //s
 
     const [profileData, setProfileData] = useState<ProfileData>({
         username: "Dieter B.",

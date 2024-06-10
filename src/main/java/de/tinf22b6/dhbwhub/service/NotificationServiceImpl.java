@@ -162,15 +162,15 @@ public class NotificationServiceImpl implements NotificationService {
         String type = deleteNotificationProposal.getType();
         Long groupId = deleteNotificationProposal.getGroupId();
 
-        if (type.equals(NotificationType.TYPE_COMMENT_LIKE.name())){
+        if (type.equals(NotificationType.TYPE_COMMENT_LIKE.getType())){
             repository.findCommentLikeNotificationsByGroup(groupId).forEach(repository::deleteCommentLikeNotification);
-        } else if (type.equals(NotificationType.TYPE_FOLLOW.name())){
+        } else if (type.equals(NotificationType.TYPE_FOLLOW.getType())){
             repository.findFollowNotificationsByGroup(groupId).forEach(repository::deleteFollowNotification);
-        } else if (type.equals(NotificationType.TYPE_POST_LIKE.name())){
+        } else if (type.equals(NotificationType.TYPE_POST_LIKE.getType())){
             repository.findPostLikeNotificationsByGroup(groupId).forEach(repository::deletePostLikeNotification);
-        } else if (type.equals(NotificationType.TYPE_POST_COMMENT.name())){
+        } else if (type.equals(NotificationType.TYPE_POST_COMMENT.getType())){
             repository.findPostCommentNotificationsByGroup(groupId).forEach(repository::deletePostCommentNotification);
-        } else {
+        } else if (type.equals(NotificationType.TYPE_EVENT_COMMENT_LIKE.getType())){
             repository.findEventCommentLikeNotificationsByGroup(groupId).forEach(repository::deleteEventCommentLikeNotification);
         }
     }
@@ -179,15 +179,15 @@ public class NotificationServiceImpl implements NotificationService {
         String type = deleteNotificationProposal.getType();
         Long notificationId = deleteNotificationProposal.getNotificationId();
 
-        if (type.equals(NotificationType.TYPE_COMMENT_LIKE.name())){
+        if (type.equals(NotificationType.TYPE_COMMENT_LIKE.getType())){
             repository.deleteCommentLikeNotification(repository.findCommentLikeNotificationById(notificationId));
-        } else if (type.equals(NotificationType.TYPE_FOLLOW.name())){
+        } else if (type.equals(NotificationType.TYPE_FOLLOW.getType())){
             repository.deleteFollowNotification(repository.findFollowNotificationById(notificationId));
-        } else if (type.equals(NotificationType.TYPE_POST_LIKE.name())){
+        } else if (type.equals(NotificationType.TYPE_POST_LIKE.getType())){
             repository.deletePostLikeNotification(repository.findPostLikeNotificationById(notificationId));
-        } else if (type.equals(NotificationType.TYPE_POST_COMMENT.name())){
+        } else if (type.equals(NotificationType.TYPE_POST_COMMENT.getType())){
             repository.deletePostCommentNotification(repository.findPostCommentNotificationById(notificationId));
-        } else {
+        } else if (type.equals(NotificationType.TYPE_EVENT_COMMENT_LIKE.getType())){
             repository.deleteEventCommentLikeNotification(repository.findEventCommentLikeNotificationById(notificationId));
         }
     }

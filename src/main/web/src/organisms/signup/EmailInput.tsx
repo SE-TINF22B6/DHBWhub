@@ -13,11 +13,22 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
   const [showError, setShowError] = useState<boolean>(false);
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
   let navigate: NavigateFunction = useNavigate();
+  const [hasGivenConsent, setHasGivenConsent] = useState<boolean>(false);
+  const [consentError, setConsentError] = useState<string>("");
+  const [containerHeight, setContainerHeight] = useState<string>("520px");
 
   const initialValues: {
     email: string;
   } = {
     email: "",
+  };
+
+  const handleConsentChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setHasGivenConsent(event.target.checked);
+    if (event.target.checked) {
+      setConsentError("");
+      setContainerHeight("520px");
+    }
   };
 
   const handleOpenLogin = (): void => {};
@@ -29,43 +40,48 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
   });
 
   const handleVerify = (formValue: { email: string }): void => {
-    const { email } = formValue;
+    if (!hasGivenConsent) {
+      setConsentError("You must accept the Terms of Service and Privacy Policy.");
+      setContainerHeight("600px");
+      return;
+    }
 
+    const { email } = formValue;
     setMessage("");
     setLoading(true);
 
     localStorage.setItem("userEmailAddress", email);
 
     emailVerification(email).then(
-      (): void => {
-        onSuccess();
-      },
-      (error): void => {
-        let resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+        (): void => {
+          onSuccess();
+        },
+        (error): void => {
+          let resMessage =
+              (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+              error.message ||
+              error.toString();
 
-        if (error.message === "Request failed with status code 400") {
-          setShowError(true);
+          if (error.message === "Request failed with status code 400") {
+            setShowError(true);
+          }
+
+          setLoading(false);
+          setMessage(resMessage);
         }
-
-        setLoading(false);
-        setMessage(resMessage);
-      }
     );
   };
 
   const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
     console.log(credentialResponse);
     googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
-        () => {
+        (): void => {
           navigate("/profile");
           window.location.reload();
         },
-        () => {
+        (): void => {
           const resMessage = "Unable to sign in via Google";
           setLoading(false);
           setMessage(resMessage);
@@ -74,7 +90,7 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
   };
 
   return (
-    <div className="email-input-modal-content" ref={ref}>
+    <div className="email-input-modal-content" ref={ref} style={{ height: containerHeight }}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -93,22 +109,37 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
               Email
             </label>
             <Field
-              name="email"
-              type="text"
-              className="form-control"
-              onFocus={() => setIsInputFocused(true)}
-              onBlur={() => setIsInputFocused(false)}
+                name="email"
+                type="text"
+                className="form-control"
+                onFocus={() => setIsInputFocused(true)}
+                onBlur={() => setIsInputFocused(false)}
             />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="alert-danger"
-            />
+            <form style={{color: 'var(--white)', fontSize: '14px'}}>
+              <fieldset style={{border: 'none'}}>
+                <input
+                    type="checkbox"
+                    id="mc"
+                    name="Agree"
+                    value="Agree"
+                    className="consent-radio-button"
+                    onChange={handleConsentChange}
+                />
+                <label htmlFor="mc">
+                  I accept{" "}
+                  <a className="consent-link" href='/terms-of-service' target="_blank" rel="noopener noreferrer">Terms of Service</a>{" "}
+                  and{" "}
+                  <a className="consent-link" href='/privacy-policy' target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                </label>
+              </fieldset>
+            </form>
+            {consentError && <div className="alert-danger">{consentError}</div>}
+            <ErrorMessage name="email" component="div" className="alert-danger"/>
           </div>
           <div className="form-group">
             <button type="submit" className="loading-btn">
               {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
+                  <span className="spinner-border spinner-border-sm"></span>
               )}
               <span className="btn-text">CONTINUE</span>
             </button>
@@ -116,7 +147,7 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
 
           <div className="signup-option">
             <label className="signup-option-text">
-              Already have an account?{" "}
+            Already have an account?{" "}
             </label>
             <label
               className="signup-option-text-link"

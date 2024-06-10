@@ -81,9 +81,11 @@ public class FriendshipServiceImpl implements FriendshipService {
         Friendship friendship = FriendshipMapper.mapToFriendship(requester, receiver);
 
         // notify receiver
-        FollowNotification followNotification = NotificationMapper.mapToFollowNotification(requester,receiver);
-        followNotification.setAccumulatedId(null);
-        notificationRepository.saveFollowNotification(followNotification);
+        if (!notificationRepository.checkIfFollowEntryExists(requester.getId(), receiver.getId())){
+            FollowNotification followNotification = NotificationMapper.mapToFollowNotification(requester,receiver);
+            followNotification.setAccumulatedId(null);
+            notificationRepository.saveFollowNotification(followNotification);
+        }
 
         return FriendshipMapper.mapToFriendlist(repository.save(friendship));
     }
