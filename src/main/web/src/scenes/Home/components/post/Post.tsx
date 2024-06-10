@@ -74,7 +74,12 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   }, [location, id]);
 
   useEffect((): void => {
-    setShortDescription(shortenDescription(description, postImage ? 190 : matches ? 190 : 280));
+    if (description){
+      setShortDescription(shortenDescription(description, postImage ? 190 : matches ? 190 : 280));
+    }
+    else {
+      setShortDescription(description);
+    }
   }, [description, postImage, matches]);
 
   const handleMenuClick = (): void => {
@@ -203,7 +208,8 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
                src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
           <div className="post-infos" style={{marginLeft: marginLeft}}>
             <Link to={`/post/?id=${id}`} className="post-button">
-              <p className="post-title">{shortenDescription(title, 50)}</p>
+              <p className="post-title">
+                {title ? shortenDescription(title, 50): title }</p>
             </Link>
             <div className="post-tags" style={{marginTop: marginTop}}>
               {tags && tags.slice(0, 3).map((tag: string, index: number) => (
