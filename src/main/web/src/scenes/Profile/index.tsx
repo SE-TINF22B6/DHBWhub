@@ -74,6 +74,7 @@ export const ProfilePage = () => {
         switch (field) {
             case 'username':
                 success = await updateUsername(userData.username);
+                localStorage.setItem('username', userData.username);
                 break;
             case 'email':
                 success = await updateEmail(userData.email);
