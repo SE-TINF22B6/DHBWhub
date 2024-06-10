@@ -10,6 +10,7 @@ import {Interaction} from "../interaction/Interaction";
 import {PostCommentModel} from "../../scenes/Home/components/post/models/PostCommentModel";
 import {EventCommentModel} from "../../scenes/Event/model/EventCommentModel";
 import {checkUserLiked, handleLike} from "../../services/LikeService";
+import {getUserIdByAccountId} from "../../services/UserPageService";
 
 type CommentProps = PostCommentModel | EventCommentModel;
 
@@ -32,6 +33,7 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   const [reportDescription, setReportDescription] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
   const currentPageURL: string = window.location.href;
   const id: number = 'postId' in props ? props.postId : props.eventId;
 
@@ -93,11 +95,20 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
     };
   }, [reportOpen, handleClose]);
 
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const id = await getUserIdByAccountId(accountId);
+      setUserId(id);
+    };
+
+    fetchUserId();
+  }, [accountId]);
+
   return (
       <div className="comment">
         <div className="comment-content">
           {authorUsername && (
-              <Link to={`/user/?name=${authorUsername.toLowerCase().replace(' ', '-')}`} className="author-link"
+              <Link to={`/user/?id=${userId}`} className="author-link"
                     aria-label="To the author">
                 <img className="profile-picture" alt="Comment profile" src={image}/>
               </Link>

@@ -14,6 +14,7 @@ import {useMediaQuery} from "@mui/system";
 import config from "../../../../config/config";
 import {getJWT, getUserId} from "../../../../services/AuthService";
 import {sendReportToBackend} from "../../../../services/ReportService";
+import {getUserIdByAccountId} from "../../../../services/UserPageService";
 
 export const Post: React.FC<PostModel> = (props: PostModel) => {
   const {
@@ -37,7 +38,8 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   const currentPageURL: string = window.location.href;
   const location = useLocation();
   const [shortDescription, setShortDescription] = useState('');
-  const userId: number | null =  getUserId();
+  const [userId, setUserId] = useState(null);
+  const userSelfId: number | null =  getUserId();
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
@@ -91,7 +93,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         credentials: 'include',
         body: JSON.stringify({
           postId: id,
-          userId: userId,
+          userId: userSelfId,
         }),
         headers: headersWithJwt
       });
@@ -114,7 +116,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         credentials: 'include',
         body: JSON.stringify({
           postId: id,
-          userId: userId,
+          userId: userSelfId,
         }),
         headers: headersWithJwt
       });
@@ -182,6 +184,15 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     };
   }, [reportOpen, handleClose]);
 
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const id = await getUserIdByAccountId(accountId);
+      setUserId(id);
+    };
+
+    fetchUserId();
+  }, [accountId]);
+
   return (
       <div className="post-container">
         <div className="post">
@@ -205,7 +216,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
             </p>
 
             <div className="footer">
-              <Link to={`/user/?id=${accountId}`} className="author-link" aria-label="To the author">
+              <Link to={`/user/?id=${userId}`} className="author-link" aria-label="To the author">
                 {username}
               </Link>
               &nbsp;· {formattedTime}

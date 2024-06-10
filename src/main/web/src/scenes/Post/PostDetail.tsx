@@ -12,6 +12,7 @@ import {getJWT, getUserId} from "../../services/AuthService";
 import config from "../../config/config";
 import './PostDetail.css';
 import {sendReportToBackend} from "../../services/ReportService";
+import {getUserIdByAccountId} from "../../services/UserPageService";
 
 export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) => {
   const {
@@ -36,8 +37,9 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   const [menuOpen, setMenuOpen] = useState(false);
   const [shareWindowOpen, setShareWindowOpen] = useState(false);
   const currentPageURL: string = window.location.href;
+  const [userId, setUserId] = useState(null);
   const location = useLocation();
-  const userId: number | null = getUserId();
+  const userSelfId: number | null = getUserId();
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
@@ -83,7 +85,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
         credentials: 'include',
         body: JSON.stringify({
           postId: id,
-          userId: userId,
+          userId: userSelfId,
         }),
         headers: headersWithJwt
       });
@@ -107,7 +109,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
         credentials: 'include',
         body: JSON.stringify({
           postId: id,
-          userId: userId,
+          userId: userSelfId,
         }),
         headers: {
           'Authorization': 'Bearer ' + jwt,
@@ -143,6 +145,15 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
     };
   }, [reportOpen, handleClose]);
 
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const id = await getUserIdByAccountId(accountId);
+      setUserId(id);
+    };
+
+    fetchUserId();
+  }, [accountId]);
+
   return (
       <div className="post-detail">
         <div className="post-detail-content">
@@ -150,7 +161,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
             <div className="post-detail-data">
               {userImage && <img className="profile-picture" alt="Profile" src={userImage}/>}
               <div>
-                <Link to={`/user/?id=${accountId}`} className="author-link" aria-label="To the author">
+                <Link to={`/user/?id=${userId}`} className="author-link" aria-label="To the author">
                   {username}
                 </Link>
                 <br/>

@@ -2,7 +2,7 @@ import React from 'react';
 import './User.css';
 import {Link} from "react-router-dom";
 import {UserModel} from "./models/UserModel";
-import {Pictures} from "../../../atoms/Pictures/Pictures";
+import {getDefaultOrRandomPicture} from "../../../atoms/Pictures/PicturesComponent";
 
 export const User: React.FC<UserModel> = (props: UserModel) => {
     const {
@@ -19,7 +19,7 @@ export const User: React.FC<UserModel> = (props: UserModel) => {
                 {picture && picture.imageData ? (
                     <img className="user-image" alt={username} src={picture.imageData} loading="lazy"/>
                 ) : (
-                    <Pictures defaultPicture={false} className="custom-image"/>
+                    <img className="custom-image" alt={"random-image"} src={getDefaultOrRandomPicture(false)}/>
                 )}
                 <div className="user-name">{truncatedUsername}</div>
             </Link>

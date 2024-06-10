@@ -1,5 +1,6 @@
 import config from "../config/config";
 import { getJWT, getUserId, isUserLoggedIn } from "./AuthService";
+import {getDefaultOrRandomPicture} from "../atoms/Pictures/PicturesComponent";
 
 export const fetchUserImage = async (): Promise<string | null> => {
   const jwt: string | null = getJWT();
@@ -19,8 +20,7 @@ export const fetchUserImage = async (): Promise<string | null> => {
         localStorage.setItem('userImage', data.imageData);
         return data.imageData;
       } else {
-        console.error("Failed to fetch user image");
-        return null;
+        return (getDefaultOrRandomPicture(true));
       }
     } catch (error) {
       console.error("Error fetching user image:", error);
