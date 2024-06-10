@@ -105,12 +105,15 @@ export const ProfilePage = () => {
     };
 
     const handlePictureChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files[0]) {
+        if (event.target.files && event.target.files.length > 0) {
             const reader = new FileReader();
             reader.onloadend = async () => {
-                if (reader.result) {
-                    const success = await updatePicture(reader.result as string);
+                if (reader.result && event.target.files) {
+                    const formData = new FormData();
+                    formData.append("image", event.target.files[0]);
+                    const success = await updatePicture(formData);
                     if (success) {
+                        // Aktualisiere das Bild in der Benutzerdaten
                         setUserData(prevState => ({
                             ...prevState,
                             picture: {
@@ -118,15 +121,17 @@ export const ProfilePage = () => {
                                 imageData: reader.result as string
                             }
                         }));
-                        console.log("Picture updated successfully");
+                        console.log("Bild erfolgreich aktualisiert");
                     } else {
-                        console.error("Failed to update picture");
+                        console.error("Fehler beim Aktualisieren des Bildes");
                     }
                 }
             };
             reader.readAsDataURL(event.target.files[0]);
         }
     };
+
+
 
     const handleLogout = (): void => {
         logout();
@@ -166,8 +171,17 @@ export const ProfilePage = () => {
             <Header />
             <div className="profile-container">
                 <div className="profile-page-picture">
-                    <img src={userData.picture.imageData || "https://via.placeholder.com/150"} alt="Profile" />
-                    <input type="file" onChange={handlePictureChange} />
+                    <img
+                        src={userData.picture.imageData || "https://via.placeholder.com/150"}
+                        alt="Profile"
+                        onClick={() => document.getElementById("fileInput")?.click()}
+                    />
+                    <input
+                        id="fileInput"
+                        type="file"
+                        style={{display: "none"}}
+                        onChange={handlePictureChange}
+                    />
                 </div>
                 <div className="followers">
                     <button className="followers-btn">{userData.amountFollower} Followers</button>
