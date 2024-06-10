@@ -1,5 +1,7 @@
 import axios from "axios";
 import config from "../config/config";
+import {CredentialResponse} from "@react-oauth/google";
+import {jwtDecode} from "jwt-decode";
 
 export const register = (username: string, email: string, password: string) => {
     return axios.post(config.apiUrl + "api/auth/signup", {
@@ -103,6 +105,21 @@ export const isUserLoggedIn = (): boolean => {
 
     if (jwtToken) {
         return !!jwtToken;
+    } else {
+        return false;
+    }
+};
+
+export const isTokenValid = (): boolean => {
+    const jwtToken: string | null = localStorage.getItem("token");
+
+    if (jwtToken) {
+        const decodedToken = jwtDecode(jwtToken);
+        if (decodedToken && decodedToken.exp) {
+            return decodedToken.exp * 1000 > Date.now();
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
