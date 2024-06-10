@@ -1,8 +1,10 @@
 package de.tinf22b6.dhbwhub.controller;
 
 import de.tinf22b6.dhbwhub.model.User;
+import de.tinf22b6.dhbwhub.payload.response.MessageResponse;
 import de.tinf22b6.dhbwhub.proposal.UserProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.*;
+import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,9 +17,11 @@ import java.util.List;
 @RequestMapping(value = "/user")
 public class UserController {
     private final UserService service;
+    private final AccountRepository accountRepository;
 
-    public UserController(@Autowired UserService service) {
+    public UserController(@Autowired UserService service,@Autowired AccountRepository accountRepository) {
         this.service = service;
+        this.accountRepository = accountRepository;
     }
 
     @GetMapping
@@ -75,14 +79,20 @@ public class UserController {
 
     @PutMapping("/update-email")
     @ResponseStatus(HttpStatus.OK)
-    public void updateEmail(@RequestBody UpdateEmailProposal proposal) {
-        service.updateEmail(proposal);
+    public ResponseEntity<?> updateEmail(@RequestBody UpdateEmailProposal proposal) {
+        if (!accountRepository.existsByEmail(proposal.getEmail())) {
+            service.updateEmail(proposal);
+        }
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
     }
 
     @PutMapping("/update-username")
     @ResponseStatus(HttpStatus.OK)
-    public void updateUsername(@RequestBody UpdateUsernameProposal proposal) {
-        service.updateUsername(proposal);
+    public ResponseEntity<?> updateUsername(@RequestBody UpdateUsernameProposal proposal) {
+        if (!accountRepository.existsByUsername(proposal.getUsername())) {
+            service.updateUsername(proposal);
+        }
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already in use!"));
     }
 
     @PutMapping("/update-password")

@@ -113,7 +113,6 @@ export const ProfilePage = () => {
                     formData.append("image", event.target.files[0]);
                     const success = await updatePicture(formData);
                     if (success) {
-                        // Aktualisiere das Bild in der Benutzerdaten
                         setUserData(prevState => ({
                             ...prevState,
                             picture: {

@@ -62,7 +62,6 @@ public class AuthController {
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
 
-    // TODO: Save JWT in Database
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -85,7 +84,6 @@ public class AuthController {
                 roles));
     }
 
-    // TODO: Generate JWT Token for user after successful signup
     @PostMapping("signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signupRequest) {
         if (accountRepository.existsByUsername(signupRequest.getUsername())) {
