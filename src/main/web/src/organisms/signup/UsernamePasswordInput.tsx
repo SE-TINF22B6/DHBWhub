@@ -4,7 +4,6 @@ import {register} from "../../services/AuthService";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import './UsernamePasswordInput.css';
-import ErrorUsernameModal from "./ErrorUsernameModal";
 
 const UsernamePasswordInput = () => {
     let navigate: NavigateFunction = useNavigate();
@@ -99,7 +98,7 @@ const UsernamePasswordInput = () => {
 
                         <div className="error-message-dialog">
                             {showError && (
-                                <ErrorUsernameModal message={message} onClose={() => setShowError(false)}/>
+                                <div className="alert-danger">{message}</div>
                             )}
                         </div>
                     </Form>
