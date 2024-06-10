@@ -34,13 +34,13 @@ export const fetchUserData = async (): Promise<UserData | null> => {
         if (response.ok) {
             const data = await response.json();
             const userData: UserData = {
-                username: data.account.username,
-                email: data.account.email,
+                username: data.account.username ?? "",
+                email: data.account.email ?? "",
                 picture: data.account.picture ? data.account.picture : { id: 0, name: '', imageData: '' },
                 amountFollower: data.amountFollower ?? 0,
                 age: data.age ?? '',
                 description: data.description ?? '',
-                course: data.course.name ?? ''
+                course: data.course?.name ?? ''
             };
             console.log("Successful fetching of userdata", userData);
             return userData;

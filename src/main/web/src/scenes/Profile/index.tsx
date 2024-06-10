@@ -9,7 +9,7 @@ import ScrollUpButton from "../../atoms/ScrollUpButton";
 import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
 import { useDetectAdBlock } from "adblock-detect-react";
 import { usePreventScrolling } from "../../organisms/ad-block-overlay/preventScrolling";
-import {fetchUserData, updatePassword} from "../../services/ProfileDataService";
+import { fetchUserData, updatePassword } from "../../services/ProfileDataService";
 import { fetchUserImage } from "../../services/ProfilePictureService";
 import { updateAge, updateDescription, updateCourse, updateEmail, updateUsername, updatePicture } from "../../services/ProfileDataService";
 
@@ -17,7 +17,7 @@ interface UserData {
     username: string;
     email: string;
     picture: {
-        id: number | null;
+        id: number;
         name: string;
         imageData: string;
     };
@@ -34,7 +34,7 @@ export const ProfilePage = () => {
         username: "",
         email: "",
         picture: {
-            id: null,
+            id: 0,
             name: "",
             imageData: "",
         },
@@ -117,12 +117,12 @@ export const ProfilePage = () => {
                             ...prevState,
                             picture: {
                                 ...prevState.picture,
-                                imageData
+                                imageData // Aktualisieren Sie den imageData-Zustand mit dem aktualisierten Bild
                             }
                         }));
-                        console.log("Picture updated successfully");
+                        console.log("Bild erfolgreich aktualisiert");
                     } else {
-                        console.error("Failed to update the picture");
+                        console.error("Fehler beim Aktualisieren des Bildes");
                     }
                 }
             };
@@ -161,6 +161,8 @@ export const ProfilePage = () => {
     usePreventScrolling(adBlockDetected);
     const scrollUpRef = useRef<HTMLDivElement>(null);
 
+    const disableEmailAndPasswordEdit = localStorage.getItem("oathUser") === "true";
+
     return (
         <div className="page">
             {adBlockDetected && <AdBlockOverlay />}
@@ -176,7 +178,7 @@ export const ProfilePage = () => {
                     <input
                         id="fileInput"
                         type="file"
-                        style={{display: "none"}}
+                        style={{ display: "none" }}
                         onChange={handlePictureChange}
                     />
                 </div>
@@ -186,9 +188,7 @@ export const ProfilePage = () => {
                 <div className="profile-field">
                     <label className="label-profile-page-text">Username</label>
                     {isEditing.username ? (
-                        <input type="text" name="username" value={
-
-                            userData.username} onChange={handleChange} />
+                        <input type="text" name="username" value={userData.username} onChange={handleChange} />
                     ) : (
                         <span>{userData.username}</span>
                     )}
@@ -196,19 +196,31 @@ export const ProfilePage = () => {
                         {isEditing.username ? 'Save' : 'Edit'}
                     </button>
                 </div>
+
+                {!disableEmailAndPasswordEdit && (
+                    <>
+                        <div className="profile-field">
+                            <label className="label-profile-page-text">Email Address</label>
+                            {isEditing.email ? (
+                                <input type="email" name="email" value={userData.email} onChange={handleChange} />
+                            ) : (
+                                <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userData.email) }}></span>
+                            )}
+                            <button onClick={() => isEditing.email ? handleSaveChanges('email') : handleEdit('email')}>
+                                {isEditing.email ? 'Save' : 'Edit'}
+                            </button>
+                        </div>
+                        <div className="profile-field">
+                            <label className="label-profile-page-text">Password</label>
+                            <button onClick={handlePasswordChange}>Change Password</button>
+                        </div>
+                    </>
+                )}
+
                 <div className="profile-field">
-                    <label className="label-profile-page-text">Email Address</label>
-                    {isEditing.email ? (
-                        <input type="email" name="email" value={userData.email} onChange={handleChange} />
-                    ) : (
-                        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userData.email) }}></span>
-                    )}
-                    <button onClick={() => isEditing.email ? handleSaveChanges('email') : handleEdit('email')}>
-                        {isEditing.email ? 'Save' : 'Edit'}
-                    </button>
-                </div>
-                <div className="profile-field">
-                    <label className="label-profile-page-text">Course</label>
+                    <label className="label-profile
+
+-page-text">Course</label>
                     {isEditing.course ? (
                         <input type="text" name="course" value={userData.course} onChange={handleChange} />
                     ) : (
@@ -239,10 +251,6 @@ export const ProfilePage = () => {
                     <button onClick={() => isEditing.description ? handleSaveChanges('description') : handleEdit('description')}>
                         {isEditing.description ? 'Save' : 'Edit'}
                     </button>
-                </div>
-                <div className="profile-field">
-                    <label className="label-profile-page-text">Password</label>
-                    <button onClick={handlePasswordChange}>Change Password</button>
                 </div>
                 <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
