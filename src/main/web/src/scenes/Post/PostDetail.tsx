@@ -150,9 +150,8 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
             <div className="post-detail-data">
               {userImage && <img className="profile-picture" alt="Profile" src={userImage}/>}
               <div>
-                <Link
-                    to={`/user/?name=${username.toLowerCase().replace(' ', '-')}`}
-                    className="author-link" aria-label="To the author">{username}
+                <Link to={`/user/?id=${accountId}`} className="author-link" aria-label="To the author">
+                  {username}
                 </Link>
                 <br/>
                 {formattedTime}

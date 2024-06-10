@@ -9,8 +9,8 @@ import de.tinf22b6.dhbwhub.repository.interfaces.SpringPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class PostRepository {
@@ -75,12 +75,26 @@ public class PostRepository {
     }
 
     public List<Post> findPostsByTag(String tag){
-        return postTagRepository.findByTag(tag).stream().map(PostTag::getPost).toList();
+        return postTagRepository.findByTag(tag).stream().map(PostTag::getPost)
+                .collect(Collectors.toMap(
+                Post::getId,
+                post -> post,
+                (existing, replacement) -> existing,
+                LinkedHashMap::new))
+                .values().stream().toList();
     }
 
-    public List<Post> findPostsByTagKeyword(String keyword){
-        return postTagRepository.findTagByKeyword(keyword).stream().map(PostTag::getPost).toList();
+    public List<Post> findPostsByTagKeyword(String keyword) {
+        return postTagRepository.findTagByKeyword(keyword).stream()
+                .map(PostTag::getPost)
+                .collect(Collectors.toMap(
+                        Post::getId,
+                        post -> post,
+                        (existing, replacement) -> existing,
+                        LinkedHashMap::new))
+                .values().stream().toList();
     }
+
 
     public int getAmountOfComments(Long id){
         Integer commentAmount = postRepository.getCommentAmount(id);

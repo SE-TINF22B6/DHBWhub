@@ -1,110 +1,71 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useState} from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {useLocation} from "react-router-dom";
-import Lottie from "lottie-react";
-import animationData from "../../assets/loading.json";
+
 import {Footer} from "../../organisms/footer/Footer";
 import {SearchSortOptions} from "./components/SearchSortOptions";
 import {FindByOptions} from "./components/FindByOptions";
 import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
 import {useDetectAdBlock} from "adblock-detect-react";
 import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
-import {C24Ad} from "../../atoms/ads/C24Ad";
-import {getJWT} from "../../services/AuthService";
-import config from "../../config/config";
+import {SearchService} from "./components/SearchService";
+import {MobileFooter} from "../../organisms/header/MobileFooter";
+import {useMediaQuery} from "@mui/system";
+
 
 export const Search = () => {
-  const location = useLocation();
-  const searchParams: URLSearchParams = new URLSearchParams(location.search);
-  const searchTerm: string | null = searchParams.get('query');
-  const [searchResults, setSearchResults] = useState([]);
-  const jwt: string | null = getJWT();
-  const headersWithJwt = useMemo(() => ({
-    ...config.headers,
-    'Authorization': jwt ? `Bearer ${jwt}` : ''
-  }), [jwt]);
+    const location = useLocation();
+    const searchParams: URLSearchParams = new URLSearchParams(location.search);
+    const searchTerm: string | null = searchParams.get('query');
+    const [sortOption, setSortOption] = useState<string>('popular');
+    const [findOption, setFindOption] = useState<string>('title');
+    const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
 
-  const [notFound, setNotFound] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const adBlockDetected = useDetectAdBlock();
-  usePreventScrolling(adBlockDetected);
 
-  useEffect((): void => {
-    const fetchResults = async (): Promise<void> => {
-      try {
-        const response: Response = await fetch(config.apiUrl + `search/${searchTerm}`, {
-          headers: headersWithJwt
-        });
-        if (response.ok) {
-          setSearchResults(await response.json());
-        } else {
-          setNotFound(true);
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error when retrieving the search data:", error);
-        setNotFound(true);
-        setLoading(false);
-      }
+    const adBlockDetected = useDetectAdBlock();
+    usePreventScrolling(adBlockDetected);
+
+
+    const handleSortChange = (option: string): void => {
+        setSortOption(option);
     };
 
-    fetchResults();
-  }, [searchTerm, headersWithJwt]);
-
-  const [sortOption, setSortOption] = useState<string>('popular');
-  const [findByOption, setFindByOption] = useState<string>('title');
-
-  const handleSortChange = (option: string): void => {
-    setSortOption(option);
-  };
-
-  const handleFindByChange = (option: string): void => {
-    setFindByOption(option);
-  };
-
-  if (loading) {
-    return (
+    const handleFindByChange = (option: string): void => {
+        setFindOption(option);
+    };
+    if (findOption == "user"){
+        return(
         <div className="page">
-          {adBlockDetected && <AdBlockOverlay/>}
-          <Header/>
-          <div className="loading-animation">
-            <Lottie animationData={animationData}/>
-          </div>
-          <Footer/>
+            {adBlockDetected && <AdBlockOverlay/>}
+            <Header/>
+            <div className="search-content">
+                <div className="search-sidebar">
+                    <FindByOptions onSortChange={handleFindByChange}/>
+                </div>
+                <div className="search-result-container">
+                    <SearchService sortOption={sortOption} query={searchTerm} findByOption={findOption}/>
+                </div>
+            </div>
+            <Footer/> {isSmartphoneSize && <MobileFooter/>}
         </div>
     );
-  }
+    }
 
-  if (notFound || !searchTerm) {
     return (
         <div className="page">
-          {adBlockDetected && <AdBlockOverlay/>}
-          <Header/>
-          <div className="search-content">
-            <div className="search-sidebar">
-              <SearchSortOptions onSortChange={handleSortChange}/>
-              <FindByOptions onSortChange={handleFindByChange}/>
+            {adBlockDetected && <AdBlockOverlay/>}
+            <Header/>
+            <div className="search-content">
+                <div className="search-sidebar">
+                    <SearchSortOptions onSortChange={handleSortChange}/>
+                    <FindByOptions onSortChange={handleFindByChange}/>
+                </div>
+                <div className="search-result-container">
+                    <SearchService sortOption={sortOption} query={searchTerm} findByOption={findOption}/>
+                </div>
             </div>
-            <div className="search-results">
-              <h1 className="error">No results for search term: {searchTerm}</h1>
-            </div>
-            <C24Ad/>
-          </div>
-          <Footer/>
+            <Footer/> {isSmartphoneSize && <MobileFooter/>}
         </div>
     );
-  }
-
-  return (
-      <div className="page">
-        {adBlockDetected && <AdBlockOverlay/>}
-        <Header/>
-        <div className="search-sidebar">
-          <SearchSortOptions onSortChange={handleSortChange}/>
-          <FindByOptions onSortChange={handleFindByChange}/>
-        </div>
-        <Footer/>
-      </div>
-  );
 };
