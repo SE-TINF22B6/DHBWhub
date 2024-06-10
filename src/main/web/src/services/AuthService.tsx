@@ -25,6 +25,8 @@ export const login = async (username: string, password: string, rememberMe: bool
         rememberMe
     });
     saveUserDataToLocalStorage(response.data);
+    localStorage.setItem('oathUser', 'false');
+
     return response.data;
 };
 
@@ -62,6 +64,7 @@ export const logout = (): void => {
     localStorage.removeItem("username");
     localStorage.removeItem("token");
     localStorage.removeItem('userImage');
+    localStorage.removeItem('oathUser');
 
     Object.keys(localStorage)
       .filter(x =>

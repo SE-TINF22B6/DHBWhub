@@ -38,7 +38,9 @@ export const Header = () => {
             const fetchedNotifications = await fetchNotifications();
             setNotifications(fetchedNotifications);
         };
-        fetchAndSetNotifications();
+        if (isUserLoggedIn()){
+            fetchAndSetNotifications();
+        }
     }, []);
 
     useEffect((): void => {
