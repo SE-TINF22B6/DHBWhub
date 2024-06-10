@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, {useRef, useState} from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Events} from "./components/events/Events";
