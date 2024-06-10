@@ -1,96 +1,115 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Header } from "../../organisms/header/Header";
+import React, {useEffect, useState} from "react";
 import "./index.css";
-import Lottie from "lottie-react";
-import animationData from "../../assets/loading.json";
-import errorAnimationData from "../../assets/error.json";
+import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
-import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
-import { useDetectAdBlock } from "adblock-detect-react";
-import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
-import {MobileFooter} from "../../organisms/header/MobileFooter";
-import {useMediaQuery} from "@mui/system";
 import config from "../../config/config";
-import {getJWT} from "../../services/AuthService";
+import {Pictures} from "../../atoms/Pictures/Pictures";
+import {getJWT, getUserId} from "../../services/AuthService";
 
-export const User = () => {
-  const location = useLocation();
-  const searchParams: URLSearchParams = new URLSearchParams(location.search);
-  const username: string | null = searchParams.get('name');
-  const [userData, setUserData] = useState();
+export const UserPage = () => {
+    const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
+    const id: string | null = searchParams.get('id');
+    const senderId: number | null = getUserId();
 
-  const [notFound, setNotFound] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const isSmartphoneSize: boolean = useMediaQuery('(max-width: 412px)');
-
-  const adBlockDetected: boolean = useDetectAdBlock();
-  usePreventScrolling(adBlockDetected);
-
-  const jwt: string | null = getJWT();
-  const headersWithJwt = {
-    ...config.headers,
-    'Authorization': jwt ? `Bearer ${jwt}` : ''
-  };
-
-  useEffect((): void => {
-    const fetchUser = async (): Promise<void> => {
-      try {
-        const response: Response = await fetch(config.apiUrl + `user/${username}`,{
-          headers: headersWithJwt
-        });
-        if (response.ok) {
-          const userData = await response.json();
-          setUserData(userData);
-        } else {
-          setNotFound(true);
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Fehler beim Abrufen der Nutzerdaten:", error);
-        setNotFound(true);
-        setLoading(false);
-      }
+    const [userId, setUserId] = useState<number | null>(null);
+    const [username, setUserName] = useState<string | null>(null);
+    const [picture, setPicture] = useState<{id: number | null; name: string | null; imageData: string | null}>({id: null, name: null, imageData: null});
+    const [amountFollower, setAmountFollower] = useState<number | null>(null);
+    const [age, setAge] = useState<number | null>(null);
+    const [description, setDescription] = useState<string | null>(null);
+    const [course, setCourse] = useState<string | null>(null);
+    const jwt: string | null = getJWT();
+    const headersWithJwt = {
+        ...config.headers,
+        'Authorization': jwt ? `Bearer ${jwt}` : ''
     };
 
-    fetchUser();
-  });
+    useEffect((): void => {
+        const fetchUserData = async (): Promise<void> => {
+            try {
+                const response: Response = await fetch(config.apiUrl +`user/user-information/${id}`, {
+                    headers: config.headers
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setUserId(data.userId);
+                    setUserName(data.username);
+                    if(data.picture.id !== null){
+                        setPicture(data.picture);
+                    }
+                    setAmountFollower(data.amountFollower);
+                    setAge(data.age);
+                    setDescription(data.description);
+                    setCourse(data.course);
+                    console.log("successful fetching of userdata")
+                } else {
+                    console.log(new Error("Failed to fetch Userdata"));
+                }
+            } catch (error) {
+                console.error("Error fetching Data:", error);
+            }
+        };
+        fetchUserData();
+    }, [id]);
 
-  if (loading) {
+    const handleFollow = async () => {
+        if (userId === null) return;
+
+        try {
+            const response = await fetch(config.apiUrl +`friendship/follow-user`, {
+                method: 'POST',
+                headers: headersWithJwt,
+                body: JSON.stringify({
+                    "requesterId": senderId,
+                    "receiverId": id
+                })
+            });
+
+            if (response.ok) {
+                console.log("Successfully followed the user");
+
+                setAmountFollower(prev => (prev !== null ? prev + 1 : 1));
+            } else {
+                console.error("Failed to follow the user");
+            }
+        } catch (error) {
+            console.error("Error following the user:", error);
+        }
+    }
+
     return (
         <div className="page">
-          {adBlockDetected && <AdBlockOverlay/>}
-          <Header/>
-          <div className="loading-animation">
-            <Lottie animationData={animationData}/>
-          </div>
-          <Footer/>
-          {isSmartphoneSize && <MobileFooter/>}
+            <Header />
+            <div className="user-component">
+                <div className="user-page-picture">
+                    {picture.id !== null && picture.imageData ? (
+                        <img className="user-image" alt={"user"} src={picture.imageData} loading="lazy"/>
+                    ) : (
+                        <Pictures defaultPicture={false} className="custom-image"/>
+                    )}
+                </div>
+                <div className="user-page-name">
+                    <span>{username}</span>
+                </div>
+                <div className="user-followers">
+                    <span> Followers: {amountFollower}</span>
+                </div>
+                <div className="description-field">
+                    {course !== null ? (
+                        <span>Course: {course}</span>
+                    ) : (
+                        <span>Course: Not set</span>
+                    )}
+                </div>
+                <div className="description-field">
+                    <span> Age: {age}</span>
+                </div>
+                <div className="description-field">
+                    <span>Description: {description}</span>
+                </div>
+                <button className="follow-button" onClick={handleFollow}>Follow</button>
+            </div>
+            <Footer/>
         </div>
     );
-  }
-
-  if (notFound || !username) {
-    return (
-        <div className="page">
-          {adBlockDetected && <AdBlockOverlay/>}
-          <Header/>
-          <div className="error-animation">
-            <Lottie animationData={errorAnimationData}/>
-          </div>
-          <Footer/>
-          {isSmartphoneSize && <MobileFooter/>}
-        </div>
-    );
-  }
-
-  return (
-      <div className="page">
-        {adBlockDetected && <AdBlockOverlay/>}
-        <Header/>
-        {userData}
-        <Footer/>
-        {isSmartphoneSize && <MobileFooter/>}
-      </div>
-  );
 };

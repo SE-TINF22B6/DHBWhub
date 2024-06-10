@@ -1,0 +1,70 @@
+.user-component {
+    font-size: var(--headline-font-size);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 25px;
+    background-color: var(--grey);
+    width: 356px;
+}
+
+.user-page-picture img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.description-field {
+    font-size: var(--headline-font-size);
+    padding: 10px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    background-color: var(--lighter-grey);
+    width: auto;
+    margin-bottom: 20px;
+}
+.user-page-name{
+        font-size: 1.25rem;
+        padding: 10px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 5px;
+        background-color: var(--lighter-grey);
+        width: auto;
+        margin-bottom: 20px;
+}
+
+
+.user-followers {
+    font-size: var(--headline-font-size);
+    padding: 10px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    background-color: var(--red);
+    width: auto;
+    margin-bottom: 20px;
+}
+
+.follow-button {
+    font-size: var(--headline-font-size);
+
+    padding: 10px;
+    color: white;
+    align-items: center;
+    border-radius: 5px;
+    background-color: var(--red);
+    width: auto;
+}
+

@@ -36,15 +36,20 @@ public class WebSecurityConfig {
             "/post/homepage-preview-posts/{id:\\d+}",
             "/post/post-thread/{id:\\d+}",
             "/post/popular-tags",
-            "/post/posts-by-tag/{tag}",
+            "/post/posts-by-tag/*",
             "/post/user-posts/{id:\\d+}",
-            "/post/posts-by-keyword/{keyword}",
-            "/post/posts-by-tag-keyword/{keyword}",
+            "/post/posts-by-keyword/*",
+            "/post/posts-by-tag-keyword/*",
+            "/post/posts-by-tag-keyword/*",
             "/event/homepage-preview-events",
             "/event/calendar-events",
             "/event/event-thread/{id:\\d+}",
             "/event/event-comments/{id:\\d+}",
+
+            "user/{id:\\d+}",
             "/user-image",
+            "/user/user-by-keyword/*",
+            "/user/user-information/*",
     };
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
