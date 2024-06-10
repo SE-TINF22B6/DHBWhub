@@ -191,7 +191,8 @@ public class EventServiceImpl implements EventService {
             }
             logtableRepository.saveEventComment(likeLogtableEventComment);
 
-            if (!Objects.equals(eventComment.getUser().getId(), user.getId())) {
+            if (!Objects.equals(eventComment.getUser().getId(), user.getId()) &&
+                    !notificationRepository.checkIfEventCommentLikeEntryExists(user.getId(), eventComment.getEventPost().getId())) {
                 EventCommentLikeNotification notification = NotificationMapper.mapToEventCommentLikeNotification(eventComment, user);
                 notification.setAccumulatedId(null);
                 notificationRepository.saveEventCommentLikeNotification(notification);

@@ -63,7 +63,8 @@ public class CommentServiceImpl implements CommentService {
 
 
         // Notify Post-Author
-        if(!Objects.equals(post.getUser().getId(), user.getId())){
+        if(!Objects.equals(post.getUser().getId(), user.getId()) &&
+                !notificationRepository.checkIfPostCommentEntryExists(user.getId(), post.getId())){
             PostCommentNotification notification = NotificationMapper.mapToPostCommentNotification(comment, user);
             notification.setAccumulatedId(null);
             notificationRepository.savePostCommentNotification(notification);
@@ -130,7 +131,8 @@ public class CommentServiceImpl implements CommentService {
         logtableRepository.saveComment(likeLogtableComment);
 
         // Notify User
-        if(!Objects.equals(comment.getUser().getId(), user.getId())){
+        if(!Objects.equals(comment.getUser().getId(), user.getId()) &&
+            !notificationRepository.checkIfCommentLikeEntryExists(user.getId(), comment.getPost().getId())){
             CommentLikeNotification notification = NotificationMapper.mapToCommentLikeNotification(comment, user);
             notification.setAccumulatedId(null);
             notificationRepository.saveCommentLikeNotification(notification);

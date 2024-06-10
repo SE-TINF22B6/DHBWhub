@@ -1,23 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {Notifications} from "./Notifications";
 import "./MobileFooter.css";
+import {fetchNotifications} from "../../services/NotificationsService";
+import {NotificationModel} from "./model/NotificationModel";
 
 export const MobileFooter = () => {
+    const [notifications, setNotifications] = useState<NotificationModel[]>([]);
+    const [showNotifications, setShowNotifications] = useState(false);
+    const [currentLocation, setCurrentLocation] = useState('');
+    const location = useLocation();
 
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState('');
-  const location = useLocation();
+    useEffect((): void => {
+        setCurrentLocation(location.pathname);
+    }, [location]);
 
-  useEffect((): void => {
-    setCurrentLocation(location.pathname);
-  }, [location]);
+    useEffect( () => {
+        const fetchAndSetNotifications = async () => {
+            const fetchedNotifications = await fetchNotifications();
+            setNotifications(fetchedNotifications);
+        };
+        fetchAndSetNotifications();
+    }, []);
 
-  const handleNotificationsButtonClick = (): void => {
-    setShowNotifications(!showNotifications);
-  };
+    const handleNotificationsButtonClick = async (): Promise<void> => {
+        setShowNotifications(!showNotifications);
+    };
 
-  return (
+    return (
       <div className="mobile-footer">
         <Link className={`mobile-footer-home-background ${currentLocation === '/' ? 'active' : ''}`} to="/"
               aria-label="To the homepage">
@@ -32,7 +42,7 @@ export const MobileFooter = () => {
           <img alt="Calendar" src={process.env.PUBLIC_URL + '/assets/header/calendar.svg'}/>
         </Link>
         <div className="mobile-footer-notifications-button-container">
-          {showNotifications ? (
+          { notifications.length > 0 ? (
               <button className="mobile-footer-notifications-button-new" onClick={handleNotificationsButtonClick}>
                 <img alt="New notifications"
                      src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}/>
@@ -46,7 +56,7 @@ export const MobileFooter = () => {
               </button>
           )}
         </div>
-        {showNotifications && <Notifications showNotifications={showNotifications}/>}
+        {showNotifications && <Notifications notifications={notifications} setNotifications={setNotifications} showNotifications={showNotifications}/>}
       </div>
   );
 };
