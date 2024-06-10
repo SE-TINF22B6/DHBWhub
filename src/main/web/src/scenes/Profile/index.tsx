@@ -17,7 +17,7 @@ interface UserData {
     username: string;
     email: string;
     picture: {
-        id: number;
+        id: number | null;
         name: string;
         imageData: string;
     };
@@ -34,7 +34,7 @@ export const ProfilePage = () => {
         username: "",
         email: "",
         picture: {
-            id: 0,
+            id: null,
             name: "",
             imageData: "",
         },
