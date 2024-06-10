@@ -3,7 +3,6 @@ import "./EmailInput.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {emailVerification, googleLogin} from "../../services/AuthService";
-import ErrorModal from "./ErrorModal";
 import {CredentialResponse, GoogleLogin} from "@react-oauth/google";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
@@ -57,12 +56,7 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
           onSuccess();
         },
         (error): void => {
-          let resMessage =
-              (error.response &&
-                  error.response.data &&
-                  error.response.data.message) ||
-              error.message ||
-              error.toString();
+          let resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
 
           if (error.message === "Request failed with status code 400") {
             setShowError(true);
@@ -70,6 +64,7 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
 
           setLoading(false);
           setMessage(resMessage);
+          setContainerHeight("560px");
         }
     );
   };
@@ -118,14 +113,7 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
             />
             <form style={{color: 'var(--white)', fontSize: '14px'}}>
               <fieldset style={{border: 'none'}}>
-                <input
-                    type="checkbox"
-                    id="mc"
-                    name="Agree"
-                    value="Agree"
-                    className="consent-radio-button"
-                    onChange={handleConsentChange}
-                />
+                <input type="checkbox" id="mc" name="Agree" value="Agree" className="consent-radio-button" onChange={handleConsentChange}/>
                 <label htmlFor="mc">
                   I accept{" "}
                   <a className="consent-link" href='/terms-of-service' target="_blank" rel="noopener noreferrer">Terms of Service</a>{" "}
@@ -136,6 +124,9 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
             </form>
             {consentError && <div className="alert-danger">{consentError}</div>}
             <ErrorMessage name="email" component="div" className="alert-danger"/>
+            {showError && !isInputFocused && (
+                <div className="alert-danger">{message}</div>
+            )}
           </div>
           <div className="form-group">
             <button type="submit" className="loading-btn">
@@ -150,10 +141,7 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
             <label className="signup-option-text">
             Already have an account?{" "}
             </label>
-            <label
-              className="signup-option-text-link"
-              onClick={handleOpenLogin}
-            >
+            <label className="signup-option-text-link" onClick={handleOpenLogin}>
               LOGIN
             </label>
           </div>
@@ -172,12 +160,6 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
             console.log("Login Failed");
           }}
         />
-      </div>
-
-      <div className="error-message-dialog">
-        {showError && !isInputFocused && (
-          <ErrorModal message={message} onClose={() => setShowError(false)} />
-        )}
       </div>
     </div>
   );

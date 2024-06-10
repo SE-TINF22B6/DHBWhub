@@ -2,17 +2,14 @@ import React, { useState } from 'react';
 import * as Yup from "yup";
 import {register} from "../../services/AuthService";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {Checkbox, FormControlLabel} from "@mui/material";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import './UsernamePasswordInput.css';
-import ErrorUsernameModal from "./ErrorUsernameModal";
 
 const UsernamePasswordInput = () => {
     let navigate: NavigateFunction = useNavigate();
 
     const [message, setMessage] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState(false);
     const [showError, setShowError] = useState<boolean>(false);
 
     const initialValues: {
@@ -86,15 +83,6 @@ const UsernamePasswordInput = () => {
                             <Field name="re-password" type="password" className="form-control"/>
                             <ErrorMessage name="re-password" component="div" className="alert-danger"/>
                         </div>
-                        <div className="accept-privacy-policy">
-                            <FormControlLabel
-                                control={
-                                <Checkbox className="checkbox" checked={acceptPrivacyPolicy}
-                                          onChange={(e) => setAcceptPrivacyPolicy(e.target.checked)}
-                                />}
-                                label="I accept Terms of Service and Privacy Policy"
-                                className="accept-privacy-policy-checkbox"/>
-                        </div>
                         <div className="form-group">
                             <button type="submit" className="loading-btn">
                                 {loading && (
@@ -111,7 +99,7 @@ const UsernamePasswordInput = () => {
 
                         <div className="error-message-dialog">
                             {showError && (
-                                <ErrorUsernameModal message={message} onClose={() => setShowError(false)}/>
+                                <div className="alert-danger">{message}</div>
                             )}
                         </div>
                     </Form>
