@@ -28,7 +28,7 @@
 
 .modal-content {
     width: 400px;
-    height: 620px;
+    height: 590px;
     background: var(--component-grey);
     color: var(--component-grey);
     z-index: 10;
@@ -46,6 +46,7 @@
 .checkbox input[type="checkbox"]:checked:focus + .MuiSvgIcon-root {
     color: red;
 }
+
 .form-control {
     width: 100%;
     height: 40px;
