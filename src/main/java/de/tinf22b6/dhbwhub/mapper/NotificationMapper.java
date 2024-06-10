@@ -69,15 +69,6 @@ public class NotificationMapper {
         );
     }
 
-    public static EventCommentLikeNotification mapToEventCommentLikeNotification(EventComment eventComment, User user) {
-        return new EventCommentLikeNotification(
-                eventComment.getUser(),
-                eventComment.getEventPost(),
-                user,
-                false
-        );
-    }
-
     public static HomepageNotificationProposal mapToGroupNotification(PostLikeNotification notification, int size) {
         return new HomepageNotificationProposal(
                 notification.getId(),
