@@ -1,6 +1,5 @@
 import axios from "axios";
 import config from "../config/config";
-import {CredentialResponse} from "@react-oauth/google";
 import {jwtDecode} from "jwt-decode";
 
 export const register = (username: string, email: string, password: string) => {
@@ -63,6 +62,12 @@ export const logout = (): void => {
     localStorage.removeItem("username");
     localStorage.removeItem("token");
     localStorage.removeItem('userImage');
+
+    Object.keys(localStorage)
+      .filter(x =>
+        x.includes("_liked_")
+      ).map(
+        x => localStorage.removeItem(x));
 };
 
 export const getAccountId = (): number | null => {
