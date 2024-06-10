@@ -9,8 +9,9 @@ import ScrollUpButton from "../../atoms/ScrollUpButton";
 import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
 import { useDetectAdBlock } from "adblock-detect-react";
 import { usePreventScrolling } from "../../organisms/ad-block-overlay/preventScrolling";
-import {fetchUserData, updateUserProfile} from "../../services/ProfileDataService";
-import { fetchUserImage } from "../../services/ProfilePictureService";  // Import the function for fetching user image
+import { fetchUserData } from "../../services/ProfileDataService";
+import { fetchUserImage } from "../../services/ProfilePictureService";
+import { updateAge, updateDescription, updateCourse, updateEmail, updateUsername, updatePicture } from "../../services/ProfileDataService";
 
 interface UserData {
     username: string;
@@ -43,7 +44,13 @@ export const ProfilePage = () => {
         course: "",
     });
 
-    const [isEditing, setIsEditing] = useState<{ username: boolean, email: boolean, course: boolean, age: boolean, description: boolean }>({ username: false, email: false, course: false, age: false, description: false });
+    const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({
+        username: false,
+        email: false,
+        course: false,
+        age: false,
+        description: false
+    });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -51,21 +58,42 @@ export const ProfilePage = () => {
         setUserData({ ...userData, [name]: sanitizedValue });
     };
 
-    const handleEdit = (field: 'username' | 'email' | 'course' | 'age' | 'description') => {
+    const handleEdit = (field: string) => {
         setIsEditing({ ...isEditing, [field]: !isEditing[field] });
     };
 
-    const handlePasswordChange = (): void => {
-        //navigate("/");
+    const handleSaveChanges = async (field: string) => {
+        let success = false;
+        switch (field) {
+            case 'username':
+                success = await updateUsername(userData.username);
+                break;
+            case 'email':
+                success = await updateEmail(userData.email);
+                break;
+            case 'course':
+                success = await updateCourse(userData.course);
+                break;
+            case 'age':
+                success = await updateAge(userData.age);
+                break;
+            case 'description':
+                success = await updateDescription(userData.description);
+                break;
+            default:
+                break;
+        }
+
+        if (success) {
+            console.log(`${field} updated successfully`);
+            setIsEditing({ ...isEditing, [field]: false });
+        } else {
+            console.error(`Failed to update ${field}`);
+        }
     };
 
-    const handleSaveChanges = async () => {
-        const success = await updateUserProfile(userData);
-        if (success) {
-            console.log("Changes saved successfully");
-        } else {
-            console.error("Failed to save changes");
-        }
+    const handlePasswordChange = (): void => {
+        navigate("/");
     };
 
     const handleLogout = (): void => {
