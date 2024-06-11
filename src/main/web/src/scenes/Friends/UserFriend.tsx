@@ -6,7 +6,6 @@ import {getDefaultOrRandomPicture} from "../../atoms/Pictures/PicturesComponent"
 
 export const UserFriend: React.FC<UserFriendModel> = (props: UserFriendModel) => {
     const {
-        friendlistId,
         userId,
         username,
         image,
