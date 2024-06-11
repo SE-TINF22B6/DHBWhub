@@ -69,7 +69,7 @@ public class PostController {
         return service.getPostTagsByKeyword(keyword);
     }
 
-    @GetMapping("/friend-posts-by-tag")
+    @PostMapping("/friend-posts-by-tag")
     public List<HomepagePostPreviewProposal> getFriendPostsByTag(@RequestBody FriendPostsByTagProposal friendPostsByTagProposal) {
         return service.getPostsFromFriendsByTag(friendPostsByTagProposal.getUserId(), friendPostsByTagProposal.getTag());
     }
