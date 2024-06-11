@@ -9,7 +9,7 @@ import ScrollUpButton from "../../atoms/ScrollUpButton";
 import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
 import {useDetectAdBlock} from "adblock-detect-react";
 import {usePreventScrolling} from "../../organisms/ad-block-overlay/preventScrolling";
-import {fetchUserData, updatePassword} from "../../services/ProfileDataService";
+import {fetchUserData} from "../../services/ProfileDataService";
 import {fetchUserImage} from "../../services/ProfilePictureService";
 import {
     updateAge,
@@ -98,18 +98,6 @@ export const ProfilePage = () => {
             setIsEditing({...isEditing, [field]: false});
         } else {
             console.error(`Failed to update ${field}`);
-        }
-    };
-
-    const handlePasswordChange = async () => {
-        const newPassword = prompt("Enter your new password:");
-        if (newPassword) {
-            const success = await updatePassword(newPassword);
-            if (success) {
-                console.log("Password updated successfully");
-            } else {
-                console.error("Failed to update password");
-            }
         }
     };
 
@@ -257,12 +245,6 @@ export const ProfilePage = () => {
                         {isEditing.description ? 'Save' : 'Edit'}
                     </button>
                 </div>
-                {!disableEmailAndPasswordEdit && (
-                    <div className="profile-field">
-                        <label className="label-profile-page-text">Password</label>
-                        <button onClick={handlePasswordChange}>Change Password</button>
-                    </div>
-                )}
                 <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
             <ScrollUpButton scrollUpRef={scrollUpRef}/>

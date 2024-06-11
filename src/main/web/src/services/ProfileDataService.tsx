@@ -135,22 +135,6 @@ export const updateUsername = async (username: string): Promise<boolean> => {
     }
 };
 
-export const updatePassword = async (password: string): Promise<boolean> => {
-    const headers = getHeaders();
-    const userId = getUserId();
-    try {
-        const response = await fetch(`${config.apiUrl}user/update-password`, {
-            method: 'PUT',
-            headers,
-            body: JSON.stringify({ userId, password })
-        });
-        return response.ok;
-    } catch (error) {
-        console.error("Error updating password:", error);
-        return false;
-    }
-};
-
 export const updatePicture = async (imageData: string): Promise<boolean> => {
     const headers = getHeaders();
     const userId = getUserId();
