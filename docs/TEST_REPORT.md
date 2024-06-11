@@ -64,7 +64,7 @@ In the following image, you can see an example of running all the tests related 
 #### Backend
 When building the local version of the project that contains the newly implemented feature, Maven automatically runs all the tests that are located in the test package. The same applies to creating pull requests in which a maven pipeline does the same function and tells all the developers, whether all the tests in the branch function correctly:
 
-![MavenTests](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/8881e710-c85c-476c-9e10-7d36316b3a55)
+![MavenBuild](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/01b72b92-ab64-4632-add9-03d2c699ca94)
   
 ### 7. Recommendations
 Although our current tests can verify that components function properly under certain conditions, it is still important to use our actual product as much as possible. The largest amount of bugs and errors can be found through actual interaction with the website and imitation of an actual client user. Stress tests can also be helpful to determine, whether our database and backend connection is strong enough to handle multiple requests at the same time while also maintaining data coherence.  

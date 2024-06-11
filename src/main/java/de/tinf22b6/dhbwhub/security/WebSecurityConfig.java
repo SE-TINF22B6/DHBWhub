@@ -46,10 +46,12 @@ public class WebSecurityConfig {
             "/event/event-thread/{id:\\d+}",
             "/event/event-comments/{id:\\d+}",
 
-            "user/{id:\\d+}",
+            "/user/{id:\\d+}",
             "/user-image",
             "/user/user-by-keyword/*",
             "/user/user-information/*",
+
+            "/account/get-user-id/*",
     };
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {

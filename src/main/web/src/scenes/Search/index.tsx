@@ -34,7 +34,7 @@ export const Search = () => {
     const handleFindByChange = (option: string): void => {
         setFindOption(option);
     };
-    if (findOption == "user"){
+    if (findOption === "user"){
         return(
         <div className="page">
             {adBlockDetected && <AdBlockOverlay/>}

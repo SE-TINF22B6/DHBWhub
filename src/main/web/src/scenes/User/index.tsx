@@ -3,8 +3,8 @@ import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
 import config from "../../config/config";
-import {Pictures} from "../../atoms/Pictures/Pictures";
 import {getJWT, getUserId} from "../../services/AuthService";
+import {getDefaultOrRandomPicture} from "../../atoms/Pictures/PicturesComponent";
 
 export const UserPage = () => {
     const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
@@ -85,7 +85,7 @@ export const UserPage = () => {
                     {picture.id !== null && picture.imageData ? (
                         <img className="user-image" alt={"user"} src={picture.imageData} loading="lazy"/>
                     ) : (
-                        <Pictures defaultPicture={false} className="custom-image"/>
+                         <img className="custom-image" alt={"random-image"} src={getDefaultOrRandomPicture(false)}/>
                     )}
                 </div>
                 <div className="user-page-name">

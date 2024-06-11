@@ -11,6 +11,7 @@ import config from "../../config/config";
 import {fetchUserImage} from "../../services/ProfilePictureService";
 import {fetchNotifications} from "../../services/NotificationsService";
 import {NotificationModel} from "./model/NotificationModel";
+import {getDefaultOrRandomPicture} from "../../atoms/Pictures/PicturesComponent";
 
 export const Header = () => {
     const [notifications, setNotifications] = useState<NotificationModel[]>([]);
@@ -28,6 +29,9 @@ export const Header = () => {
             const image: string | null = await fetchUserImage();
             if (image) {
                 setUserImage(image);
+            }
+            else {
+                setUserImage(getDefaultOrRandomPicture(true));
             }
         };
         fetchUserProfileImage();

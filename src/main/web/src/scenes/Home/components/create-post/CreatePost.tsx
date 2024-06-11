@@ -6,6 +6,7 @@ import {fetchUserImage} from "../../../../services/ProfilePictureService";
 import {isUserLoggedIn} from "../../../../services/AuthService";
 import {Tooltip} from "react-tooltip";
 import config from "../../../../config/config";
+import {getDefaultOrRandomPicture} from "../../../../atoms/Pictures/PicturesComponent";
 
 export const CreatePost = () => {
   const [draftOpen, setDraftOpen] = useState(false);
@@ -22,6 +23,9 @@ export const CreatePost = () => {
       const image: string | null = await fetchUserImage();
       if (image) {
         setUserImage(image);
+      }
+      else {
+          setUserImage(getDefaultOrRandomPicture(true));
       }
     };
     fetchUserProfileImage();

@@ -14,6 +14,7 @@ import {useMediaQuery} from "@mui/system";
 import config from "../../../../config/config";
 import {getJWT, getUserId} from "../../../../services/AuthService";
 import {sendReportToBackend} from "../../../../services/ReportService";
+import {getUserIdByAccountId} from "../../../../services/UserPageService";
 
 export const Post: React.FC<PostModel> = (props: PostModel) => {
   const {
@@ -37,7 +38,8 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   const currentPageURL: string = window.location.href;
   const location = useLocation();
   const [shortDescription, setShortDescription] = useState('');
-  const userId: number | null =  getUserId();
+  const [userId, setUserId] = useState(null);
+  const userSelfId: number | null =  getUserId();
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
@@ -72,7 +74,12 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   }, [location, id]);
 
   useEffect((): void => {
-    setShortDescription(shortenDescription(description, postImage ? 190 : matches ? 190 : 280));
+    if (description){
+      setShortDescription(shortenDescription(description, postImage ? 190 : matches ? 190 : 280));
+    }
+    else {
+      setShortDescription(description);
+    }
   }, [description, postImage, matches]);
 
   const handleMenuClick = (): void => {
@@ -91,7 +98,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         credentials: 'include',
         body: JSON.stringify({
           postId: id,
-          userId: userId,
+          userId: userSelfId,
         }),
         headers: headersWithJwt
       });
@@ -114,7 +121,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         credentials: 'include',
         body: JSON.stringify({
           postId: id,
-          userId: userId,
+          userId: userSelfId,
         }),
         headers: headersWithJwt
       });
@@ -182,6 +189,15 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
     };
   }, [reportOpen, handleClose]);
 
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const id = await getUserIdByAccountId(accountId);
+      setUserId(id);
+    };
+
+    fetchUserId();
+  }, [accountId]);
+
   return (
       <div className="post-container">
         <div className="post">
@@ -192,7 +208,8 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
                src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
           <div className="post-infos" style={{marginLeft: marginLeft}}>
             <Link to={`/post/?id=${id}`} className="post-button">
-              <p className="post-title">{shortenDescription(title, 50)}</p>
+              <p className="post-title">
+                {title ? shortenDescription(title, 50): title }</p>
             </Link>
             <div className="post-tags" style={{marginTop: marginTop}}>
               {tags && tags.slice(0, 3).map((tag: string, index: number) => (
@@ -205,7 +222,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
             </p>
 
             <div className="footer">
-              <Link to={`/user/?id=${accountId}`} className="author-link" aria-label="To the author">
+              <Link to={`/user/?id=${userId}`} className="author-link" aria-label="To the author">
                 {username}
               </Link>
               &nbsp;· {formattedTime}
