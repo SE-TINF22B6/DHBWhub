@@ -42,8 +42,12 @@ export const Friends = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          setFriendsResults(data);
-          setNotFound(false);
+          if (data.length !== 0) {
+            setFriendsResults(data);
+            setNotFound(false);
+          } else {
+            setNotFound(true);
+          }
         } else {
           setNotFound(true);
         }
@@ -80,9 +84,7 @@ export const Friends = () => {
       <div className="page">
         {adBlockDetected && <AdBlockOverlay />}
         <Header />
-        <div className="empty-page">
-          <h1 className="empty-page-info">You're not yet following anyone</h1>
-        </div>
+        <h1 className="empty-page-info">You're not following anyone yet</h1>
         <Footer />
         {isSmartphoneSize && <MobileFooter />}
       </div>
@@ -93,11 +95,13 @@ export const Friends = () => {
     <div className="page">
       {adBlockDetected && <AdBlockOverlay />}
       <Header />
-        <div className="friends-container">
+      <div className="friends-container">
+        <div className="friend-list-container">
           <h1 className="friends-title">Following</h1>
           <div className="friend-list">
             {friendsResults.map((user: UserFriendModel) => (
               <UserFriend
+                key={user.friendlistId}
                 friendlistId={user.friendlistId}
                 userId={user.userId}
                 username={user.username}
@@ -106,6 +110,7 @@ export const Friends = () => {
             }
           </div>
         </div>
+      </div>
       <Footer />
       {isSmartphoneSize && <MobileFooter />}
     </div>
