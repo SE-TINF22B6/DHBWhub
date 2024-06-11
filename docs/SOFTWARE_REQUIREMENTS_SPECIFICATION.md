@@ -146,6 +146,8 @@ The landing page is the starting point of our project which allows the navigatio
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
+---
+
 ##### 2.2.1.2 Account creation / Sign up
 In order to use all of our important features, the end user needs to create a new account which is used for signing up in future sessions. Alternatively, 
 signing in/up through 3rd-party applications e.g. Google is also possible but will be explained in further detail under section 2.2.1.3.2.
@@ -179,6 +181,8 @@ After a user is registered, it is allowed to sign in and use all the personalize
 **Estimated efforts**: medium-high
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+
+---
 
 ##### 2.2.1.3 Signing in
 ###### 2.2.1.3.1 Via a local account
@@ -225,6 +229,8 @@ Just the same like a normal sign in. However, there are some restrictions regard
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
+---
+
 ##### 2.2.1.4 Using the search function
 Users are able to search for posts, tagged posts or users via the search button and editing field which you can see in the image below:
 
@@ -252,6 +258,8 @@ Users can search for specific posts or users without the need to scroll through 
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
+---
+
 ##### 2.2.1.5 Viewing user profiles
 User profiles can be viewed by everyone since we are mostly a public platform. The navigation either happens through the names/profile pictures of the respective users on posts/comments or through the search bar. After the redirect, the user page will be shown, depicting personalized informations of the user such as the username, profile picture, follower amount, course name, age or profile description. There is also the possibility to follow the user when the end user is signed in.
 You can see one example of the user page in the image below:
@@ -267,6 +275,8 @@ You have now enlargened your knowledge on one or several other users and thus, e
 **Estimated efforts**: low-medium
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+
+---
 
 ##### 2.2.1.6 Viewing events and calendar
 On the homepage, the next five events will be displayed on the right side with information such as the date, title, location and the event tags.
@@ -302,6 +312,8 @@ Users can learn more about the next events and get the chance to socialize even 
 **Estimated efforts**: high
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+
+---
 
 ##### 2.2.1.7 View popular tags
 The seven most popular tags are displayes on the left side of the homepage.
@@ -350,6 +362,8 @@ Users can personalize their own profile as they please.
 
 **Linked user stories**: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
 
+---
+
 ##### 2.2.2.2 Create posts
 One of our most essential features for end users is the ability to create posts. Hereby, the signed in user can click on the 'Create post' button and can insert a necessary title, a description and an optional picture into the editing field. You can see the flow of sequences in the next sequence diagram:
 >![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
@@ -373,6 +387,8 @@ The post can be viewed in the thread view and allows other users to like or comm
 **Estimated efforts**: medium-high
 
 **Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
+
+---
 
 ##### 2.2.2.3 Save posts
 All signed in users are able to save several existing posts from other users, which they can view all the time, as long the posts still exist. In order to save a post, the user has to click on the three dots which appear on the upper right side of each post and afterwards choose the option 'Save post'. This can be done not only in the thread view but also on the homepage. All the saved ones (or at least a certain amount) can be found under the 'Saved posts'-component on the lower left side of the homepage.  
@@ -400,6 +416,8 @@ Marked/Saved posts can be viewed at any time.
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/262)
 
+---
+
 ##### 2.2.2.4 Likes and comments
 Users can interact with posts either through likes/dislikes or the creation of comments. Comments can be created in the thread view from not only posts, but also event posts! Hereby, the user can enter their texts in the editable field under a post and click the 'Reply'-button as you can see in the image below:
 
@@ -424,7 +442,9 @@ Interactions between users will get more lively. The liked components are saved 
 **Estimated efforts**: medium.
 
 **Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
-   
+
+---
+
 ##### 2.2.2.5 Checking notifications
 When certain events happen, the affected users get corresponding notifications on their feed. To view these notifications, the user has to click on the bell button. A red mark above the bell indicates, that there are new notifications which haven't been deleted yet. Thus, after clicking on the bell, the user will get a small list with new notifications of the following type:
 - User/s has/have liked your post.
@@ -454,6 +474,8 @@ Users are now notified.
 **Estimated efforts**: medium-high
 
 **Linked user stories**: [Issue 264](https://github.com/SE-TINF22B6/DHBWhub/issues/264)
+
+---
 
 ##### 2.2.2.6 Follow users and view their posts
 Users can follow other users ... on our application! On the homepage, the posts can be filtered so that only the latest posts from the people, which are followed by the signed in user, are depicted.
@@ -511,6 +533,8 @@ The user is well informed about the usage of its data, the acceptable behaviour 
 **Estimated efforts**: low
 
 **Linked user stories**: [Issue 88]((https://github.com/SE-TINF22B6/DHBWhub/issues/88), [Issue 91](https://github.com/SE-TINF22B6/DHBWhub/issues/91)
+
+---
 
 ##### 2.2.3.2 Contacting Administrators 
 If there are some unordinary problems with our website, the users can reach out to us all the time through the contact formular. This can also be reached from the homepage. After filling in the own e-mail address (since this function is also available for non-account-users), name and description of the question or problem, the form can be send to the email address of DHBWhub. Someone from the admin team can read the message and act on it.
