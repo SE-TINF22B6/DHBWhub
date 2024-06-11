@@ -19,7 +19,7 @@ public class UserInformationProposal {
 
     private int amountFollower;
 
-    private int age;
+    private Integer age;
 
     private String description;
 

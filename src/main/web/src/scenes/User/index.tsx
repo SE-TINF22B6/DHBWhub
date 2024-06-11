@@ -92,7 +92,7 @@ export const UserPage = () => {
                     <span>{username}</span>
                 </div>
                 <div className="user-followers">
-                    <span> Followers: {amountFollower}</span>
+                    <span>Followers: {amountFollower}</span>
                 </div>
                 <div className="description-field">
                     {course !== null ? (
@@ -102,10 +102,18 @@ export const UserPage = () => {
                     )}
                 </div>
                 <div className="description-field">
-                    <span> Age: {age}</span>
+                    {age !== null ? (
+                        <span>Age: {age}</span>
+                    ): (
+                        <span>Age: Not set</span>
+                    )}
                 </div>
                 <div className="description-field">
-                    <span>Description: {description}</span>
+                    {description !== null ? (
+                        <span>Description: {description}</span>
+                    ): (
+                        <span>Description: Not set</span>
+                    )}
                 </div>
                 <button className="follow-button" onClick={handleFollow}>Follow</button>
             </div>
