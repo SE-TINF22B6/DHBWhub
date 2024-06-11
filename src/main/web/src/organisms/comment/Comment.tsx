@@ -116,9 +116,7 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
             </Link>
             <div className="comment-author-date">{formattedTime}</div>
           </div>
-          <div className="comment-text-wrapper">
-            <div className="comment-text">{text}</div>
-          </div>
+          <div className="comment-text">{text}</div>
         </div>
 
         <div className="comment-interaction">
