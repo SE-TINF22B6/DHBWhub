@@ -1,0 +1,33 @@
+.search-results {
+    width: 780px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    position: relative;
+}
+
+@media (max-width: 412px) {
+    .search-results {
+        margin-left: 20px;
+        margin-top: -5px;
+    }
+}
+.friend-list {
+    width: 780px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+}
+@media (max-width: 412px) {
+    .user-search-results {
+        margin-left: 20px;
+        margin-top: -5px;
+    }
+}
+
+.animation {
+    width: 780px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
