@@ -110,17 +110,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateEmail(UpdateEmailProposal proposal) {
         User user = get(proposal.getUserId());
-        Account updatedAccount = AccountMapper.mapToUpdatedEmailProposal(user.getAccount(), proposal.getEmail());
-        updatedAccount.setId(user.getAccount().getId());
-        accountRepository.save(updatedAccount);
+        if (!accountRepository.existsByEmail(proposal.getEmail()) || user.getAccount().getEmail().equals(proposal.getEmail())) {
+            Account updatedAccount = AccountMapper.mapToUpdatedEmailProposal(user.getAccount(), proposal.getEmail());
+            updatedAccount.setId(user.getAccount().getId());
+            accountRepository.save(updatedAccount);
+        }
     }
 
     @Override
     public void updateUsername(UpdateUsernameProposal proposal) {
         User user = get(proposal.getUserId());
-        Account updatedAccount = AccountMapper.mapToUpdatedUsernameProposal(user.getAccount(), proposal.getUsername());
-        updatedAccount.setId(user.getAccount().getId());
-        accountRepository.save(updatedAccount);
+        if (!accountRepository.existsByUsername(proposal.getUsername())  || user.getAccount().getUsername().equals(proposal.getUsername())) {
+            Account updatedAccount = AccountMapper.mapToUpdatedUsernameProposal(user.getAccount(), proposal.getUsername());
+            updatedAccount.setId(user.getAccount().getId());
+            accountRepository.save(updatedAccount);
+        }
     }
 
     @Override

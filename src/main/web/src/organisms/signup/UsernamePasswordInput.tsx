@@ -44,7 +44,6 @@ const UsernamePasswordInput = () => {
                 .then(
                     (): void => {
                         localStorage.removeItem("userEmailAddress");
-                        localStorage.setItem('oathUser', 'false');
                         navigate("/profile");
                         window.location.reload();
                     },

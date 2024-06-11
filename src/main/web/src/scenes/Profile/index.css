@@ -53,6 +53,10 @@
   margin: 30px 0;
 }
 
+.profile-page-info-message {
+  color: red;
+}
+
 .profile-field label {
   display: block;
   color: white;
@@ -61,7 +65,7 @@
 
 .profile-field span,
 .profile-field input {
-  background-color: #444;
+  background-color: var(--grey);
   color: white;
   border: none;
   border-radius: 5px;

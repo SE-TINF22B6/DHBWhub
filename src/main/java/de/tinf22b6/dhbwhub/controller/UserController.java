@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/liked-components/{id}")
-    public UserLikes getLikedComponents(@PathVariable Long id){
+    public UserLikes getLikedComponents(@PathVariable Long id) {
         return service.getUserLikes(id);
     }
 
@@ -99,7 +99,7 @@ public class UserController {
 
     @GetMapping("/check-password-correctness")
     public ResponseEntity<?> checkPasswordCorrectness(@RequestBody CheckPasswordCorrectnessProposal proposal) {
-        if(!service.checkPasswordCorrectness(proposal)){
+        if (!service.checkPasswordCorrectness(proposal)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok().build();
