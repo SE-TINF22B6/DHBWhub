@@ -10,24 +10,26 @@
       + [2.1.1 General use case](#211-general-use-case)
       + [2.1.2 Important entities and classes](#212-important-entities-and-classes)
    * [2.2 Use Cases](#22-use-cases)
-      + [2.2.1 Browse Homepage](#221-browse-homepage)
-      + [2.2.2 Creating account/Signing in](#222-creating-accountsigning-in)
-      + [2.2.3 Account Management](#223-account-management)
-         - [2.2.3.1 Profile personalization](#2231-profile-personalization)
-         - [2.2.3.2 Managing 3rd-party login](#2232-managing-3rd-party-login)
-      + [2.2.4 Website activities (individual)](#224-website-activities-individual)
-         - [2.2.4.1 Browsing personalized Feed](#2241-browsing-personalized-feed)
-         - [2.2.4.2 Create posts](#2242-create-posts)
-         - [2.2.4.3 Save posts](#2243-save-posts)
-         - [2.2.4.4 View Calendar and events](#2244-view-calendar-and-events)
-         - [2.2.4.5 Checking notifications](#2245-checking-notifications)
-         - [2.2.4.6 Search bar](#2246-search-bar)
-      + [2.2.5 User Interaction](#225-user-interaction)
-         - [2.2.5.1 Post interaction](#2251-post-interaction)
-         - [2.2.5.2 Friendlist administration](#2252-friendlist-administration)
-      + [2.2.6 Administrative activities](#226-administrative-activities)
-         - [2.2.6.1 View legal notice and FAQ page ](#2261-view-legal-notice-and-faq-page)
-         - [2.2.6.2 Report issues/requests to administrators ](#2262-report-issuesrequests-to-administrators)
+      + [2.2.1 Activities without an user account](#221-activities-without-an-user-account)
+         - [2.2.1.1 Browse Homepage](#2211-browse-homepage)
+         - [2.2.1.2 Account creation / Sign up](#2212-account-creation--sign-up)
+         - [2.2.1.3 Signing in](#2213-signing-in)
+            * [2.2.1.3.1 Via a local account](#22131-via-a-local-account)
+            * [2.2.2.3.2 Via 3rd-Party (Google)](#22232-via-3rd-party-google)
+         - [2.2.1.4 Using the search function](#2214-using-the-search-function)
+         - [2.2.1.5 Viewing user profiles](#2215-viewing-user-profiles)
+         - [2.2.1.6 Viewing events and calendar](#2216-viewing-events-and-calendar)
+         - [2.2.1.7 View popular tags](#2217-view-popular-tags)
+      + [2.2.2 Activities with an user account](#222-activities-with-an-user-account)
+         - [2.2.2.1 Profile personalization](#2221-profile-personalization)
+         - [2.2.2.2 Create posts](#2222-create-posts)
+         - [2.2.2.3 Save posts](#2223-save-posts)
+         - [2.2.2.4 Likes and comments](#2224-likes-and-comments)
+         - [2.2.2.5 Checking notifications](#2225-checking-notifications)
+         - [2.2.2.6 Follow users and view their posts](#2226-follow-users-and-view-their-posts)
+      + [2.2.3 Informational activities](#223-informational-activities)
+         - [2.2.3.1 View FAQ, privacy policy, TOS and imprint page ](#2231-view-faq-privacy-policy-tos-and-imprint-page)
+         - [2.2.3.2 Contacting Administrators ](#2232-contacting-administrators)
 - [3. Nonfunctional requirements](#3-nonfunctional-requirements)
    * [3.1 Usability](#31-usability)
       + [3.1.1 Quick Learning](#311-quick-learning)
@@ -39,7 +41,7 @@
       + [3.3.1 Response time](#331-response-time)
       + [3.3.2 Asynchronous loading](#332-asynchronous-loading)
    * [3.4 Security](#34-security)
-- [4. Technical constraints](#4-technical-constraints)
+
 
 
      
@@ -123,7 +125,7 @@ In the following subsection, we will depict the most important use cases of our 
 #### 2.2.1 Activities without an user account
 This section covers all the user activities that don't require an existing user account. Pages such as the FAQ or privacy policy will be handled in the chapter 2.2.3.  
   
-#### 2.2.1.1 Browse Homepage
+##### 2.2.1.1 Browse Homepage
 Every user is able to hop onto our page and view/browse the homepage without signing in on the first place. They may view the most liked or recently created posts, the calendar or thread display of events and also general pages such as the FAQ, contact, privacy policy, TOS and imprint pages. It is also allowed to search for other users, posts or tagged posts via a certain keyword in the search bar. However, for all the other features such as creating posts/comments or following specific users, a user has to create a user account by clicking on the sign-in/register button or may also sign in via 3rd party support (in our case Google).  
 
 In the following image, you can see the homepage of our application:
@@ -144,7 +146,7 @@ The landing page is the starting point of our project which allows the navigatio
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-#### 2.2.1.2 Account creation / Sign up
+##### 2.2.1.2 Account creation / Sign up
 In order to use all of our important features, the end user needs to create a new account which is used for signing up in future sessions. Alternatively, 
 signing in/up through 3rd-party applications e.g. Google is also possible but will be explained in further detail under section 2.2.1.3.2.
 We have visualized the regiser process with the following user activity diagram.  
@@ -178,8 +180,8 @@ After a user is registered, it is allowed to sign in and use all the personalize
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-#### 2.2.1.3 Signing in
-##### 2.2.1.3.1 Via a local account
+##### 2.2.1.3 Signing in
+###### 2.2.1.3.1 Via a local account
 If an end user has already created an account beforehand, it may use it to sign in and experience a more personalized application. The following sequence diagram depicts all the steps that are needed for entering and validating the user data but also the possible redirects:  
   
 >![login_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityLogin.drawio.png)
@@ -200,7 +202,7 @@ After a user is signed in, it is actually allowed to use all the personalized fu
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-##### 2.2.2.3.2 Via 3rd-Party (Google)
+###### 2.2.2.3.2 Via 3rd-Party (Google)
 We are also offering the sign in via Google OAuth for the users, who don't want to create a new account on our website and instead, use their existing Google account. The process is quite simple. In both sign up and sign in windows, the user is able to click on the 'Weiter mit Google'-button which you can see in the image below:
 
 >![SignInViaGoogle](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/ae9ff39a-162d-443e-8f0c-ec8607db1c50)
@@ -223,7 +225,7 @@ Just the same like a normal sign in. However, there are some restrictions regard
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-#### 2.2.1.4 Using the search function
+##### 2.2.1.4 Using the search function
 Users are able to search for posts, tagged posts or users via the search button and editing field which you can see in the image below:
 
 >![SearchField](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/82c896af-df89-4b0b-a047-45d6b60ba741)
@@ -250,7 +252,7 @@ Users can search for specific posts or users without the need to scroll through 
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-#### 2.2.1.5 Viewing user profiles
+##### 2.2.1.5 Viewing user profiles
 User profiles can be viewed by everyone since we are mostly a public platform. The navigation either happens through the names/profile pictures of the respective users on posts/comments or through the search bar. After the redirect, the user page will be shown, depicting personalized informations of the user such as the username, profile picture, follower amount, course name, age or profile description. There is also the possibility to follow the user when the end user is signed in.
 You can see one example of the user page in the image below:
 
@@ -266,7 +268,7 @@ You have now enlargened your knowledge on one or several other users and thus, e
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-#### 2.2.1.6 Viewing events and calendar
+##### 2.2.1.6 Viewing events and calendar
 On the homepage, the next five events will be displayed on the right side with information such as the date, title, location and the event tags.
   
 >![EventHomePage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/d70c66f6-3b44-4537-b129-c46dc73ade94)
@@ -301,7 +303,7 @@ Users can learn more about the next events and get the chance to socialize even 
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-#### 2.2.1.7 View popular tags
+##### 2.2.1.7 View popular tags
 The seven most popular tags are displayes on the left side of the homepage.
 
 >![PopularTags](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/4dc73cae-1015-4b7c-add3-14e879c2166f)
@@ -325,7 +327,7 @@ Posts with a certain tag can be found definitely easier and faster.
 #### 2.2.2 Activities with an user account
 This section covers all the activities that are allowed when the user is signed in.
   
-#### 2.2.2.1 Profile personalization
+##### 2.2.2.1 Profile personalization
 After creating a user account, each user is able to personalize its profile such as the age, course name, description and profile picture. Other parameters like the username, email address or password are also changable. However, there are some restrictions that need to be considered:
 - Usernames need to be unique, a user can't change to a username that already belongs to another user.
 - The same applies to the email address.
@@ -348,7 +350,7 @@ Users can personalize their own profile as they please.
 
 **Linked user stories**: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
 
-#### 2.2.2.2 Create posts
+##### 2.2.2.2 Create posts
 One of our most essential features for end users is the ability to create posts. Hereby, the signed in user can click on the 'Create post' button and can insert a necessary title, a description and an optional picture into the editing field. You can see the flow of sequences in the next sequence diagram:
 >![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
 
@@ -372,7 +374,7 @@ The post can be viewed in the thread view and allows other users to like or comm
 
 **Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
 
-#### 2.2.2.3 Save posts
+##### 2.2.2.3 Save posts
 All signed in users are able to save several existing posts from other users, which they can view all the time, as long the posts still exist. In order to save a post, the user has to click on the three dots which appear on the upper right side of each post and afterwards choose the option 'Save post'. This can be done not only in the thread view but also on the homepage. All the saved ones (or at least a certain amount) can be found under the 'Saved posts'-component on the lower left side of the homepage.  
 The 'Save post'-button on the post in the homepage view:
 
@@ -589,7 +591,3 @@ Although we haven't included this aspect in our top 3 quality attributes, it sti
 - Storing sensitive data encrypted in the database such as hashed passwords.
 - Enforcing users to apply important security standards.
 
----
-
-### 4. Technical constraints
-> Specify any major constraints, assumptions or dependencies, e.g., any restrictions about which type of server to use, which type of open source license must be complied, etc. 
