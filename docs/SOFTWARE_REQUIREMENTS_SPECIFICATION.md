@@ -83,7 +83,9 @@ Documents:
 - Link to all mockups in figma, 23.12.2023:\
   https://www.figma.com/file/n6GgzaugPmNSt1OF1RBfZJ/DHBWhub?type=design&mode=design&t=zP3nHfwEDQeziwMq-0
 - Sequence-Diagram for Updating profile, 25.12.2023:\
-  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ProfilePersonalizationSequenceDiagram.drawio.png    
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ProfilePersonalizationSequenceDiagram.drawio.png
+- Revised UseCase-Diagram, 11.06.2024:\
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneralRenewed.drawio.png
 ---
 
 ## 2. Functional requirements
@@ -102,7 +104,7 @@ These section are:
 
 The latter section is a rather special one which involves the administrators of this website and their interactions or responsibilities towards the end users.
 
->![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneral.drawio.png)
+>![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneralRenewed.drawio.png)
 
 #### 2.1.2 Important entities and classes
 In order to better understand all the entities involved in our project, we have created the following ER-diagram to better visualize and represent every important
