@@ -108,29 +108,34 @@ entity and its relations to other entities on a high level.
 
 >![EER-entities](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/er_diagram_general_overview.drawio.png)
 
-- Account: Both administrators as well as our end-users need to create an account with the most basic information (username, email-adress, password and optionally a profile picture)
+- Account: Both administrators as well as our end-users need to create an account with the most basic information (username, email-address, password and optionally a profile picture)
 - Administrator: Accounts which are responsible for maintaining our website and fix and interact with user issues
 - Client User: Our end users; compared to administrators, they are able to personalize their biography (description and age) and may create/save posts and write comments
 - Faculty/Course: Faculties are the rough divisions of the DHBW consisting of several courses in which the students study in
 - Post: An end user is able to save, create, delete, like and share its own posts in a certain course or faculty area. A post consists of a title, description, timestamp, tags and optionally a picture.
 - Comment: End users can write comments under any post. These can also be liked and even commented. If a post gets deleted, the comments will also get deleted. 
-
+>TODO update
 ---
 
 ### 2.2 Use Cases
-In the following subsection, we will depict the most important use cases of our project and display it visually if necessary and possible.
+In the following subsection, we will depict the most important use cases of our project and display it visually.
+  
+#### 2.2.1 Activities without an user account
+This section covers all the user activities that don't require an existing user account. Pages such as the FAQ or privacy policy will be handled in the chapter 2.2.3.  
+  
+#### 2.2.1.1 Browse Homepage
+Every user is able to hop onto our page and view/browse the homepage without signing in on the first place. They may view the most liked or recently created posts, the calendar or thread display of events and also general pages such as the FAQ, contact, privacy policy, TOS and imprint pages. It is also allowed to search for other users, posts or tagged posts via a certain keyword in the search bar. However, for all the other features such as creating posts/comments or following specific users, a user has to create a user account by clicking on the sign-in/register button or may also sign in via 3rd party support (in our case Google).  
 
-#### 2.2.1 Browse Homepage
-Every user is able to hop onto our page and view/browse the homepage without signing in on the first place. They may view the most interacted posts first and can also see the FAQ, contact 
-and privacy policy page. In order to use all the other features and get a personalized feed, a user has to create a user account by clicking on the sign-in/register button or can sign in 
-via 3rd party support.  
-Our envisioned design for our homepage looks like this:
+In the following image, you can see the homepage of our application:
 
->![mockup_homepage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/eb86aedc-aa41-4968-8e17-cd5aa55987c2)
+>![Homepage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/b1f8a88f-d83a-4148-95b1-b94fa8897ae9)
+
+In the next one, the inability to like a post is displayed when a user is not signed in with the respective tooltip:
+
+>![TooltipLogin](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/89daea29-1f52-4929-a69c-ab5de0b90cd6)
 
 **Preconditions**:  
-First of all, a mockup has to be created to put our vision of an appealing, modern looking and easy-to-navigate landing page into action. The focus should lie on user intuition and a rather 
-simplified design which can be extended step by step with new modules/components. After the mockup, the actual implementation should occur in React.
+The end user has opened our application through [this link](https://www.dhbwhub.de/). 
 
 **Postconditions**:  
 The landing page is the starting point of our project which allows the navigation to all the other following functions and components of our project.
@@ -139,117 +144,252 @@ The landing page is the starting point of our project which allows the navigatio
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
-    
-#### 2.2.2 Creating account/Signing in
+#### 2.2.1.2 Account creation / Sign up
 In order to use all of our important features, the end user needs to create a new account which is used for signing up in future sessions. Alternatively, 
-signing in/up through 3rd-party applications e.g. Google is also possible but will be explained in further detail under section 2.2.3.2.
-We have visualized the login and regiser process with the following user activity diagrams.  
-Here are some key takeaways:
-- You are able to cancel the process anytime
-- Choosing the 3rd party option will redirect you to the respective 3rd party site in which your credentials get validated
-- After creating your account, an email with a verification code will be send for verifying your account
-   
->![login_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityLogin.drawio.png)
+signing in/up through 3rd-party applications e.g. Google is also possible but will be explained in further detail under section 2.2.1.3.2.
+We have visualized the regiser process with the following user activity diagram.  
+  
 >![registration_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityRegister.drawio.png)
+  
+Here are some additional information:
+- You are able to cancel the process anytime.
+- Choosing the 3rd party option will redirect you to the respective 3rd party site in which your credentials get validated.
+- After creating your account, an email with a verification code will be send to your email address so that you are able to verify your account.
+- The username needs to be unique as well as the email.
+- The password gets encrypted in the backend for more safety measures.
+   
+Just like the homepage, our signup window needs to be simple and easy to understand. In the following pictures, you can see the current state
+of our sign up dialog:
+>![ModalRegisterWindow](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/b0875b16-a936-4351-9687-0d06e3430958)
+  
+After entering the email-address, a verification mail is send to the respective address:
+>![EmailCode](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/6f79d7de-c5e0-4993-9056-f6cfb75f6d16)
 
-Just like the homepage, our login/signup window needs to be simple and easy to understand. In the following pictures, you can see the current state
-of our login and signup dialog:
->![mockup_login](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/c32bd552-6000-46c5-9fed-cfa29703f367)
->![mockup_registration](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/4837e5fa-7d30-46f1-937a-05aa39d16e9d)
- 
+Lastly, the user is able to sign up with a username and a password. The latter needs to be reentered for better conformation:
+>![EnteringUsernameAndPassword](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/9dc9dcde-6acc-4037-a663-44829c405971)
 
 **Preconditions**:  
-Before accessing the login/signup dialog, the landing page has to exist and should be navigatable. Furthermore, a mockup has to be planned before implementing
-each window as well as the validation from the database server.
+The user needs a valid email address which can be used for the validation as well as for the creation of the new DHBWhub account itself. The sign-up window is located in the header and can be reached from everywhere on the website.
 
 **Postconditions**:  
-After a user has signed in, he is able to use all the personalized functions of our project which will be explained in the next use cases.
+After a user is registered, it is allowed to sign in and use all the personalized functions of our project which will be explained in the next use cases.
 
 **Estimated efforts**: medium-high
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
+#### 2.2.1.3 Signing in
+##### 2.2.1.3.1 Via a local account
+If an end user has already created an account beforehand, it may use it to sign in and experience a more personalized application. The following sequence diagram depicts all the steps that are needed for entering and validating the user data but also the possible redirects:  
+  
+>![login_sequence_diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UserActivityLogin.drawio.png)
+  
+You can see the sign in window in the next image:
 
----
+>![SignInWindow](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/68cd35ad-607b-4291-af2b-fb8a30a7b92a)
 
-#### 2.2.3 Account Management
-In this section, we will take a closer look at all the use cases concerning the management of the end user accounts/profiles.
-
-##### 2.2.3.1 Profile personalization
-After creating a user account, each user is able to personalize its profile. Some things are mandatory such as the course name, in order to provide the users a more appealing feed with appropriate posts by default. However, changing your description, age and profile picture is optional and helps propelling user-to-user interaction, which you can find under the section in 2.2.5.2. After the adjustment of the previously mentioned attributes, the users can permanently store these by clicking on the 'save edits' button. In the following graph, you can see the whole process with the condition, that the user enters valid data:
-![Seq-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ProfilePersonalizationSequenceDiagram.drawio.png?raw=true)
+The user has to enter its credentials, e.g. the username and password, into the two fields and click on the 'Login' button. Both fields can't contain empty values. When entering the correct data, the user is redirected to the account management page. Otherwise, a 'Bad credentials'-notification will pop up in the bottom of the dialogue.  
 
 **Preconditions**:  
-Before accessing the account managament page, the homepage has to be implemented as well as the functioning sign in/up process.
+The user needs an already existing local account and may reach the login window through the header of the page, which is always present. 
 
 **Postconditions**:  
-Users can access a page or a form, which contains all the important and personal account information.
+After a user is signed in, it is actually allowed to use all the personalized functions and use cases of our application.
 
 **Estimated efforts**: medium-high
 
-**Linked user stories**: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
+**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
+##### 2.2.2.3.2 Via 3rd-Party (Google)
+We are also offering the sign in via Google OAuth for the users, who don't want to create a new account on our website and instead, use their existing Google account. The process is quite simple. In both sign up and sign in windows, the user is able to click on the 'Weiter mit Google'-button which you can see in the image below:
 
-##### 2.2.3.2 Managing 3rd-party login
-It is possible to sign up via 3rd-party-access such as depicted in the previous use cases. However, the users also have the chance to change and manage their third party logins such as connecting or disconnecting the own Google, Microsoft or Apple account. 
+>![SignInViaGoogle](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/ae9ff39a-162d-443e-8f0c-ec8607db1c50)
+
+The button click will redirect the user to Google, so that Google can validate the user credentials:
+
+>![RedirectGoogle](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/c91cbdeb-f303-43ae-8f79-85f8c196938c)
+
+Optionally, they can use 1-Click, which authorizes the user directly without redirecting it to google (if the account is correct):
+
+>![Google1Click](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/7b98b3ba-c8ae-4e83-9dcf-693b3158b607)
 
 **Preconditions**:  
-Before accessing the account managament page, the homepage has to be implemented as well as the functioning sign in/up process.
+The user needs an existing Google account, whose username or email is not already used within the DHBWhub application. 
 
 **Postconditions**:  
-Users can access a page or a form, in which they can configure their 3rd-party settings (focus mainly on connecting accounts).
+Just the same like a normal sign in. However, there are some restrictions regarding the profile personalization of the user which will be explained in a later chapter. 
 
 **Estimated efforts**: medium
 
-**Linked user stories**: [Issue 36](https://github.com/SE-TINF22B6/DHBWhub/issues/36)
+**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
+#### 2.2.1.4 Using the search function
+Users are able to search for posts, tagged posts or users via the search button and editing field which you can see in the image below:
+
+>![SearchField](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/82c896af-df89-4b0b-a047-45d6b60ba741)
+
+After entering something in the search field and clicking on the search button, all the result posts will be displayed first, that contain the entered keyword:
+
+>![SearchResult](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/109603b1-f6d2-4b36-8b86-54cbb2b2fffe)
+  
+If the user wants to search for posts with a certain tag or for users with a specific name, they can enter the keyword into the search field again and choose one of the search options on the left side:
+
+>![SearchByTag](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/cb9d62a1-6274-45e4-938f-23e2c922e02f)
+
+>![SearchByUser](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/2ea832a1-dadf-4397-9f74-5058d7881ad9)
+
+The keyword is case insensitive.
+
+**Preconditions**:  
+The user doesn't need to be signed in to use this function. The search bar can directly be used on the homepage and automatically redirects the user to the search page.  
+
+**Postconditions**:  
+Users can search for specific posts or users without the need to scroll through the entire homepage. 
+
+**Estimated efforts**: high
+
+**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+
+#### 2.2.1.5 Viewing user profiles
+User profiles can be viewed by everyone since we are mostly a public platform. The navigation either happens through the names/profile pictures of the respective users on posts/comments or through the search bar. After the redirect, the user page will be shown, depicting personalized informations of the user such as the username, profile picture, follower amount, course name, age or profile description. There is also the possibility to follow the user when the end user is signed in.
+You can see one example of the user page in the image below:
+
+>![UserProfile](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/7a051f1d-b5e9-432e-a01c-4bfafbf5d6bb)
+
+**Preconditions**:  
+The user needs to exist in the database. Following the user is only allowed, when the the following user is signed in. Otherwise, nothing will happen.
+
+**Postconditions**:  
+You have now enlargened your knowledge on one or several other users and thus, enhanced your consciousness on your social environment.  
+
+**Estimated efforts**: low-medium
+
+**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+
+#### 2.2.1.6 Viewing events and calendar
+On the homepage, the next five events will be displayed on the right side with information such as the date, title, location and the event tags.
+  
+>![EventHomePage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/d70c66f6-3b44-4537-b129-c46dc73ade94)
+
+After clicking on the event, the user will be redirected to the corresponding event post. Latter also contains additional information such as the start- and enddate, description and the location displayed via OpenStreetMap, as you can see in the image below:
+  
+>![EventThreadView](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/131d0ef3-9f63-4fee-b6d4-249e78f53708)
+
+However, if you want to view all the events without number restrictions, you can use the calendar. The calendar can display all the events in a monthly, weekly or daily view. It is also possible to view only the events that are scheduled within a certain day. Clicking on the events will redirect the user to the corresponding Eventpost!  
+Monthly view:  
+>![CalendarView](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/46dd0a6b-a1f5-4948-8930-ea8f028b3b2c)
+  
+Weekly view:
+  
+>![WeeklyView](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/310042ce-b80e-4d5d-9b1f-20392b475bec)
+  
+Daily view:
+  
+>![DailyView](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/8c594e0a-04c8-4283-828f-d968db292b2d)
+  
+Agenda view:
+  
+>![Agenda](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/26ae71e7-648a-4654-9e24-df806bdb74d6)
+
+**Preconditions**:  
+The user can navigate to the next five events through the homepage. For the other ones, the calendar icon needs to be clicked so that the user gets redirected to the calendar component, where all the events can be found.
+
+**Postconditions**:  
+Users can learn more about the next events and get the chance to socialize even more. 
+
+**Estimated efforts**: high
+
+**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+
+#### 2.2.1.7 View popular tags
+The seven most popular tags are displayes on the left side of the homepage.
+
+>![PopularTags](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/4dc73cae-1015-4b7c-add3-14e879c2166f)
+  
+After clicking on one tag, the homepage will show you all the posts that contain the exact tag!
+
+>![PostsWithTag](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/b200c9c6-73e5-4f7a-b654-84191d826c1b)
+  
+**Preconditions**:  
+The popular tags are only displayed on the homepage. You also don't need to be signed in.
+
+**Postconditions**:  
+Posts with a certain tag can be found definitely easier and faster. 
+
+**Estimated efforts**: medium
+
+**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
 
 ---
 
-#### 2.2.4 Website activities (individual)
-In this section, we will take a closer look at the use cases concerning all the individual website activities without user-to-user interaction, which will be displayed in section 2.2.5 in more detail.
-
-##### 2.2.4.1 Browsing personalized Feed
-After a user has signed in, the initial homepage will contain a more personalized feed. This means, that mainly posts from friends or the corresponding course, in which the user takes part in, are displayed on the main page. The user is also allowed to interact with these posts (with the minimalist view on the homepage) to some extent, such as liking, creating links or directly messaging the link through different channels as you can see in the following images:
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/64fc04c0-4158-4567-8a6f-0547f4dd85ab)
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/69205b64-a250-4c63-9177-d78566b3f0f7)
-
-**Preconditions**:  
-Users should be able to access the homepage and succesfully sign in.
-
-**Postconditions**:  
-The Homepage has a more personal appeal and surface-level interactions are allowed too.
-
-**Estimated efforts**: medium-high
-
-**Linked user stories**: [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
-
-
-##### 2.2.4.2 Create posts
-One of our most essential features for end users is the ability to create posts. Hereby, the users can click on the 'Create post' button and can insert a necessary headline, a description and an optional picture, which is the main content. You must also add at least one tag, so that other users can find this post when searching for it or similar topics. After the post has been created, you can click it to display the thread view. You can see the flow of sequences in the next sequence diagram:
->![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
+#### 2.2.2 Activities with an user account
+This section covers all the activities that are allowed when the user is signed in.
   
-Here is how it looks like on the web-application:
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/942b96bf-49e7-45d6-9e80-8f4cf4390ab5)
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/7e92a46a-d4d8-44f2-9e8f-c167ec816f2e)
+#### 2.2.2.1 Profile personalization
+After creating a user account, each user is able to personalize its profile such as the age, course name, description and profile picture. Other parameters like the username, email address or password are also changable. However, there are some restrictions that need to be considered:
+- Usernames need to be unique, a user can't change to a username that already belongs to another user.
+- The same applies to the email address.
+- Before changing the password, the user needs to enter the old password. After the correct validation, the new password needs to entered (twice).
 
+In the following graph, you can see the whole process with the condition, that the user enters valid data:
+![Seq-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ProfilePersonalizationSequenceDiagram.drawio.png?raw=true)
+ 
+The next image also depicts the profile page with example data:
+
+![ProfilePage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/96fabcbf-fcfd-4ab2-acf6-2767d210503d)
+  
 **Preconditions**:  
-The user has to be signed in and on the homepage.
+User needs to be signed in and click on the own profile on the top right corner.
 
 **Postconditions**:  
-Other users are able to search and interact with the newly created post.
+Users can personalize their own profile as they please.
+
+**Estimated efforts**: medium
+
+**Linked user stories**: [Issue 66](https://github.com/SE-TINF22B6/DHBWhub/issues/66)
+
+#### 2.2.2.2 Create posts
+One of our most essential features for end users is the ability to create posts. Hereby, the signed in user can click on the 'Create post' button and can insert a necessary title, a description and an optional picture into the editing field. You can see the flow of sequences in the next sequence diagram:
+>![post_creation_seq](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/CreatePostSequenceDiagram.drawio.png)
+
+Here is how it looks like on the web-application:
+  
+>![OpenEditWindow](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/3897e4ba-d26b-4656-9a0a-0024ef2e2a16)
+
+>![TestPost](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/b51c2ad8-e61f-469e-9e94-33db234b2949)
+  
+Posts can also be displayed in the thread view where you can see all the corresponding comments!
+  
+>![PostThreadView](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/28a1ec59-8d5a-4d24-85b5-7b6e7bcb7e45)
+
+**Preconditions**:  
+The user needs to be signed in and on the homepage. The 'Create post'-button or the edit field needs to be clicked once to open the post editor. There are also restrictions regarding the post itself. Title and desription can't be empty, Tags must start with a capital letter and have a limit of 12 characters and the image limit is one.  
+
+**Postconditions**:  
+The post can be viewed in the thread view and allows other users to like or comment it.
 
 **Estimated efforts**: medium-high
 
 **Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
 
+#### 2.2.2.3 Save posts
+All signed in users are able to save several existing posts from other users, which they can view all the time, as long the posts still exist. In order to save a post, the user has to click on the three dots which appear on the upper right side of each post and afterwards choose the option 'Save post'. This can be done not only in the thread view but also on the homepage. All the saved ones (or at least a certain amount) can be found under the 'Saved posts'-component on the lower left side of the homepage.  
+The 'Save post'-button on the post in the homepage view:
 
-##### 2.2.4.3 Save posts
-All users are able to save several existing posts from other users, which they can view all the time, as long the posts still exist. In order to save a post, the user has to click on the three dots which appear on the upper right side of each post and afterwards choose the option 'Save post'. This can be done not only in the thread view but also on the homepage. All the saved ones (or at least a certain amount) can be found under the 'Saved posts'-component on the lower left side of the homepage. 
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/dea55779-b9fb-4af8-858d-5a5fa97d09fa)
+>![SavePostHomepage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/7bd2e287-4973-4357-8da9-e181df49d654)
+  
+The notification when the save was successful:
+
+>![SuccessfullSave](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/22811191-05c3-4bbf-97cb-02da6127256c)
+
+Now it is visible on the homepage on the bottom left side. Clicking on it will redirect the user to the post:
+>![VisibleOnHomepage](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/ecb3097c-7dd2-4372-b174-ed771d4ac807)
+
+The user can unsave it now if they feel like it:
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/5fa4a5fa-9a8c-4c4d-bb34-0aeacde0c6f0)
 
 **Preconditions**:  
-The user has to be signed in and there must be at least one existing post.
+The user has to be signed in and there must be at least one existing post. The saving and unsaving actions can happen on the homepage or the thread view of the posts
 
 **Postconditions**:  
 Marked/Saved posts can be viewed at any time.
@@ -258,29 +398,50 @@ Marked/Saved posts can be viewed at any time.
 
 **Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/262)
 
-##### 2.2.4.4 View calendar and events
-Each user has access to a global calendar which is filled with events that could be interesting for students or teachers. Each event has a date and a time slot. In order to view these events, the users need to click the calendar symbol, when they are on the homepage. The calendar has a monthly and a weekly view with hourwise segmentation as you can see in the following images:
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/1b3887d1-42ed-43f1-83be-41f32c4d4794)
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/dcf8cf67-34d8-45d7-9fae-9c72de8ce8f4)
+##### 2.2.2.4 Likes and comments
+Users can interact with posts either through likes/dislikes or the creation of comments. Comments can be created in the thread view from not only posts, but also event posts! Hereby, the user can enter their texts in the editable field under a post and click the 'Reply'-button as you can see in the image below:
 
-If you click on an event, it will redirect you to a post with more specific information and an optional map. The next image shows a rough example on how an event post might look like:
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/994c7088-e0de-4022-90b3-11ef66e9cf53)
+>![CreateComments](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/a43bef0d-7d02-4c4d-beb0-eb191e71bbd7)
+
+After the successfull creation:
+  
+>![SuccessfullComment](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/70eb36c3-c6af-4681-af1f-72afdf3bc81c)
+  
+Now both the post and the comments can be liked by the signed in user!
+
+>![SuccessfullPost](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/12f9128e-c118-46ea-94e9-8af3760d8c66)
+  
+The signed in user can also like his own posts and comments - but we won't get into the ethical implications of these actions...
 
 **Preconditions**:  
-The homepage has to be implemented first, however no sign-in is necessary for viewing all the events since it is centralized. 
+For the creation of comments, the user has to be logged in and at least one post must exist obviously. This also applies to the ability to like or dislike likable components.
 
 **Postconditions**:  
-It's possible for users to interact with event posts.
+Interactions between users will get more lively. The liked components are saved for the current and next sessions to avoid inconsistencies.
 
-**Estimated efforts**: medium-high
+**Estimated efforts**: medium.
 
-**Linked user stories**: [Issue 263](https://github.com/SE-TINF22B6/DHBWhub/issues/263)
+**Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
+   
+##### 2.2.2.5 Checking notifications
+When certain events happen, the affected users get corresponding notifications on their feed. To view these notifications, the user has to click on the bell button. A red mark above the bell indicates, that there are new notifications which haven't been deleted yet. Thus, after clicking on the bell, the user will get a small list with new notifications of the following type:
+- User/s has/have liked your post.
+- User/s has/have commented your post
+- User/s has/have liked your comment.
+- User/s has/have liked your event comment.
+- User/s started following you.
 
-
-##### 2.2.4.5 Checking notifications
-When certain events happen, the affected users get corresponding notifications on their feed. To view these notifications, the user has to click on the bell button. A red mark above the bell indicates, that there are new notifications which haven't been read yet. Thus, after clicking on the bell, the user will get a small list with new notifications e.g. comments under a post, mentions from other users and several more. After clicking on a certain notification, it will be marked as 'read' and will redirect to the respective location.    
-
-> TODO Mockup
+The bell button looks like this:
+  
+>![Bell button](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/be87f75c-49f7-4142-863f-ea07e9870869)
+  
+After clicking on the button, the user can see a list like this:
+  
+>![NotificationList](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/1463822f-1885-4381-93b4-f5ebfbe5e104)
+  
+Clicking on an item in the list will redirect you to the respective component e.g. the post, event post, user profile or friendship page. You can also click on the cross button to delete a notification. Before that, the user needs to confirm that the notification should be removed from the list.
+   
+>![Remove Notification](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/404dbddc-3e28-4e5b-b4ac-fd6c48401b93)
 
 **Preconditions**:  
 The user has to be signed in to receive or manage their notifications.
@@ -292,41 +453,6 @@ Users are able to receive or see updates even faster, since they are mentioned d
 
 **Linked user stories**: [Issue 264](https://github.com/SE-TINF22B6/DHBWhub/issues/264)
 
-
-##### 2.2.4.6 Search bar
-When searching for posts with specific content, tags or even for other users, every user is able to use the search bar for this purpose. When entering content into the inputfield, users can choose whether they want to search for other users or for posts and will be redirected correspondingly.
-
-> TODO Mockup
-
-**Preconditions**:  
-The user has to be signed in to use this feature and needs to be on the homepage.
-
-**Postconditions**:  
-Users can find content or persons even faster than before.
-
-**Estimated efforts**: high
-
-**Linked user stories**: [Issue 85](https://github.com/SE-TINF22B6/DHBWhub/issues/85)
-
---- 
-
-#### 2.2.5 User Interaction
-In the following section, we'll take a closer look at all the ways users can interact with other users.
-
-##### 2.2.5.1 Post interaction
-After clicking on a post in the user's feed, it will be displayed in a more focussed view (thread view). Latter allows every user to interact with this post. Interactions could be for example liking, sharing and saving this post. However, our other main feature is the option to comment a post, so that discussions can thrive. Similiar to a post, a user only needs to insert his comment into the input box below the main post and clicks the 'Reply'-button afterwards. In the next image, you can see the input box as well as some examples on how a comment might look like:
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/82e26751-c6bf-4084-952b-d1779690c78e)
-
-**Preconditions**:  
-User has to be logged in and at least one post must exist obviously.
-
-**Postconditions**:  
-Interactions between users will get more lively.
-
-**Estimated efforts**: medium-high.
-
-**Linked user stories**: [Issue 67](https://github.com/SE-TINF22B6/DHBWhub/issues/67)
-   
 ##### 2.2.5.2 Friendlist administration
 In order to receive posts directly in the own feed from specific persons or organizations, users are able to establish friendships through friend requests. The user has to search the profile of the other user and needs to click on 'Send friend request'. After clicking the button, the lable will change to 'Friend request sent'. The other person will then receive a notification which states, which person has sent a friend request. It can either be declined, ignored or accepted. When latter happens, the lable from before simply changes to 'Friends'. 
 
@@ -362,7 +488,7 @@ Users can access both pages anytime.
 
 
 ##### 2.2.6.2 Report issues/requests to administrators 
-If users experience trouble or see/experience misuse in any form on our website, they are able to fill a contact form and send it to our administration team. The contact form can be achieved from the homepage through clicking on the 'Contact'-button. Afterwards, they have to fill in their e-mail adress, their name and the message which contains the essential points about the problem. Lastly, the user only needs to click on the 'Send'-button to finish the process. You can see the form in the image below:
+If users experience trouble or see/experience misuse in any form on our website, they are able to fill a contact form and send it to our administration team. The contact form can be achieved from the homepage through clicking on the 'Contact'-button. Afterwards, they have to fill in their e-mail address, their name and the message which contains the essential points about the problem. Lastly, the user only needs to click on the 'Send'-button to finish the process. You can see the form in the image below:
 
 >![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/a803be28-fb3c-41ee-93bb-1b6145a407df)
 
