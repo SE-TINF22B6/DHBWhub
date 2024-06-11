@@ -59,7 +59,6 @@
 
 .follow-button {
     font-size: var(--headline-font-size);
-
     padding: 10px;
     color: white;
     align-items: center;
@@ -68,3 +67,29 @@
     width: auto;
 }
 
+.user-not-found {
+    font-size: var(--headline-font-size);
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+}
+
+.user-posts {
+    width: 780px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    position: relative;
+}
+
+@media (max-width: 412px) {
+    .user-posts {
+        margin-left: 20px;
+        margin-top: -5px;
+    }
+}
+
+.user-posts-header {
+    width: 780px;
+    padding: 20px;
+}

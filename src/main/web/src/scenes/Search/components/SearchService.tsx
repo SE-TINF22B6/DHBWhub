@@ -12,8 +12,6 @@ import {Post} from "../../Home/components/post/Post";
 import {UserModel} from "./models/UserModel";
 
 
-
-
 interface SearchedPostsProps {
     sortOption: string;
     query: string | null;
@@ -45,8 +43,13 @@ export const SearchService: React.FC<SearchedPostsProps> = ({sortOption, query, 
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    setSearchResults(data);
-                    setNotFound(false);
+                    if (data.length === 0) {
+                        setNotFound(true);
+                    } else {
+                        setSearchResults(data);
+                        setNotFound(false);
+                    }
+
                 } else {
                     setNotFound(true);
                 }
