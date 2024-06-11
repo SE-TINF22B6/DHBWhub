@@ -146,7 +146,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         setMarginLeft(tags ? '110px' : '0');
         setMarginTop(postImage ? '140px' : '5px');
       } else {
-        setWidth(postImage ? '330px' : '600px');
+        setWidth(postImage ? '360px' : '600px');
         setMarginLeft(postImage ? (imageWidth ? `${imageWidth + 20}px` : '280px') : '10px');
         setMarginTop('0');
       }
@@ -211,7 +211,8 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
               &nbsp;· {formattedTime}
             </div>
           </div>
-          <div className="home-post-interaction">
+          <div className="home-post-interaction"
+               style={{marginTop: `${parseInt(marginTop as string) + 110}px`}}>
             <Interaction
                 likes={likes}
                 userLiked={userLiked}
@@ -219,13 +220,14 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
                 comments={comments}
                 handleLike={() => handleLike(id, "post", likes, setLikes, setUserLiked, setHeartClass)}
                 id={id}
-                isHomepage={true}/>
+                isHomepage={true}
+            />
           </div>
         </div>
 
         {menuOpen && (
             <div className="post-menu-container">
-              <PostMenu
+            <PostMenu
                   handleShareClick={handleShareClick}
                   handleSaveClick={handleSaveClick}
                   handleUnsaveClick={handleUnsaveClick}
