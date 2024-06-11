@@ -27,7 +27,7 @@
          - [2.2.2.4 Likes and comments](#2224-likes-and-comments)
          - [2.2.2.5 Checking notifications](#2225-checking-notifications)
          - [2.2.2.6 Follow users and view their posts](#2226-follow-users-and-view-their-posts)
-      + [2.2.3 Informational activities](#223-informational-activities)
+      + [2.2.3 Administrative activities](#223-administrative-activities)
          - [2.2.3.1 View FAQ, privacy policy, TOS and imprint page ](#2231-view-faq-privacy-policy-tos-and-imprint-page)
          - [2.2.3.2 Contacting Administrators ](#2232-contacting-administrators)
 - [3. Nonfunctional requirements](#3-nonfunctional-requirements)
@@ -503,7 +503,7 @@ Posts from persons that are followed by the main user can now be displayed on th
 
 ---
 
-#### 2.2.3 Informational activities
+#### 2.2.3 Administrative activities
 The last section covers all the use cases that are of rather informational and lawful nature and might even require the admins of DHBWhub. 
 
 ##### 2.2.3.1 View FAQ, privacy policy, TOS and imprint page 
