@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface FriendshipService {
     Friendship get(Long id);
-    void delete(Long id);
     List<FriendlistProposal> getFriendlist(Long id);
     FriendlistProposal followUser(FollowUserProposal proposal);
+    void unfollowUser(FollowUserProposal proposal);
+    boolean isFollowingUser(FollowUserProposal proposal);
+    void delete(Long id);
 }
