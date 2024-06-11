@@ -444,64 +444,94 @@ Clicking on an item in the list will redirect you to the respective component e.
 >![Remove Notification](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/404dbddc-3e28-4e5b-b4ac-fd6c48401b93)
 
 **Preconditions**:  
-The user has to be signed in to receive or manage their notifications.
+The user has to be signed in and other users have to interact with the user beforehand through likes, comments and follows. The notification button is reachable through the header, which is visible all the time.
 
 **Postconditions**:  
-Users are able to receive or see updates even faster, since they are mentioned directly
+Users are now notified. 
 
-**Estimated efforts**: low-medium
+**Estimated efforts**: medium-high
 
 **Linked user stories**: [Issue 264](https://github.com/SE-TINF22B6/DHBWhub/issues/264)
 
-##### 2.2.5.2 Friendlist administration
-In order to receive posts directly in the own feed from specific persons or organizations, users are able to establish friendships through friend requests. The user has to search the profile of the other user and needs to click on 'Send friend request'. After clicking the button, the lable will change to 'Friend request sent'. The other person will then receive a notification which states, which person has sent a friend request. It can either be declined, ignored or accepted. When latter happens, the lable from before simply changes to 'Friends'. 
+##### 2.2.2.6 Follow users and view their posts
+Users can follow other users ... on our application! On the homepage, the posts can be filtered so that only the latest posts from the people, which are followed by the signed in user, are depicted.
+First of all, a user has to be followed through the user page just like in the image below, by clicking on the follow button. This action can be reversed through unfollowing:
+  
+>![UserProfile](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/4f130e88-940e-428f-b9d0-1afc97f13249)
+
+The people that the user follows are displayed on the 'friends' page that can be reached through the header all the time:
+
+>![FollowingSite](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/a0973120-3603-4242-948d-9582a910ddb9)
+
+If the user goes back to the homepage and clicks on the 'Following' button, all the posts are displayed, that are created by the users in the friends page.
+  
+>![FollowingPosts](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/a793bba5-71e4-4af4-b8ac-0e71c51e5700)
 
 **Preconditions**:  
-All the involved users need active accounts. The search function also need to be implemented first.
+The user has to be signed in. At least two active users need to exist on the website. Obviously, one of them must be willing to follow the other user. The following is only possible through the user page.  
 
 **Postconditions**:  
-The personal feed involves posts from friends. It is also possible to implement a filter, which only shows posts from the users the main user follows.
+Posts from persons that are followed by the main user can now be displayed on the homepage
 
-**Estimated efforts**: medium-high
+**Estimated efforts**: medium
 
 **Linked user stories**: [Issue 265](https://github.com/SE-TINF22B6/DHBWhub/issues/265)
 
 ---
 
-#### 2.2.6 Administrative activities
-The last section covers all the use cases that happen between the end users and the administrators.
+#### 2.2.3 Informational activities
+The last section covers all the use cases that are of rather informational and lawful nature and might even require the admins of DHBWhub. 
 
-##### 2.2.6.1 View legal notice and FAQ page 
-Users should be able to look into our privacy policy or FAQ page, whenever questions or problems occur, involving either the legality of content or simply answering the most important questions regarding the main functions of this website. There must also be a terms of condition before signing up to the website, so that the users are able to read all the legal conditions before creating an account.
+##### 2.2.3.1 View FAQ, privacy policy, TOS and imprint page 
+Users are able to look into our FAQ, privacy policy, TOS and imprint page at all times. They have however no additional functions and are only viewable for legal reasons.  
+The FAQ page contains information which tell the users, how they can user our main functionalities:
+  
+>![FAQ](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/3363a91f-0a79-473a-99b4-869e96473ebf)
 
-> TODO mockup
+The privacy policy page informs our users about the usage of their personal information.
+  
+>![privacypolicy](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/5e876c83-4fc5-4fe0-8cab-e07809285b6a)
 
+Classic TOS.  
+  
+>![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/10e3baf6-3160-4eb4-894e-92b41aee79b0)
+  
+And lastly, the imprint page.
+  
+>![Imprint](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/faf3eea0-c855-4a88-9c03-c317a370bf9c)
+  
 **Preconditions**:  
-The homepage and the sign up form needs to be implemented.
+These pages can be reached through the homepage at all times. 
 
 **Postconditions**:  
-Users can access both pages anytime.
+The user is well informed about the usage of its data, the acceptable behaviour and other legal notices.
 
 **Estimated efforts**: low
 
 **Linked user stories**: [Issue 88]((https://github.com/SE-TINF22B6/DHBWhub/issues/88), [Issue 91](https://github.com/SE-TINF22B6/DHBWhub/issues/91)
 
+##### 2.2.3.2 Contacting Administrators 
+If there are some unordinary problems with our website, the users can reach out to us all the time through the contact formular. This can also be reached from the homepage. After filling in the own e-mail address (since this function is also available for non-account-users), name and description of the question or problem, the form can be send to the email address of DHBWhub. Someone from the admin team can read the message and act on it.
 
-##### 2.2.6.2 Report issues/requests to administrators 
-If users experience trouble or see/experience misuse in any form on our website, they are able to fill a contact form and send it to our administration team. The contact form can be achieved from the homepage through clicking on the 'Contact'-button. Afterwards, they have to fill in their e-mail address, their name and the message which contains the essential points about the problem. Lastly, the user only needs to click on the 'Send'-button to finish the process. You can see the form in the image below:
+>![Contact](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/1f797422-0b3f-4bec-908b-56a5b180fd09)
+  
+If it is more drastic e.g. harrassful and hateful posts or comments, the user can use the 'Report Post/Comment'-button.
+  
+>![ReportPost](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/88d5cc0a-1bd9-4de6-be86-ac2c46bf0fc1)
+  
+A similar report form will be opened, in which the user can add the reason and description.
 
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/a803be28-fb3c-41ee-93bb-1b6145a407df)
+![ReportComment](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/e68be1cf-caa7-4d83-8a9a-adcc6b9b99e3)
 
 **Preconditions**:  
-The homepage needs to be implemented.
+These pages can be reached through the homepage at all times.
 
 **Postconditions**:  
-Interactions between end users and administrators are established, even when not signed in.
+The admin team will receive an email with the described problems and will discuss the next actions.
 
-**Estimated efforts**: low-medium
+**Estimated efforts**: low
 
-**Linked user stories**: [Issue 266](https://github.com/SE-TINF22B6/DHBWhub/issues/266)
-
+**Linked user stories**: [Issue 88]((https://github.com/SE-TINF22B6/DHBWhub/issues/88), [Issue 91](https://github.com/SE-TINF22B6/DHBWhub/issues/91)
 
 ---
 
