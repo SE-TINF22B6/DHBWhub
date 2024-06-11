@@ -53,8 +53,10 @@
   height: auto;
   max-height: 250px;
   max-width: 420px;
+  min-height: 230px;
   position: relative;
   border-radius: 10px;
+  object-fit: contain;
 }
 
 .post-detail-infos {

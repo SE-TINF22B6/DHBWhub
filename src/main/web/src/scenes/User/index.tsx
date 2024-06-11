@@ -34,7 +34,7 @@ export const UserPage = () => {
                     const data = await response.json();
                     setUserId(data.userId);
                     setUserName(data.username);
-                    if(data.picture.id !== null){
+                    if(data.picture !== null){
                         setPicture(data.picture);
                     }
                     setAmountFollower(data.amountFollower);

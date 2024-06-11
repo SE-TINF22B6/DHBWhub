@@ -17,6 +17,7 @@
   height: auto;
   max-width: 260px;
   max-height: 170px;
+  min-height: 170px;
   top: 50%;
   transform: translateY(-50%);
   position: relative;
@@ -92,7 +93,6 @@
 
 .home-post-interaction {
   position: relative;
-  margin-top: 110px;
   margin-right: 20px;
 }
 

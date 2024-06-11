@@ -107,14 +107,13 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   return (
       <div className="comment">
         <div className="comment-content">
-          {authorUsername && (
-              <Link to={`/user/?id=${userId}`} className="author-link"
-                    aria-label="To the author">
-                <img className="profile-picture" alt="Comment profile" src={image}/>
-              </Link>
-          )}
+          <Link to={`/user/?id=${userId}`} className="author-link" aria-label="To the author">
+            <img className="profile-picture" alt="Comment profile" src={image}/>
+          </Link>
           <div>
-            <div className="comment-author-date">{authorUsername}</div>
+            <Link to={`/user/?id=${userId}`} className="author-link" aria-label="To the author">
+              <div className="author-link comment-author-date">{authorUsername}</div>
+            </Link>
             <div className="comment-author-date">{formattedTime}</div>
           </div>
           <div className="comment-text">{text}</div>
