@@ -75,6 +75,7 @@ export const ProfilePage = () => {
             case 'username':
                 success = await updateUsername(userData.username);
                 localStorage.setItem('username', userData.username);
+                handleLogout();
                 break;
             case 'email':
                 success = await updateEmail(userData.email);
@@ -203,6 +204,7 @@ export const ProfilePage = () => {
                     <button onClick={() => isEditing.username ? handleSaveChanges('username') : handleEdit('username')}>
                         {isEditing.username ? 'Save' : 'Edit'}
                     </button>
+                    <p className="profile-page-info-message">If you want to change your user name, you will be logged out and must log in again for the change to take effect!</p>
                 </div>
 
                 {!disableEmailAndPasswordEdit && (
