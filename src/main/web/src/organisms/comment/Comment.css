@@ -1,7 +1,6 @@
 .comment {
   background-color: var(--component-grey);
   border-radius: var(--border-radius);
-  height: auto;
   margin-top: 10px;
   margin-left: 20px;
   margin-right: 20px;
@@ -22,10 +21,9 @@
 }
 
 .comment-text {
-  position: absolute;
-  top: 20px;
-  left: 18%;
-  width: 60%;
+  position: relative;
+  left: 20px;
+  width: 800px;
   font-size: var(--headline-font-size);
   font-weight: var(--normal-font-weight);
 }

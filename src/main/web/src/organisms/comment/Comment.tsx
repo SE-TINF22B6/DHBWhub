@@ -90,12 +90,12 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
       }
     };
     document.addEventListener('keydown', handleEsc);
-    return () => {
+    return (): void => {
       document.removeEventListener('keydown', handleEsc);
     };
   }, [reportOpen, handleClose]);
 
-  useEffect(() => {
+  useEffect((): void => {
     const fetchUserId = async () => {
       const id = await getUserIdByAccountId(accountId);
       setUserId(id);
@@ -116,7 +116,9 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
             </Link>
             <div className="comment-author-date">{formattedTime}</div>
           </div>
-          <div className="comment-text">{text}</div>
+          <div className="comment-text-wrapper">
+            <div className="comment-text">{text}</div>
+          </div>
         </div>
 
         <div className="comment-interaction">
