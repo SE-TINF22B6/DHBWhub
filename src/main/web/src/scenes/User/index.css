@@ -111,3 +111,13 @@
     width: 780px;
     padding: 20px;
 }
+
+.follow-loading-animation {
+    cursor: pointer;
+    font-size: var(--headline-font-size);
+    padding: 10px;
+      align-items: center;
+    border-radius: 5px;
+
+    width: auto;
+}
