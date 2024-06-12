@@ -35,7 +35,6 @@ export const UserPost: React.FC<PostModel> = (props: PostModel) => {
     const [comments] = useState(commentAmount);
     const [menuOpen, setMenuOpen] = useState(false);
     const [shareWindowOpen, setShareWindowOpen] = useState(false);
-    const currentPageURL: string = window.location.href;
     const location = useLocation();
     const [shortDescription, setShortDescription] = useState('');
     const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
@@ -247,7 +246,7 @@ export const UserPost: React.FC<PostModel> = (props: PostModel) => {
             )}
             {shareWindowOpen && (
                 <div className="post-share-container">
-                    <Share postId={id} currentPageURL={currentPageURL}></Share>
+                    <Share postId={id} currentPageURL={"https://www.dhbwhub.de/post/?id="+id}></Share>
                 </div>
             )}
             {reportOpen && (
