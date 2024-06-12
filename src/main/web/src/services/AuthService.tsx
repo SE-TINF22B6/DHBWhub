@@ -3,12 +3,6 @@ import config from "../config/config";
 import {jwtDecode} from "jwt-decode";
 
 export const register = async (username: string, email: string, password: string): Promise<any> => {
-    // return axios.post(config.apiUrl + "api/auth/signup", {
-    //     username,
-    //     email,
-    //     password,
-    // });
-
     const response = await axios
         .post(config.apiUrl + "api/auth/signup", {
             username,
