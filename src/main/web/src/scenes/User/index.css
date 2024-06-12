@@ -74,6 +74,13 @@
     border-radius: 5px;
 }
 
+.user-post-component {
+    font-size: var(--headline-font-size);
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+}
+
 .user-posts {
     width: 780px;
     display: grid;

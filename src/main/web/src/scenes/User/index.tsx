@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
@@ -7,7 +7,6 @@ import {getJWT, getUserId} from "../../services/AuthService";
 import {getDefaultOrRandomPicture} from "../../atoms/Pictures/PicturesComponent";
 import Lottie from "lottie-react";
 import animationData from "../../assets/loading.json";
-
 import {UserPost} from "./UserPost";
 
 export const UserPage = () => {
@@ -29,6 +28,8 @@ export const UserPage = () => {
     const [course, setCourse] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [notFound, setNotFound] = useState(true);
+    const [postLoading, setPostsLoading] = useState(true);
+    const [postsNotFound, setPostsNotFound] = useState(false);
     const jwt: string | null = getJWT();
     const headersWithJwt = {
         ...config.headers,
@@ -36,11 +37,8 @@ export const UserPage = () => {
     };
 
     useEffect(() => {
-
+        setNotFound(false);
         const fetchUserData = async () => {
-            setUserPosts([]);
-            setLoading(true);
-            setNotFound(false);
 
             try {
                 const response = await fetch(config.apiUrl + `user/user-information/${id}`, {
@@ -58,23 +56,29 @@ export const UserPage = () => {
                     setDescription(data.description);
                     setCourse(data.course);
                     console.log("successful fetching of userdata");
-                    setLoading(false);
                     setNotFound(false);
+                    setLoading(false);
+
                 } else {
                     console.log(new Error("Failed to fetch Userdata"));
-                    setLoading(false);
                     setNotFound(true);
+                    setLoading(false);
+
                 }
             } catch (error) {
                 console.error("Error fetching Data:", error);
-                setLoading(false);
                 setNotFound(true);
+                setLoading(false);
+
             }
         };
 
         fetchUserData();
 
         const fetchUserPosts = async () => {
+            setPostsLoading(true);
+            setPostsNotFound(false);
+
             try {
                 const response = await fetch(config.apiUrl + `post/user-posts/${userId}`, {
                     headers: headersWithJwt
@@ -82,25 +86,29 @@ export const UserPage = () => {
                 if (response.ok) {
                     const data = await response.json();
                     if (data.length === 0) {
-                        // handle empty posts
+                        setPostsNotFound(true);
                     } else {
+                        console.log(("Successful fetching of user posts"));
                         setUserPosts(data);
+                        setPostsLoading(false);
+                        setPostsNotFound(false);
                     }
+
                 } else {
                     console.log(new Error("Failed to fetch User Posts"));
-                 //   setLoading(false);
-               //     setNotFound(true);
-                    // handle error
+                    setPostsLoading(false);
+                    setPostsNotFound(true);
+
                 }
             } catch (error) {
                 console.error("Error when retrieving the search data:", error)
-             //   setLoading(false);
-             //   setNotFound(true);
+                setPostsLoading(false);
+                setPostsNotFound(true);
                 // handle error
             }
         };
 
-           fetchUserPosts();
+        fetchUserPosts();
 
 
     }, [id, userId, config.headers, config.apiUrl]);
@@ -159,6 +167,7 @@ export const UserPage = () => {
         );
     }
 
+
     class FollowButton extends React.Component<{ userId: any, senderId: any, handleFollow: any }> {
         render() {
             let {userId, senderId, handleFollow} = this.props;
@@ -179,25 +188,54 @@ export const UserPage = () => {
     class DisplayPosts extends React.Component {
 
         render() {
-            return (
-                <div className="search-results">
-                    {userPosts.map(post => (
-                        <UserPost
-                            key={post.id}
-                            id={post.id}
-                            title={post.title}
-                            description={post.description || ""}
-                            tags={post.tags}
-                            likeAmount={post.likeAmount}
-                            commentAmount={post.commentAmount}
-                            timestamp={post.timestamp}
-                            postImage={post.postImage}
-                            accountId={post.accountId}
-                            username={post.username}
-                        />
-                    ))}
-                </div>
-            );
+            if (postsNotFound) {
+                return (
+
+                    <div className="user-not-found">
+                        <h1 className="error">This User doesn´t have Posts</h1>
+                    </div>
+                );
+            }
+            if (postLoading) {
+                return (
+
+                    <div className="user-post-component">
+                        <div className="animation">
+                            <div className="loading-animation">
+                                <Lottie animationData={animationData}/>
+                            </div>
+                        </div>
+                    </div>
+
+                );
+            }
+            else {
+                return (
+                    <div>
+                        <div className="user-posts-header">Posts by {username}:</div>
+                        <div className="user-posts">
+                            <div className="search-results">
+                                {userPosts.map(post => (
+                                    <UserPost
+                                        key={post.id}
+                                        id={post.id}
+                                        title={post.title}
+                                        description={post.description || ""}
+                                        tags={post.tags}
+                                        likeAmount={post.likeAmount}
+                                        commentAmount={post.commentAmount}
+                                        timestamp={post.timestamp}
+                                        postImage={post.postImage}
+                                        accountId={post.accountId}
+                                        username={post.username}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
         }
     }
 
@@ -242,13 +280,12 @@ export const UserPage = () => {
                 <FollowButton userId={userId} senderId={senderId} handleFollow={handleFollow}/>
 
             </div>
-            {userPosts.length >0 ?
-                <div>
-                    <div className="user-posts-header">Posts by {username}:</div>
-                    <div className="user-posts">
-                        <DisplayPosts/>
-                    </div>
-                </div> : <div></div>}
+
+            <div>
+                <div className="user-posts">
+                    <DisplayPosts/>
+                </div>
+            </div>
             <Footer/>
         </div>
     );

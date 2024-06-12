@@ -38,7 +38,8 @@ export const UserPost: React.FC<PostModel> = (props: PostModel) => {
     const currentPageURL: string = window.location.href;
     const location = useLocation();
     const [shortDescription, setShortDescription] = useState('');
-    //const [userId, setUserId] = useState(null);
+    const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
+    const userSelfid: string | null = searchParams.get('id');
     const userSelfId: number | null =  getUserId();
     const jwt: string | null = getJWT();
     const headersWithJwt = {
@@ -193,7 +194,7 @@ export const UserPost: React.FC<PostModel> = (props: PostModel) => {
         <div className="post-container">
             <div className="post">
                 <Link to={`/post/?id=${id}`} aria-label="To the post" className="post-button">
-                    {postImage && <img className="post-image" ref={imageRef} alt="Post" src={postImage} loading="lazy" />}
+                    {postImage && <img className="post-image" ref={imageRef} alt="Post" src={postImage}  />}
                 </Link>
                 <img className="post-menu-points" onClick={handleMenuClick} alt="Menu dots"
                      src={process.env.PUBLIC_URL + '/assets/menu-dots.svg'}/>
@@ -213,9 +214,9 @@ export const UserPost: React.FC<PostModel> = (props: PostModel) => {
                     </p>
 
                     <div className="footer">
-                        <div className="author-link">
+                        <Link to={`/user/?id=${userSelfid}`} className="author-link" aria-label="To the author">
                             {username}
-                        </div>
+                        </Link>
                         &nbsp;· {formattedTime}
                     </div>
                 </div>
