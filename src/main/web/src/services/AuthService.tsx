@@ -16,10 +16,14 @@ export const register = async (username: string, email: string, password: string
 };
 
 export const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; username: string; accessToken: string; }): void => {
-    localStorage.setItem('accountId', "" + data.accountId.toString());
-    localStorage.setItem('userId', data.userId.toString());
-    localStorage.setItem('username', data.username);
-    localStorage.setItem('token', data.accessToken);
+    if (data.accountId !== undefined && data.userId !== undefined && data.username && data.accessToken) {
+        localStorage.setItem('accountId', data.accountId.toString());
+        localStorage.setItem('userId', data.userId.toString());
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('token', data.accessToken);
+    } else {
+        console.error('Invalid user data:', data);
+    }
 };
 
 export const login = async (username: string, password: string, rememberMe: boolean): Promise<any> => {
