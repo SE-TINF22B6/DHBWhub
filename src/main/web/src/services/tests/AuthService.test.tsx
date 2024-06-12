@@ -22,7 +22,7 @@ describe('AuthService', () => {
 
             const response = await authService.register(username, email, password);
 
-            expect(response.data).toEqual(responseData);
+            expect(response).toEqual(responseData);
             expect(localStorage.getItem('accountId')).toEqual('1');
             expect(localStorage.getItem('userId')).toEqual('2');
             expect(localStorage.getItem('username')).toEqual('testuser');
