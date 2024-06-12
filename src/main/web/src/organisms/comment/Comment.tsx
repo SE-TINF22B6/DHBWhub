@@ -46,7 +46,8 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   };
 
   const handleReportSubmit = (reason: string, description: string): void => {
-    sendReportToBackend(reason, description, id, accountId, "post");
+    console.log(type);
+    sendReportToBackend(reason, description, id, accountId, type, commentId);
     setReportOpen(!reportOpen);
   };
 
@@ -56,7 +57,6 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   };
 
   const [likes, setLikes] = useState(likeAmount);
-
   const [userLiked, setUserLiked] = useState(localStorage.getItem(`${type}_liked_${id}`) === 'true');
   const [heartClass, setHeartClass] = useState(userLiked ? 'heart-filled' : 'heart-empty');
 

@@ -1,7 +1,8 @@
 import config from "../config/config";
 import {getJWT, getUserId} from "./AuthService";
 
-export const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number | null, type: string): void => {
+export const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number | null, type: string,
+                                    commentId?: number | null, ): void => {
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
@@ -15,6 +16,7 @@ export const sendReportToBackend = (reportReason: string, reportDescription: str
     postId: postId,
     authorId: authorId,
     userId: userId,
+    commentId: commentId,
     type: type
   };
 

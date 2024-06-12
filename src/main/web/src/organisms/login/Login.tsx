@@ -61,7 +61,7 @@ const Login: React.FC<Props> = () => {
     const handleGoogleLogin = (credentialResponse: CredentialResponse): void => {
         googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
             (): void => {
-                localStorage.setItem('oathUser', 'true');
+                localStorage.setItem('oAuthUser', 'true');
                 window.location.reload();
             },
             (): void => {
