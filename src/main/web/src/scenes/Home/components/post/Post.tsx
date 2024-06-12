@@ -99,7 +99,6 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
         headers: headersWithJwt
       });
       if (response.ok) {
-        console.log('Post has been saved!');
         alert('Post has been saved!');
       } else {
         console.error('Error saving the post: ', response.statusText);

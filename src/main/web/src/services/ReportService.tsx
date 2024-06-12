@@ -20,8 +20,6 @@ export const sendReportToBackend = (reportReason: string, reportDescription: str
     type: type
   };
 
-  console.log('Report:', JSON.stringify(report));
-
   fetch(config.apiUrl + 'post/report', {
     method: 'POST',
     headers: headersWithJwt,
@@ -29,7 +27,7 @@ export const sendReportToBackend = (reportReason: string, reportDescription: str
   })
   .then(response => {
     if (!response.ok) {
-      console.log(response);
+      console.error("Response: ", response);
       throw new Error('Error sending report: ' + response.statusText);
     }
     alert('Report of ' + type + ' ' + postId + ' sent successfully');

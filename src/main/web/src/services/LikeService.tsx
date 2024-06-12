@@ -77,8 +77,8 @@ export const handleLike = async (
     const response: Response = await fetch(config.apiUrl + endpoint, requestOptions);
 
     if (!response.ok) {
-      console.log("Response:", response);
       console.error(`Failed to ${userLiked ? 'unlike' : 'like'} ${type}: ${response.statusText}`);
+      console.error("Response: ", response);
     } else {
       if (!userLiked) {
         setLikes(likes + 1);
