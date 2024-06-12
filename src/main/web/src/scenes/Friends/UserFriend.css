@@ -1,4 +1,4 @@
-.user-container {
+.friend-user-container {
     font-size: var(--headline-font-size);
     align-items: center;
     text-align: center;
@@ -10,24 +10,24 @@
     color: white;
 }
 
-.user-image {
+.friend-user-image {
     width: 100px;
     height: 100px;
     border-radius: 50px;
     object-fit: cover;
 }
 
-.custom-image {
+.friend-custom-image {
     width: 100px;
     height: 100px;
     border-radius: 50px;
     object-fit: cover;
 }
 
-.user-button {
+.friend-user-button {
     text-decoration: none;
     color: inherit;
 }
-.user-name{
+.friend-user-name{
     padding-top: 10px;
 }

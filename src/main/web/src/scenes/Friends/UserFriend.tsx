@@ -14,14 +14,14 @@ export const UserFriend: React.FC<UserFriendModel> = (props: UserFriendModel) =>
     const truncatedUsername = username.length > 17 ? username.slice(0, 15) + "..." : username;
 
     return (
-        <div className="user-container">
+        <div className="friend-user-container">
             <Link to={`/user/?id=${userId}`} aria-label="To the user" className="user-button">
                 {image ? (
-                    <img className="user-image" alt={username} src={image} loading="lazy"/>
+                    <img className="friend-user-image" alt={username} src={image} loading="lazy"/>
                 ) : (
-                    <img className="custom-image" alt={"random"} src={getDefaultOrRandomPicture(false)}/>
+                    <img className="friend-custom-image" alt={"random"} src={getDefaultOrRandomPicture(false)}/>
                 )}
-                <div className="user-name">{truncatedUsername}</div>
+                <div className="friend-user-name">{truncatedUsername}</div>
             </Link>
         </div>
     );
