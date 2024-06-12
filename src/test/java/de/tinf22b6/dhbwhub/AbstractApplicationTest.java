@@ -335,7 +335,7 @@ public abstract class AbstractApplicationTest {
 	}
 
 	protected UserInformationProposal createUserInformationProposal() {
-		return new UserInformationProposal(1L ,"test name", createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
+		return new UserInformationProposal(1L ,"test name", "adsa@gmail.com", createDefaultPicture(), 12,  12, "Beschreibung 1", "TINF22B6");
 	}
 
 	protected UpdateAgeProposal createUpdateAgeProposal() {

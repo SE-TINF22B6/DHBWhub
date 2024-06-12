@@ -28,6 +28,16 @@ public class FriendshipController {
         return service.followUser(proposal);
     }
 
+    @PostMapping("/unfollow-user")
+    public void unfollowUser(@RequestBody FollowUserProposal proposal) {
+        service.unfollowUser(proposal);
+    }
+
+    @PostMapping("/is-following-user")
+    public boolean isFollowingUser(@RequestBody FollowUserProposal proposal) {
+        return service.isFollowingUser(proposal);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {

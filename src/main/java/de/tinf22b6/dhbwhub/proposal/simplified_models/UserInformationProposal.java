@@ -15,6 +15,8 @@ public class UserInformationProposal {
 
     private String username;
 
+    private String email;
+
     private Picture picture;
 
     private int amountFollower;

@@ -1,0 +1,33 @@
+.user-container {
+    font-size: var(--headline-font-size);
+    align-items: center;
+    text-align: center;
+    border-radius: 25px;
+    background-color: var(--grey);
+    justify-content: center;
+    width: 120px;
+    padding: 10px;
+    color: white;
+}
+
+.user-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+.custom-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+.user-button {
+    text-decoration: none;
+    color: inherit;
+}
+.user-name{
+    padding-top: 10px;
+}
