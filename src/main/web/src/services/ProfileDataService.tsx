@@ -2,6 +2,7 @@ import {getJWT, getUserId, getUsername} from "./AuthService";
 import config from "../config/config";
 
 interface UserData {
+    userId: number;
     username: string;
     email: string;
     picture: {
@@ -27,20 +28,21 @@ export const fetchUserData = async (): Promise<UserData | null> => {
     const userId: number | null = getUserId();
 
     try {
-        const response: Response = await fetch(`${config.apiUrl}user/${userId}`, {
+        const response: Response = await fetch(`${config.apiUrl}user/user-information/${userId}`, {
             headers: getHeaders()
         });
 
         if (response.ok) {
             const data = await response.json();
             const userData: UserData = {
-                username: data.account.username ?? "",
-                email: data.account.email ?? "",
-                picture: data.account.picture ? data.account.picture : { id: 0, name: '', imageData: '' },
+                userId: data.userId ?? 0,
+                username: data.username ?? "",
+                email: data.email ?? "",
+                picture: data.picture ? data.picture : { id: 0, name: '', imageData: '' },
                 amountFollower: data.amountFollower ?? 0,
                 age: data.age ?? '',
                 description: data.description ?? '',
-                course: data.course?.name ?? ''
+                course: data.course ?? ''
             };
             console.log("Successful fetching of userdata", userData);
             return userData;
