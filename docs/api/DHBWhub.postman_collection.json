@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "55017785-a922-4db9-8107-79d6f4702abf",
+		"_postman_id": "d88505c2-8df3-4b24-b993-cb12d0a20828",
 		"name": "DHBWhub",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30645915"
+		"_exporter_id": "30645915",
+		"_collection_link": "https://dhbwhub.postman.co/workspace/DHBWhub~92d379fd-82da-43c7-8dda-c91603d86812/collection/30905013-d88505c2-8df3-4b24-b993-cb12d0a20828?action=share&source=collection_link&creator=30645915"
 	},
 	"item": [
 		{
@@ -11,15 +12,27 @@
 			"item": [
 				{
 					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:8080/account",
+							"raw": "https://{{backend_url}}/account",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"account"
 							]
@@ -33,14 +46,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/account/1",
+							"raw": "https://{{backend_url}}/account/29",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"account",
-								"1"
+								"29"
 							]
 						}
 					},
@@ -53,7 +66,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"TINF22B6\"\r\n}",
+							"raw": " {\r\n        \"id\": 100,\r\n        \"username\": \"testUser100\",\r\n        \"email\": \"stupido100@gmail.com\",\r\n        \"password\": \"GanzGanzGanzSchwieriegsPasswort\",\r\n        \"picture\": null,\r\n        \"active\": false\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -61,11 +74,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/account",
+							"raw": "https://{{backend_url}}/account",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"account"
 							]
@@ -80,7 +93,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"TINF22B5\"\r\n}\r\n",
+							"raw": " {\r\n        \"id\": 29,\r\n        \"username\": \"testUser100\",\r\n        \"email\": \"stupido100@gmail.com\",\r\n        \"password\": \"GanzGanzGanzSchwieriegsPasswort\",\r\n        \"picture\": null,\r\n        \"active\": true\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -88,14 +101,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/account/1",
+							"raw": "https://{{backend_url}}/account/29",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"account",
-								"1"
+								"29"
 							]
 						}
 					},
@@ -106,15 +119,116 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:8080/account/1",
+							"raw": "https://{{backend_url}}/account/28",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"account",
-								"1"
+								"28"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentification",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an object with accessToken property\", function () {\r",
+									"    pm.expect(response).to.be.an('object').that.has.property('accessToken');\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"access_token\", response.accessToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"hpdh#ss2ufw89$GNhze2G&YMoeb*!JMSe92qxTQZJ8Eu!dUCFm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/api/auth/login",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign up",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"adminUser5\",\r\n    \"email\": \"test1@gmail.com\",\r\n    \"password\": \"hpdh#ss2ufw89$GNhze2G&YMoeb*!JMSe92qxTQZJ8Eu!dUCFm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/api/auth/signup",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signup"
 							]
 						}
 					},
@@ -131,11 +245,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/administrator",
+							"raw": "https://{{backend_url}}/administrator",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"administrator"
 							]
@@ -149,11 +263,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/administrator/1",
+							"raw": "https://{{backend_url}}/administrator/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"administrator",
 								"1"
@@ -177,11 +291,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/administrator",
+							"raw": "https://{{backend_url}}/administrator",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"administrator"
 							]
@@ -204,11 +318,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/administrator/1",
+							"raw": "https://{{backend_url}}/administrator/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"administrator",
 								"1"
@@ -223,11 +337,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/administrator/1",
+							"raw": "https://{{backend_url}}/administrator/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"administrator",
 								"1"
@@ -247,11 +361,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/comment",
+							"raw": "https://{{backend_url}}/comment",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"comment"
 							]
@@ -265,11 +379,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/comment/1",
+							"raw": "https://{{backend_url}}/comment/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"comment",
 								"1"
@@ -293,11 +407,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/comment",
+							"raw": "https://{{backend_url}}/comment",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"comment"
 							]
@@ -320,11 +434,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/comment/1",
+							"raw": "https://{{backend_url}}/comment/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"comment",
 								"1"
@@ -339,14 +453,127 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/comment/1",
+							"raw": "https://{{backend_url}}/comment/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"comment",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/create-comment/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"create-comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment Thread",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/comment-thread/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"comment-thread",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/update-comment/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"update-comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increase Likes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"commentId\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/comment/increase-likes",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"comment",
+								"increase-likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrease Likes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"commentId\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/comment/decrease-likes",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"comment",
+								"decrease-likes"
 							]
 						}
 					},
@@ -359,15 +586,27 @@
 			"item": [
 				{
 					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:8080/course",
+							"raw": "https://{{backend_url}}/course",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"course"
 							]
@@ -381,11 +620,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/course/1",
+							"raw": "https://{{backend_url}}/course/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"course",
 								"1"
@@ -409,11 +648,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/course",
+							"raw": "https://{{backend_url}}/course",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"course"
 							]
@@ -436,11 +675,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/course/1",
+							"raw": "https://{{backend_url}}/course/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"course",
 								"1"
@@ -455,11 +694,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/course/1",
+							"raw": "https://{{backend_url}}/course/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"course",
 								"1"
@@ -479,11 +718,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/faculty",
+							"raw": "https://{{backend_url}}/faculty",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"faculty"
 							]
@@ -497,11 +736,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/faculty/1",
+							"raw": "https://{{backend_url}}/faculty/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"faculty",
 								"1"
@@ -525,11 +764,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/faculty",
+							"raw": "https://{{backend_url}}/faculty",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"faculty"
 							]
@@ -552,11 +791,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/faculty/1",
+							"raw": "https://{{backend_url}}/faculty/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"faculty",
 								"1"
@@ -571,11 +810,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/faculty/1",
+							"raw": "https://{{backend_url}}/faculty/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"faculty",
 								"1"
@@ -595,11 +834,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/picture",
+							"raw": "https://{{backend_url}}/picture",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"picture"
 							]
@@ -613,11 +852,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/picture/1",
+							"raw": "https://{{backend_url}}/picture/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"picture",
 								"1"
@@ -641,11 +880,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/picture",
+							"raw": "https://{{backend_url}}/picture",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"picture"
 							]
@@ -668,11 +907,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/picture/1",
+							"raw": "https://{{backend_url}}/picture/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"picture",
 								"1"
@@ -687,13 +926,33 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/picture/1",
+							"raw": "https://{{backend_url}}/picture/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"picture",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/picture/find/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"picture",
+								"find",
 								"1"
 							]
 						}
@@ -711,11 +970,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/post",
+							"raw": "https://{{backend_url}}/post",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"post"
 							]
@@ -729,11 +988,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/post/1",
+							"raw": "https://{{backend_url}}/post/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"post",
 								"1"
@@ -749,7 +1008,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"TINF22B6\"\r\n}",
+							"raw": "{\r\n    \"username\": \"adminUser\",\r\n    \"password\": \"hpdh#ss2ufw89$GNhze2G&YMoeb*!JMSe92qxTQZJ8Eu!dUCFm\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -757,11 +1016,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/post",
+							"raw": "https://{{backend_url}}/post",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"post"
 							]
@@ -784,11 +1043,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/post/1",
+							"raw": "https://{{backend_url}}/post/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"post",
 								"1"
@@ -803,18 +1062,410 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/post/1",
+							"raw": "https://{{backend_url}}/post/19",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"post",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get HomePagePosts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/homepage-preview-posts",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"homepage-preview-posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Faculty Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/homepage-preview-posts/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"homepage-preview-posts",
 								"1"
 							]
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Post in Thread view",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/post-thread/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"post-thread",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments from post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/post-comments/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"post-comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"\",\r\n    \"description\": \"\",\r\n    \"tags\": [],\r\n    \"timestamp\": \"2024-04-25T20:27:52.670\",\r\n    \"postImage\": [],\r\n    \"accountId\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/post/create-post",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"create-post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Teste ob alles klappt\",\r\n    \"description\": \"Hoffentlich\",\r\n    \"tags\": [],\r\n    \"postImage\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/post/update-post/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"update-post",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increase Likes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 13,\r\n    \"postId\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/post/increase-likes",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"increase-likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrease Likes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 13,\r\n    \"postId\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/post/decrease-likes",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"decrease-likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts By User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/user-posts/8",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"user-posts",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts from Friend",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/friend-posts/3",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"friend-posts",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts By Tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/posts-by-tag/Dozent",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"posts-by-tag",
+								"Dozent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts by Keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/posts-by-keyword/Tetris",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"posts-by-keyword",
+								"Tetris"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts by Tag Keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/posts-by-tag-keyword/e",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"posts-by-tag-keyword",
+								"e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Friendposts by tag",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 3,\r\n    \"tag\": \"Dozent\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/post/friend-posts-by-tag",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"friend-posts-by-tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Popular Tags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/post/popular-tags",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"popular-tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reportReason\": \"Spam\",\r\n    \"reportDescription\": \"Dieser Account spammt meine Inbox voll\",\r\n    \"postId\": 5,\r\n    \"authorId\": 5,\r\n    \"userId\": 13\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/post/report",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"post",
+								"report"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -827,11 +1478,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/user",
+							"raw": "https://{{backend_url}}/user",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"user"
 							]
@@ -845,11 +1496,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/user/1",
+							"raw": "https://{{backend_url}}/user/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"user",
 								"1"
@@ -873,11 +1524,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/user",
+							"raw": "https://{{backend_url}}/user",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"user"
 							]
@@ -900,11 +1551,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/user/1",
+							"raw": "https://{{backend_url}}/user/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"user",
 								"1"
@@ -919,11 +1570,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/user/1",
+							"raw": "https://{{backend_url}}/user/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"{{backend_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"user",
 								"1"
@@ -931,8 +1582,999 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get Liked Components",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/user/liked-components/8",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"user",
+								"liked-components",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile Information",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{local}}/user/profile-information/8",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"profile-information",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Information",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{local}}/user/user-information/16",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"user-information",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Password Correctness",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 19, \r\n    \"oldPassword\": \"SkibbidiRizzEdgeRedditMoment\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{local}}/user/check-password-correctness",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"check-password-correctness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Age",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"age\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{local}}/user/update-age",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-age"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Description",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"description\": \"Still a normal User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{local}}/user/update-description",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-description"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"course\": \"TINF22B6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{local}}/user/update-course",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Email",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 19,\r\n    \"email\": \"skibidirizz@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{local}}/user/update-email",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Username",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 19,\r\n    \"username\": \"SchmadminUser\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{local}}/user/update-username",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-username"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 19,\r\n    \"newPassword\": \"SkibbidiRizzEdgeRedditMoment\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{local}}/user/update-password",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Picture",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 19,\r\n    \"imageData\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{local}}/user/update-picture",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-picture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{local}}/user/user-by-keyword/ ",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"user-by-keyword",
+								" "
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Events in Homepage View",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/event/homepage-preview-events",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"homepage-preview-events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event in Thread View",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/event/event-thread/2",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"event-thread",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/event/event-comments/2",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"event-comments",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event Comment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/event/event-comment/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"event-comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"\",\r\n    \"description\": \"\",\r\n    \"location\": {\r\n        \"location\": \"\",\r\n        \"latitude\": 49.02628,\r\n        \"longitude\": 8.38546\r\n    },\r\n    \"timestamp\": \"2024-05-07T15:30:00.670\",\r\n    \"startdate\": \"2024-10-12T18:00:00.000\",\r\n    \"enddate\": \"2024-10-12T22:00:00.000\",\r\n    \"tags\": [\"\", \"\"],\r\n    \"postImage\": [],\r\n    \"accountId\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/event/create-event",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"create-event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event Post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"\",\r\n    \"postImage\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/event/update-event/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"update-event",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventId\": 0, \r\n    \"accountId\": 0,\r\n    \"description\": \"\",\r\n    \"timestamp\":  \"2024-10-12T22:00:00.000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/event/create-comment",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"create-comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event Comment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/event/update-comment/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"update-comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increase Post Likes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"eventId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/event/post-increase-likes",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"post-increase-likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrease Post Likes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"eventId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/event/post-decrease-likes",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"post-decrease-likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increase Comment Likes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"eventCommentId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/event/comment-increase-likes",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"comment-increase-likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrease Comment Likes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"eventCommentId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/event/comment-decrease-likes",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"comment-decrease-likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Eventpost",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/event/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Eventcomment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/event/comment/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"event",
+								"comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Calendar Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{local}}/event/calendar-events",
+							"protocol": "https",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"event",
+								"calendar-events"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Get Notifications for user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/notification/unseen/7",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"notification",
+								"unseen",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Notification",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notificationId\": 0,\r\n    \"groupId\": null,\r\n    \"type\": \"Type-Post-Comment/Type-Post-Like/Type-Follow/Type-Comment-Like/Type-Event-Comment-Like\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/notification",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"notification"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Friendship",
+			"item": [
+				{
+					"name": "Get Friendlist from certain user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/friendship/friendlist/3",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"friendship",
+								"friendlist",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requesterId\":0,\r\n    \"receiverId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/friendship/follow-user",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"friendship",
+								"follow-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Friendship",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/friendship/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"friendship",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requesterId\":0,\r\n    \"receiverId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/friendship/unfollow-user",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"friendship",
+								"unfollow-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Is following User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requesterId\":0,\r\n    \"receiverId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/friendship/is-following-user",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"friendship",
+								"is-following-user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SavedPost",
+			"item": [
+				{
+					"name": "Get Saved Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/savedPost/homepage-saved-posts/1",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"savedPost",
+								"homepage-saved-posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Saved Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": 10,\r\n    \"userId\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{backend_url}}/savedPost/saved-post",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"savedPost",
+								"saved-post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{backend_url}}/savedPost/11",
+							"protocol": "https",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"savedPost",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "backend_url",
+			"value": "56e66ce8-2ac2-4635-982a-f19f20896303.ka.bw-cloud-instance.org:8443"
+		},
+		{
+			"key": "local",
+			"value": "localhost:8443"
 		}
 	]
 }
