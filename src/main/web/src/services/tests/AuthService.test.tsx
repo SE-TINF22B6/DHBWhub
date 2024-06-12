@@ -16,12 +16,17 @@ describe('AuthService', () => {
             const username = 'testuser';
             const email = 'test@example.com';
             const password = 'password';
-            const responseData = {message: 'User registered successfully'};
+            const rememberMe = false;
+            const responseData = {accountId: 1, userId: 2, username: 'testuser', accessToken: 'jwt-token'};
             mock.onPost(config.apiUrl + 'api/auth/signup').reply(200, responseData);
 
             const response = await authService.register(username, email, password);
 
-            expect(response.data).toEqual(responseData);
+            expect(response).toEqual(responseData);
+            expect(localStorage.getItem('accountId')).toEqual('1');
+            expect(localStorage.getItem('userId')).toEqual('2');
+            expect(localStorage.getItem('username')).toEqual('testuser');
+            expect(localStorage.getItem('token')).toEqual('jwt-token');
         });
     });
 

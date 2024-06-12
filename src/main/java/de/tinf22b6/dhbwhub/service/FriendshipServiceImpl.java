@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class FriendshipServiceImpl implements FriendshipService {
@@ -52,6 +53,10 @@ public class FriendshipServiceImpl implements FriendshipService {
 
     @Override
     public FriendlistProposal followUser(FollowUserProposal proposal) {
+        if (Objects.equals(proposal.getRequesterId(), proposal.getReceiverId())) {
+            throw new RuntimeException("User cannot follow itself");
+        }
+
         User requester = userRepository.find(proposal.getRequesterId());
         if (requester == null) {
             throw new NoSuchEntryException(String.format("%s with ID %d does not exist", User.class.getSimpleName(), proposal.getRequesterId()));

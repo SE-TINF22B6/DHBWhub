@@ -48,6 +48,8 @@
         <h4>Details zum Vorfall:</h4>
         <ul>
             <li><strong>URL zum Post:</strong> <td th:text="${post_url}"></td></li>
+            <li><strong>Typ:</strong> <td th:text="${content_type}"></td></li>
+            <li th:if="${comment_id != null}"><strong>Kommentar-ID:</strong> <td th:text="${comment_id}"></td></li>
             <li><strong>Benutzer-ID des Reporters:</strong> <td th:text="${user_id_of_reporter}"></td></li>
             <li><strong>Benutzer-ID des Autors:</strong> <td th:text="${user_id_of_author}"></td></li>
             <li><strong>Report Grund:</strong> <td th:text="${report_reason}"></td></li>

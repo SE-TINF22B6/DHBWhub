@@ -1,7 +1,8 @@
-import {getJWT, getUserId, getUsername} from "./AuthService";
+import {getJWT, getUserId} from "./AuthService";
 import config from "../config/config";
 
 interface UserData {
+    userId: number;
     username: string;
     email: string;
     picture: {
@@ -27,23 +28,22 @@ export const fetchUserData = async (): Promise<UserData | null> => {
     const userId: number | null = getUserId();
 
     try {
-        const response: Response = await fetch(`${config.apiUrl}user/${userId}`, {
+        const response: Response = await fetch(`${config.apiUrl}user/user-information/${userId}`, {
             headers: getHeaders()
         });
 
         if (response.ok) {
             const data = await response.json();
-            const userData: UserData = {
-                username: data.account.username ?? "",
-                email: data.account.email ?? "",
-                picture: data.account.picture ? data.account.picture : { id: 0, name: '', imageData: '' },
+            return {
+                userId: data.userId ?? 0,
+                username: data.username ?? "",
+                email: data.email ?? "",
+                picture: data.picture ? data.picture : {id: 0, name: '', imageData: ''},
                 amountFollower: data.amountFollower ?? 0,
                 age: data.age ?? '',
                 description: data.description ?? '',
-                course: data.course?.name ?? ''
+                course: data.course ?? ''
             };
-            console.log("Successful fetching of userdata", userData);
-            return userData;
         } else {
             console.error("Failed to fetch Userdata");
             return null;
@@ -56,9 +56,9 @@ export const fetchUserData = async (): Promise<UserData | null> => {
 
 export const updateAge = async (age: string): Promise<boolean> => {
     const headers = getHeaders();
-    const userId = getUserId();
+    const userId: number | null = getUserId();
     try {
-        const response = await fetch(`${config.apiUrl}user/update-age`, {
+        const response: Response = await fetch(`${config.apiUrl}user/update-age`, {
             method: 'PUT',
             headers,
             body: JSON.stringify({ userId, age })
@@ -72,9 +72,9 @@ export const updateAge = async (age: string): Promise<boolean> => {
 
 export const updateDescription = async (description: string): Promise<boolean> => {
     const headers = getHeaders();
-    const userId = getUserId();
+    const userId: number | null = getUserId();
     try {
-        const response = await fetch(`${config.apiUrl}user/update-description`, {
+        const response: Response = await fetch(`${config.apiUrl}user/update-description`, {
             method: 'PUT',
             headers,
             body: JSON.stringify({ userId, description })
@@ -88,9 +88,9 @@ export const updateDescription = async (description: string): Promise<boolean> =
 
 export const updateCourse = async (course: string): Promise<boolean> => {
     const headers = getHeaders();
-    const userId = getUserId();
+    const userId: number | null = getUserId();
     try {
-        const response = await fetch(`${config.apiUrl}user/update-course`, {
+        const response: Response = await fetch(`${config.apiUrl}user/update-course`, {
             method: 'PUT',
             headers,
             body: JSON.stringify({ userId, course })
@@ -104,9 +104,9 @@ export const updateCourse = async (course: string): Promise<boolean> => {
 
 export const updateEmail = async (email: string): Promise<boolean> => {
     const headers = getHeaders();
-    const userId = getUserId();
+    const userId: number | null = getUserId();
     try {
-        const response = await fetch(`${config.apiUrl}user/update-email`, {
+        const response: Response = await fetch(`${config.apiUrl}user/update-email`, {
             method: 'PUT',
             headers,
             body: JSON.stringify({ userId, email })
@@ -120,9 +120,9 @@ export const updateEmail = async (email: string): Promise<boolean> => {
 
 export const updateUsername = async (username: string): Promise<boolean> => {
     const headers = getHeaders();
-    const userId = getUserId();
+    const userId: number | null = getUserId();
     try {
-        const response = await fetch(`${config.apiUrl}user/update-username`, {
+        const response: Response = await fetch(`${config.apiUrl}user/update-username`, {
             method: 'PUT',
             headers,
             body: JSON.stringify({ userId, username })
@@ -137,10 +137,10 @@ export const updateUsername = async (username: string): Promise<boolean> => {
 
 export const updatePicture = async (imageData: string): Promise<boolean> => {
     const headers = getHeaders();
-    const userId = getUserId();
+    const userId: number | null = getUserId();
 
     try {
-        const response = await fetch(`${config.apiUrl}user/update-picture`, {
+        const response: Response = await fetch(`${config.apiUrl}user/update-picture`, {
             method: 'PUT',
             headers,
             body: JSON.stringify({ userId, imageData }),
@@ -151,5 +151,3 @@ export const updatePicture = async (imageData: string): Promise<boolean> => {
         return false;
     }
 };
-
-

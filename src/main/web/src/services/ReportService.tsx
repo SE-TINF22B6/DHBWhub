@@ -1,7 +1,8 @@
 import config from "../config/config";
 import {getJWT, getUserId} from "./AuthService";
 
-export const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number | null, type: string): void => {
+export const sendReportToBackend = (reportReason: string, reportDescription: string, postId: number, authorId: number | null, type: string,
+                                    commentId?: number | null, ): void => {
   const jwt: string | null = getJWT();
   const headersWithJwt = {
     ...config.headers,
@@ -15,10 +16,9 @@ export const sendReportToBackend = (reportReason: string, reportDescription: str
     postId: postId,
     authorId: authorId,
     userId: userId,
+    commentId: commentId,
     type: type
   };
-
-  console.log('Report:', JSON.stringify(report));
 
   fetch(config.apiUrl + 'post/report', {
     method: 'POST',
@@ -27,7 +27,7 @@ export const sendReportToBackend = (reportReason: string, reportDescription: str
   })
   .then(response => {
     if (!response.ok) {
-      console.log(response);
+      console.error("Response: ", response);
       throw new Error('Error sending report: ' + response.statusText);
     }
     alert('Report of ' + type + ' ' + postId + ' sent successfully');

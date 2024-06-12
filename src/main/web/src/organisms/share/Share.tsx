@@ -72,7 +72,7 @@ export const Share = (props: ShareProps) => {
   };
 
   const openWindowsShareOptions = (): void => {
-    sharePost().then(() => console.log('Shared ' + type + ' successfully.'));
+    sharePost();
   };
 
   return (
