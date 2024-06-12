@@ -251,13 +251,7 @@ export const UserPost: React.FC<PostModel> = (props: PostModel) => {
                 </div>
             )}
             {reportOpen && (
-                <Report
-                    reportOpen={reportOpen}
-                    setReportReason={setReportReason}
-                    setReportDescription={setReportDescription}
-                    handleReportSubmit={handleReportSubmit}
-                    handleClose={handleClose}
-                />
+                <Report reportOpen={reportOpen} handleReportSubmit={handleReportSubmit} handleClose={handleClose}/>
             )}
         </div>
     );
