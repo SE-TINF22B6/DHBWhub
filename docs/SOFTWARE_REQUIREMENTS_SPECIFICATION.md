@@ -86,6 +86,8 @@ Documents:
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ProfilePersonalizationSequenceDiagram.drawio.png
 - Revised UseCase-Diagram, 11.06.2024:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneralRenewed.drawio.png
+- Revised Entity Relation Diagram, 12.06.2024:\
+  https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ER_Diagram_General_Revised.drawio.png
 ---
 
 ## 2. Functional requirements
@@ -110,7 +112,7 @@ The latter section is a rather special one which involves the administrators of 
 In order to better understand all the entities involved in our project, we have created the following ER-diagram to better visualize and represent every important
 entity and its relations to other entities on a high level. 
 
->![EER-entities](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/er_diagram_general_overview.drawio.png)
+>![EER_Diagram](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/f135ce13-9dde-43a6-9540-c01a68038374)
 
 - Account: Both administrators as well as our end-users need to create an account with the most basic information (username, email-address, password and optionally a profile picture)
 - Administrator: Accounts which are responsible for maintaining our website and fix and interact with user issues
