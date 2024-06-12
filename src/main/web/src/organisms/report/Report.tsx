@@ -25,8 +25,6 @@ export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
     initialValues: {reportReason: '', reportDescription: ''},
     validationSchema: validationSchema,
     onSubmit: (values): void => {
-      console.log('Reason:', values.reportReason);
-      console.log('Description:', values.reportDescription);
       handleReportSubmit(values.reportReason, values.reportDescription);
     },
   });
