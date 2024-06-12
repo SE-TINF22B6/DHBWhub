@@ -3,13 +3,11 @@ package de.tinf22b6.dhbwhub.service;
 import de.tinf22b6.dhbwhub.exception.NoSuchEntryException;
 import de.tinf22b6.dhbwhub.mapper.FriendshipMapper;
 import de.tinf22b6.dhbwhub.mapper.NotificationMapper;
-import de.tinf22b6.dhbwhub.model.Account;
 import de.tinf22b6.dhbwhub.model.Friendship;
 import de.tinf22b6.dhbwhub.model.User;
 import de.tinf22b6.dhbwhub.model.notification_tables.FollowNotification;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.FollowUserProposal;
 import de.tinf22b6.dhbwhub.proposal.simplified_models.FriendlistProposal;
-import de.tinf22b6.dhbwhub.repository.AccountRepository;
 import de.tinf22b6.dhbwhub.repository.FriendshipRepository;
 import de.tinf22b6.dhbwhub.repository.NotificationRepository;
 import de.tinf22b6.dhbwhub.repository.UserRepository;
@@ -22,18 +20,14 @@ import java.util.List;
 
 @Service
 public class FriendshipServiceImpl implements FriendshipService {
-
     private final FriendshipRepository repository;
-    private final AccountRepository accountRepository;
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
 
     public FriendshipServiceImpl(@Autowired FriendshipRepository repository,
-                                 @Autowired AccountRepository accountRepository,
                                  @Autowired NotificationRepository notificationRepository,
                                  @Autowired UserRepository userRepository) {
         this.repository = repository;
-        this.accountRepository = accountRepository;
         this.notificationRepository = notificationRepository;
         this.userRepository = userRepository;
     }
@@ -45,14 +39,6 @@ public class FriendshipServiceImpl implements FriendshipService {
             throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Friendship.class.getSimpleName(), id));
         }
         return friendship;
-    }
-
-    @Override
-    public void delete(Long id) {
-        // Check if account exists
-        get(id);
-
-        repository.delete(id);
     }
 
     @Override
@@ -68,25 +54,75 @@ public class FriendshipServiceImpl implements FriendshipService {
     public FriendlistProposal followUser(FollowUserProposal proposal) {
         User requester = userRepository.find(proposal.getRequesterId());
         if (requester == null) {
-            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Account.class.getSimpleName(), proposal.getRequesterId()));
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", User.class.getSimpleName(), proposal.getRequesterId()));
         }
+
         User receiver = userRepository.find(proposal.getReceiverId());
         if (receiver == null) {
-            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", Account.class.getSimpleName(), proposal.getReceiverId()));
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", User.class.getSimpleName(), proposal.getReceiverId()));
         }
-        if(repository.exists(proposal.getRequesterId(), proposal.getReceiverId()) != null){
+
+        if (repository.exists(proposal.getRequesterId(), proposal.getReceiverId()) != null) {
             throw new NoSuchEntryException(String.format("User already followed by User with id %s", proposal.getRequesterId()));
         }
 
         Friendship friendship = FriendshipMapper.mapToFriendship(requester, receiver);
 
         // notify receiver
-        if (!notificationRepository.checkIfFollowEntryExists(requester.getId(), receiver.getId())){
-            FollowNotification followNotification = NotificationMapper.mapToFollowNotification(requester,receiver);
+        if (!notificationRepository.checkIfFollowEntryExists(requester.getId(), receiver.getId())) {
+            FollowNotification followNotification = NotificationMapper.mapToFollowNotification(requester, receiver);
             followNotification.setAccumulatedId(null);
             notificationRepository.saveFollowNotification(followNotification);
         }
 
         return FriendshipMapper.mapToFriendlist(repository.save(friendship));
+    }
+
+    @Override
+    public void unfollowUser(FollowUserProposal proposal) {
+        User requester = userRepository.find(proposal.getRequesterId());
+        if (requester == null) {
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", User.class.getSimpleName(), proposal.getRequesterId()));
+        }
+
+        User receiver = userRepository.find(proposal.getReceiverId());
+        if (receiver == null) {
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", User.class.getSimpleName(), proposal.getReceiverId()));
+        }
+
+        Friendship friendship = repository.exists(proposal.getRequesterId(), proposal.getReceiverId());
+        if (friendship == null) {
+            throw new NoSuchEntryException(String.format("User doesn't follow User with id %s", proposal.getRequesterId()));
+        }
+
+        FollowNotification followNotification = notificationRepository.findFollowNotification(requester.getId(), receiver.getId());
+        if (followNotification != null) {
+            notificationRepository.deleteFollowNotification(followNotification);
+        }
+
+        repository.delete(friendship.getId());
+    }
+
+    @Override
+    public boolean isFollowingUser(FollowUserProposal proposal) {
+        User requester = userRepository.find(proposal.getRequesterId());
+        if (requester == null) {
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", User.class.getSimpleName(), proposal.getRequesterId()));
+        }
+
+        User receiver = userRepository.find(proposal.getReceiverId());
+        if (receiver == null) {
+            throw new NoSuchEntryException(String.format("%s with ID %d does not exist", User.class.getSimpleName(), proposal.getReceiverId()));
+        }
+
+        return repository.exists(proposal.getRequesterId(), proposal.getReceiverId()) != null;
+    }
+
+    @Override
+    public void delete(Long id) {
+        // Check if account exists
+        get(id);
+
+        repository.delete(id);
     }
 }

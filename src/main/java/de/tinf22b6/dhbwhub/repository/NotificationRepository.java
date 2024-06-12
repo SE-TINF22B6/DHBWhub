@@ -98,6 +98,10 @@ public class NotificationRepository {
         return followNotificationRepository.findById(id).orElse(null);
     }
 
+    public FollowNotification findFollowNotification(Long triggeringUserId, Long userId) {
+        return followNotificationRepository.findByTriggeringUserIdAndUserId(triggeringUserId, userId).orElse(null);
+    }
+
     public PostCommentNotification findPostCommentNotificationById(Long id) {
         return postCommentNotificationRepository.findById(id).orElse(null);
     }

@@ -90,12 +90,12 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
       }
     };
     document.addEventListener('keydown', handleEsc);
-    return () => {
+    return (): void => {
       document.removeEventListener('keydown', handleEsc);
     };
   }, [reportOpen, handleClose]);
 
-  useEffect(() => {
+  useEffect((): void => {
     const fetchUserId = async () => {
       const id = await getUserIdByAccountId(accountId);
       setUserId(id);
