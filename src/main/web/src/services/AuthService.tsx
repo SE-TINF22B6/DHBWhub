@@ -16,7 +16,7 @@ export const register = async (username: string, email: string, password: string
 };
 
 export const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; username: string; accessToken: string; }): void => {
-    localStorage.setItem('accountId', data.accountId.toString());
+    localStorage.setItem('accountId', "" + data.accountId.toString());
     localStorage.setItem('userId', data.userId.toString());
     localStorage.setItem('username', data.username);
     localStorage.setItem('token', data.accessToken);
