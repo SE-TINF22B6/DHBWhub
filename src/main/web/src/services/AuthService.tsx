@@ -2,12 +2,17 @@ import axios from "axios";
 import config from "../config/config";
 import {jwtDecode} from "jwt-decode";
 
-export const register = (username: string, email: string, password: string) => {
-    return axios.post(config.apiUrl + "api/auth/signup", {
-        username,
-        email,
-        password,
-    });
+export const register = async (username: string, email: string, password: string): Promise<any> => {
+    const response = await axios
+        .post(config.apiUrl + "api/auth/signup", {
+            username,
+            email,
+            password,
+        });
+    saveUserDataToLocalStorage(response.data);
+    localStorage.setItem('oAuthUser', 'false');
+
+    return response.data;
 };
 
 export const saveUserDataToLocalStorage = (data: { accountId: number; userId: number; username: string; accessToken: string; }): void => {
