@@ -64,7 +64,10 @@ public class AuthController {
 
     @PostMapping("login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+        return loginAndCreateJWT(loginRequest);
+    }
 
+    private ResponseEntity<?> loginAndCreateJWT (@Valid @RequestBody LoginRequest loginRequest) {
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -102,7 +105,7 @@ public class AuthController {
 
         userRepository.save(newUser);
 
-        return login(new LoginRequest(newAccount.getUsername(), newAccount.getPassword(), false));
+        return loginAndCreateJWT(new LoginRequest(newAccount.getUsername(), newAccount.getPassword(), false));
     }
 
     @PostMapping("email-verification")
