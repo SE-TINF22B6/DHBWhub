@@ -102,8 +102,8 @@ export const Post = () => {
         const newComment = await response.json();
         setComments(prevComments => [...prevComments, newComment]);
       } else {
-        console.error("Failed to create the comment: ");
-        console.log(response);
+        console.error("Failed to create the comment");
+        console.error("Response:", response);
       }
       setLoading(false);
     } catch (error) {

@@ -61,7 +61,7 @@ const Login: React.FC<Props> = () => {
     const handleGoogleLogin = (credentialResponse: CredentialResponse): void => {
         googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
             (): void => {
-                localStorage.setItem('oathUser', 'true');
+                localStorage.setItem('oAuthUser', 'true');
                 window.location.reload();
             },
             (): void => {
@@ -114,9 +114,7 @@ const Login: React.FC<Props> = () => {
                             <GoogleLogin size={'medium'} logo_alignment={'center'} ux_mode={'popup'} useOneTap={true}
                                          text={"continue_with"}
                                          onSuccess={handleGoogleLogin}
-                                         onError={(): void => {
-                                             console.log('Login Failed');
-                                         }}
+                                         onError={(): void => {console.error('Login Failed');}}
                             />
                         </div>
 

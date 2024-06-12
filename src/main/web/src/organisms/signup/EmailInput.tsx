@@ -70,10 +70,9 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
   };
 
   const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
-    console.log(credentialResponse);
     googleLogin(JSON.stringify({ token: credentialResponse.credential })).then(
         (): void => {
-          localStorage.setItem('oathUser', 'true');
+          localStorage.setItem('oAuthUser', 'true');
           navigate("/profile");
           window.location.reload();
         },
@@ -157,7 +156,7 @@ export const EmailInput = forwardRef<HTMLDivElement, { onSuccess: () => void }>(
           text={"signup_with"}
           onSuccess={handleGoogleLogin}
           onError={(): void => {
-            console.log("Login Failed");
+            console.error("Login Failed");
           }}
         />
       </div>
