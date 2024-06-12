@@ -12,7 +12,10 @@
   width: 100px;
   height: 100px;
   object-fit: cover;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  &&:hover {
+    filter: brightness(75%);
+  }
 }
 
 .profile-page-picture {
@@ -46,7 +49,7 @@
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .profile-field {
@@ -75,13 +78,14 @@
 }
 
 .profile-field button {
-  background-color: #5a5a5a;
+  background-color: var(--lighter-grey);
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 10px;
+  margin-left: 5px;
 }
 
 .label-profile-page-text {

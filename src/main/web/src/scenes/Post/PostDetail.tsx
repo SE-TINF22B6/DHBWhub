@@ -47,18 +47,14 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
   };
 
   const [reportOpen, setReportOpen] = useState(false);
-  const [reportReason, setReportReason] = useState('');
-  const [reportDescription, setReportDescription] = useState('');
 
   const handleReportClick = (): void => {
     setReportOpen(true);
   };
 
-  const handleReportSubmit = (): void => {
-    sendReportToBackend(reportReason, reportDescription, id, accountId, "post");
+  const handleReportSubmit = (reason: string, description: string): void => {
+    sendReportToBackend(reason, description, id, accountId, "post");
     setReportOpen(!reportOpen);
-    setReportReason('');
-    setReportDescription('');
   };
 
   useEffect((): void => {
@@ -90,7 +86,6 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
         headers: headersWithJwt
       });
       if (response.ok) {
-        console.log('Post has been saved!');
         alert('Post has been saved!');
       } else {
         console.error('Error saving the post: ', response.statusText);
@@ -218,13 +213,7 @@ export const PostDetail: React.FC<PostDetailModel> = (props: PostDetailModel) =>
         )}
         {reportOpen && (
             <div className="post-detail-report-window">
-              <Report
-                  reportOpen={reportOpen}
-                  setReportReason={setReportReason}
-                  setReportDescription={setReportDescription}
-                  handleReportSubmit={handleReportSubmit}
-                  handleClose={handleClose}
-              />
+              <Report reportOpen={reportOpen} handleReportSubmit={handleReportSubmit} handleClose={handleClose}/>
             </div>
         )}
       </div>
