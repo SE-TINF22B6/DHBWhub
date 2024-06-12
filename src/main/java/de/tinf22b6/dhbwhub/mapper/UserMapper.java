@@ -21,6 +21,7 @@ public class UserMapper {
         return new UserInformationProposal(
                 user.getId(),
                 user.getAccount().getUsername(),
+                user.getAccount().getEmail(),
                 user.getAccount().getPicture(),
                 followerAmount,
                 user.getAge(),
