@@ -91,7 +91,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public void report(ReportPostProposal proposal) {
         Map<String, Object> templateModel = new HashMap<>();
-        templateModel.put("post_url", String.format("https://www.dhbwhub.de/post/?id=%d", proposal.getPostId()));
+        templateModel.put("post_url", String.format("https://www.dhbwhub.de/%s/?id=%d", proposal.getType().equals("eventComment") ? "event" : "post", proposal.getPostId()));
+        templateModel.put("content_type", proposal.getType());
+        templateModel.put("comment_id", proposal.getCommentId());
         templateModel.put("user_id_of_reporter", proposal.getUserId());
         templateModel.put("user_id_of_author", proposal.getAuthorId());
         templateModel.put("report_reason", proposal.getReportReason());

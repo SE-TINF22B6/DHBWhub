@@ -21,4 +21,6 @@ public class ReportPostProposal {
 	private Long userId;
 
 	private String type;
+
+	private Long commentId;
 }
