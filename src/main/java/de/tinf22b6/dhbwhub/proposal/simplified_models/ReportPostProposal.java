@@ -19,4 +19,8 @@ public class ReportPostProposal {
 	private Long authorId;
 
 	private Long userId;
+
+	private String type;
+
+	private Long commentId;
 }
