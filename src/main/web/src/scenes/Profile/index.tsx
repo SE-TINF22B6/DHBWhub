@@ -59,18 +59,18 @@ export const ProfilePage = () => {
         description: false
     });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const {name, value} = event.target;
         const sanitizedValue = DOMPurify.sanitize(value);
         setUserData({...userData, [name]: sanitizedValue});
     };
 
-    const handleEdit = (field: string) => {
+    const handleEdit = (field: string): void => {
         setIsEditing({...isEditing, [field]: !isEditing[field]});
     };
 
-    const handleSaveChanges = async (field: string) => {
-        let success = false;
+    const handleSaveChanges = async (field: string): Promise<void> => {
+        let success: boolean = false;
         switch (field) {
             case 'username':
                 success = await updateUsername(userData.username);
@@ -104,17 +104,17 @@ export const ProfilePage = () => {
     const handlePictureChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.files);
         if (event.target.files && event.target.files.length > 0) {
-            const reader = new FileReader();
-            reader.onloadend = async () => {
+            const reader: FileReader = new FileReader();
+            reader.onloadend = async (): Promise<void> => {
                 if (reader.result && event.target.files) {
-                    const imageData = reader.result as string;
-                    const success = await updatePicture(imageData);
+                    const imageData: string = reader.result as string;
+                    const success: boolean = await updatePicture(imageData);
                     if (success) {
                         setUserData(prevState => ({
                             ...prevState,
                             picture: {
                                 ...prevState.picture,
-                                imageData // Aktualisieren Sie den imageData-Zustand mit dem aktualisierten Bild
+                                imageData
                             }
                         }));
                         console.log("Bild erfolgreich aktualisiert");
@@ -135,7 +135,7 @@ export const ProfilePage = () => {
 
     useEffect((): void => {
         const fetchData = async (): Promise<void> => {
-            const id = getUserId();
+            const id: number | null = getUserId();
             if (id) {
                 const [data, image] = await Promise.all([fetchUserData(), fetchUserImage()]);
                 if (data) {
@@ -154,11 +154,11 @@ export const ProfilePage = () => {
         fetchData();
     }, []);
 
-    const adBlockDetected = useDetectAdBlock();
+    const adBlockDetected: boolean = useDetectAdBlock();
     usePreventScrolling(adBlockDetected);
     const scrollUpRef = useRef<HTMLDivElement>(null);
 
-    const disableEmailAndPasswordEdit = localStorage.getItem("oathUser") === "true";
+    const disableEmailAndPasswordEdit: boolean = localStorage.getItem("oAuthUser") === "true";
 
     return (
         <div className="page">
@@ -192,12 +192,16 @@ export const ProfilePage = () => {
                     <button onClick={() => isEditing.username ? handleSaveChanges('username') : handleEdit('username')}>
                         {isEditing.username ? 'Save' : 'Edit'}
                     </button>
-                    <p className="profile-page-info-message">If you want to change your user name, you will be logged out and must log in again for the change to take effect!</p>
+                    {isEditing.username && (
+                        <p className="profile-page-info-message">
+                            If you want to change your user name, you will be logged out and must log in again for the change to take effect!
+                        </p>
+                    )}
                 </div>
 
                 {!disableEmailAndPasswordEdit && (
                     <div className="profile-field">
-                        <label className="label-profile-page-text">Email Address</label>
+                    <label className="label-profile-page-text">Email Address</label>
                         {isEditing.email ? (
                             <input type="email" name="email" value={userData.email} onChange={handleChange}/>
                         ) : (
@@ -210,9 +214,7 @@ export const ProfilePage = () => {
                 )}
 
                 <div className="profile-field">
-                    <label className="label-profile
-
--page-text">Course</label>
+                    <label className="label-profile-page-text">Course</label>
                     {isEditing.course ? (
                         <input type="text" name="course" value={userData.course} onChange={handleChange}/>
                     ) : (
