@@ -58,12 +58,23 @@
 }
 
 .follow-button {
+    cursor: pointer;
     font-size: var(--headline-font-size);
     padding: 10px;
     color: white;
     align-items: center;
     border-radius: 5px;
     background-color: var(--red);
+    width: auto;
+}
+.unfollow-button {
+    cursor: pointer;
+    font-size: var(--headline-font-size);
+    padding: 10px;
+    color: white;
+    align-items: center;
+    border-radius: 5px;
+    background-color: var(--lighter-grey);
     width: auto;
 }
 

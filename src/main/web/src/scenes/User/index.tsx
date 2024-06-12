@@ -28,6 +28,7 @@ export const UserPage = () => {
     const [course, setCourse] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [notFound, setNotFound] = useState(true);
+    const [follow, setFollow] = useState(true);
     const [postLoading, setPostsLoading] = useState(true);
     const [postsNotFound, setPostsNotFound] = useState(false);
     const jwt: string | null = getJWT();
@@ -114,28 +115,65 @@ export const UserPage = () => {
     }, [id, userId, config.headers, config.apiUrl]);
 
 
-    const handleFollow = async () => {
+    const handleFollow = async (following:boolean) => {
         if (userId === null) return;
+        isFollowing();
+        if (following) {
+            try {
 
-        try {
-            const response = await fetch(config.apiUrl + `friendship/follow-user`, {
-                method: 'POST',
-                headers: headersWithJwt,
-                body: JSON.stringify({
-                    "requesterId": senderId,
-                    "receiverId": id
-                })
-            });
+                const response = await fetch(config.apiUrl + `friendship/follow-user`, {
+                    method: 'POST',
+                    headers: headersWithJwt,
+                    body: JSON.stringify({
+                        "requesterId": senderId,
+                        "receiverId": id
+                    })
+                });
 
-            if (response.ok) {
-                console.log("Successfully followed the user");
+                if (response.ok) {
+                    if (following) {
+                        console.log("Successfully followed the user");
+                        setAmountFollower(prev => (prev !== null ? prev + 1 : 1));
+                    } else {
+                        console.log("Successfully unfollowed the user");
+                    }
 
-                setAmountFollower(prev => (prev !== null ? prev + 1 : 1));
-            } else {
-                console.error("Failed to follow the user");
+                } else {
+                    if (following) {
+                        console.error("Failed to follow the user");
+                    } else {
+                        console.error("Failed to unfollow the user");
+                    }
+
+                }
+            } catch (error) {
+                if (following) {
+                    console.error("Failed to follow the user " + error);
+                } else {
+                    console.error("Failed to unfollow the user " + error);
+                }
             }
-        } catch (error) {
-            console.error("Error following the user:", error);
+        }
+        else {
+            try {
+
+                const response = await fetch(config.apiUrl + `friendship/unfollow-user`, {
+                    method: 'POST',
+                    headers: headersWithJwt,
+                    body: JSON.stringify({
+                        "requesterId": senderId,
+                        "receiverId": id
+                    })
+                });
+
+                if (response.ok) {
+                        console.log("Successfully unfollowed the user");
+                } else {
+                        console.error("Failed to unfollow the user");
+                }
+            } catch (error) {
+                console.error("Failed to unfollow the user " + error);
+            }
         }
     }
 
@@ -168,22 +206,83 @@ export const UserPage = () => {
     }
 
 
-    class FollowButton extends React.Component<{ userId: any, senderId: any, handleFollow: any }> {
+    class FollowButton extends React.Component<{ userId: any, senderId: any }> {
         render() {
-            let {userId, senderId, handleFollow} = this.props;
+            let {userId, senderId} = this.props;
             if (userId === senderId) {
                 return (
                     <div></div>
                 );
-            } else {
+            } else if (follow) {
                 return (
-                    <button className="follow-button" onClick={handleFollow}>
-                        Follow
+                    <button className="unfollow-button"  onClick={() => handleFollow(false)}>
+                        Unfollow
                     </button>
                 );
+
             }
+            return (
+                <button className="follow-button" onClick={() => handleFollow(true)}>
+                    Follow
+                </button>
+            );
         }
     }
+    const isFollowing = async () => {
+
+        try {
+            const response = await fetch(config.apiUrl + `friendship/is-following-user`, {
+                method: 'POST',
+                headers: headersWithJwt,
+                body: JSON.stringify({
+                    "requesterId": senderId,
+                    "receiverId": id
+                })
+            });
+
+            if (response.ok) {
+                   setFollow(true);
+                    console.log("Successfully unfollowed the user");
+
+            } else {
+                setFollow(false);
+                    console.error("Failed to follow the user");
+
+            }
+        } catch (error) {
+                console.error("Failed to follow the user " + error);
+
+        }
+    }
+
+
+    if (notFound) {
+        return (
+            <div className="page">
+                <Header/>
+                <div className="user-not-found">
+                    <h1 className="error">This User doesn´t exist</h1>
+                </div>
+                <Footer/>
+            </div>
+        );
+    }
+    if (loading) {
+        return (
+            <div className="page">
+                <Header/>
+                <div className="user-component">
+                    <div className="animation">
+                        <div className="loading-animation">
+                            <Lottie animationData={animationData}/>
+                        </div>
+                    </div>
+                </div>
+                <Footer/>
+            </div>
+        );
+    }
+
 
     class DisplayPosts extends React.Component {
 
@@ -277,7 +376,7 @@ export const UserPage = () => {
                         <span>Description: Not set</span>
                     )}
                 </div>
-                <FollowButton userId={userId} senderId={senderId} handleFollow={handleFollow}/>
+                <FollowButton userId={userId} senderId={senderId} />
 
             </div>
 
