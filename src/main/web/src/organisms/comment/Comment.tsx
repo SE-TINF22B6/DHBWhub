@@ -46,7 +46,6 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
   };
 
   const handleReportSubmit = (reason: string, description: string): void => {
-    console.log(type);
     sendReportToBackend(reason, description, id, accountId, type, commentId);
     setReportOpen(!reportOpen);
   };
