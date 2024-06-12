@@ -94,7 +94,6 @@ export const ProfilePage = () => {
         }
 
         if (success) {
-            console.log(`${field} updated successfully`);
             setIsEditing({...isEditing, [field]: false});
         } else {
             console.error(`Failed to update ${field}`);
@@ -102,7 +101,6 @@ export const ProfilePage = () => {
     };
 
     const handlePictureChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.files);
         if (event.target.files && event.target.files.length > 0) {
             const reader: FileReader = new FileReader();
             reader.onloadend = async (): Promise<void> => {
@@ -117,7 +115,6 @@ export const ProfilePage = () => {
                                 imageData
                             }
                         }));
-                        console.log("Bild erfolgreich aktualisiert");
                     } else {
                         console.error("Fehler beim Aktualisieren des Bildes");
                     }
@@ -139,7 +136,6 @@ export const ProfilePage = () => {
             if (id) {
                 const [data, image] = await Promise.all([fetchUserData(), fetchUserImage()]);
                 if (data) {
-                    console.log("Fetched user data:", data);
                     if (image) {
                         data.picture.imageData = image;
                     }
