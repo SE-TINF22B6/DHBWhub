@@ -105,7 +105,7 @@ public class AuthController {
 
         userRepository.save(newUser);
 
-        return loginAndCreateJWT(new LoginRequest(newAccount.getUsername(), newAccount.getPassword(), false));
+        return loginAndCreateJWT(new LoginRequest(signupRequest.getUsername(), signupRequest.getPassword(), false));
     }
 
     @PostMapping("email-verification")
