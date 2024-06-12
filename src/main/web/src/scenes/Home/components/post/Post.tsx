@@ -47,18 +47,14 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
   };
 
   const [reportOpen, setReportOpen] = useState(false);
-  const [reportReason, setReportReason] = useState('');
-  const [reportDescription, setReportDescription] = useState('');
 
   const handleReportClick = (): void => {
     setReportOpen(!reportOpen);
   };
 
-  const handleReportSubmit = (): void => {
-    sendReportToBackend(reportReason, reportDescription, id, accountId, "post");
+  const handleReportSubmit = (reason: string, description: string): void => {
+    sendReportToBackend(reason, description, id, accountId, "post");
     setReportOpen(!reportOpen);
-    setReportReason('');
-    setReportDescription('');
   };
 
   const [likes, setLikes] = useState(likeAmount);
@@ -209,18 +205,17 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
           <div className="post-infos" style={{marginLeft: marginLeft}}>
             <Link to={`/post/?id=${id}`} className="post-button">
               <p className="post-title">
-                {title ? shortenDescription(title, 50): title }</p>
+                {title ? shortenDescription(title, 50): title }
+              </p>
             </Link>
             <div className="post-tags" style={{marginTop: marginTop}}>
               {tags && tags.slice(0, 3).map((tag: string, index: number) => (
                   <Tag name={tag} key={index} index={index} isEventTag={false}/>
               ))}
             </div>
-
             <p className="short-description" style={{ width: width}}>
               {postImage && shortDescription ? shortenDescription(shortDescription, 150) : shortDescription}
             </p>
-
             <div className="footer">
               <Link to={`/user/?id=${userId}`} className="author-link" aria-label="To the author">
                 {username}
@@ -241,7 +236,6 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
             />
           </div>
         </div>
-
         {menuOpen && (
             <div className="post-menu-container">
             <PostMenu
@@ -259,13 +253,7 @@ export const Post: React.FC<PostModel> = (props: PostModel) => {
             </div>
         )}
         {reportOpen && (
-            <Report
-                reportOpen={reportOpen}
-                setReportReason={setReportReason}
-                setReportDescription={setReportDescription}
-                handleReportSubmit={handleReportSubmit}
-                handleClose={handleClose}
-            />
+            <Report reportOpen={reportOpen} handleReportSubmit={handleReportSubmit} handleClose={handleClose}/>
         )}
       </div>
   );

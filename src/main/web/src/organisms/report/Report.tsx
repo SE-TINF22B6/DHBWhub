@@ -6,17 +6,13 @@ import * as yup from 'yup';
 
 interface ReportPostProps {
   reportOpen: boolean;
-  setReportReason: React.Dispatch<React.SetStateAction<string>>;
-  setReportDescription: React.Dispatch<React.SetStateAction<string>>;
-  handleReportSubmit: () => void;
+  handleReportSubmit: (reportReason: string, reportDescription: string) => void;
   handleClose: () => void;
 }
 
 export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
   const {
     reportOpen,
-    setReportReason,
-    setReportDescription,
     handleReportSubmit,
     handleClose,
   } = props;
@@ -26,15 +22,12 @@ export const Report: React.FC<ReportPostProps> = (props: ReportPostProps) => {
   });
 
   const formik = useFormik({
-    initialValues: {
-      reportReason: '',
-      reportDescription: '',
-    },
+    initialValues: {reportReason: '', reportDescription: ''},
     validationSchema: validationSchema,
     onSubmit: (values): void => {
-      setReportReason(values.reportReason);
-      setReportDescription(values.reportDescription);
-      handleReportSubmit();
+      console.log('Reason:', values.reportReason);
+      console.log('Description:', values.reportDescription);
+      handleReportSubmit(values.reportReason, values.reportDescription);
     },
   });
 
