@@ -516,11 +516,11 @@ The FAQ page contains information which tell the users, how they can user our ma
 
 The privacy policy page informs our users about the usage of their personal information.
   
->![privacypolicy](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/5e876c83-4fc5-4fe0-8cab-e07809285b6a)
+>![PrivacyPolicy](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/960320a1-9c8b-4637-b352-254b6a72c7b3)
 
 Classic TOS.  
   
->![grafik](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/10e3baf6-3160-4eb4-894e-92b41aee79b0)
+>![TOS](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/10e3baf6-3160-4eb4-894e-92b41aee79b0)
   
 And lastly, the imprint page.
   
