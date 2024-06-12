@@ -102,7 +102,7 @@ public class AuthController {
 
         userRepository.save(newUser);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return login(new LoginRequest(newAccount.getUsername(), newAccount.getPassword(), false));
     }
 
     @PostMapping("email-verification")
