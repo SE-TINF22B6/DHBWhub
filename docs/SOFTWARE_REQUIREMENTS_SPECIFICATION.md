@@ -41,9 +41,6 @@
       + [3.3.1 Response time](#331-response-time)
       + [3.3.2 Asynchronous loading](#332-asynchronous-loading)
    * [3.4 Security](#34-security)
-
-
-
      
 ## 1. Introduction
 
@@ -122,19 +119,27 @@ The use cases can be divided into the following sections:
   - Receive and manage notifications.
 
 #### 2.1.2 Important entities and classes
-In order to better understand all the entities involved in our project, we have created the following ER-diagram to better visualize and represent every important
+In order to better understand all the entities involved in our project, we have created the following EER-diagram to better visualize and represent every important
 entity and its relations to other entities on a high level. 
 
 >![EER_Diagram](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/f135ce13-9dde-43a6-9540-c01a68038374)
 
-- Account: Both administrators as well as our end-users need to create an account with the most basic information (username, email-address, password and optionally a profile picture).
-- Administrator: Accounts which are responsible for maintaining our website and fix and interact with user issues.
-- Client User: Our end users. Compared to administrators, they are able to personalize their profile and can engage in the activities that have been mentioned in chapter 2.1.1. 
-- Faculty/Course: Faculties are the rough divisions of the DHBW consisting of several courses in which the students study in.
-- Post: A client user is able to like, create and save posts. A post consists of a title, description, timestamp and optionally, a picture and several tags.
-- Comment: End users can also write and like comments which belong to a post.
-- EventPost: These are posts which are describing certain events. They are similar to normal posts but also contain additional data like location details and the date range, in which the event takes place in.
-- EventComment: Can be created by client users and belong to a certain event post. They have the same attributes as normal comments 
+- Account:\
+  Both administrators as well as our end-users need to create an account with the most basic information (username, email-address, password and optionally a profile picture).
+- Administrator:\
+  Accounts which are responsible for maintaining our website and fix and interact with user issues.
+- Client User:\
+  Our end users. Compared to administrators, they are able to personalize their profile and can engage in the activities that have been mentioned in chapter 2.1.1. 
+- Faculty/Course:\
+  Faculties are the rough divisions of the DHBW consisting of several courses in which the students study in.
+- Post:\
+  A client user is able to like, create and save posts. A post consists of a title, description, timestamp and optionally, a picture and several tags.
+- Comment:\
+  End users can also write and like comments which belong to a post.
+- EventPost:\
+  These are posts which are describing certain events. They are similar to normal posts but also contain additional data like location details and the date range, in which the event takes place in.
+- EventComment:\
+  Can be created by client users and belong to a certain event post. They have the same attributes as normal comments 
 
 ---
 
@@ -199,7 +204,7 @@ After a user is registered, it is allowed to sign in and use all the personalize
 
 **Estimated efforts**: medium-high
 
-**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+**Linked user stories**: [Issue 959](https://github.com/SE-TINF22B6/DHBWhub/issues/959)
 
 ---
 
@@ -223,7 +228,7 @@ After a user is signed in, it is actually allowed to use all the personalized fu
 
 **Estimated efforts**: medium-high
 
-**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+**Linked user stories**: [Issue 960](https://github.com/SE-TINF22B6/DHBWhub/issues/960)
 
 ###### 2.2.2.3.2 Via 3rd-Party (Google)
 We are also offering the sign in via Google OAuth for the users, who don't want to create a new account on our website and instead, use their existing Google account. The process is quite simple. In both sign up and sign in windows, the user is able to click on the 'Weiter mit Google'-button which you can see in the image below:
@@ -246,7 +251,7 @@ Just the same like a normal sign in. However, there are some restrictions regard
 
 **Estimated efforts**: medium
 
-**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+**Linked user stories**: [Issue 961](https://github.com/SE-TINF22B6/DHBWhub/issues/961)
 
 ---
 
@@ -275,7 +280,7 @@ Users can search for specific posts or users without the need to scroll through 
 
 **Estimated efforts**: high
 
-**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+**Linked user stories**: [Issue 962](https://github.com/SE-TINF22B6/DHBWhub/issues/962)
 
 ---
 
@@ -293,7 +298,7 @@ You have now enlargened your knowledge on one or several other users and thus, e
 
 **Estimated efforts**: low-medium
 
-**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+**Linked user stories**: [Issue 963](https://github.com/SE-TINF22B6/DHBWhub/issues/963)
 
 ---
 
@@ -330,7 +335,7 @@ Users can learn more about the next events and get the chance to socialize even 
 
 **Estimated efforts**: high
 
-**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+**Linked user stories**: [Issue 964](https://github.com/SE-TINF22B6/DHBWhub/issues/964)
 
 ---
 
@@ -351,7 +356,7 @@ Posts with a certain tag can be found definitely easier and faster.
 
 **Estimated efforts**: medium
 
-**Linked user stories**: [Issue 23](https://github.com/SE-TINF22B6/DHBWhub/issues/23), [Issue 27](https://github.com/SE-TINF22B6/DHBWhub/issues/27)
+**Linked user stories**: [Issue 965](https://github.com/SE-TINF22B6/DHBWhub/issues/965)
 
 ---
 
@@ -551,7 +556,7 @@ The user is well informed about the usage of its data, the acceptable behaviour 
 
 **Estimated efforts**: low
 
-**Linked user stories**: [Issue 88]((https://github.com/SE-TINF22B6/DHBWhub/issues/88), [Issue 91](https://github.com/SE-TINF22B6/DHBWhub/issues/91)
+**Linked user stories**: [Issue 88](https://github.com/SE-TINF22B6/DHBWhub/issues/88), [Issue 91](https://github.com/SE-TINF22B6/DHBWhub/issues/91), [Issue 618](https://github.com/SE-TINF22B6/DHBWhub/issues/618), [Issue 692](https://github.com/SE-TINF22B6/DHBWhub/issues/692)
 
 ---
 
@@ -576,7 +581,7 @@ The admin team will receive an email with the described problems and will discus
 
 **Estimated efforts**: low
 
-**Linked user stories**: [Issue 88]((https://github.com/SE-TINF22B6/DHBWhub/issues/88), [Issue 91](https://github.com/SE-TINF22B6/DHBWhub/issues/91)
+**Linked user stories**: [Issue 214](https://github.com/SE-TINF22B6/DHBWhub/issues/214), [Issue 89](https://github.com/SE-TINF22B6/DHBWhub/issues/89)
 
 ---
 
