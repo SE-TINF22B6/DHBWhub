@@ -31,7 +31,13 @@ In the backend, we are planning to check for each function, whether they are tra
 ### 4. Test Cases
 All the tests that are depicted in the next subtopics have already passed, since we only launch new features to our main branch, whenever all the relevant tests have passed.
 #### 4.1 Frontend
-> TODO
+We have decided to only test the service classes automatically in the frontend. One reason for this is that we prioritized, that the requested data is mapped and transformed into the right data model. Moreover, when testing new functions in the frontend, we already use the whole application via node.js, which reacts just like what our actual website would react like. Thus, we can prove our new functions by testing out manually on the actual frontend on our own branch, before pushing it to the main branch.  
+One example for an automated test on the frontend looks like this:  
+  
+![FrontendTest](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/69a1521e-1502-4429-89f6-cbbbabae9df7)
+
+Hereby, we are mocking the eventhandler with jest, and test whether a new editable tag appears on the post editor, after a valid one has been entered by the user. 
+
 #### 4.2 Backend
 Each layer in the backend consists of similar test structures. Thus, we will show you an example for each layer, that is applicable for all the other entity models in our project.
 #### Controller
@@ -51,8 +57,10 @@ Basically the same as the tests in the service layer, since the repositories use
 
 ### 5. Test Results 
 #### Frontend
-> Todo
-
+In the following image, you can see all the test regarding the DescriptionService class running at the same time.
+  
+![SingleTest](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/50969957-8fa3-4c3a-85fb-bba9ca503a72)
+  
 #### Backend
 In the following image, you can see an example of running all the tests related to the AccountController at the same time. JUnit shows whether each test has passed and if yes, how long did it take.  
   
@@ -60,7 +68,10 @@ In the following image, you can see an example of running all the tests related 
 
 ### 6. Metrics
 #### Frontend
-> Todo
+In the following image, you can see all the test suites run at once. 
+  
+![RunAllTests](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/df0ac362-6b32-4131-ab41-1720eda34c1c)
+  
 #### Backend
 When building the local version of the project that contains the newly implemented feature, Maven automatically runs all the tests that are located in the test package. The same applies to creating pull requests in which a maven pipeline does the same function and tells all the developers, whether all the tests in the branch function correctly:
 
@@ -68,6 +79,8 @@ When building the local version of the project that contains the newly implement
   
 ### 7. Recommendations
 Although our current tests can verify that components function properly under certain conditions, it is still important to use our actual product as much as possible. The largest amount of bugs and errors can be found through actual interaction with the website and imitation of an actual client user. Stress tests can also be helpful to determine, whether our database and backend connection is strong enough to handle multiple requests at the same time while also maintaining data coherence.  
+  
 ### 8. Conclusion
-> This section summarizes the key findings of the testing and the overall status of the software quality.
-> TODO towards the end
+- Automated backend tests are definitily easier to make, since we only regard the correct transformation of the data.
+- On the frontend however, automated tests are only partly necessary. Manual testing is more important and easier to execute.
+- There are some factors, that can't be tested automatically like stable network connections or response latency when retrieving lots of data back to back from the database or backend.
