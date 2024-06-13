@@ -48,14 +48,16 @@
 ## 1. Introduction
 
 ### 1.1 Overview
-We are a DHBW-internal forum where users can ask questions and post DHBW-related content. The site is divided into several sections which represent the faculty and the courses of the DHBW. Besides, users can befriend each other so that socializing with other students gets even easier.
+Within our application DHBWhub, not only students from the DHBW but also other people can interact with each other and exchange their ideas and questions through posts, comments and likes. Moreover, they are getting informed of the next events which could be interested for current on-going university graduates.  
 
 ### 1.2 Scope
 This Software Requirements Specification (SRS) document covers the complete system of DHBWhub. It encompasses both functional and non-functional requirements necessary for the successful development, deployment, and operation of the platform. The document aims to provide a comprehensive understanding of the system's architecture, features, and limitations.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
-> TODO.
-
+- EER: Enhanced Entity Relationship
+- TOS: Terms Of Services
+- FAQ: Frequently Asked Questions
+  
 ### 1.4 References
 Documents:
 - Rough Use-Case-Diagram for the End-User, 24.10.2023:\
@@ -88,25 +90,36 @@ Documents:
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneralRenewed.drawio.png
 - Revised Entity Relation Diagram, 12.06.2024:\
   https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/ER_Diagram_General_Revised.drawio.png
+
 ---
 
 ## 2. Functional requirements
 
 ### 2.1 Overview
 #### 2.1.1 General use case
-Our website is comparable to other famous sites like Quora or Reddit, but rather specialized for students of the DHBW-environment. In the following graph, we have
-depicted the main use cases of our soon to be finished product. An unregistered user is able to either browse the homepage and its sections, create an user account
-or directly sign in with an existing user account. After signing in, the user is able to participate in four main sections of our web application. 
-
-These section are:
-- Account Management,
-- Website Activities,
-- User Interaction,
-- Administration.
-
-The latter section is a rather special one which involves the administrators of this website and their interactions or responsibilities towards the end users.
+Our website is comparable to other famous sites like Quora or Reddit, but is rather specialized for students of the DHBW and other student groups in Karlsruhe. In the following graph, we have
+depicted the main use cases of our application in its current state.
 
 >![UML-diagram](https://github.com/SE-TINF22B6/DHBWhub/blob/master/docs/diagrams/UsecaseDiagramGeneralRenewed.drawio.png)
+  
+The use cases can be divided into the following sections:
+- Account creation process:
+  - Signing up/Signing in with a local account.
+  - Signing in via Google.
+- Website activities without an account:
+  - Browsing homepage and viewing posts.
+  - Viewing eventposts through the homepage or the calendar.
+  - Search for users or posts.
+  - View user profiles
+- Administrative activities:
+  - Reporting posts or problems.
+  - Viewing the required legal notices.
+- Website activities with an existing account:
+  - Profile personalization.
+  - User interaction through creating and liking posts or comments.
+  - Saving and sharing posts.
+  - Follow other users and view their posts.
+  - Receive and manage notifications.
 
 #### 2.1.2 Important entities and classes
 In order to better understand all the entities involved in our project, we have created the following ER-diagram to better visualize and represent every important
@@ -114,13 +127,15 @@ entity and its relations to other entities on a high level.
 
 >![EER_Diagram](https://github.com/SE-TINF22B6/DHBWhub/assets/122597204/f135ce13-9dde-43a6-9540-c01a68038374)
 
-- Account: Both administrators as well as our end-users need to create an account with the most basic information (username, email-address, password and optionally a profile picture)
-- Administrator: Accounts which are responsible for maintaining our website and fix and interact with user issues
-- Client User: Our end users; compared to administrators, they are able to personalize their biography (description and age) and may create/save posts and write comments
-- Faculty/Course: Faculties are the rough divisions of the DHBW consisting of several courses in which the students study in
-- Post: An end user is able to save, create, delete, like and share its own posts in a certain course or faculty area. A post consists of a title, description, timestamp, tags and optionally a picture.
-- Comment: End users can write comments under any post. These can also be liked and even commented. If a post gets deleted, the comments will also get deleted. 
->TODO update
+- Account: Both administrators as well as our end-users need to create an account with the most basic information (username, email-address, password and optionally a profile picture).
+- Administrator: Accounts which are responsible for maintaining our website and fix and interact with user issues.
+- Client User: Our end users. Compared to administrators, they are able to personalize their profile and can engage in the activities that have been mentioned in chapter 2.1.1. 
+- Faculty/Course: Faculties are the rough divisions of the DHBW consisting of several courses in which the students study in.
+- Post: A client user is able to like, create and save posts. A post consists of a title, description, timestamp and optionally, a picture and several tags.
+- Comment: End users can also write and like comments which belong to a post.
+- EventPost: These are posts which are describing certain events. They are similar to normal posts but also contain additional data like location details and the date range, in which the event takes place in.
+- EventComment: Can be created by client users and belong to a certain event post. They have the same attributes as normal comments 
+
 ---
 
 ### 2.2 Use Cases
