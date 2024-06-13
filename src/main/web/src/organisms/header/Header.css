@@ -143,10 +143,16 @@
 
 @media (max-width: 412px) {
   .header {
-    gap: 30px;
+    left: -20px;
+    margin-left: 0;
+    padding: 15px;
+    gap: 10px;
+  }
+  .profile-component {
+    left: 20px;
   }
   .logo {
-    left: 10px;
+    left: 0;
     font-size: 14px;
     width: 43px;
   }

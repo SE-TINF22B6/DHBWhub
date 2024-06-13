@@ -3,7 +3,7 @@ import DOMPurify from "dompurify";
 import "./index.css";
 import {Header} from "../../organisms/header/Header";
 import {Footer} from "../../organisms/footer/Footer";
-import {getUserId, logout} from "../../services/AuthService";
+import {getUserId, isUserLoggedIn, logout} from "../../services/AuthService";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import ScrollUpButton from "../../atoms/ScrollUpButton";
 import AdBlockOverlay from "../../organisms/ad-block-overlay/AdBlockOverlay";
@@ -19,6 +19,9 @@ import {
     updateUsername,
     updatePicture,
 } from "../../services/ProfileDataService";
+import {useMediaQuery} from "@mui/system";
+import ModalLoginContainer from "../../organisms/login/ModalLoginContainer";
+import SignUp from "../../organisms/signup/SignUp";
 
 interface UserData {
     username: string;
@@ -130,6 +133,9 @@ export const ProfilePage = () => {
         window.location.reload();
     }
 
+    const matches = useMediaQuery('(max-width: 412px)');
+    const isLoggedIn = isUserLoggedIn();
+
     useEffect((): void => {
         const fetchData = async (): Promise<void> => {
             const id: number | null = getUserId();
@@ -156,6 +162,33 @@ export const ProfilePage = () => {
 
     const disableEmailAndPasswordEdit: boolean = localStorage.getItem("oAuthUser") === "true";
 
+    if (matches) {
+        return (
+            <div className="page">
+                {adBlockDetected && <AdBlockOverlay/>}
+                <Header/>
+
+                <div className="profile-component">
+                    <ModalLoginContainer/>
+                    <SignUp/>
+                </div>
+
+                <Footer/>
+            </div>
+        );
+    }
+
+    if (!isLoggedIn) {
+        return (
+            <div className="page">
+                {adBlockDetected && <AdBlockOverlay/>}
+                <Header/>
+                <h2>You have to be logged in to view your profile</h2>
+                <Footer/>
+            </div>
+        );
+    }
+
     return (
         <div className="page">
             {adBlockDetected && <AdBlockOverlay/>}
@@ -168,12 +201,7 @@ export const ProfilePage = () => {
                         alt="Profile"
                         onClick={() => document.getElementById("fileInput")?.click()}
                     />
-                    <input
-                        id="fileInput"
-                        type="file"
-                        style={{display: "none"}}
-                        onChange={handlePictureChange}
-                    />
+                    <input id="fileInput" type="file" style={{display: "none"}} onChange={handlePictureChange}/>
                 </div>
                 <div className="followers">
                     <button className="followers-btn">{userData.amountFollower} Followers</button>

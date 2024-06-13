@@ -12,6 +12,7 @@ import {fetchUserImage} from "../../services/ProfilePictureService";
 import {fetchNotifications} from "../../services/NotificationsService";
 import {NotificationModel} from "./model/NotificationModel";
 import {getDefaultOrRandomPicture} from "../../atoms/Pictures/PicturesComponent";
+import {useMediaQuery} from "@mui/system";
 
 export const Header = () => {
     const [notifications, setNotifications] = useState<NotificationModel[]>([]);
@@ -19,6 +20,7 @@ export const Header = () => {
     const [currentLocation, setCurrentLocation] = useState('');
     const [userImage, setUserImage] = useState(localStorage.getItem('userImage') || "data:image/svg+xml;base64,PHg==");
     const location = useLocation();
+    const matches = useMediaQuery('(max-width: 412px)');
 
     useEffect((): void => {
         setCurrentLocation(location.pathname);
@@ -65,60 +67,68 @@ export const Header = () => {
 
     return (
         <div className="header">
-            <Link to="/" aria-label="To the homepage">
-                <div className='logo'>
-                    <span>DHBW </span>
-                    <span>hub</span>
-                </div>
-            </Link>
-            <Link className={`home-background ${currentLocation === '/' ? 'active' : ''}`} to="/"
-                  aria-label="To the homepage">
-                <img alt="Home" src={process.env.PUBLIC_URL + '/assets/header/home.svg'} style={{height: "26px", width: "26px"}}/>
-            </Link>
-            <Link className={`friends-background ${currentLocation === '/friends' ? 'active' : ''}`} to={isUserLoggedIn() ? '/friends' : '#'}
-                  aria-label="To the friends page" data-tooltip-id="like" data-tooltip-content={config.tooltipMessage}>
-                <img alt="Friends" src={process.env.PUBLIC_URL + '/assets/header/friends.svg'} style={{height: "26px", width: "26px"}}/>
-            </Link>
-            {!isUserLoggedIn() && (
-                <Tooltip variant={"light"} id="friends" place="bottom"/>
-            )}
-            <Link className={`calendar-background ${currentLocation === '/calendar' ? 'active' : ''}`} to="/calendar"
-                  aria-label="To the calendar page">
-                <img alt="Calendar" src={process.env.PUBLIC_URL + '/assets/header/calendar.svg'} style={{height: "26px", width: "24px"}}/>
-            </Link>
-            <SearchBar/>
-            <div className="notifications-button-container" data-tooltip-id="notifications" data-tooltip-content={config.tooltipMessage}>
-                { notifications.length > 0 ? (
-                    <button className="notifications-button-new" onClick={handleNotificationsButtonClick} disabled={!isUserLoggedIn()}>
-                        <img alt="New notifications"
-                             src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'} style={{height: "25px", width: "26px"}}/>
-                        <img className="notifications-dot" alt="New notifications"
-                             src={process.env.PUBLIC_URL + '/assets/header/notifications-dot.svg'} style={{height: "7px", width: "8px"}}/>
-                    </button>
-                ) : (
-                    <button className="notifications-button" onClick={handleNotificationsButtonClick}
-                            aria-label="Notifications-Button" disabled={!isUserLoggedIn()}>
-                        <img alt="New notifications" src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}
-                             style={{height: "25px", width: "26px"}}/>
-                    </button>
-                )}
+          <Link to="/" aria-label="To the homepage">
+            <div className='logo'>
+              <span>DHBW </span>
+              <span>hub</span>
             </div>
-            {!isUserLoggedIn() && (
-                <Tooltip variant={"light"} id="notifications" place="bottom" style={{zIndex: 999}}/>
-            )}
-            {showNotifications && <Notifications showNotifications={showNotifications} notifications={notifications} setNotifications={setNotifications}/>}
-            {isUserLoggedIn() ? (
-                <div className="profile-component">
-                    <Link to="/profile" aria-label="To the profile">
-                        <img className="profile-picture-header" alt="Profile" src={userImage}/>
-                    </Link>
-                </div>
+          </Link>
+          <Link className={`home-background ${currentLocation === '/' ? 'active' : ''}`} to="/"
+                aria-label="To the homepage">
+            <img alt="Home" src={process.env.PUBLIC_URL + '/assets/header/home.svg'} style={{height: "26px", width: "26px"}}/>
+          </Link>
+          <Link className={`friends-background ${currentLocation === '/friends' ? 'active' : ''}`} to={isUserLoggedIn() ? '/friends' : '#'}
+                aria-label="To the friends page" data-tooltip-id="like" data-tooltip-content={config.tooltipMessage}>
+            <img alt="Friends" src={process.env.PUBLIC_URL + '/assets/header/friends.svg'} style={{height: "26px", width: "26px"}}/>
+          </Link>
+          {!isUserLoggedIn() && (
+              <Tooltip variant={"light"} id="friends" place="bottom"/>
+          )}
+          <Link className={`calendar-background ${currentLocation === '/calendar' ? 'active' : ''}`} to="/calendar"
+                aria-label="To the calendar page">
+            <img alt="Calendar" src={process.env.PUBLIC_URL + '/assets/header/calendar.svg'} style={{height: "26px", width: "24px"}}/>
+          </Link>
+          <SearchBar/>
+          <div className="notifications-button-container" data-tooltip-id="notifications" data-tooltip-content={config.tooltipMessage}>
+            {notifications.length > 0 ? (
+                <button className="notifications-button-new" onClick={handleNotificationsButtonClick} disabled={!isUserLoggedIn()}>
+                  <img alt="New notifications"
+                       src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'} style={{height: "25px", width: "26px"}}/>
+                  <img className="notifications-dot" alt="New notifications"
+                       src={process.env.PUBLIC_URL + '/assets/header/notifications-dot.svg'} style={{height: "7px", width: "8px"}}/>
+                </button>
             ) : (
-                <div className="profile-component">
-                    <ModalLoginContainer/>
-                    <SignUp/>
-                </div>
+                <button className="notifications-button" onClick={handleNotificationsButtonClick}
+                        aria-label="Notifications-Button" disabled={!isUserLoggedIn()}>
+                  <img alt="New notifications" src={process.env.PUBLIC_URL + '/assets/header/notifications.svg'}
+                       style={{height: "25px", width: "26px"}}/>
+                </button>
             )}
+          </div>
+          {!isUserLoggedIn() && (
+              <Tooltip variant={"light"} id="notifications" place="bottom" style={{zIndex: 999}}/>
+          )}
+          {matches && (
+              <div className="profile-component">
+                <Link to="/profile" aria-label="To the profile">
+                  <img className="profile-picture-header" alt="Profile" src={userImage}/>
+                </Link>
+              </div>
+          )}
+          {showNotifications &&
+              <Notifications showNotifications={showNotifications} notifications={notifications} setNotifications={setNotifications}/>}
+          {isUserLoggedIn() ? (
+              <div className="profile-component">
+                <Link to="/profile" aria-label="To the profile">
+                  <img className="profile-picture-header" alt="Profile" src={userImage}/>
+                </Link>
+              </div>
+          ) : (
+              <div className="profile-component profile-home">
+                <ModalLoginContainer/>
+                <SignUp/>
+              </div>
+          )}
         </div>
     );
 };
