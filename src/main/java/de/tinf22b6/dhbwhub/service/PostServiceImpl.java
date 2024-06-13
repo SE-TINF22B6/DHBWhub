@@ -71,19 +71,20 @@ public class PostServiceImpl implements PostService {
     public HomepagePostPreviewProposal create(CreatePostProposal proposal) {
         // Creating the Post itself
         User user = userRepository.findByAccountId(proposal.getAccountId());
-        if(user == null){
+        if (user == null) {
             throw new NoSuchEntryException("User with the AccountId " + proposal.getAccountId() + " does not exist!");
         }
-        Picture picture = !proposal.getPostImage().isEmpty() ?
-                pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage())): null;
 
-        Post post = repository.save(PostMapper.mapToModel(proposal,user,picture));
+        Picture picture = proposal.getPostImage() != null ?
+                pictureRepository.save(PictureMapper.mapToModelPost(proposal.getPostImage())) : null;
+
+        Post post = repository.save(PostMapper.mapToModel(proposal, user, picture));
 
         // Creating Tags after the Post is created
         Arrays.stream(proposal.getTags()).forEach(t -> {
             PostTag postTag = new PostTag(post, t);
             postTagRepository.save(postTag);
-        } );
+        });
 
         return getPostHomepageView(post.getId());
     }
