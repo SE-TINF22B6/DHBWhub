@@ -246,7 +246,7 @@ export const UserPost: React.FC<PostModel> = (props: PostModel) => {
             )}
             {shareWindowOpen && (
                 <div className="post-share-container">
-                    <Share postId={id} currentPageURL={"https://www.dhbwhub.de/post/?id="+id}></Share>
+                    <Share postId={id} currentPageURL={process.env.PUBLIC_URL +"/post/?id="+id}></Share>
                 </div>
             )}
             {reportOpen && (
