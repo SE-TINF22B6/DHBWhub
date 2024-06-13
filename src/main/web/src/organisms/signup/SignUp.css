@@ -97,7 +97,7 @@
 }
 
 @media (max-width: 412px) {
-    .signup-wrapper {
+    .profile-home {
         visibility: hidden;
         width: 0;
         height: 0;

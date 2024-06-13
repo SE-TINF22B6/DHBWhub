@@ -106,8 +106,13 @@
 @media (max-width: 412px) {
   .post {
     width: 350px;
-    height: 200px;
+    height: 250px;
     margin-right: 20px;
+  }
+  .home-post-interaction {
+    position: relative;
+    top: -100px;
+    right: 20px;
   }
   .post-menu-container {
     top: -190px;
@@ -115,24 +120,28 @@
     margin-left: 0;
   }
   .post-infos {
-    margin-top: -10px;
     width: 220px;
     gap: -20px;
+  }
+  .post-title {
+    margin-top: -10px;
+    margin-left: 20px;
   }
   .short-description {
     width: 220px;
     height: 100px;
+    margin-left: 20px;
   }
   .post-image {
-    height: 120px;
-    width: auto;
+    max-width: 125px;
+    height: auto;
     margin-top: -45px;
     margin-left: -10px;
   }
   .post-tags {
     flex-direction: column;
     position: absolute;
-    margin-top: 140px;
+    top: 40px;
     margin-left: -120px;
     gap: 5px;
   }
@@ -141,6 +150,9 @@
     width: 15px;
     right: 30px;
     margin-top: -10px;
+  }
+  .footer {
+    margin-left: 20px;
   }
 }
 
