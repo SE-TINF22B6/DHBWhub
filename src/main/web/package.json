@@ -31,7 +31,7 @@
     "canvas": "^2.11.2",
     "cors": "^2.8.5",
     "dictionary-en": "^4.0.0",
-    "fetch-mock": "^9.11.0",
+    "fetch-mock": "^11.0.0",
     "flexsearch": "^0.7.43",
     "formik": "^2.4.6",
     "junit": "^1.4.9",
